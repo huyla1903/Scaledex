@@ -6,6 +6,7 @@
 @updated      2026-11-14
 @about        Standalone web app (add to iPhone home screen). Loads data/scaledex.json,
               stores owned/wishlist in localStorage, works offline via sw.js.
+              Built with --remote-images, pictures load from bandai.co.jp instead.
 -->
 <html lang="en">
 <head>
@@ -34,6 +35,7 @@
   <script src="dex.js"></script>
   <script>
   (function () {
+    var LOCAL_IMAGES = true; // tools/build.mjs --remote-images sets this to false (GitHub Pages)
     var KEY = "scaledex:v1";
     function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
     function save(s) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { alert("Could not save: " + e.message); } }
@@ -86,13 +88,12 @@
       root.innerHTML = "";
       Scaledex.mount(root, {
         data: data,
-        img: function (rel, url) { return rel ? "data/" + rel : url; },
+        img: function (rel, url) { return LOCAL_IMAGES && rel ? "data/" + rel : url; },
         load: load, save: save, history: true,
         menu: [
           { label: "Export collection", run: exportState },
-          { label: "Import collection", run: importState },
-          { label: "Save all images for offline", run: function (api) { cacheAll(api, data); } }
-        ]
+          { label: "Import collection", run: importState }
+        ].concat(LOCAL_IMAGES ? [{ label: "Save all images for offline", run: function (api) { cacheAll(api, data); } }] : [])
       });
       // deep links: ?region=kanto  ?open=p0025  ?menu=1
       var q = new URLSearchParams(location.search);

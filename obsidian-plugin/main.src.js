@@ -1,6 +1,6 @@
 /*
 @title        Scaledex - Obsidian plugin
-@version      0.1.0
+@version      0.1.1
 @author       La Gia Huy
 @since        2026-11-14
 @updated      2026-11-14

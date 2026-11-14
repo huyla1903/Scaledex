@@ -21,7 +21,7 @@ All the data (`main.js`, about 330 KB) is inside the plugin, so no extra files a
 
 ## Use the web app
 
-Host `dist/pwa/` on any HTTPS static host (GitHub Pages, Netlify, Cloudflare Pages). On the iPhone, open it in Safari and choose Share → **Add to Home Screen**. In Settings, "Save all images for offline" caches everything. Deep links: `?region=kanto`, `?open=p0025`, `?open=t-red`.
+Live version: **https://huyla1903.github.io/Scaledex/**. Every push to `main` rebuilds it with `.github/workflows/pages.yml` (`node tools/build.mjs --remote-images`, so pictures load from bandai.co.jp because `data/images/` is not in the repo). You can also host a local `dist/pwa/` build, which includes the images, on any HTTPS static host. On the iPhone, open it in Safari and choose Share → **Add to Home Screen**. In Settings, "Save all images for offline" caches everything. Deep links: `?region=kanto`, `?open=p0025`, `?open=t-red`.
 
 ## Update the data
 

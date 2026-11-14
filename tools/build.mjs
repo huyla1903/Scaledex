@@ -1,6 +1,6 @@
 /*
 @title        Scaledex - build
-@version      0.1.0
+@version      0.1.1
 @author       La Gia Huy
 @since        2026-11-14
 @updated      2026-11-14
@@ -13,6 +13,8 @@
               Options:
                 --vault "<path>"     also install the plugin into <path>/.obsidian/plugins/
                 --vault-images       with --vault: copy images to <vault>/Scaledex/
+                --remote-images      PWA loads pictures from bandai.co.jp and no
+                                     images are copied (used for GitHub Pages)
 */
 import fs from "node:fs";
 import path from "node:path";
@@ -76,14 +78,18 @@ write(path.join(pluginDir, "styles.css"), css + hostCss);
 // ---------- PWA
 const pwa = p("dist", "pwa");
 fs.mkdirSync(pwa, { recursive: true });
-for (const f of ["index.html", "manifest.webmanifest"]) fs.copyFileSync(p("pwa", f), path.join(pwa, f));
+const remoteImages = args.includes("--remote-images");
+let indexHtml = read(p("pwa", "index.html"));
+if (remoteImages) indexHtml = indexHtml.replace("var LOCAL_IMAGES = true;", "var LOCAL_IMAGES = false;");
+write(path.join(pwa, "index.html"), indexHtml);
+fs.copyFileSync(p("pwa", "manifest.webmanifest"), path.join(pwa, "manifest.webmanifest"));
 write(path.join(pwa, "sw.js"), read(p("pwa", "sw.js")).replace(/swdex-shell-v1/g, "swdex-shell-" + hash));
 fs.copyFileSync(p("app", "dex.js"), path.join(pwa, "dex.js"));
 fs.copyFileSync(p("app", "dex.css"), path.join(pwa, "dex.css"));
 copyDir(p("pwa", "icons"), path.join(pwa, "icons"));
 write(path.join(pwa, "data", "scaledex.json"), compactData);
-const nImg = copyDir(p("data", "images"), path.join(pwa, "data", "images"));
-prune(p("data", "images"), path.join(pwa, "data", "images"));
+const nImg = remoteImages ? 0 : copyDir(p("data", "images"), path.join(pwa, "data", "images"));
+if (!remoteImages) prune(p("data", "images"), path.join(pwa, "data", "images"));
 
 console.log(`Built ${hash}: ${data.characters.length} characters, ${data.figures.length} figures, ${data.products.length} releases`);
 console.log("  dist/scaledex/  main.js " + Math.round(main.length / 1024) + " KB");

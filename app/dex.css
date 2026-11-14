@@ -58,7 +58,9 @@
 }
 
 .swdex *, .swdex *::before, .swdex *::after { box-sizing: border-box; }
-.swdex button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; padding: 0; }
+/* Reset host button styles too (Obsidian gives every button a fixed height, inline-flex row, nowrap, shadow). */
+.swdex button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; padding: 0;
+  height: auto; min-height: 0; box-shadow: none; white-space: normal; line-height: inherit; text-align: inherit; }
 .swdex img { -webkit-user-drag: none; }
 
 .swdex .sw-scroll {
@@ -213,6 +215,7 @@
 .swdex .sw-figtabs::-webkit-scrollbar { display: none; }
 .swdex .sw-figtab {
   flex: 0 0 auto; width: 74px; border-radius: 14px; background: var(--sw-card);
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
   border: 2px solid transparent; padding: 4px 4px 5px; text-align: center; font-size: 10px; font-weight: 800; position: relative;
 }
 .swdex .sw-figtab.on { border-color: var(--sw-accent); background: #fff; }
