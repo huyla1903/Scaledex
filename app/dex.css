@@ -211,6 +211,7 @@
 .swdex .sw-body { max-width: 720px; margin: 0 auto; padding: 0 16px; }
 .swdex .sw-name { text-align: center; margin: 14px 0 0; font-size: 30px; font-weight: 800; color: var(--sw-ink-strong); line-height: 1.1; }
 .swdex .sw-name-ja { text-align: center; font-size: 15px; font-weight: 700; color: var(--sw-ink-soft); margin-top: 4px; }
+.swdex .sw-romaji { font-weight: 600; font-style: italic; }
 .swdex .sw-figtabs { display: flex; gap: 8px; overflow-x: auto; padding: 14px 2px 6px; scrollbar-width: none; }
 .swdex .sw-figtabs::-webkit-scrollbar { display: none; }
 .swdex .sw-figtab {

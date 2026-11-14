@@ -56,6 +56,50 @@
     return s.replace(/[ァ-ヶ]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0x60); });
   }
 
+  // Katakana/hiragana -> Hepburn romaji ("サカキ" -> "Sakaki", "オーキド博士" -> "Ōkido Hakase").
+  var KANA = (function () {
+    var rows = "ア a イ i ウ u エ e オ o カ ka キ ki ク ku ケ ke コ ko サ sa シ shi ス su セ se ソ so " +
+      "タ ta チ chi ツ tsu テ te ト to ナ na ニ ni ヌ nu ネ ne ノ no ハ ha ヒ hi フ fu ヘ he ホ ho " +
+      "マ ma ミ mi ム mu メ me モ mo ヤ ya ユ yu ヨ yo ラ ra リ ri ル ru レ re ロ ro ワ wa ヲ o ン n " +
+      "ガ ga ギ gi グ gu ゲ ge ゴ go ザ za ジ ji ズ zu ゼ ze ゾ zo ダ da ヂ ji ヅ zu デ de ド do " +
+      "バ ba ビ bi ブ bu ベ be ボ bo パ pa ピ pi プ pu ペ pe ポ po ヴ vu " +
+      "ァ a ィ i ゥ u ェ e ォ o ャ ya ュ yu ョ yo " +
+      "キャ kya キュ kyu キョ kyo シャ sha シュ shu ショ sho チャ cha チュ chu チョ cho " +
+      "ニャ nya ニュ nyu ニョ nyo ヒャ hya ヒュ hyu ヒョ hyo ミャ mya ミュ myu ミョ myo " +
+      "リャ rya リュ ryu リョ ryo ギャ gya ギュ gyu ギョ gyo ジャ ja ジュ ju ジョ jo " +
+      "ビャ bya ビュ byu ビョ byo ピャ pya ピュ pyu ピョ pyo " +
+      "シェ she ジェ je チェ che ティ ti ディ di トゥ tu ドゥ du デュ dyu " +
+      "ファ fa フィ fi フェ fe フォ fo ウィ wi ウェ we ウォ wo ヴァ va ヴィ vi ヴェ ve ヴォ vo";
+    var m = {}, a = rows.split(" "), i;
+    for (i = 0; i < a.length; i += 2) m[a[i]] = a[i + 1];
+    return m;
+  })();
+  var KANJI = { "博士": " Hakase" };
+  var MACRON = { a: "ā", i: "ī", u: "ū", e: "ē", o: "ō" };
+  function romaji(s) {
+    var out = "", i, ch, two, r, k, gem = false;
+    if (!s) return "";
+    for (k in KANJI) if (KANJI.hasOwnProperty(k)) s = s.split(k).join(KANJI[k]);
+    s = s.replace(/[\u3041-\u3096]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) + 0x60); });
+    for (i = 0; i < s.length; i++) {
+      ch = s.charAt(i); two = s.substr(i, 2);
+      if (ch === "ッ") { gem = true; continue; }
+      if (ch === "ー") {
+        r = out.slice(-1);
+        if (MACRON[r]) out = out.slice(0, -1) + MACRON[r];
+        continue;
+      }
+      if (KANA[two] && two.length === 2) { r = KANA[two]; i++; }
+      else if (KANA[ch]) r = KANA[ch];
+      else { out += ch; gem = false; continue; }
+      if (gem && !/^[aiueo]/.test(r)) out += r.indexOf("ch") === 0 ? "t" : r.charAt(0);
+      gem = false;
+      out += r;
+    }
+    out = out.replace(/\s+/g, " ").trim();
+    return out.replace(/(^|\s)(\S)/g, function (x, sp, c) { return sp + c.toUpperCase(); });
+  }
+
   function mount(root, opts) {
     var data = opts.data;
     var st = opts.load() || {};
@@ -138,7 +182,7 @@
       if (ui.query) {
         var q = norm(ui.query).trim();
         if (!q) return true;
-        var hay = [t.c.nameEn, t.c.nameJa, t.c.dex ? pad4(t.c.dex) : "", t.c.dex || ""];
+        var hay = [t.c.nameEn, t.c.nameJa, romaji(t.c.nameJa), t.c.dex ? pad4(t.c.dex) : "", t.c.dex || ""];
         t.figs.forEach(function (x) { hay.push(x.labelEn, x.labelJa, x.nameJa); });
         if (norm(hay.join(" ")).indexOf(q) < 0) return false;
       }
@@ -310,7 +354,8 @@
         (c.dex ? '<div class="sw-hero-no">#' + pad4(c.dex) + "</div>" : '<div class="sw-hero-no">Trainer</div>') +
         figImg(f, "", c.nameEn) +
         '<button class="sw-close" data-act="close" aria-label="Close">✕</button></div><div class="sw-body">' +
-        '<h2 class="sw-name">' + esc(c.nameEn) + '</h2><div class="sw-name-ja">' + esc(c.nameJa) + "</div>";
+        '<h2 class="sw-name">' + esc(c.nameEn) + '</h2><div class="sw-name-ja">' + esc(c.nameJa) +
+        (romaji(c.nameJa) ? ' <span class="sw-romaji">· ' + esc(romaji(c.nameJa)) + "</span>" : "") + "</div>";
 
       if (figs.length > 1) {
         var labels = figs.map(figLabel), count = {};
@@ -503,7 +548,7 @@
     return api;
   }
 
-  var Scaledex = { mount: mount };
+  var Scaledex = { mount: mount, romaji: romaji };
   if (typeof module !== "undefined" && module.exports) module.exports = Scaledex;
   global.Scaledex = Scaledex;
 })(typeof window !== "undefined" ? window : this);
