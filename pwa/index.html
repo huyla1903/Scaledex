@@ -1,0 +1,116 @@
+<!doctype html>
+<!--
+@title        Scaledex - PWA shell
+@author       La Gia Huy
+@since        2026-11-14
+@updated      2026-11-14
+@about        Standalone web app (add to iPhone home screen). Loads data/scaledex.json,
+              stores owned/wishlist in localStorage, works offline via sw.js.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Scaledex</title>
+  <meta name="description" content="Pokédex of Bandai Pokémon Scale World figures">
+  <meta name="theme-color" content="#b4eaf0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Scaledex">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icons/icon-180.png">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="dex.css">
+  <style>
+    html, body { margin: 0; height: 100%; background: #b4eaf0; overscroll-behavior: none; }
+    @media (prefers-color-scheme: dark) { html, body { background: #0f3443; } }
+    #app { position: fixed; inset: 0; }
+    .boot { position: fixed; inset: 0; display: grid; place-items: center; font: 800 18px ui-rounded, system-ui, sans-serif; color: #1d6f8f; }
+  </style>
+</head>
+<body>
+  <div id="app"><div class="boot">Loading Scaledex…</div></div>
+  <script src="dex.js"></script>
+  <script>
+  (function () {
+    var KEY = "scaledex:v1";
+    function load() { try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { return {}; } }
+    function save(s) { try { localStorage.setItem(KEY, JSON.stringify(s)); } catch (e) { alert("Could not save: " + e.message); } }
+
+    function exportState(api) {
+      var blob = new Blob([JSON.stringify(api.getState(), null, 1)], { type: "application/json" });
+      var file = new File([blob], "scaledex-collection.json", { type: "application/json" });
+      if (navigator.canShare && navigator.canShare({ files: [file] })) {
+        navigator.share({ files: [file], title: "Scale World collection" }).catch(function () {});
+        return;
+      }
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = file.name; a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+    }
+    function importState(api) {
+      var inp = document.createElement("input");
+      inp.type = "file"; inp.accept = "application/json,.json";
+      inp.onchange = function () {
+        var f = inp.files[0]; if (!f) return;
+        f.text().then(function (t) {
+          var s = JSON.parse(t);
+          if (!s || typeof s.owned !== "object") throw new Error("Not a Scale World collection file");
+          if (confirm("Replace your collection with " + Object.keys(s.owned).length + " owned figures from this file?")) api.setState(s);
+        }).catch(function (e) { alert("Import failed: " + e.message); });
+      };
+      inp.click();
+    }
+    function cacheAll(api, data) {
+      if (!("caches" in window)) { alert("Offline cache not supported in this browser."); return; }
+      var urls = [];
+      data.figures.forEach(function (f) { if (f.image) urls.push("data/" + f.image); });
+      data.products.forEach(function (p) { if (p.image) urls.push("data/" + p.image); });
+      var done = 0, failed = 0;
+      caches.open("swdex-img-v1").then(function (c) {
+        var i = 0;
+        function next() {
+          if (i >= urls.length) { alert("Saved " + done + " images for offline use" + (failed ? " (" + failed + " failed)" : "") + "."); return; }
+          var batch = urls.slice(i, i + 12); i += 12;
+          Promise.all(batch.map(function (u) {
+            return c.match(u).then(function (hit) { return hit || c.add(u); }).then(function () { done++; }, function () { failed++; });
+          })).then(next);
+        }
+        next();
+      });
+    }
+
+    fetch("data/scaledex.json").then(function (r) { return r.json(); }).then(function (data) {
+      var root = document.getElementById("app");
+      root.innerHTML = "";
+      Scaledex.mount(root, {
+        data: data,
+        img: function (rel, url) { return rel ? "data/" + rel : url; },
+        load: load, save: save, history: true,
+        menu: [
+          { label: "Export collection", run: exportState },
+          { label: "Import collection", run: importState },
+          { label: "Save all images for offline", run: function (api) { cacheAll(api, data); } }
+        ]
+      });
+      // deep links: ?region=kanto  ?open=p0025  ?menu=1
+      var q = new URLSearchParams(location.search);
+      function tap(sel) { var el = root.querySelector(sel); if (el) el.click(); }
+      if (q.get("region")) tap('[data-act="region"][data-id="' + q.get("region") + '"]');
+      if (q.get("open")) {
+        if (!q.get("region")) tap('[data-act="region"][data-id="all"]');
+        tap('[data-act="open"][data-id="' + q.get("open") + '"]');
+      }
+      if (q.get("menu")) tap('[data-act="menu"]');
+    }).catch(function (e) {
+      document.getElementById("app").innerHTML = '<div class="boot">Could not load data: ' + e.message + "</div>";
+    });
+
+    if ("serviceWorker" in navigator && location.protocol !== "file:") {
+      navigator.serviceWorker.register("sw.js").catch(function () {});
+    }
+  })();
+  </script>
+</body>
+</html>

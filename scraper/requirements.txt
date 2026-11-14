@@ -1,0 +1,3 @@
+# Optional: Pillow trims the white margin around figure renders (images/trim/).
+# Without it the scraper still runs; tiles then show figures at true relative scale.
+Pillow>=10

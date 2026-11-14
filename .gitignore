@@ -1,0 +1,14 @@
+# scraper HTTP cache and build output
+scraper/cache/
+dist/
+__pycache__/
+*.pyc
+
+# downloaded Bandai images (re-created by scraper/build_data.py)
+data/images/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
