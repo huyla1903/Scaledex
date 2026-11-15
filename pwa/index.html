@@ -69,7 +69,7 @@
       if (!("caches" in window)) { alert("Offline cache not supported in this browser."); return; }
       var urls = [];
       data.figures.forEach(function (f) {
-        [f.image, f.imageTrim, f.imageCut].forEach(function (r) { if (r && urls.indexOf("data/" + r) < 0) urls.push("data/" + r); });
+        [f.image, f.imageTrim].forEach(function (r) { if (r && urls.indexOf("data/" + r) < 0) urls.push("data/" + r); });
       });
       data.products.forEach(function (p) { if (p.image) urls.push("data/" + p.image); });
       var done = 0, failed = 0;

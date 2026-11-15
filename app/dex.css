@@ -110,8 +110,8 @@
 }
 .swdex .sw-region-fig { flex: 1 1 0; min-width: 0; height: 100%; display: flex; align-items: flex-end; justify-content: center; }
 .swdex .sw-region-fig img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; object-position: bottom; }
-.swdex .sw-region-fig img:not(.is-cut) { mix-blend-mode: multiply; } /* photo on white: blend it */
-.swdex .sw-region-fig img.is-cut { filter: drop-shadow(0 2px 2px rgba(0,0,0,0.18)); }
+/* blend every figure into the pattern: white (photo backgrounds, display bases, floor shadows) disappears */
+.swdex .sw-region-fig img { mix-blend-mode: multiply; }
 .swdex .sw-region-art { isolation: isolate; }
 .swdex .sw-region-text { position: relative; z-index: 1; padding: 20px 22px; }
 .swdex .sw-region-name { font-size: 28px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink); line-height: 1.05; }

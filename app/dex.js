@@ -281,10 +281,9 @@
       for (var i = 0; i < poke.length && pick.length < 3; i++) {
         if (!pick.some(function (p) { return p.characterId === poke[i].characterId; })) pick.push(poke[i]);
       }
-      // three even slots, trainer on the right; cut-outs sit on the pattern, plain photos blend into it
+      // three even slots, trainer on the right; photos blend into the pattern (CSS multiply)
       return '<div class="sw-region-figs">' + pick.slice(0, 3).map(function (f) {
-        return '<span class="sw-region-fig">' + (f.imageCut ? imgTag(f.imageCut, f.imageUrl, "is-cut", "", true) :
-          figImg(f, "", "", true)) + "</span>";
+        return '<span class="sw-region-fig">' + imgTag(f.imageTrim || f.image, f.imageUrl, "", "", true) + "</span>";
       }).join("") + "</div>";
     }
 
@@ -659,7 +658,6 @@
       var t = e.target;
       if (t && t.tagName === "IMG" && t.getAttribute("data-fb") && t.src !== t.getAttribute("data-fb")) {
         t.src = t.getAttribute("data-fb"); t.removeAttribute("data-fb");
-        t.classList.remove("is-cut");  // photo on white: blend it into the card instead
       }
     }
     function onKey(e) {

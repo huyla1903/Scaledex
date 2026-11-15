@@ -25,7 +25,6 @@
 @changelog    0.2.0  brand-page products/figures, types, evolution chains, trainer roles
                      and Bulbapedia trainer order, per-figure photos from
                      product galleries (box photos split per figure),
-                     transparent cut-outs (images/cut/*.webp) for region cards,
                      Legendary / Mythical / Powerhouse status,
                      Lumiose City region alias; --refresh-index also re-reads
                      the brand list and pages of unreleased products
@@ -784,77 +783,6 @@ def save_image(url, sub, name):
     return rel
 
 
-def _drop_specks(alpha, share=0.03):
-    """Clear opaque blobs smaller than share of the biggest one (labelled on a small copy)."""
-    from PIL import Image, ImageDraw
-    w, h = alpha.size
-    k = max(1, max(w, h) // 80)
-    small = alpha.resize((max(1, w // k), max(1, h // k)), Image.BOX).point(lambda v: 255 if v > 40 else 0)
-    sw, sh = small.size
-    px = small.load()
-    blobs, colour = [], 1
-    for y in range(sh):
-        for x in range(sw):
-            if px[x, y] == 255:
-                ImageDraw.floodfill(small, (x, y), colour, thresh=0)
-                blobs.append(colour)
-                colour += 1
-                if colour == 255:
-                    return alpha  # too fragmented to judge; leave as is
-    if len(blobs) < 2:
-        return alpha
-    hist = small.histogram()
-    biggest = max(hist[c] for c in blobs)
-    out = alpha.copy()
-    draw = ImageDraw.Draw(out)
-    for c in blobs:
-        if hist[c] < biggest * share:
-            box = small.point(lambda v, c=c: 255 if v == c else 0).getbbox()
-            draw.rectangle((box[0] * k - k, box[1] * k - k, box[2] * k + k, box[3] * k + k), fill=0)
-    return out
-
-
-def cutout_image(rel, name, height=320):
-    """Figure on a transparent background -> images/cut/<name>.webp, for artwork that sits
-    on a coloured pattern (region cards). White that touches the photo's edge becomes
-    transparent; white inside the figure (e.g. between an arm and the body) stays.
-    Needs Pillow with WebP; returns None without it."""
-    try:
-        from PIL import Image, ImageDraw, ImageFilter, features
-    except ImportError:
-        return None
-    if not rel or not features.check("webp"):
-        return None
-    src = os.path.join(OUT_DIR, rel.replace("/", os.sep))
-    out_rel = f"images/cut/{name}.webp"
-    dst = os.path.join(OUT_DIR, out_rel.replace("/", os.sep))
-    if os.path.exists(dst) and os.path.getmtime(dst) >= os.path.getmtime(src):
-        return out_rel
-    try:
-        im = Image.open(src).convert("RGB")
-        if im.height > height:
-            im = im.resize((max(1, round(im.width * height / im.height)), height), Image.LANCZOS)
-        w, h = im.size
-        # near-white = 255, everything else 0; then flood the near-white that touches the border
-        bg = im.convert("L").point(lambda v: 255 if v > 236 else 0)
-        edge = [(x, 0) for x in range(w)] + [(x, h - 1) for x in range(w)] + \
-               [(0, y) for y in range(h)] + [(w - 1, y) for y in range(h)]
-        for pt in edge:
-            if bg.getpixel(pt) == 255:
-                ImageDraw.floodfill(bg, pt, 128, thresh=0)
-        alpha = bg.point(lambda v: 0 if v == 128 else 255)
-        alpha = _drop_specks(alpha)  # e.g. a corner of Bandai's stamp next to the figure
-        alpha = alpha.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(0.7))  # no white halo
-        out = im.convert("RGBA")
-        out.putalpha(alpha)
-        os.makedirs(os.path.dirname(dst), exist_ok=True)
-        out.save(dst, "WEBP", quality=85, method=6)
-        return out_rel
-    except Exception as e:
-        print("   ! cutout failed:", rel, e)
-        return None
-
-
 def _column_runs(mask, n):
     """Left/right x of the n figures in a white-background photo, or None.
     Splits at empty columns; extra pieces (a detached tail, a gem) merge across the
@@ -1224,8 +1152,6 @@ def main():
             else:
                 f["image"] = save_image(f["_img"], "figures", f["id"])
                 f["imageTrim"] = trim_image(f["image"], f["id"])
-            src = f["imageTrim"] or f["image"]
-            f["imageCut"] = cutout_image(src, os.path.splitext(os.path.basename(src))[0]) if src else None
         for i, p in enumerate(products.values(), 1):
             if i % 50 == 0:
                 print(f"    products {i}/{len(products)}")
@@ -1301,10 +1227,10 @@ def main():
         json.dump(data, fh, ensure_ascii=False, indent=1)
 
     # ---- remove images the data no longer uses (old picks, box photos behind per-figure crops)
-    used_imgs = {f.get(k) for f in fig_out for k in ("image", "imageTrim", "imageCut")} | {p.get("image") for p in products.values()}
+    used_imgs = {f.get(k) for f in fig_out for k in ("image", "imageTrim")} | {p.get("image") for p in products.values()}
     removed = 0
     if want_images:
-        for sub in ("figures", "trim", "cut", "products"):
+        for sub in ("figures", "trim", "products"):
             folder = os.path.join(IMG_DIR, sub)
             for n in (os.listdir(folder) if os.path.isdir(folder) else []):
                 rel = f"images/{sub}/{n}"

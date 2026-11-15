@@ -1,6 +1,6 @@
 /*
 @title        Scaledex - Obsidian plugin
-@version      0.1.9
+@version      0.1.10
 @author       La Gia Huy
 @since        2026-11-14
 @updated      2026-11-15
@@ -184,7 +184,6 @@ module.exports = class ScaledexPlugin extends obsidian.Plugin {
     data.figures.forEach(function (f) {
       add(jobs, [f.image, f.imageUrl, null]);
       if (f.imageTrim) add(trims, [f.imageTrim, null, f.image]);
-      if (f.imageCut) add(trims, [f.imageCut, null, null]);  // region-card cut-outs (web app site only)
     });
     data.products.forEach(function (p) { add(jobs, [p.image, p.imageUrl, null]); });
     var total = jobs.length + trims.length;
