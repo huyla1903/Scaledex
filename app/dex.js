@@ -14,7 +14,9 @@
                   history: true,              // use history.pushState (PWA only)
                   menu: [{ label, run }],     // extra menu entries (export/import...)
                   dark: false | true | 'auto',
-                  today: 'YYYY-MM-DD'         // optional; "Upcoming" = releases after this date
+                  today: 'YYYY-MM-DD',        // optional; "Upcoming" = releases after this date
+                  keyboard: 'global'          // "/" and Ctrl/Cmd+K open search page-wide (PWA);
+                                              // hosts can call api.openSearch() themselves
                 })
 */
 (function (global) {
@@ -31,6 +33,9 @@
     rock: "#afa981", ghost: "#704170", dragon: "#5060e1", dark: "#624d4e", steel: "#60a1b8", fairy: "#ef70ef"
   };
   var UPCOMING = { id: "upcoming", nameEn: "Upcoming", nameJa: "発売予定" };
+  var STATUS = { legendary: ["Legendary", "伝説のポケモン"], mythical: ["Mythical", "幻のポケモン"],
+                 powerhouse: ["Powerhouse", "600族 (pseudo-legendary)"] };
+  var ICON_BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
   // header logo: same drawing as pwa/icons/icon.svg, flat colours, rounded
   var LOGO = '<svg class="sw-logo" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#d8352c"/>' +
     '<path d="M40 252H226L262 214H472" fill="none" stroke="#8e1b17" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/>' +
@@ -129,10 +134,11 @@
     var scrollMemo = {};
 
     root.classList.add("swdex");
-    root.innerHTML = '<div class="sw-scroll"><div class="sw-wrap"></div></div><div class="sw-bottom"></div>';
+    root.innerHTML = '<div class="sw-scroll"><div class="sw-wrap"></div></div><div class="sw-nav"></div><div class="sw-bottom"></div>';
     var scroller = root.querySelector(".sw-scroll");
     var wrap = root.querySelector(".sw-wrap");
     var bottom = root.querySelector(".sw-bottom");
+    var nav = root.querySelector(".sw-nav");  // back button, top of the left rail
     var sheet = null;
     var mq = global.matchMedia ? global.matchMedia("(prefers-color-scheme: dark)") : null;
 
@@ -220,6 +226,11 @@
         // the whole evolution line: "charmander" also finds Charmeleon and Charizard
         (t.c.chain && idx.chain[t.c.chain] || []).forEach(function (o) { hay.push(o.nameEn, o.nameJa, romaji(o.nameJa)); });
         (t.c.roles || []).forEach(function (r) { var i = roleInfo(r); hay.push(i.en, i.ja); });
+        // types (all forms) and Legendary / Mythical / Powerhouse: "fire", "legendary" ...
+        var ts = (t.c.types || []).slice();
+        t.figs.forEach(function (x) { (x.types || []).forEach(function (y) { ts.push(y); }); });
+        ts.forEach(function (y) { var n = data.types && data.types[y]; hay.push(n ? n.en : y, n ? n.ja : ""); });
+        if (t.c.status && STATUS[t.c.status]) hay.push(STATUS[t.c.status][0]);
         t.figs.forEach(function (x) { hay.push(x.labelEn, x.labelJa, x.nameJa); });
         if (norm(hay.join(" ")).indexOf(q) < 0) return false;
       }
@@ -258,18 +269,23 @@
 
     function regionArt(region) {
       var figs = figsIn(region).filter(function (f) { return f.image || f.imageUrl; });
+      if (region !== "upcoming") {  // card art: released figures first
+        var out = figs.filter(function (f) { return !idx.upcoming[f.id]; });
+        if (out.length) figs = out.concat(figs.filter(function (f) { return idx.upcoming[f.id]; }));
+      }
       var poke = figs.filter(function (f) { return f.kind === "pokemon"; })
-        .sort(function (a, b) { return idx.chr[a.characterId].dex - idx.chr[b.characterId].dex; });
+        .sort(function (a, b) { return (!!idx.upcoming[a.id] - !!idx.upcoming[b.id]) || (idx.chr[a.characterId].dex - idx.chr[b.characterId].dex); });
       var trainer = figs.filter(function (f) { return f.kind === "trainer"; });
       var pick = [];
       if (trainer[0]) pick.push(trainer[0]);
       for (var i = 0; i < poke.length && pick.length < 3; i++) {
         if (!pick.some(function (p) { return p.characterId === poke[i].characterId; })) pick.push(poke[i]);
       }
-      var pos = [["right:3%", 2], ["right:34%", 1], ["right:62%", 0]];
-      return pick.slice(0, 3).map(function (f, i) {
-        return figImg(f, "", "", true).replace("<img", '<img style="' + pos[i][0] + ";z-index:" + pos[i][1] + '"');
-      }).join("");
+      // three even slots, trainer on the right; cut-outs sit on the pattern, plain photos blend into it
+      return '<div class="sw-region-figs">' + pick.slice(0, 3).map(function (f) {
+        return '<span class="sw-region-fig">' + (f.imageCut ? imgTag(f.imageCut, f.imageUrl, "is-cut", "", true) :
+          figImg(f, "", "", true)) + "</span>";
+      }).join("") + "</div>";
     }
 
     function renderHome() {
@@ -307,7 +323,6 @@
       var nP = tiles.filter(function (t) { return t.c.kind === "pokemon"; }).length;
       var nW = figsIn(region).filter(function (f) { return st.wish[f.id]; }).length;
       var h = '<div class="sw-statcard"><div class="sw-stat-head">' +
-        '<button class="sw-back" data-act="home" aria-label="Back">‹</button>' +
         '<div class="sw-stat-title">' + esc(r.nameEn) + "</div>" +
         '<div class="sw-pill">' + s.owned + " / " + s.total + "</div></div>" +
         '<div class="sw-stats">' +
@@ -349,7 +364,9 @@
 
     function renderBottom() {
       var h = "";
-      if (ui.screen !== "home" || ui.query) {
+      var rail = ui.screen !== "home" || !!ui.query;
+      root.classList.toggle("has-rail", rail);
+      if (rail) {
         h += '<div class="sw-chips">' + FILTERS.map(function (f) {
           return '<button class="sw-chip' + (ui.filter === f[0] ? " on" : "") + '" data-act="filter" data-id="' + f[0] + '">' + f[1] + "</button>";
         }).join("") + "</div>";
@@ -363,6 +380,7 @@
       }
       h += '<button class="sw-fab" data-act="menu" aria-label="Menu">' + ICON_MENU + "</button></div>";
       bottom.innerHTML = h;
+      nav.innerHTML = rail ? '<button class="sw-back" data-act="home" aria-label="Back">' + ICON_BACK + "</button>" : "";
       var input = bottom.querySelector(".sw-search");
       if (input) {
         input.addEventListener("input", function () {
@@ -371,13 +389,22 @@
           if (ui.screen === "home" && !ui.query) renderHome(); else renderGrid();
           var needChips = ui.screen !== "home" || !!ui.query;
           if (hadChips !== needChips) { ui.focusSearch = true; renderBottom(); }
+          else root.classList.toggle("has-rail", needChips);
         });
-        if (ui.focusSearch) { input.focus(); ui.focusSearch = false; }
+        input.addEventListener("keydown", function (e) {
+          if (e.key === "Escape") { e.stopPropagation(); ui.search = false; ui.query = ""; render(); }
+        });
+        if (ui.focusSearch) {
+          input.focus(); ui.focusSearch = false;
+          var n = input.value.length;
+          try { input.setSelectionRange(n, n); } catch (e) { /* type=search may refuse */ }
+        }
       }
     }
 
     // ------------------------------------------------------------ detail sheet
     function openDetail(cid, figId, push) {
+      ui.depth = ui.detail ? (ui.depth || 1) + 1 : 1;  // pages opened on top of each other
       ui.detail = cid;
       var c = idx.chr[cid];
       var figs = c.figures.map(function (id) { return idx.fig[id]; }).filter(Boolean);
@@ -400,17 +427,21 @@
         '<button class="sw-close" data-act="close" aria-label="Close">✕</button></div><div class="sw-body">' +
         '<h2 class="sw-name">' + esc(c.nameEn) + '</h2><div class="sw-name-ja">' + esc(c.nameJa) +
         (romaji(c.nameJa) ? ' <span class="sw-romaji">· ' + esc(romaji(c.nameJa)) + "</span>" : "") + "</div>";
+      // chips: tap to list everything of that type / role / status
       var types = f.types || c.types || [];
-      if (types.length) h += '<div class="sw-types">' + types.map(function (t) {
+      var chips = types.map(function (t) {
         var n = data.types && data.types[t];
-        return '<span class="sw-type" style="--tc:' + (TYPE_COLORS[t] || "#888") + '" title="' + esc(n ? n.ja : "") + '">' +
-          esc(n ? n.en : t) + "</span>";
-      }).join("") + "</div>";
-      if (c.roles && c.roles.length) h += '<div class="sw-types">' + c.roles.map(function (r) {
+        return '<button class="sw-type" data-act="find" data-id="' + esc(n ? n.en : t) + '" style="--tc:' + (TYPE_COLORS[t] || "#888") +
+          '" title="' + esc(n ? n.ja : "") + '">' + esc(n ? n.en : t) + "</button>";
+      });
+      if (c.status && STATUS[c.status]) chips.push('<button class="sw-type sw-status st-' + c.status + '" data-act="find" data-id="' +
+        STATUS[c.status][0] + '" title="' + esc(STATUS[c.status][1]) + '">★ ' + STATUS[c.status][0] + "</button>");
+      (c.roles || []).forEach(function (r) {
         var i = roleInfo(r);
-        return '<span class="sw-type sw-role role-' + esc(i.id) + '"' + (i.type ? ' style="--tc:' + (TYPE_COLORS[i.type] || "#888") + '"' : "") +
-          ' title="' + esc(i.ja) + '">' + esc(i.en) + "</span>";
-      }).join("") + "</div>";
+        chips.push('<button class="sw-type sw-role role-' + esc(i.id) + '" data-act="find" data-id="' + esc(i.short) + '"' +
+          (i.type ? ' style="--tc:' + (TYPE_COLORS[i.type] || "#888") + '"' : "") + ' title="' + esc(i.ja) + '">' + esc(i.en) + "</button>");
+      });
+      if (chips.length) h += '<div class="sw-types">' + chips.join("") + "</div>";
 
       if (figs.length > 1) {
         var labels = figs.map(figLabel), count = {};
@@ -551,7 +582,7 @@
     // ------------------------------------------------------------ history (PWA)
     function pushHistory() {
       if (!opts.history || !global.history) return;
-      try { global.history.pushState({ sw: { screen: ui.screen, region: ui.region, detail: ui.detail, fig: ui.fig } }, ""); } catch (e) { /* ignore */ }
+      try { global.history.pushState({ sw: { screen: ui.screen, region: ui.region, detail: ui.detail, fig: ui.fig, depth: ui.detail ? ui.depth : 0 } }, ""); } catch (e) { /* ignore */ }
     }
     function onPop(ev) {
       var s = ev.state && ev.state.sw;
@@ -559,7 +590,8 @@
       ui.menu = false;
       var screenChanged = s.screen !== ui.screen || s.region !== ui.region;
       ui.screen = s.screen; ui.region = s.region;
-      ui.detail = s.detail || null; ui.fig = s.fig || null;
+      ui.detail = s.detail || null; ui.fig = s.fig || null; ui.depth = s.depth || 0;
+      if (ui.afterClose && !ui.detail) { var then = ui.afterClose; ui.afterClose = null; renderSheet(); then(); return; }
       if (screenChanged) { render(); scroller.scrollTop = scrollMemo[ui.screen + ui.region] || 0; }
       renderSheet();
     }
@@ -568,10 +600,19 @@
       try { global.history.replaceState({ sw: { screen: "home", region: "all", detail: null } }, ""); } catch (e) { /* ignore */ }
     }
 
-    function closeSheet() {
-      if (ui.menu) { ui.menu = false; if (sheet) { sheet.remove(); sheet = null; } return; }
-      if (opts.history && ui.detail) { global.history.back(); return; }
-      ui.detail = null; renderSheet();
+    // close every page opened on top of each other, then run then()
+    function closeSheet(then) {
+      if (ui.menu) { ui.menu = false; if (sheet) { sheet.remove(); sheet = null; } if (then) then(); return; }
+      if (opts.history && ui.detail) { ui.afterClose = then || null; global.history.go(-(ui.depth || 1)); return; }
+      ui.detail = null; ui.depth = 0; renderSheet();
+      if (then) then();
+    }
+    // tap a type / role / status chip: search the whole dex for it
+    function findAll(text) {
+      closeSheet(function () {
+        ui.screen = "grid"; ui.region = "all"; ui.filter = "all"; ui.query = text; ui.search = true;
+        pushHistory(); render(); scroller.scrollTop = 0;
+      });
     }
 
     // ------------------------------------------------------------ events
@@ -592,6 +633,7 @@
         case "open": scrollMemo[ui.screen + ui.region] = scroller.scrollTop; openDetail(id, el.getAttribute("data-fig")); break;
         case "fig": ui.fig = id; renderSheet(); break;
         case "close": closeSheet(); break;
+        case "find": findAll(id); break;
         case "own": case "wish":
           var bag = act === "own" ? st.owned : st.wish;
           if (bag[id]) delete bag[id]; else bag[id] = new Date().toISOString().slice(0, 10);
@@ -617,11 +659,26 @@
       var t = e.target;
       if (t && t.tagName === "IMG" && t.getAttribute("data-fb") && t.src !== t.getAttribute("data-fb")) {
         t.src = t.getAttribute("data-fb"); t.removeAttribute("data-fb");
+        t.classList.remove("is-cut");  // photo on white: blend it into the card instead
       }
     }
     function onKey(e) {
       if (e.key === "Escape" && (ui.detail || ui.menu)) closeSheet();
     }
+    // "/" or Ctrl/Cmd+K opens the search, like Google or YouTube
+    function isSearchKey(e) {
+      var t = e.target, typing = t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable);
+      if ((e.ctrlKey || e.metaKey) && !e.altKey && (e.key === "k" || e.key === "K")) return true;
+      return e.key === "/" && !typing && !e.ctrlKey && !e.metaKey && !e.altKey;
+    }
+    function openSearch() {
+      var go = function () { ui.search = true; ui.focusSearch = true; renderBottom(); };
+      if (ui.detail || ui.menu) closeSheet(go); else go();
+    }
+    function onGlobalKey(e) {
+      if (isSearchKey(e)) { e.preventDefault(); openSearch(); }
+    }
+    if (opts.keyboard === "global") global.addEventListener("keydown", onGlobalKey);
     root.addEventListener("click", onClick);
     root.addEventListener("change", onChange);
     root.addEventListener("error", onError, true);
@@ -633,10 +690,13 @@
       setState: function (s) { st = s || {}; st.owned = st.owned || {}; st.wish = st.wish || {}; st.prefs = st.prefs || prefs; prefs = st.prefs; save(); render(); if (ui.menu) openMenu(); },
       setData: function (d) { data = d; idx = buildIndex(d); render(); },
       setDark: function (v) { opts.dark = v; applyTheme(); },
+      isSearchKey: isSearchKey,
+      openSearch: openSearch,
       destroy: function () {
         root.removeEventListener("click", onClick); root.removeEventListener("change", onChange);
         root.removeEventListener("error", onError, true); root.removeEventListener("keydown", onKey);
         if (opts.history) global.removeEventListener("popstate", onPop);
+        if (opts.keyboard === "global") global.removeEventListener("keydown", onGlobalKey);
         if (mq && mq.removeEventListener) mq.removeEventListener("change", applyTheme);
         root.innerHTML = ""; root.classList.remove("swdex", "sw-dark", "sw-dim");
       }

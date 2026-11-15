@@ -1,6 +1,6 @@
 /*
 @title        Scaledex - Obsidian plugin
-@version      0.1.6
+@version      0.1.9
 @author       La Gia Huy
 @since        2026-11-14
 @updated      2026-11-15
@@ -91,6 +91,11 @@ class ScaledexView extends obsidian.ItemView {
     });
     var self = this;
     this.registerEvent(this.app.workspace.on("css-change", function () { if (self.api) self.api.setDark(isDark()); }));
+    // "/" or Ctrl/Cmd+K opens the dex search, only while this tab is the active one
+    this.registerDomEvent(document, "keydown", function (e) {
+      if (!self.api || self.app.workspace.getActiveViewOfType(ScaledexView) !== self || !self.api.isSearchKey(e)) return;
+      e.preventDefault(); e.stopPropagation(); self.api.openSearch();
+    }, true);
   }
 
   async onClose() { if (this.api) this.api.destroy(); this.api = null; }
@@ -179,6 +184,7 @@ module.exports = class ScaledexPlugin extends obsidian.Plugin {
     data.figures.forEach(function (f) {
       add(jobs, [f.image, f.imageUrl, null]);
       if (f.imageTrim) add(trims, [f.imageTrim, null, f.image]);
+      if (f.imageCut) add(trims, [f.imageCut, null, null]);  // region-card cut-outs (web app site only)
     });
     data.products.forEach(function (p) { add(jobs, [p.image, p.imageUrl, null]); });
     var total = jobs.length + trims.length;

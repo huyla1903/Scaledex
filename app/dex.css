@@ -103,10 +103,15 @@
     repeating-linear-gradient(0deg, color-mix(in srgb, var(--rc, #2aa6dc) 18%, transparent) 0 6px, transparent 6px 12px),
     repeating-linear-gradient(90deg, color-mix(in srgb, var(--rc, #2aa6dc) 18%, transparent) 0 6px, transparent 6px 12px);
 }
-.swdex .sw-region-art img {
-  position: absolute; bottom: 6%; height: 80%; max-width: 34%; object-fit: contain; object-position: bottom;
-  mix-blend-mode: multiply; /* official renders sit on white */
+/* trainer right, two Pokémon to its left, evenly spaced and standing on one baseline */
+.swdex .sw-region-figs {
+  position: absolute; left: 16%; right: 2%; top: 10%; bottom: 7%;
+  display: flex; flex-direction: row-reverse; justify-content: space-evenly; align-items: flex-end; gap: 2%;
 }
+.swdex .sw-region-fig { flex: 1 1 0; min-width: 0; height: 100%; display: flex; align-items: flex-end; justify-content: center; }
+.swdex .sw-region-fig img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; object-position: bottom; }
+.swdex .sw-region-fig img:not(.is-cut) { mix-blend-mode: multiply; } /* photo on white: blend it */
+.swdex .sw-region-fig img.is-cut { filter: drop-shadow(0 2px 2px rgba(0,0,0,0.18)); }
 .swdex .sw-region-art { isolation: isolate; }
 .swdex .sw-region-text { position: relative; z-index: 1; padding: 20px 22px; }
 .swdex .sw-region-name { font-size: 28px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink); line-height: 1.05; }
@@ -123,7 +128,9 @@
   backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
 }
 .swdex .sw-stat-head { display: flex; align-items: center; gap: 10px; }
-.swdex .sw-back { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; color: var(--sw-ink); font-size: 22px; font-weight: 800; }
+.swdex .sw-back { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: var(--sw-ink-strong);
+  background: var(--sw-chip); border: 2px solid var(--sw-card-line); box-shadow: var(--sw-shadow); }
+.swdex .sw-back svg { width: 26px; height: 26px; }
 .swdex .sw-stat-title { font-weight: 800; font-size: 19px; text-transform: uppercase; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .swdex .sw-pill { background: var(--sw-accent); color: var(--sw-accent-ink); font-weight: 800; font-size: 20px; padding: 3px 18px; border-radius: 30px; white-space: nowrap; }
 .swdex .sw-stats { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 14px; text-align: center; }
@@ -172,7 +179,20 @@
   box-shadow: var(--sw-shadow); border: 2px solid var(--sw-card-line);
 }
 .swdex .sw-chip.on { background: var(--sw-accent); color: var(--sw-accent-ink); border-color: rgba(255,255,255,0.7); }
-.swdex .sw-fabs { display: flex; justify-content: space-between; align-items: center; pointer-events: none; padding: 0 18px; }
+/* filters as a rail on the left, above the search button, so they never cover the tiles */
+.swdex.has-rail .sw-chips {
+  position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
+  flex-direction: column; width: 104px; overflow: visible; padding: 0; gap: 7px;
+}
+/* rail, back button and search button share one left edge (12px, the .sw-bottom padding) */
+.swdex.has-rail .sw-chip { width: 100%; padding: 9px 4px; font-size: 12px; text-align: center; letter-spacing: 0.01em; }
+/* back button: top of the left rail, outside the header, always in reach */
+.swdex .sw-nav { position: absolute; z-index: 6; top: calc(env(safe-area-inset-top, 0px) + 18px); left: 12px; }
+.swdex .sw-nav .sw-back { width: 56px; height: 56px; }
+.swdex.has-rail .sw-wrap { padding-left: 116px; }
+@media (max-width: 640px) { .swdex.has-rail .sw-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 420px) { .swdex.has-rail .sw-grid { grid-template-columns: repeat(2, 1fr); } }
+.swdex .sw-fabs { display: flex; justify-content: space-between; align-items: center; pointer-events: none; padding: 0; }
 .swdex .sw-fab {
   pointer-events: auto; width: 56px; height: 56px; border-radius: 50%;
   background: var(--sw-chip); border: 2px solid var(--sw-card-line); box-shadow: var(--sw-shadow);
@@ -218,6 +238,12 @@
 .swdex .sw-type { background: var(--tc); color: #fff; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
   padding: 4px 14px; border-radius: 20px; text-shadow: 0 1px 1px rgba(0,0,0,0.35); }
 .swdex .sw-types { flex-wrap: wrap; }
+.swdex button.sw-type { cursor: pointer; }
+.swdex button.sw-type:active { transform: scale(0.96); }
+.swdex .sw-status { text-transform: none; letter-spacing: 0.01em; font-size: 13px; }
+.swdex .sw-status.st-legendary { --tc: #c99a12; }
+.swdex .sw-status.st-mythical { --tc: #d1497a; }
+.swdex .sw-status.st-powerhouse { --tc: #3d7fa6; }
 .swdex .sw-role { --tc: #5f7d8c; text-transform: none; letter-spacing: 0.01em; font-size: 13px; }
 .swdex .sw-role.role-protagonist { --tc: #1b86b6; }
 .swdex .sw-role.role-rival { --tc: #c8553d; }

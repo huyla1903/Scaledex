@@ -2040,7 +2040,8 @@
     "grass",
     "poison"
    ],
-   "chain": 1
+   "chain": 1,
+   "status": null
   },
   {
    "id": "p0002",
@@ -2055,7 +2056,8 @@
     "grass",
     "poison"
    ],
-   "chain": 1
+   "chain": 1,
+   "status": null
   },
   {
    "id": "p0003",
@@ -2070,7 +2072,8 @@
     "grass",
     "poison"
    ],
-   "chain": 1
+   "chain": 1,
+   "status": null
   },
   {
    "id": "p0004",
@@ -2085,7 +2088,8 @@
    "types": [
     "fire"
    ],
-   "chain": 2
+   "chain": 2,
+   "status": null
   },
   {
    "id": "p0005",
@@ -2099,7 +2103,8 @@
    "types": [
     "fire"
    ],
-   "chain": 2
+   "chain": 2,
+   "status": null
   },
   {
    "id": "p0006",
@@ -2115,7 +2120,8 @@
     "fire",
     "flying"
    ],
-   "chain": 2
+   "chain": 2,
+   "status": null
   },
   {
    "id": "p0007",
@@ -2130,7 +2136,8 @@
    "types": [
     "water"
    ],
-   "chain": 3
+   "chain": 3,
+   "status": null
   },
   {
    "id": "p0008",
@@ -2144,7 +2151,8 @@
    "types": [
     "water"
    ],
-   "chain": 3
+   "chain": 3,
+   "status": null
   },
   {
    "id": "p0009",
@@ -2158,7 +2166,8 @@
    "types": [
     "water"
    ],
-   "chain": 3
+   "chain": 3,
+   "status": null
   },
   {
    "id": "p0016",
@@ -2173,7 +2182,8 @@
     "normal",
     "flying"
    ],
-   "chain": 6
+   "chain": 6,
+   "status": null
   },
   {
    "id": "p0018",
@@ -2188,7 +2198,8 @@
     "normal",
     "flying"
    ],
-   "chain": 6
+   "chain": 6,
+   "status": null
   },
   {
    "id": "p0019",
@@ -2202,7 +2213,8 @@
    "types": [
     "normal"
    ],
-   "chain": 7
+   "chain": 7,
+   "status": null
   },
   {
    "id": "p0025",
@@ -2218,7 +2230,8 @@
    "types": [
     "electric"
    ],
-   "chain": 10
+   "chain": 10,
+   "status": null
   },
   {
    "id": "p0026",
@@ -2232,7 +2245,8 @@
    "types": [
     "electric"
    ],
-   "chain": 10
+   "chain": 10,
+   "status": null
   },
   {
    "id": "p0031",
@@ -2247,7 +2261,8 @@
     "poison",
     "ground"
    ],
-   "chain": 12
+   "chain": 12,
+   "status": null
   },
   {
    "id": "p0032",
@@ -2261,7 +2276,8 @@
    "types": [
     "poison"
    ],
-   "chain": 13
+   "chain": 13,
+   "status": null
   },
   {
    "id": "p0033",
@@ -2275,7 +2291,8 @@
    "types": [
     "poison"
    ],
-   "chain": 13
+   "chain": 13,
+   "status": null
   },
   {
    "id": "p0034",
@@ -2290,7 +2307,8 @@
     "poison",
     "ground"
    ],
-   "chain": 13
+   "chain": 13,
+   "status": null
   },
   {
    "id": "p0036",
@@ -2304,7 +2322,8 @@
    "types": [
     "fairy"
    ],
-   "chain": 14
+   "chain": 14,
+   "status": null
   },
   {
    "id": "p0037",
@@ -2318,7 +2337,8 @@
    "types": [
     "fire"
    ],
-   "chain": 15
+   "chain": 15,
+   "status": null
   },
   {
    "id": "p0038",
@@ -2332,7 +2352,8 @@
    "types": [
     "fire"
    ],
-   "chain": 15
+   "chain": 15,
+   "status": null
   },
   {
    "id": "p0042",
@@ -2347,7 +2368,8 @@
     "poison",
     "flying"
    ],
-   "chain": 17
+   "chain": 17,
+   "status": null
   },
   {
    "id": "p0043",
@@ -2362,7 +2384,8 @@
     "grass",
     "poison"
    ],
-   "chain": 18
+   "chain": 18,
+   "status": null
   },
   {
    "id": "p0044",
@@ -2377,7 +2400,8 @@
     "grass",
     "poison"
    ],
-   "chain": 18
+   "chain": 18,
+   "status": null
   },
   {
    "id": "p0045",
@@ -2392,7 +2416,8 @@
     "grass",
     "poison"
    ],
-   "chain": 18
+   "chain": 18,
+   "status": null
   },
   {
    "id": "p0058",
@@ -2406,7 +2431,8 @@
    "types": [
     "fire"
    ],
-   "chain": 25
+   "chain": 25,
+   "status": null
   },
   {
    "id": "p0059",
@@ -2421,7 +2447,8 @@
    "types": [
     "fire"
    ],
-   "chain": 25
+   "chain": 25,
+   "status": null
   },
   {
    "id": "p0064",
@@ -2435,7 +2462,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 27
+   "chain": 27,
+   "status": null
   },
   {
    "id": "p0077",
@@ -2449,7 +2477,8 @@
    "types": [
     "fire"
    ],
-   "chain": 32
+   "chain": 32,
+   "status": null
   },
   {
    "id": "p0078",
@@ -2463,7 +2492,8 @@
    "types": [
     "fire"
    ],
-   "chain": 32
+   "chain": 32,
+   "status": null
   },
   {
    "id": "p0079",
@@ -2478,7 +2508,8 @@
     "water",
     "psychic"
    ],
-   "chain": 33
+   "chain": 33,
+   "status": null
   },
   {
    "id": "p0082",
@@ -2493,7 +2524,8 @@
     "electric",
     "steel"
    ],
-   "chain": 34
+   "chain": 34,
+   "status": null
   },
   {
    "id": "p0090",
@@ -2507,7 +2539,8 @@
    "types": [
     "water"
    ],
-   "chain": 39
+   "chain": 39,
+   "status": null
   },
   {
    "id": "p0091",
@@ -2522,7 +2555,8 @@
     "water",
     "ice"
    ],
-   "chain": 39
+   "chain": 39,
+   "status": null
   },
   {
    "id": "p0094",
@@ -2537,7 +2571,8 @@
     "ghost",
     "poison"
    ],
-   "chain": 40
+   "chain": 40,
+   "status": null
   },
   {
    "id": "p0095",
@@ -2552,7 +2587,8 @@
     "rock",
     "ground"
    ],
-   "chain": 41
+   "chain": 41,
+   "status": null
   },
   {
    "id": "p0100",
@@ -2566,7 +2602,8 @@
    "types": [
     "electric"
    ],
-   "chain": 44
+   "chain": 44,
+   "status": null
   },
   {
    "id": "p0110",
@@ -2580,7 +2617,8 @@
    "types": [
     "poison"
    ],
-   "chain": 49
+   "chain": 49,
+   "status": null
   },
   {
    "id": "p0120",
@@ -2594,7 +2632,8 @@
    "types": [
     "water"
    ],
-   "chain": 56
+   "chain": 56,
+   "status": null
   },
   {
    "id": "p0121",
@@ -2610,7 +2649,8 @@
     "water",
     "psychic"
    ],
-   "chain": 56
+   "chain": 56,
+   "status": null
   },
   {
    "id": "p0122",
@@ -2625,7 +2665,8 @@
     "psychic",
     "fairy"
    ],
-   "chain": 57
+   "chain": 57,
+   "status": null
   },
   {
    "id": "p0125",
@@ -2639,7 +2680,8 @@
    "types": [
     "electric"
    ],
-   "chain": 60
+   "chain": 60,
+   "status": null
   },
   {
    "id": "p0126",
@@ -2653,7 +2695,8 @@
    "types": [
     "fire"
    ],
-   "chain": 61
+   "chain": 61,
+   "status": null
   },
   {
    "id": "p0129",
@@ -2667,7 +2710,8 @@
    "types": [
     "water"
    ],
-   "chain": 64
+   "chain": 64,
+   "status": null
   },
   {
    "id": "p0130",
@@ -2682,7 +2726,8 @@
     "water",
     "flying"
    ],
-   "chain": 64
+   "chain": 64,
+   "status": null
   },
   {
    "id": "p0131",
@@ -2697,7 +2742,8 @@
     "water",
     "ice"
    ],
-   "chain": 65
+   "chain": 65,
+   "status": null
   },
   {
    "id": "p0132",
@@ -2711,7 +2757,8 @@
    "types": [
     "normal"
    ],
-   "chain": 66
+   "chain": 66,
+   "status": null
   },
   {
    "id": "p0133",
@@ -2726,7 +2773,8 @@
    "types": [
     "normal"
    ],
-   "chain": 67
+   "chain": 67,
+   "status": null
   },
   {
    "id": "p0134",
@@ -2741,7 +2789,8 @@
    "types": [
     "water"
    ],
-   "chain": 67
+   "chain": 67,
+   "status": null
   },
   {
    "id": "p0135",
@@ -2756,7 +2805,8 @@
    "types": [
     "electric"
    ],
-   "chain": 67
+   "chain": 67,
+   "status": null
   },
   {
    "id": "p0136",
@@ -2771,7 +2821,8 @@
    "types": [
     "fire"
    ],
-   "chain": 67
+   "chain": 67,
+   "status": null
   },
   {
    "id": "p0137",
@@ -2785,7 +2836,8 @@
    "types": [
     "normal"
    ],
-   "chain": 68
+   "chain": 68,
+   "status": null
   },
   {
    "id": "p0143",
@@ -2799,7 +2851,8 @@
    "types": [
     "normal"
    ],
-   "chain": 72
+   "chain": 72,
+   "status": null
   },
   {
    "id": "p0144",
@@ -2814,7 +2867,8 @@
     "ice",
     "flying"
    ],
-   "chain": 73
+   "chain": 73,
+   "status": "legendary"
   },
   {
    "id": "p0145",
@@ -2829,7 +2883,8 @@
     "electric",
     "flying"
    ],
-   "chain": 74
+   "chain": 74,
+   "status": "legendary"
   },
   {
    "id": "p0146",
@@ -2844,7 +2899,8 @@
     "fire",
     "flying"
    ],
-   "chain": 75
+   "chain": 75,
+   "status": "legendary"
   },
   {
    "id": "p0149",
@@ -2860,7 +2916,8 @@
     "dragon",
     "flying"
    ],
-   "chain": 76
+   "chain": 76,
+   "status": "powerhouse"
   },
   {
    "id": "p0150",
@@ -2874,7 +2931,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 77
+   "chain": 77,
+   "status": "legendary"
   },
   {
    "id": "p0151",
@@ -2888,7 +2946,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 78
+   "chain": 78,
+   "status": "mythical"
   },
   {
    "id": "p0152",
@@ -2902,7 +2961,8 @@
    "types": [
     "grass"
    ],
-   "chain": 79
+   "chain": 79,
+   "status": null
   },
   {
    "id": "p0153",
@@ -2916,7 +2976,8 @@
    "types": [
     "grass"
    ],
-   "chain": 79
+   "chain": 79,
+   "status": null
   },
   {
    "id": "p0154",
@@ -2930,7 +2991,8 @@
    "types": [
     "grass"
    ],
-   "chain": 79
+   "chain": 79,
+   "status": null
   },
   {
    "id": "p0155",
@@ -2945,7 +3007,8 @@
    "types": [
     "fire"
    ],
-   "chain": 80
+   "chain": 80,
+   "status": null
   },
   {
    "id": "p0156",
@@ -2959,7 +3022,8 @@
    "types": [
     "fire"
    ],
-   "chain": 80
+   "chain": 80,
+   "status": null
   },
   {
    "id": "p0157",
@@ -2974,7 +3038,8 @@
    "types": [
     "fire"
    ],
-   "chain": 80
+   "chain": 80,
+   "status": null
   },
   {
    "id": "p0158",
@@ -2988,7 +3053,8 @@
    "types": [
     "water"
    ],
-   "chain": 81
+   "chain": 81,
+   "status": null
   },
   {
    "id": "p0159",
@@ -3002,7 +3068,8 @@
    "types": [
     "water"
    ],
-   "chain": 81
+   "chain": 81,
+   "status": null
   },
   {
    "id": "p0160",
@@ -3016,7 +3083,8 @@
    "types": [
     "water"
    ],
-   "chain": 81
+   "chain": 81,
+   "status": null
   },
   {
    "id": "p0161",
@@ -3030,7 +3098,8 @@
    "types": [
     "normal"
    ],
-   "chain": 82
+   "chain": 82,
+   "status": null
   },
   {
    "id": "p0162",
@@ -3044,7 +3113,8 @@
    "types": [
     "normal"
    ],
-   "chain": 82
+   "chain": 82,
+   "status": null
   },
   {
    "id": "p0172",
@@ -3058,7 +3128,8 @@
    "types": [
     "electric"
    ],
-   "chain": 10
+   "chain": 10,
+   "status": null
   },
   {
    "id": "p0175",
@@ -3072,7 +3143,8 @@
    "types": [
     "fairy"
    ],
-   "chain": 87
+   "chain": 87,
+   "status": null
   },
   {
    "id": "p0177",
@@ -3087,7 +3159,8 @@
     "psychic",
     "flying"
    ],
-   "chain": 88
+   "chain": 88,
+   "status": null
   },
   {
    "id": "p0179",
@@ -3101,7 +3174,8 @@
    "types": [
     "electric"
    ],
-   "chain": 89
+   "chain": 89,
+   "status": null
   },
   {
    "id": "p0181",
@@ -3115,7 +3189,8 @@
    "types": [
     "electric"
    ],
-   "chain": 89
+   "chain": 89,
+   "status": null
   },
   {
    "id": "p0183",
@@ -3130,7 +3205,8 @@
     "water",
     "fairy"
    ],
-   "chain": 90
+   "chain": 90,
+   "status": null
   },
   {
    "id": "p0184",
@@ -3145,7 +3221,8 @@
     "water",
     "fairy"
    ],
-   "chain": 90
+   "chain": 90,
+   "status": null
   },
   {
    "id": "p0185",
@@ -3159,7 +3236,8 @@
    "types": [
     "rock"
    ],
-   "chain": 91
+   "chain": 91,
+   "status": null
   },
   {
    "id": "p0190",
@@ -3173,7 +3251,8 @@
    "types": [
     "normal"
    ],
-   "chain": 93
+   "chain": 93,
+   "status": null
   },
   {
    "id": "p0194",
@@ -3189,7 +3268,8 @@
     "water",
     "ground"
    ],
-   "chain": 96
+   "chain": 96,
+   "status": null
   },
   {
    "id": "p0196",
@@ -3204,7 +3284,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 67
+   "chain": 67,
+   "status": null
   },
   {
    "id": "p0197",
@@ -3219,7 +3300,8 @@
    "types": [
     "dark"
    ],
-   "chain": 67
+   "chain": 67,
+   "status": null
   },
   {
    "id": "p0200",
@@ -3233,7 +3315,8 @@
    "types": [
     "ghost"
    ],
-   "chain": 98
+   "chain": 98,
+   "status": null
   },
   {
    "id": "p0201",
@@ -3248,7 +3331,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 99
+   "chain": 99,
+   "status": null
   },
   {
    "id": "p0202",
@@ -3263,7 +3347,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 100
+   "chain": 100,
+   "status": null
   },
   {
    "id": "p0208",
@@ -3278,7 +3363,8 @@
     "steel",
     "ground"
    ],
-   "chain": 41
+   "chain": 41,
+   "status": null
   },
   {
    "id": "p0212",
@@ -3293,7 +3379,8 @@
     "bug",
     "steel"
    ],
-   "chain": 58
+   "chain": 58,
+   "status": null
   },
   {
    "id": "p0215",
@@ -3309,7 +3396,8 @@
     "dark",
     "ice"
    ],
-   "chain": 109
+   "chain": 109,
+   "status": null
   },
   {
    "id": "p0216",
@@ -3323,7 +3411,8 @@
    "types": [
     "normal"
    ],
-   "chain": 110
+   "chain": 110,
+   "status": null
   },
   {
    "id": "p0231",
@@ -3337,7 +3426,8 @@
    "types": [
     "ground"
    ],
-   "chain": 119
+   "chain": 119,
+   "status": null
   },
   {
    "id": "p0237",
@@ -3351,7 +3441,8 @@
    "types": [
     "fighting"
    ],
-   "chain": 47
+   "chain": 47,
+   "status": null
   },
   {
    "id": "p0238",
@@ -3366,7 +3457,8 @@
     "ice",
     "psychic"
    ],
-   "chain": 59
+   "chain": 59,
+   "status": null
   },
   {
    "id": "p0241",
@@ -3380,7 +3472,8 @@
    "types": [
     "normal"
    ],
-   "chain": 122
+   "chain": 122,
+   "status": null
   },
   {
    "id": "p0243",
@@ -3394,7 +3487,8 @@
    "types": [
     "electric"
    ],
-   "chain": 123
+   "chain": 123,
+   "status": "legendary"
   },
   {
    "id": "p0244",
@@ -3408,7 +3502,8 @@
    "types": [
     "fire"
    ],
-   "chain": 124
+   "chain": 124,
+   "status": "legendary"
   },
   {
    "id": "p0245",
@@ -3422,7 +3517,8 @@
    "types": [
     "water"
    ],
-   "chain": 125
+   "chain": 125,
+   "status": "legendary"
   },
   {
    "id": "p0246",
@@ -3437,7 +3533,8 @@
     "rock",
     "ground"
    ],
-   "chain": 126
+   "chain": 126,
+   "status": null
   },
   {
    "id": "p0247",
@@ -3452,7 +3549,8 @@
     "rock",
     "ground"
    ],
-   "chain": 126
+   "chain": 126,
+   "status": null
   },
   {
    "id": "p0248",
@@ -3468,7 +3566,8 @@
     "rock",
     "dark"
    ],
-   "chain": 126
+   "chain": 126,
+   "status": "powerhouse"
   },
   {
    "id": "p0249",
@@ -3483,7 +3582,8 @@
     "psychic",
     "flying"
    ],
-   "chain": 127
+   "chain": 127,
+   "status": "legendary"
   },
   {
    "id": "p0250",
@@ -3498,7 +3598,8 @@
     "fire",
     "flying"
    ],
-   "chain": 128
+   "chain": 128,
+   "status": "legendary"
   },
   {
    "id": "p0251",
@@ -3513,7 +3614,8 @@
     "psychic",
     "grass"
    ],
-   "chain": 129
+   "chain": 129,
+   "status": "mythical"
   },
   {
    "id": "p0252",
@@ -3527,7 +3629,8 @@
    "types": [
     "grass"
    ],
-   "chain": 130
+   "chain": 130,
+   "status": null
   },
   {
    "id": "p0253",
@@ -3541,7 +3644,8 @@
    "types": [
     "grass"
    ],
-   "chain": 130
+   "chain": 130,
+   "status": null
   },
   {
    "id": "p0254",
@@ -3555,7 +3659,8 @@
    "types": [
     "grass"
    ],
-   "chain": 130
+   "chain": 130,
+   "status": null
   },
   {
    "id": "p0255",
@@ -3569,7 +3674,8 @@
    "types": [
     "fire"
    ],
-   "chain": 131
+   "chain": 131,
+   "status": null
   },
   {
    "id": "p0256",
@@ -3584,7 +3690,8 @@
     "fire",
     "fighting"
    ],
-   "chain": 131
+   "chain": 131,
+   "status": null
   },
   {
    "id": "p0257",
@@ -3599,7 +3706,8 @@
     "fire",
     "fighting"
    ],
-   "chain": 131
+   "chain": 131,
+   "status": null
   },
   {
    "id": "p0258",
@@ -3613,7 +3721,8 @@
    "types": [
     "water"
    ],
-   "chain": 132
+   "chain": 132,
+   "status": null
   },
   {
    "id": "p0259",
@@ -3628,7 +3737,8 @@
     "water",
     "ground"
    ],
-   "chain": 132
+   "chain": 132,
+   "status": null
   },
   {
    "id": "p0260",
@@ -3643,7 +3753,8 @@
     "water",
     "ground"
    ],
-   "chain": 132
+   "chain": 132,
+   "status": null
   },
   {
    "id": "p0261",
@@ -3657,7 +3768,8 @@
    "types": [
     "dark"
    ],
-   "chain": 133
+   "chain": 133,
+   "status": null
   },
   {
    "id": "p0280",
@@ -3672,7 +3784,8 @@
     "psychic",
     "fairy"
    ],
-   "chain": 140
+   "chain": 140,
+   "status": null
   },
   {
    "id": "p0281",
@@ -3687,7 +3800,8 @@
     "psychic",
     "fairy"
    ],
-   "chain": 140
+   "chain": 140,
+   "status": null
   },
   {
    "id": "p0282",
@@ -3702,7 +3816,8 @@
     "psychic",
     "fairy"
    ],
-   "chain": 140
+   "chain": 140,
+   "status": null
   },
   {
    "id": "p0300",
@@ -3716,7 +3831,8 @@
    "types": [
     "normal"
    ],
-   "chain": 148
+   "chain": 148,
+   "status": null
   },
   {
    "id": "p0302",
@@ -3731,7 +3847,8 @@
     "dark",
     "ghost"
    ],
-   "chain": 149
+   "chain": 149,
+   "status": null
   },
   {
    "id": "p0303",
@@ -3746,7 +3863,8 @@
     "steel",
     "fairy"
    ],
-   "chain": 150
+   "chain": 150,
+   "status": null
   },
   {
    "id": "p0311",
@@ -3760,7 +3878,8 @@
    "types": [
     "electric"
    ],
-   "chain": 154
+   "chain": 154,
+   "status": null
   },
   {
    "id": "p0312",
@@ -3774,7 +3893,8 @@
    "types": [
     "electric"
    ],
-   "chain": 155
+   "chain": 155,
+   "status": null
   },
   {
    "id": "p0333",
@@ -3789,7 +3909,8 @@
     "normal",
     "flying"
    ],
-   "chain": 168
+   "chain": 168,
+   "status": null
   },
   {
    "id": "p0334",
@@ -3804,7 +3925,8 @@
     "dragon",
     "flying"
    ],
-   "chain": 168
+   "chain": 168,
+   "status": null
   },
   {
    "id": "p0349",
@@ -3818,7 +3940,8 @@
    "types": [
     "water"
    ],
-   "chain": 178
+   "chain": 178,
+   "status": null
   },
   {
    "id": "p0350",
@@ -3832,7 +3955,8 @@
    "types": [
     "water"
    ],
-   "chain": 178
+   "chain": 178,
+   "status": null
   },
   {
    "id": "p0351",
@@ -3846,7 +3970,8 @@
    "types": [
     "normal"
    ],
-   "chain": 179
+   "chain": 179,
+   "status": null
   },
   {
    "id": "p0359",
@@ -3860,7 +3985,8 @@
    "types": [
     "dark"
    ],
-   "chain": 185
+   "chain": 185,
+   "status": null
   },
   {
    "id": "p0376",
@@ -3875,7 +4001,8 @@
     "steel",
     "psychic"
    ],
-   "chain": 192
+   "chain": 192,
+   "status": "powerhouse"
   },
   {
    "id": "p0382",
@@ -3889,7 +4016,8 @@
    "types": [
     "water"
    ],
-   "chain": 198
+   "chain": 198,
+   "status": "legendary"
   },
   {
    "id": "p0383",
@@ -3903,7 +4031,8 @@
    "types": [
     "ground"
    ],
-   "chain": 199
+   "chain": 199,
+   "status": "legendary"
   },
   {
    "id": "p0384",
@@ -3918,7 +4047,8 @@
     "dragon",
     "flying"
    ],
-   "chain": 200
+   "chain": 200,
+   "status": "legendary"
   },
   {
    "id": "p0387",
@@ -3932,7 +4062,8 @@
    "types": [
     "grass"
    ],
-   "chain": 203
+   "chain": 203,
+   "status": null
   },
   {
    "id": "p0388",
@@ -3946,7 +4077,8 @@
    "types": [
     "grass"
    ],
-   "chain": 203
+   "chain": 203,
+   "status": null
   },
   {
    "id": "p0389",
@@ -3961,7 +4093,8 @@
     "grass",
     "ground"
    ],
-   "chain": 203
+   "chain": 203,
+   "status": null
   },
   {
    "id": "p0390",
@@ -3975,7 +4108,8 @@
    "types": [
     "fire"
    ],
-   "chain": 204
+   "chain": 204,
+   "status": null
   },
   {
    "id": "p0391",
@@ -3990,7 +4124,8 @@
     "fire",
     "fighting"
    ],
-   "chain": 204
+   "chain": 204,
+   "status": null
   },
   {
    "id": "p0392",
@@ -4005,7 +4140,8 @@
     "fire",
     "fighting"
    ],
-   "chain": 204
+   "chain": 204,
+   "status": null
   },
   {
    "id": "p0393",
@@ -4019,7 +4155,8 @@
    "types": [
     "water"
    ],
-   "chain": 205
+   "chain": 205,
+   "status": null
   },
   {
    "id": "p0394",
@@ -4033,7 +4170,8 @@
    "types": [
     "water"
    ],
-   "chain": 205
+   "chain": 205,
+   "status": null
   },
   {
    "id": "p0395",
@@ -4048,7 +4186,8 @@
     "water",
     "steel"
    ],
-   "chain": 205
+   "chain": 205,
+   "status": null
   },
   {
    "id": "p0396",
@@ -4063,7 +4202,8 @@
     "normal",
     "flying"
    ],
-   "chain": 206
+   "chain": 206,
+   "status": null
   },
   {
    "id": "p0398",
@@ -4078,7 +4218,8 @@
     "normal",
     "flying"
    ],
-   "chain": 206
+   "chain": 206,
+   "status": null
   },
   {
    "id": "p0399",
@@ -4092,7 +4233,8 @@
    "types": [
     "normal"
    ],
-   "chain": 207
+   "chain": 207,
+   "status": null
   },
   {
    "id": "p0403",
@@ -4106,7 +4248,8 @@
    "types": [
     "electric"
    ],
-   "chain": 209
+   "chain": 209,
+   "status": null
   },
   {
    "id": "p0405",
@@ -4120,7 +4263,8 @@
    "types": [
     "electric"
    ],
-   "chain": 209
+   "chain": 209,
+   "status": null
   },
   {
    "id": "p0407",
@@ -4135,7 +4279,8 @@
     "grass",
     "poison"
    ],
-   "chain": 158
+   "chain": 158,
+   "status": null
   },
   {
    "id": "p0417",
@@ -4149,7 +4294,8 @@
    "types": [
     "electric"
    ],
-   "chain": 215
+   "chain": 215,
+   "status": null
   },
   {
    "id": "p0423",
@@ -4164,7 +4310,8 @@
     "water",
     "ground"
    ],
-   "chain": 218
+   "chain": 218,
+   "status": null
   },
   {
    "id": "p0426",
@@ -4179,7 +4326,8 @@
     "ghost",
     "flying"
    ],
-   "chain": 219
+   "chain": 219,
+   "status": null
   },
   {
    "id": "p0427",
@@ -4193,7 +4341,8 @@
    "types": [
     "normal"
    ],
-   "chain": 220
+   "chain": 220,
+   "status": null
   },
   {
    "id": "p0442",
@@ -4208,7 +4357,8 @@
     "ghost",
     "dark"
    ],
-   "chain": 229
+   "chain": 229,
+   "status": null
   },
   {
    "id": "p0443",
@@ -4223,7 +4373,8 @@
     "dragon",
     "ground"
    ],
-   "chain": 230
+   "chain": 230,
+   "status": null
   },
   {
    "id": "p0445",
@@ -4238,7 +4389,8 @@
     "dragon",
     "ground"
    ],
-   "chain": 230
+   "chain": 230,
+   "status": "powerhouse"
   },
   {
    "id": "p0446",
@@ -4252,7 +4404,8 @@
    "types": [
     "normal"
    ],
-   "chain": 72
+   "chain": 72,
+   "status": null
   },
   {
    "id": "p0447",
@@ -4266,7 +4419,8 @@
    "types": [
     "fighting"
    ],
-   "chain": 232
+   "chain": 232,
+   "status": null
   },
   {
    "id": "p0448",
@@ -4282,7 +4436,8 @@
     "fighting",
     "steel"
    ],
-   "chain": 232
+   "chain": 232,
+   "status": null
   },
   {
    "id": "p0453",
@@ -4297,7 +4452,8 @@
     "poison",
     "fighting"
    ],
-   "chain": 235
+   "chain": 235,
+   "status": null
   },
   {
    "id": "p0461",
@@ -4312,7 +4468,8 @@
     "dark",
     "ice"
    ],
-   "chain": 109
+   "chain": 109,
+   "status": null
   },
   {
    "id": "p0466",
@@ -4326,7 +4483,8 @@
    "types": [
     "electric"
    ],
-   "chain": 60
+   "chain": 60,
+   "status": null
   },
   {
    "id": "p0468",
@@ -4341,7 +4499,8 @@
     "fairy",
     "flying"
    ],
-   "chain": 87
+   "chain": 87,
+   "status": null
   },
   {
    "id": "p0470",
@@ -4357,7 +4516,8 @@
    "types": [
     "grass"
    ],
-   "chain": 67
+   "chain": 67,
+   "status": null
   },
   {
    "id": "p0471",
@@ -4373,7 +4533,8 @@
    "types": [
     "ice"
    ],
-   "chain": 67
+   "chain": 67,
+   "status": null
   },
   {
    "id": "p0474",
@@ -4387,7 +4548,8 @@
    "types": [
     "normal"
    ],
-   "chain": 68
+   "chain": 68,
+   "status": null
   },
   {
    "id": "p0475",
@@ -4402,7 +4564,8 @@
     "psychic",
     "fighting"
    ],
-   "chain": 140
+   "chain": 140,
+   "status": null
   },
   {
    "id": "p0479",
@@ -4417,7 +4580,8 @@
     "electric",
     "ghost"
    ],
-   "chain": 240
+   "chain": 240,
+   "status": null
   },
   {
    "id": "p0480",
@@ -4431,7 +4595,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 241
+   "chain": 241,
+   "status": "legendary"
   },
   {
    "id": "p0481",
@@ -4445,7 +4610,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 242
+   "chain": 242,
+   "status": "legendary"
   },
   {
    "id": "p0482",
@@ -4459,7 +4625,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 243
+   "chain": 243,
+   "status": "legendary"
   },
   {
    "id": "p0483",
@@ -4474,7 +4641,8 @@
     "steel",
     "dragon"
    ],
-   "chain": 244
+   "chain": 244,
+   "status": "legendary"
   },
   {
    "id": "p0484",
@@ -4489,7 +4657,8 @@
     "water",
     "dragon"
    ],
-   "chain": 245
+   "chain": 245,
+   "status": "legendary"
   },
   {
    "id": "p0491",
@@ -4503,7 +4672,8 @@
    "types": [
     "dark"
    ],
-   "chain": 252
+   "chain": 252,
+   "status": "mythical"
   },
   {
    "id": "p0492",
@@ -4517,7 +4687,8 @@
    "types": [
     "grass"
    ],
-   "chain": 253
+   "chain": 253,
+   "status": "mythical"
   },
   {
    "id": "p0493",
@@ -4531,7 +4702,8 @@
    "types": [
     "normal"
    ],
-   "chain": 254
+   "chain": 254,
+   "status": "mythical"
   },
   {
    "id": "p0498",
@@ -4545,7 +4717,8 @@
    "types": [
     "fire"
    ],
-   "chain": 257
+   "chain": 257,
+   "status": null
   },
   {
    "id": "p0499",
@@ -4560,7 +4733,8 @@
     "fire",
     "fighting"
    ],
-   "chain": 257
+   "chain": 257,
+   "status": null
   },
   {
    "id": "p0500",
@@ -4575,7 +4749,8 @@
     "fire",
     "fighting"
    ],
-   "chain": 257
+   "chain": 257,
+   "status": null
   },
   {
    "id": "p0501",
@@ -4589,7 +4764,8 @@
    "types": [
     "water"
    ],
-   "chain": 258
+   "chain": 258,
+   "status": null
   },
   {
    "id": "p0503",
@@ -4603,7 +4779,8 @@
    "types": [
     "water"
    ],
-   "chain": 258
+   "chain": 258,
+   "status": null
   },
   {
    "id": "p0560",
@@ -4618,7 +4795,8 @@
     "dark",
     "fighting"
    ],
-   "chain": 285
+   "chain": 285,
+   "status": null
   },
   {
    "id": "p0570",
@@ -4632,7 +4810,8 @@
    "types": [
     "dark"
    ],
-   "chain": 291
+   "chain": 291,
+   "status": null
   },
   {
    "id": "p0571",
@@ -4646,7 +4825,8 @@
    "types": [
     "dark"
    ],
-   "chain": 291
+   "chain": 291,
+   "status": null
   },
   {
    "id": "p0650",
@@ -4660,7 +4840,8 @@
    "types": [
     "grass"
    ],
-   "chain": 337
+   "chain": 337,
+   "status": null
   },
   {
    "id": "p0651",
@@ -4674,7 +4855,8 @@
    "types": [
     "grass"
    ],
-   "chain": 337
+   "chain": 337,
+   "status": null
   },
   {
    "id": "p0652",
@@ -4689,7 +4871,8 @@
     "grass",
     "fighting"
    ],
-   "chain": 337
+   "chain": 337,
+   "status": null
   },
   {
    "id": "p0653",
@@ -4703,7 +4886,8 @@
    "types": [
     "fire"
    ],
-   "chain": 338
+   "chain": 338,
+   "status": null
   },
   {
    "id": "p0654",
@@ -4717,7 +4901,8 @@
    "types": [
     "fire"
    ],
-   "chain": 338
+   "chain": 338,
+   "status": null
   },
   {
    "id": "p0655",
@@ -4732,7 +4917,8 @@
     "fire",
     "psychic"
    ],
-   "chain": 338
+   "chain": 338,
+   "status": null
   },
   {
    "id": "p0656",
@@ -4746,7 +4932,8 @@
    "types": [
     "water"
    ],
-   "chain": 339
+   "chain": 339,
+   "status": null
   },
   {
    "id": "p0657",
@@ -4760,7 +4947,8 @@
    "types": [
     "water"
    ],
-   "chain": 339
+   "chain": 339,
+   "status": null
   },
   {
    "id": "p0658",
@@ -4775,7 +4963,8 @@
     "water",
     "dark"
    ],
-   "chain": 339
+   "chain": 339,
+   "status": null
   },
   {
    "id": "p0674",
@@ -4789,7 +4978,8 @@
    "types": [
     "fighting"
    ],
-   "chain": 346
+   "chain": 346,
+   "status": null
   },
   {
    "id": "p0677",
@@ -4803,7 +4993,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 348
+   "chain": 348,
+   "status": null
   },
   {
    "id": "p0678",
@@ -4817,7 +5008,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 348
+   "chain": 348,
+   "status": null
   },
   {
    "id": "p0681",
@@ -4832,7 +5024,8 @@
     "steel",
     "ghost"
    ],
-   "chain": 349
+   "chain": 349,
+   "status": null
   },
   {
    "id": "p0700",
@@ -4846,7 +5039,8 @@
    "types": [
     "fairy"
    ],
-   "chain": 67
+   "chain": 67,
+   "status": null
   },
   {
    "id": "p0702",
@@ -4861,7 +5055,8 @@
     "electric",
     "fairy"
    ],
-   "chain": 360
+   "chain": 360,
+   "status": null
   },
   {
    "id": "p0718",
@@ -4876,7 +5071,8 @@
     "dragon",
     "ground"
    ],
-   "chain": 370
+   "chain": 370,
+   "status": "legendary"
   },
   {
    "id": "p0722",
@@ -4891,7 +5087,8 @@
     "grass",
     "flying"
    ],
-   "chain": 374
+   "chain": 374,
+   "status": null
   },
   {
    "id": "p0724",
@@ -4906,7 +5103,8 @@
     "grass",
     "ghost"
    ],
-   "chain": 374
+   "chain": 374,
+   "status": null
   },
   {
    "id": "p0778",
@@ -4921,7 +5119,8 @@
     "ghost",
     "fairy"
    ],
-   "chain": 404
+   "chain": 404,
+   "status": null
   },
   {
    "id": "p0810",
@@ -4935,7 +5134,8 @@
    "types": [
     "grass"
    ],
-   "chain": 430
+   "chain": 430,
+   "status": null
   },
   {
    "id": "p0811",
@@ -4949,7 +5149,8 @@
    "types": [
     "grass"
    ],
-   "chain": 430
+   "chain": 430,
+   "status": null
   },
   {
    "id": "p0812",
@@ -4963,7 +5164,8 @@
    "types": [
     "grass"
    ],
-   "chain": 430
+   "chain": 430,
+   "status": null
   },
   {
    "id": "p0813",
@@ -4977,7 +5179,8 @@
    "types": [
     "fire"
    ],
-   "chain": 431
+   "chain": 431,
+   "status": null
   },
   {
    "id": "p0814",
@@ -4991,7 +5194,8 @@
    "types": [
     "fire"
    ],
-   "chain": 431
+   "chain": 431,
+   "status": null
   },
   {
    "id": "p0815",
@@ -5005,7 +5209,8 @@
    "types": [
     "fire"
    ],
-   "chain": 431
+   "chain": 431,
+   "status": null
   },
   {
    "id": "p0816",
@@ -5019,7 +5224,8 @@
    "types": [
     "water"
    ],
-   "chain": 432
+   "chain": 432,
+   "status": null
   },
   {
    "id": "p0817",
@@ -5033,7 +5239,8 @@
    "types": [
     "water"
    ],
-   "chain": 432
+   "chain": 432,
+   "status": null
   },
   {
    "id": "p0818",
@@ -5047,7 +5254,8 @@
    "types": [
     "water"
    ],
-   "chain": 432
+   "chain": 432,
+   "status": null
   },
   {
    "id": "p0819",
@@ -5061,7 +5269,8 @@
    "types": [
     "normal"
    ],
-   "chain": 433
+   "chain": 433,
+   "status": null
   },
   {
    "id": "p0823",
@@ -5076,7 +5285,8 @@
     "flying",
     "steel"
    ],
-   "chain": 434
+   "chain": 434,
+   "status": null
   },
   {
    "id": "p0829",
@@ -5090,7 +5300,8 @@
    "types": [
     "grass"
    ],
-   "chain": 437
+   "chain": 437,
+   "status": null
   },
   {
    "id": "p0831",
@@ -5104,7 +5315,8 @@
    "types": [
     "normal"
    ],
-   "chain": 438
+   "chain": 438,
+   "status": null
   },
   {
    "id": "p0832",
@@ -5118,7 +5330,8 @@
    "types": [
     "normal"
    ],
-   "chain": 438
+   "chain": 438,
+   "status": null
   },
   {
    "id": "p0834",
@@ -5133,7 +5346,8 @@
     "water",
     "rock"
    ],
-   "chain": 439
+   "chain": 439,
+   "status": null
   },
   {
    "id": "p0835",
@@ -5147,7 +5361,8 @@
    "types": [
     "electric"
    ],
-   "chain": 440
+   "chain": 440,
+   "status": null
   },
   {
    "id": "p0837",
@@ -5161,7 +5376,8 @@
    "types": [
     "rock"
    ],
-   "chain": 441
+   "chain": 441,
+   "status": null
   },
   {
    "id": "p0845",
@@ -5176,7 +5392,8 @@
     "flying",
     "water"
    ],
-   "chain": 444
+   "chain": 444,
+   "status": null
   },
   {
    "id": "p0846",
@@ -5190,7 +5407,8 @@
    "types": [
     "water"
    ],
-   "chain": 445
+   "chain": 445,
+   "status": null
   },
   {
    "id": "p0848",
@@ -5205,7 +5423,8 @@
     "electric",
     "poison"
    ],
-   "chain": 446
+   "chain": 446,
+   "status": null
   },
   {
    "id": "p0849",
@@ -5221,7 +5440,8 @@
     "electric",
     "poison"
    ],
-   "chain": 446
+   "chain": 446,
+   "status": null
   },
   {
    "id": "p0855",
@@ -5235,7 +5455,8 @@
    "types": [
     "ghost"
    ],
-   "chain": 449
+   "chain": 449,
+   "status": null
   },
   {
    "id": "p0856",
@@ -5249,7 +5470,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 450
+   "chain": 450,
+   "status": null
   },
   {
    "id": "p0857",
@@ -5263,7 +5485,8 @@
    "types": [
     "psychic"
    ],
-   "chain": 450
+   "chain": 450,
+   "status": null
   },
   {
    "id": "p0858",
@@ -5278,7 +5501,8 @@
     "psychic",
     "fairy"
    ],
-   "chain": 450
+   "chain": 450,
+   "status": null
   },
   {
    "id": "p0859",
@@ -5293,7 +5517,8 @@
     "dark",
     "fairy"
    ],
-   "chain": 451
+   "chain": 451,
+   "status": null
   },
   {
    "id": "p0862",
@@ -5308,7 +5533,8 @@
     "dark",
     "normal"
    ],
-   "chain": 134
+   "chain": 134,
+   "status": null
   },
   {
    "id": "p0864",
@@ -5322,7 +5548,8 @@
    "types": [
     "ghost"
    ],
-   "chain": 113
+   "chain": 113,
+   "status": null
   },
   {
    "id": "p0865",
@@ -5336,7 +5563,8 @@
    "types": [
     "fighting"
    ],
-   "chain": 35
+   "chain": 35,
+   "status": null
   },
   {
    "id": "p0869",
@@ -5350,7 +5578,8 @@
    "types": [
     "fairy"
    ],
-   "chain": 452
+   "chain": 452,
+   "status": null
   },
   {
    "id": "p0877",
@@ -5366,7 +5595,8 @@
     "electric",
     "dark"
    ],
-   "chain": 459
+   "chain": 459,
+   "status": null
   },
   {
    "id": "p0884",
@@ -5381,7 +5611,8 @@
     "steel",
     "dragon"
    ],
-   "chain": 465
+   "chain": 465,
+   "status": null
   },
   {
    "id": "p0887",
@@ -5396,7 +5627,8 @@
     "dragon",
     "ghost"
    ],
-   "chain": 466
+   "chain": 466,
+   "status": "powerhouse"
   },
   {
    "id": "p0906",
@@ -5410,7 +5642,8 @@
    "types": [
     "grass"
    ],
-   "chain": 478
+   "chain": 478,
+   "status": null
   },
   {
    "id": "p0907",
@@ -5424,7 +5657,8 @@
    "types": [
     "grass"
    ],
-   "chain": 478
+   "chain": 478,
+   "status": null
   },
   {
    "id": "p0908",
@@ -5439,7 +5673,8 @@
     "grass",
     "dark"
    ],
-   "chain": 478
+   "chain": 478,
+   "status": null
   },
   {
    "id": "p0909",
@@ -5453,7 +5688,8 @@
    "types": [
     "fire"
    ],
-   "chain": 479
+   "chain": 479,
+   "status": null
   },
   {
    "id": "p0910",
@@ -5467,7 +5703,8 @@
    "types": [
     "fire"
    ],
-   "chain": 479
+   "chain": 479,
+   "status": null
   },
   {
    "id": "p0911",
@@ -5482,7 +5719,8 @@
     "fire",
     "ghost"
    ],
-   "chain": 479
+   "chain": 479,
+   "status": null
   },
   {
    "id": "p0912",
@@ -5496,7 +5734,8 @@
    "types": [
     "water"
    ],
-   "chain": 480
+   "chain": 480,
+   "status": null
   },
   {
    "id": "p0913",
@@ -5510,7 +5749,8 @@
    "types": [
     "water"
    ],
-   "chain": 480
+   "chain": 480,
+   "status": null
   },
   {
    "id": "p0914",
@@ -5525,7 +5765,8 @@
     "water",
     "fighting"
    ],
-   "chain": 480
+   "chain": 480,
+   "status": null
   },
   {
    "id": "p0921",
@@ -5539,7 +5780,8 @@
    "types": [
     "electric"
    ],
-   "chain": 484
+   "chain": 484,
+   "status": null
   },
   {
    "id": "p0923",
@@ -5554,7 +5796,8 @@
     "electric",
     "fighting"
    ],
-   "chain": 484
+   "chain": 484,
+   "status": null
   },
   {
    "id": "p0928",
@@ -5569,7 +5812,8 @@
     "grass",
     "normal"
    ],
-   "chain": 487
+   "chain": 487,
+   "status": null
   },
   {
    "id": "p0935",
@@ -5583,7 +5827,8 @@
    "types": [
     "fire"
    ],
-   "chain": 490
+   "chain": 490,
+   "status": null
   },
   {
    "id": "p0936",
@@ -5598,7 +5843,8 @@
     "fire",
     "psychic"
    ],
-   "chain": 490
+   "chain": 490,
+   "status": null
   },
   {
    "id": "p0937",
@@ -5613,7 +5859,8 @@
     "fire",
     "ghost"
    ],
-   "chain": 490
+   "chain": 490,
+   "status": null
   },
   {
    "id": "p0939",
@@ -5627,7 +5874,8 @@
    "types": [
     "electric"
    ],
-   "chain": 491
+   "chain": 491,
+   "status": null
   },
   {
    "id": "p0943",
@@ -5641,7 +5889,8 @@
    "types": [
     "dark"
    ],
-   "chain": 493
+   "chain": 493,
+   "status": null
   },
   {
    "id": "p0960",
@@ -5655,7 +5904,8 @@
    "types": [
     "water"
    ],
-   "chain": 502
+   "chain": 502,
+   "status": null
   },
   {
    "id": "p0978",
@@ -5670,7 +5920,8 @@
     "dragon",
     "water"
    ],
-   "chain": 514
+   "chain": 514,
+   "status": null
   },
   {
    "id": "p0980",
@@ -5685,7 +5936,8 @@
     "poison",
     "ground"
    ],
-   "chain": 96
+   "chain": 96,
+   "status": null
   },
   {
    "id": "p0999",
@@ -5699,7 +5951,8 @@
    "types": [
     "ghost"
    ],
-   "chain": 528
+   "chain": 528,
+   "status": null
   },
   {
    "id": "p1000",
@@ -5714,7 +5967,8 @@
     "steel",
     "ghost"
    ],
-   "chain": 528
+   "chain": 528,
+   "status": null
   },
   {
    "id": "p1007",
@@ -5729,7 +5983,8 @@
     "fighting",
     "dragon"
    ],
-   "chain": 535
+   "chain": 535,
+   "status": "legendary"
   },
   {
    "id": "p1008",
@@ -5744,7 +5999,8 @@
     "electric",
     "dragon"
    ],
-   "chain": 536
+   "chain": 536,
+   "status": "legendary"
   },
   {
    "id": "t-akagi",
@@ -6699,6 +6955,7 @@
    "firstYear": 2019,
    "image": "images/figures/001.jpg",
    "imageTrim": "images/trim/001.jpg",
+   "imageCut": "images/cut/001.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/001/img.jpg"
   },
   {
@@ -6722,6 +6979,7 @@
    "firstYear": 2022,
    "image": "images/figures/001_2.jpg",
    "imageTrim": "images/trim/001_2.jpg",
+   "imageCut": "images/cut/001_2.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/001_2/img.jpg"
   },
   {
@@ -6748,6 +7006,7 @@
    "firstYear": 2019,
    "image": "images/figures/002.jpg",
    "imageTrim": "images/trim/002.jpg",
+   "imageCut": "images/cut/002.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/002/img.jpg"
   },
   {
@@ -6774,6 +7033,7 @@
    "firstYear": 2019,
    "image": "images/figures/003.jpg",
    "imageTrim": "images/trim/003.jpg",
+   "imageCut": "images/cut/003.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/003/img.jpg"
   },
   {
@@ -6800,6 +7060,7 @@
    "firstYear": 2019,
    "image": "images/figures/004.jpg",
    "imageTrim": "images/trim/004.jpg",
+   "imageCut": "images/cut/004.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/004/img.jpg"
   },
   {
@@ -6823,6 +7084,7 @@
    "firstYear": 2022,
    "image": "images/figures/004_2.jpg",
    "imageTrim": "images/trim/004_2.jpg",
+   "imageCut": "images/cut/004_2.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/004_2/img.jpg"
   },
   {
@@ -6849,6 +7111,7 @@
    "firstYear": 2019,
    "image": "images/figures/005.jpg",
    "imageTrim": "images/trim/005.jpg",
+   "imageCut": "images/cut/005.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/005/img.jpg"
   },
   {
@@ -6875,6 +7138,7 @@
    "firstYear": 2019,
    "image": "images/figures/006.jpg",
    "imageTrim": "images/trim/006.jpg",
+   "imageCut": "images/cut/006.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/006/img.jpg"
   },
   {
@@ -6901,6 +7165,7 @@
    "firstYear": 2019,
    "image": "images/figures/007.jpg",
    "imageTrim": "images/trim/007.jpg",
+   "imageCut": "images/cut/007.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/007/img.jpg"
   },
   {
@@ -6924,6 +7189,7 @@
    "firstYear": 2022,
    "image": "images/figures/007_2.jpg",
    "imageTrim": "images/trim/007_2.jpg",
+   "imageCut": "images/cut/007_2.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/007_2/img.jpg"
   },
   {
@@ -6950,6 +7216,7 @@
    "firstYear": 2019,
    "image": "images/figures/008.jpg",
    "imageTrim": "images/trim/008.jpg",
+   "imageCut": "images/cut/008.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/008/img.jpg"
   },
   {
@@ -6976,6 +7243,7 @@
    "firstYear": 2019,
    "image": "images/figures/009.jpg",
    "imageTrim": "images/trim/009.jpg",
+   "imageCut": "images/cut/009.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/009/img.jpg"
   },
   {
@@ -6999,6 +7267,7 @@
    "firstYear": 2020,
    "image": "images/figures/016.jpg",
    "imageTrim": "images/trim/016.jpg",
+   "imageCut": "images/cut/016.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/016/img.jpg"
   },
   {
@@ -7022,6 +7291,7 @@
    "firstYear": 2020,
    "image": "images/figures/018.jpg",
    "imageTrim": "images/trim/018.jpg",
+   "imageCut": "images/cut/018.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/018/img.jpg"
   },
   {
@@ -7045,6 +7315,7 @@
    "firstYear": 2020,
    "image": "images/figures/019.jpg",
    "imageTrim": "images/trim/019.jpg",
+   "imageCut": "images/cut/019.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/019/img.jpg"
   },
   {
@@ -7071,6 +7342,7 @@
    "firstYear": 2019,
    "image": "images/figures/025.jpg",
    "imageTrim": "images/trim/025.jpg",
+   "imageCut": "images/cut/025.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/025/img.jpg"
   },
   {
@@ -7094,6 +7366,7 @@
    "firstYear": 2021,
    "image": "images/figures/025_2.jpg",
    "imageTrim": "images/trim/025_2.jpg",
+   "imageCut": "images/cut/025_2.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/025_2/img.jpg"
   },
   {
@@ -7117,6 +7390,7 @@
    "firstYear": 2022,
    "image": "images/figures/025_3.jpg",
    "imageTrim": "images/trim/025_3.jpg",
+   "imageCut": "images/cut/025_3.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/025_3/img.jpg"
   },
   {
@@ -7140,6 +7414,7 @@
    "firstYear": 2022,
    "image": "images/figures/026.jpg",
    "imageTrim": "images/trim/026.jpg",
+   "imageCut": "images/cut/026.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/026/img.jpg"
   },
   {
@@ -7164,6 +7439,7 @@
    "firstYear": 2019,
    "image": "images/figures/031.jpg",
    "imageTrim": "images/trim/031.jpg",
+   "imageCut": "images/cut/031.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/031/img.jpg"
   },
   {
@@ -7186,6 +7462,7 @@
    "firstYear": 2023,
    "image": "images/figures/032.jpg",
    "imageTrim": "images/trim/032.jpg",
+   "imageCut": "images/cut/032.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/032/img.jpg"
   },
   {
@@ -7208,6 +7485,7 @@
    "firstYear": 2023,
    "image": "images/figures/033.jpg",
    "imageTrim": "images/trim/033.jpg",
+   "imageCut": "images/cut/033.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/033/img.jpg"
   },
   {
@@ -7230,6 +7508,7 @@
    "firstYear": 2023,
    "image": "images/figures/034.jpg",
    "imageTrim": "images/trim/034.jpg",
+   "imageCut": "images/cut/034.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/034/img.jpg"
   },
   {
@@ -7254,6 +7533,7 @@
    "firstYear": 2019,
    "image": "images/figures/036.jpg",
    "imageTrim": "images/trim/036.jpg",
+   "imageCut": "images/cut/036.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/036/img.jpg"
   },
   {
@@ -7277,6 +7557,7 @@
    "firstYear": 2020,
    "image": "images/figures/037.jpg",
    "imageTrim": "images/trim/037.jpg",
+   "imageCut": "images/cut/037.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/037/img.jpg"
   },
   {
@@ -7300,6 +7581,7 @@
    "firstYear": 2022,
    "image": "images/figures/038.jpg",
    "imageTrim": "images/trim/038.jpg",
+   "imageCut": "images/cut/038.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/038/img.jpg"
   },
   {
@@ -7322,6 +7604,7 @@
    "firstYear": 2023,
    "image": "images/figures/042.jpg",
    "imageTrim": "images/trim/042.jpg",
+   "imageCut": "images/cut/042.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/042/img.jpg"
   },
   {
@@ -7345,6 +7628,7 @@
    "firstYear": 2020,
    "image": "images/figures/043.jpg",
    "imageTrim": "images/trim/043.jpg",
+   "imageCut": "images/cut/043.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/043/img.jpg"
   },
   {
@@ -7367,6 +7651,7 @@
    "firstYear": 2023,
    "image": "images/figures/044.jpg",
    "imageTrim": "images/trim/044.jpg",
+   "imageCut": "images/cut/044.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/044/img.jpg"
   },
   {
@@ -7389,6 +7674,7 @@
    "firstYear": 2023,
    "image": "images/figures/045.jpg",
    "imageTrim": "images/trim/045.jpg",
+   "imageCut": "images/cut/045.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/045/img.jpg"
   },
   {
@@ -7412,6 +7698,7 @@
    "firstYear": 2025,
    "image": "images/figures/058_hisui.jpg",
    "imageTrim": "images/trim/058_hisui.jpg",
+   "imageCut": "images/cut/058_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/058_hisui/img.jpg",
    "types": [
     "fire",
@@ -7440,6 +7727,7 @@
    "firstYear": 2019,
    "image": "images/figures/059.jpg",
    "imageTrim": "images/trim/059.jpg",
+   "imageCut": "images/cut/059.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/059/img.jpg"
   },
   {
@@ -7462,6 +7750,7 @@
    "firstYear": 2025,
    "image": "images/figures/059_hisui.jpg",
    "imageTrim": "images/trim/059_hisui.jpg",
+   "imageCut": "images/cut/059_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/059_hisui/img.jpg",
    "types": [
     "fire",
@@ -7488,6 +7777,7 @@
    "firstYear": 2023,
    "image": "images/figures/064.jpg",
    "imageTrim": "images/trim/064.jpg",
+   "imageCut": "images/cut/064.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/064/img.jpg"
   },
   {
@@ -7511,6 +7801,7 @@
    "firstYear": 2021,
    "image": "images/figures/077_galar.jpg",
    "imageTrim": "images/trim/077_galar.jpg",
+   "imageCut": "images/cut/077_galar.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/077_galar/img.jpg",
    "types": [
     "psychic"
@@ -7536,6 +7827,7 @@
    "firstYear": 2024,
    "image": "images/figures/078.jpg",
    "imageTrim": "images/trim/078.jpg",
+   "imageCut": "images/cut/078.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/078/img.jpg"
   },
   {
@@ -7559,6 +7851,7 @@
    "firstYear": 2022,
    "image": "images/figures/079.jpg",
    "imageTrim": "images/trim/079.jpg",
+   "imageCut": "images/cut/079.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/079/img.jpg"
   },
   {
@@ -7581,6 +7874,7 @@
    "firstYear": 2023,
    "image": "images/figures/082.jpg",
    "imageTrim": "images/trim/082.jpg",
+   "imageCut": "images/cut/082.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/082/img.jpg"
   },
   {
@@ -7604,6 +7898,7 @@
    "firstYear": 2022,
    "image": "images/figures/090.jpg",
    "imageTrim": "images/trim/090.jpg",
+   "imageCut": "images/cut/090.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/090/img.jpg"
   },
   {
@@ -7626,6 +7921,7 @@
    "firstYear": 2024,
    "image": "images/figures/091.jpg",
    "imageTrim": "images/trim/091.jpg",
+   "imageCut": "images/cut/091.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/091/img.jpg"
   },
   {
@@ -7650,6 +7946,7 @@
    "firstYear": 2019,
    "image": "images/figures/094.jpg",
    "imageTrim": "images/trim/094.jpg",
+   "imageCut": "images/cut/094.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/094/img.jpg"
   },
   {
@@ -7672,6 +7969,7 @@
    "firstYear": 2023,
    "image": "images/figures/095.jpg",
    "imageTrim": "images/trim/095.jpg",
+   "imageCut": "images/cut/095.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/095/img.jpg"
   },
   {
@@ -7695,6 +7993,7 @@
    "firstYear": 2025,
    "image": "images/figures/100_hisui.jpg",
    "imageTrim": "images/trim/100_hisui.jpg",
+   "imageCut": "images/cut/100_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/100_hisui/img.jpg",
    "types": [
     "electric",
@@ -7721,6 +8020,7 @@
    "firstYear": 2023,
    "image": "images/figures/110.jpg",
    "imageTrim": "images/trim/110.jpg",
+   "imageCut": "images/cut/110.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/110/img.jpg"
   },
   {
@@ -7744,6 +8044,7 @@
    "firstYear": 2022,
    "image": "images/figures/120.jpg",
    "imageTrim": "images/trim/120.jpg",
+   "imageCut": "images/cut/120.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/120/img.jpg"
   },
   {
@@ -7767,6 +8068,7 @@
    "firstYear": 2022,
    "image": "images/figures/121.jpg",
    "imageTrim": "images/trim/121.jpg",
+   "imageCut": "images/cut/121.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/121/img.jpg"
   },
   {
@@ -7789,6 +8091,7 @@
    "firstYear": 2023,
    "image": "images/figures/122.jpg",
    "imageTrim": "images/trim/122.jpg",
+   "imageCut": "images/cut/122.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/122/img.jpg"
   },
   {
@@ -7811,6 +8114,7 @@
    "firstYear": 2023,
    "image": "images/figures/125.jpg",
    "imageTrim": "images/trim/125.jpg",
+   "imageCut": "images/cut/125.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/125/img.jpg"
   },
   {
@@ -7833,6 +8137,7 @@
    "firstYear": 2024,
    "image": "images/figures/126.jpg",
    "imageTrim": "images/trim/126.jpg",
+   "imageCut": "images/cut/126.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/126/img.jpg"
   },
   {
@@ -7856,6 +8161,7 @@
    "firstYear": 2020,
    "image": "images/figures/129.jpg",
    "imageTrim": "images/trim/129.jpg",
+   "imageCut": "images/cut/129.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/129/img.jpg"
   },
   {
@@ -7878,6 +8184,7 @@
    "firstYear": 2026,
    "image": "images/figures/130_mega.jpg",
    "imageTrim": "images/trim/130_mega.jpg",
+   "imageCut": "images/cut/130_mega.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/130_mega/img.jpg",
    "types": [
     "water",
@@ -7906,6 +8213,7 @@
    "firstYear": 2019,
    "image": "images/figures/131.jpg",
    "imageTrim": "images/trim/131.jpg",
+   "imageCut": "images/cut/131.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/131/img.jpg"
   },
   {
@@ -7929,6 +8237,7 @@
    "firstYear": 2020,
    "image": "images/figures/132.jpg",
    "imageTrim": "images/trim/132.jpg",
+   "imageCut": "images/cut/132.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/132/img.jpg"
   },
   {
@@ -7955,6 +8264,7 @@
    "firstYear": 2019,
    "image": "images/figures/133.jpg",
    "imageTrim": "images/trim/133.jpg",
+   "imageCut": "images/cut/133.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/133/img.jpg"
   },
   {
@@ -7977,6 +8287,7 @@
    "firstYear": 2024,
    "image": "images/figures/133_paldea.jpg",
    "imageTrim": "images/trim/133_paldea.jpg",
+   "imageCut": "images/cut/133_paldea.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/133_paldea/img.jpg"
   },
   {
@@ -8000,6 +8311,7 @@
    "firstYear": 2020,
    "image": "images/figures/134.jpg",
    "imageTrim": "images/trim/134.jpg",
+   "imageCut": "images/cut/134.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/134/img.jpg"
   },
   {
@@ -8022,6 +8334,7 @@
    "firstYear": 2024,
    "image": "images/figures/134_paldea.jpg",
    "imageTrim": "images/trim/134_paldea.jpg",
+   "imageCut": "images/cut/134_paldea.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/134_paldea/img.jpg"
   },
   {
@@ -8045,6 +8358,7 @@
    "firstYear": 2020,
    "image": "images/figures/135.jpg",
    "imageTrim": "images/trim/135.jpg",
+   "imageCut": "images/cut/135.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/135/img.jpg"
   },
   {
@@ -8067,6 +8381,7 @@
    "firstYear": 2024,
    "image": "images/figures/135_paldea.jpg",
    "imageTrim": "images/trim/135_paldea.jpg",
+   "imageCut": "images/cut/135_paldea.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/135_paldea/img.jpg"
   },
   {
@@ -8090,6 +8405,7 @@
    "firstYear": 2020,
    "image": "images/figures/136.jpg",
    "imageTrim": "images/trim/136.jpg",
+   "imageCut": "images/cut/136.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/136/img.jpg"
   },
   {
@@ -8112,6 +8428,7 @@
    "firstYear": 2024,
    "image": "images/figures/136_paldea.jpg",
    "imageTrim": "images/trim/136_paldea.jpg",
+   "imageCut": "images/cut/136_paldea.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/136_paldea/img.jpg"
   },
   {
@@ -8136,6 +8453,7 @@
    "firstYear": 2019,
    "image": "images/figures/137.jpg",
    "imageTrim": "images/trim/137.jpg",
+   "imageCut": "images/cut/137.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/137/img.jpg"
   },
   {
@@ -8159,6 +8477,7 @@
    "firstYear": 2020,
    "image": "images/figures/143.jpg",
    "imageTrim": "images/trim/143.jpg",
+   "imageCut": "images/cut/143.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/143/img.jpg"
   },
   {
@@ -8181,6 +8500,7 @@
    "firstYear": 2022,
    "image": "images/figures/144.jpg",
    "imageTrim": "images/trim/144.jpg",
+   "imageCut": "images/cut/144.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/144/img.jpg"
   },
   {
@@ -8203,6 +8523,7 @@
    "firstYear": 2022,
    "image": "images/figures/145.jpg",
    "imageTrim": "images/trim/145.jpg",
+   "imageCut": "images/cut/145.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/145/img.jpg"
   },
   {
@@ -8225,6 +8546,7 @@
    "firstYear": 2022,
    "image": "images/figures/146.jpg",
    "imageTrim": "images/trim/146.jpg",
+   "imageCut": "images/cut/146.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/146/img.jpg"
   },
   {
@@ -8248,6 +8570,7 @@
    "firstYear": 2020,
    "image": "images/figures/149.jpg",
    "imageTrim": "images/trim/149.jpg",
+   "imageCut": "images/cut/149.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/149/img.jpg"
   },
   {
@@ -8274,6 +8597,7 @@
    "firstYear": 2019,
    "image": "images/figures/150.jpg",
    "imageTrim": "images/trim/150.jpg",
+   "imageCut": "images/cut/150.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/150/img.jpg"
   },
   {
@@ -8300,6 +8624,7 @@
    "firstYear": 2019,
    "image": "images/figures/151.jpg",
    "imageTrim": "images/trim/151.jpg",
+   "imageCut": "images/cut/151.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/151/img.jpg"
   },
   {
@@ -8330,6 +8655,7 @@
    "firstYear": 2020,
    "image": "images/figures/152.jpg",
    "imageTrim": "images/trim/152.jpg",
+   "imageCut": "images/cut/152.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/152/img.jpg"
   },
   {
@@ -8354,6 +8680,7 @@
    "firstYear": 2020,
    "image": "images/figures/153.jpg",
    "imageTrim": "images/trim/153.jpg",
+   "imageCut": "images/cut/153.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/153/img.jpg"
   },
   {
@@ -8378,6 +8705,7 @@
    "firstYear": 2020,
    "image": "images/figures/154.jpg",
    "imageTrim": "images/trim/154.jpg",
+   "imageCut": "images/cut/154.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/154/img.jpg"
   },
   {
@@ -8407,6 +8735,7 @@
    "firstYear": 2020,
    "image": "images/figures/155.jpg",
    "imageTrim": "images/trim/155.jpg",
+   "imageCut": "images/cut/155.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/155/img.jpg"
   },
   {
@@ -8429,6 +8758,7 @@
    "firstYear": 2025,
    "image": "images/figures/155_hisui.jpg",
    "imageTrim": "images/trim/155_hisui.jpg",
+   "imageCut": "images/cut/155_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/155_hisui/img.jpg"
   },
   {
@@ -8456,6 +8786,7 @@
    "firstYear": 2020,
    "image": "images/figures/156.jpg",
    "imageTrim": "images/trim/156.jpg",
+   "imageCut": "images/cut/156.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/156/img.jpg"
   },
   {
@@ -8483,6 +8814,7 @@
    "firstYear": 2020,
    "image": "images/figures/157.jpg",
    "imageTrim": "images/trim/157.jpg",
+   "imageCut": "images/cut/157.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/157/img.jpg"
   },
   {
@@ -8505,6 +8837,7 @@
    "firstYear": 2025,
    "image": "images/figures/157_hisui.jpg",
    "imageTrim": "images/trim/157_hisui.jpg",
+   "imageCut": "images/cut/157_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/157_hisui/img.jpg",
    "types": [
     "fire",
@@ -8539,6 +8872,7 @@
    "firstYear": 2020,
    "image": "images/figures/158.jpg",
    "imageTrim": "images/trim/158.jpg",
+   "imageCut": "images/cut/158.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/158/img.jpg"
   },
   {
@@ -8563,6 +8897,7 @@
    "firstYear": 2020,
    "image": "images/figures/159.jpg",
    "imageTrim": "images/trim/159.jpg",
+   "imageCut": "images/cut/159.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/159/img.jpg"
   },
   {
@@ -8587,6 +8922,7 @@
    "firstYear": 2020,
    "image": "images/figures/160.jpg",
    "imageTrim": "images/trim/160.jpg",
+   "imageCut": "images/cut/160.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/160/img.jpg"
   },
   {
@@ -8610,6 +8946,7 @@
    "firstYear": 2025,
    "image": "images/figures/161.jpg",
    "imageTrim": "images/trim/161.jpg",
+   "imageCut": "images/cut/161.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/161/img.jpg"
   },
   {
@@ -8633,6 +8970,7 @@
    "firstYear": 2025,
    "image": "images/figures/162.jpg",
    "imageTrim": "images/trim/162.jpg",
+   "imageCut": "images/cut/162.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/162/img.jpg"
   },
   {
@@ -8660,6 +8998,7 @@
    "firstYear": 2020,
    "image": "images/figures/172.jpg",
    "imageTrim": "images/trim/172.jpg",
+   "imageCut": "images/cut/172.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/172/img.jpg"
   },
   {
@@ -8687,6 +9026,7 @@
    "firstYear": 2020,
    "image": "images/figures/175.jpg",
    "imageTrim": "images/trim/175.jpg",
+   "imageCut": "images/cut/175.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/175/img.jpg"
   },
   {
@@ -8711,6 +9051,7 @@
    "firstYear": 2020,
    "image": "images/figures/177.jpg",
    "imageTrim": "images/trim/177.jpg",
+   "imageCut": "images/cut/177.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/177/img.jpg"
   },
   {
@@ -8734,6 +9075,7 @@
    "firstYear": 2025,
    "image": "images/figures/179.jpg",
    "imageTrim": "images/trim/179.jpg",
+   "imageCut": "images/cut/179.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/179/img.jpg"
   },
   {
@@ -8757,6 +9099,7 @@
    "firstYear": 2025,
    "image": "images/figures/181.jpg",
    "imageTrim": "images/trim/181.jpg",
+   "imageCut": "images/cut/181.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/181/img.jpg"
   },
   {
@@ -8780,6 +9123,7 @@
    "firstYear": 2025,
    "image": "images/figures/183.jpg",
    "imageTrim": "images/trim/183.jpg",
+   "imageCut": "images/cut/183.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/183/img.jpg"
   },
   {
@@ -8803,6 +9147,7 @@
    "firstYear": 2025,
    "image": "images/figures/184.jpg",
    "imageTrim": "images/trim/184.jpg",
+   "imageCut": "images/cut/184.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/184/img.jpg"
   },
   {
@@ -8826,6 +9171,7 @@
    "firstYear": 2025,
    "image": "images/figures/185.jpg",
    "imageTrim": "images/trim/185.jpg",
+   "imageCut": "images/cut/185.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/185/img.jpg"
   },
   {
@@ -8853,6 +9199,7 @@
    "firstYear": 2020,
    "image": "images/figures/190.jpg",
    "imageTrim": "images/trim/190.jpg",
+   "imageCut": "images/cut/190.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/190/img.jpg"
   },
   {
@@ -8876,6 +9223,7 @@
    "firstYear": 2025,
    "image": "images/figures/194.jpg",
    "imageTrim": "images/trim/194.jpg",
+   "imageCut": "images/cut/194.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/194/img.jpg"
   },
   {
@@ -8899,6 +9247,7 @@
    "firstYear": 2024,
    "image": "images/figures/194_paldea.jpg",
    "imageTrim": "images/trim/194_paldea.jpg",
+   "imageCut": "images/cut/194_paldea.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/194_paldea/img.jpg",
    "types": [
     "poison",
@@ -8930,6 +9279,7 @@
    "firstYear": 2020,
    "image": "images/figures/196.jpg",
    "imageTrim": "images/trim/196.jpg",
+   "imageCut": "images/cut/196.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/196/img.jpg"
   },
   {
@@ -8952,6 +9302,7 @@
    "firstYear": 2024,
    "image": "images/figures/196_paldea.jpg",
    "imageTrim": "images/trim/196_paldea.jpg",
+   "imageCut": "images/cut/196_paldea.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/196_paldea/img.jpg"
   },
   {
@@ -8979,6 +9330,7 @@
    "firstYear": 2020,
    "image": "images/figures/197.jpg",
    "imageTrim": "images/trim/197.jpg",
+   "imageCut": "images/cut/197.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/197/img.jpg"
   },
   {
@@ -9001,6 +9353,7 @@
    "firstYear": 2024,
    "image": "images/figures/197_paldea.jpg",
    "imageTrim": "images/trim/197_paldea.jpg",
+   "imageCut": "images/cut/197_paldea.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/197_paldea/img.jpg"
   },
   {
@@ -9024,6 +9377,7 @@
    "firstYear": 2020,
    "image": "images/figures/200.jpg",
    "imageTrim": "images/trim/200.jpg",
+   "imageCut": "images/cut/200.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/200/img.jpg"
   },
   {
@@ -9051,6 +9405,7 @@
    "firstYear": 2020,
    "image": "images/figures/201_g.jpg",
    "imageTrim": "images/trim/201_g.jpg",
+   "imageCut": "images/cut/201_g.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/201_g/img.jpg"
   },
   {
@@ -9078,6 +9433,7 @@
    "firstYear": 2020,
    "image": "images/figures/201_s.jpg",
    "imageTrim": "images/trim/201_s.jpg",
+   "imageCut": "images/cut/201_s.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/201_s/img.jpg"
   },
   {
@@ -9105,6 +9461,7 @@
    "firstYear": 2020,
    "image": "images/figures/202_f.jpg",
    "imageTrim": "images/trim/202_f.jpg",
+   "imageCut": "images/cut/202_f.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/202_f/img.jpg"
   },
   {
@@ -9132,6 +9489,7 @@
    "firstYear": 2020,
    "image": "images/figures/202_m.jpg",
    "imageTrim": "images/trim/202_m.jpg",
+   "imageCut": "images/cut/202_m.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/202_m/img.jpg"
   },
   {
@@ -9154,6 +9512,7 @@
    "firstYear": 2025,
    "image": "images/figures/208.jpg",
    "imageTrim": "images/trim/208.jpg",
+   "imageCut": "images/cut/208.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/208/img.jpg"
   },
   {
@@ -9176,6 +9535,7 @@
    "firstYear": 2025,
    "image": "images/figures/212.jpg",
    "imageTrim": "images/trim/212.jpg",
+   "imageCut": "images/cut/212.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/212/img.jpg"
   },
   {
@@ -9200,6 +9560,7 @@
    "firstYear": 2020,
    "image": "images/figures/215.jpg",
    "imageTrim": "images/trim/215.jpg",
+   "imageCut": "images/cut/215.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/215/img.jpg"
   },
   {
@@ -9223,6 +9584,7 @@
    "firstYear": 2025,
    "image": "images/figures/215_hisui.jpg",
    "imageTrim": "images/trim/215_hisui.jpg",
+   "imageCut": "images/cut/215_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/215_hisui/img.jpg",
    "types": [
     "fighting",
@@ -9250,6 +9612,7 @@
    "firstYear": 2025,
    "image": "images/figures/216.jpg",
    "imageTrim": "images/trim/216.jpg",
+   "imageCut": "images/cut/216.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/216/img.jpg"
   },
   {
@@ -9273,6 +9636,7 @@
    "firstYear": 2025,
    "image": "images/figures/231.jpg",
    "imageTrim": "images/trim/231.jpg",
+   "imageCut": "images/cut/231.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/231/img.jpg"
   },
   {
@@ -9295,6 +9659,7 @@
    "firstYear": 2021,
    "image": "images/figures/237.jpg",
    "imageTrim": "images/trim/237.jpg",
+   "imageCut": "images/cut/237.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/237/img.jpg"
   },
   {
@@ -9319,6 +9684,7 @@
    "firstYear": 2020,
    "image": "images/figures/238.jpg",
    "imageTrim": "images/trim/238.jpg",
+   "imageCut": "images/cut/238.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/238/img.jpg"
   },
   {
@@ -9341,6 +9707,7 @@
    "firstYear": 2025,
    "image": "images/figures/241.jpg",
    "imageTrim": "images/trim/241.jpg",
+   "imageCut": "images/cut/241.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/241/img.jpg"
   },
   {
@@ -9365,6 +9732,7 @@
    "firstYear": 2020,
    "image": "images/figures/243.jpg",
    "imageTrim": "images/trim/243.jpg",
+   "imageCut": "images/cut/243.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/243/img.jpg"
   },
   {
@@ -9389,6 +9757,7 @@
    "firstYear": 2020,
    "image": "images/figures/244.jpg",
    "imageTrim": "images/trim/244.jpg",
+   "imageCut": "images/cut/244.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/244/img.jpg"
   },
   {
@@ -9413,6 +9782,7 @@
    "firstYear": 2020,
    "image": "images/figures/245.jpg",
    "imageTrim": "images/trim/245.jpg",
+   "imageCut": "images/cut/245.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/245/img.jpg"
   },
   {
@@ -9435,6 +9805,7 @@
    "firstYear": 2025,
    "image": "images/figures/249.jpg",
    "imageTrim": "images/trim/249.jpg",
+   "imageCut": "images/cut/249.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/249/img.jpg"
   },
   {
@@ -9457,6 +9828,7 @@
    "firstYear": 2025,
    "image": "images/figures/250.jpg",
    "imageTrim": "images/trim/250.jpg",
+   "imageCut": "images/cut/250.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/250/img.jpg"
   },
   {
@@ -9480,6 +9852,7 @@
    "firstYear": 2020,
    "image": "images/figures/251.jpg",
    "imageTrim": "images/trim/251.jpg",
+   "imageCut": "images/cut/251.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/251/img.jpg"
   },
   {
@@ -9504,6 +9877,7 @@
    "firstYear": 2021,
    "image": "images/figures/252.jpg",
    "imageTrim": "images/trim/252.jpg",
+   "imageCut": "images/cut/252.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/252/img.jpg"
   },
   {
@@ -9528,6 +9902,7 @@
    "firstYear": 2021,
    "image": "images/figures/253.jpg",
    "imageTrim": "images/trim/253.jpg",
+   "imageCut": "images/cut/253.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/253/img.jpg"
   },
   {
@@ -9551,6 +9926,7 @@
    "firstYear": 2021,
    "image": "images/figures/254.jpg",
    "imageTrim": "images/trim/254.jpg",
+   "imageCut": "images/cut/254.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/254/img.jpg"
   },
   {
@@ -9575,6 +9951,7 @@
    "firstYear": 2021,
    "image": "images/figures/255.jpg",
    "imageTrim": "images/trim/255.jpg",
+   "imageCut": "images/cut/255.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/255/img.jpg"
   },
   {
@@ -9599,6 +9976,7 @@
    "firstYear": 2021,
    "image": "images/figures/256.jpg",
    "imageTrim": "images/trim/256.jpg",
+   "imageCut": "images/cut/256.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/256/img.jpg"
   },
   {
@@ -9623,6 +10001,7 @@
    "firstYear": 2021,
    "image": "images/figures/257.jpg",
    "imageTrim": "images/trim/257.jpg",
+   "imageCut": "images/cut/257.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/257/img.jpg"
   },
   {
@@ -9647,6 +10026,7 @@
    "firstYear": 2021,
    "image": "images/figures/258.jpg",
    "imageTrim": "images/trim/258.jpg",
+   "imageCut": "images/cut/258.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/258/img.jpg"
   },
   {
@@ -9671,6 +10051,7 @@
    "firstYear": 2021,
    "image": "images/figures/259.jpg",
    "imageTrim": "images/trim/259.jpg",
+   "imageCut": "images/cut/259.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/259/img.jpg"
   },
   {
@@ -9694,6 +10075,7 @@
    "firstYear": 2021,
    "image": "images/figures/260.jpg",
    "imageTrim": "images/trim/260.jpg",
+   "imageCut": "images/cut/260.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/260/img.jpg"
   },
   {
@@ -9718,6 +10100,7 @@
    "firstYear": 2021,
    "image": "images/figures/261.jpg",
    "imageTrim": "images/trim/261.jpg",
+   "imageCut": "images/cut/261.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/261/img.jpg"
   },
   {
@@ -9741,6 +10124,7 @@
    "firstYear": 2019,
    "image": "images/figures/280.jpg",
    "imageTrim": "images/trim/280.jpg",
+   "imageCut": "images/cut/280.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/280/img.jpg"
   },
   {
@@ -9764,6 +10148,7 @@
    "firstYear": 2019,
    "image": "images/figures/281.jpg",
    "imageTrim": "images/trim/281.jpg",
+   "imageCut": "images/cut/281.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/281/img.jpg"
   },
   {
@@ -9787,6 +10172,7 @@
    "firstYear": 2019,
    "image": "images/figures/282.jpg",
    "imageTrim": "images/trim/282.jpg",
+   "imageCut": "images/cut/282.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/282/img.jpg"
   },
   {
@@ -9811,6 +10197,7 @@
    "firstYear": 2021,
    "image": "images/figures/300.jpg",
    "imageTrim": "images/trim/300.jpg",
+   "imageCut": "images/cut/300.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/300/img.jpg"
   },
   {
@@ -9834,6 +10221,7 @@
    "firstYear": 2019,
    "image": "images/figures/311.jpg",
    "imageTrim": "images/trim/311.jpg",
+   "imageCut": "images/cut/311.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/311/img.jpg"
   },
   {
@@ -9857,6 +10245,7 @@
    "firstYear": 2019,
    "image": "images/figures/312.jpg",
    "imageTrim": "images/trim/312.jpg",
+   "imageCut": "images/cut/312.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/312/img.jpg"
   },
   {
@@ -9880,6 +10269,7 @@
    "firstYear": 2019,
    "image": "images/figures/333.jpg",
    "imageTrim": "images/trim/333.jpg",
+   "imageCut": "images/cut/333.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/333/img.jpg"
   },
   {
@@ -9903,6 +10293,7 @@
    "firstYear": 2019,
    "image": "images/figures/334.jpg",
    "imageTrim": "images/trim/334.jpg",
+   "imageCut": "images/cut/334.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/334/img.jpg"
   },
   {
@@ -9926,6 +10317,7 @@
    "firstYear": 2019,
    "image": "images/figures/349.jpg",
    "imageTrim": "images/trim/349.jpg",
+   "imageCut": "images/cut/349.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/349/img.jpg"
   },
   {
@@ -9948,6 +10340,7 @@
    "firstYear": 2021,
    "image": "images/figures/350.jpg",
    "imageTrim": "images/trim/350.jpg",
+   "imageCut": "images/cut/350.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/350/img.jpg"
   },
   {
@@ -9971,6 +10364,7 @@
    "firstYear": 2019,
    "image": "images/figures/351.jpg",
    "imageTrim": "images/trim/351.jpg",
+   "imageCut": "images/cut/351.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/351/img.jpg"
   },
   {
@@ -9993,6 +10387,7 @@
    "firstYear": 2021,
    "image": "images/figures/376.jpg",
    "imageTrim": "images/trim/376.jpg",
+   "imageCut": "images/cut/376.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/376/img.jpg"
   },
   {
@@ -10016,6 +10411,7 @@
    "firstYear": 2021,
    "image": "images/figures/382.jpg",
    "imageTrim": "images/trim/382.jpg",
+   "imageCut": "images/cut/382.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/382/img.jpg"
   },
   {
@@ -10039,6 +10435,7 @@
    "firstYear": 2021,
    "image": "images/figures/383.jpg",
    "imageTrim": "images/trim/383.jpg",
+   "imageCut": "images/cut/383.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/383/img.jpg"
   },
   {
@@ -10062,6 +10459,7 @@
    "firstYear": 2021,
    "image": "images/figures/384.jpg",
    "imageTrim": "images/trim/384.jpg",
+   "imageCut": "images/cut/384.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/384/img.jpg"
   },
   {
@@ -10086,6 +10484,7 @@
    "firstYear": 2021,
    "image": "images/figures/387.jpg",
    "imageTrim": "images/trim/387.jpg",
+   "imageCut": "images/cut/387.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/387/img.jpg"
   },
   {
@@ -10109,6 +10508,7 @@
    "firstYear": 2022,
    "image": "images/figures/388.jpg",
    "imageTrim": "images/trim/388.jpg",
+   "imageCut": "images/cut/388.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/388/img.jpg"
   },
   {
@@ -10132,6 +10532,7 @@
    "firstYear": 2022,
    "image": "images/figures/389.jpg",
    "imageTrim": "images/trim/389.jpg",
+   "imageCut": "images/cut/389.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/389/img.jpg"
   },
   {
@@ -10156,6 +10557,7 @@
    "firstYear": 2021,
    "image": "images/figures/390.jpg",
    "imageTrim": "images/trim/390.jpg",
+   "imageCut": "images/cut/390.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/390/img.jpg"
   },
   {
@@ -10180,6 +10582,7 @@
    "firstYear": 2021,
    "image": "images/figures/391.jpg",
    "imageTrim": "images/trim/391.jpg",
+   "imageCut": "images/cut/391.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/391/img.jpg"
   },
   {
@@ -10204,6 +10607,7 @@
    "firstYear": 2021,
    "image": "images/figures/392.jpg",
    "imageTrim": "images/trim/392.jpg",
+   "imageCut": "images/cut/392.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/392/img.jpg"
   },
   {
@@ -10228,6 +10632,7 @@
    "firstYear": 2021,
    "image": "images/figures/393.jpg",
    "imageTrim": "images/trim/393.jpg",
+   "imageCut": "images/cut/393.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/393/img.jpg"
   },
   {
@@ -10252,6 +10657,7 @@
    "firstYear": 2021,
    "image": "images/figures/394.jpg",
    "imageTrim": "images/trim/394.jpg",
+   "imageCut": "images/cut/394.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/394/img.jpg"
   },
   {
@@ -10276,6 +10682,7 @@
    "firstYear": 2021,
    "image": "images/figures/395.jpg",
    "imageTrim": "images/trim/395.jpg",
+   "imageCut": "images/cut/395.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/395/img.jpg"
   },
   {
@@ -10299,6 +10706,7 @@
    "firstYear": 2022,
    "image": "images/figures/396.jpg",
    "imageTrim": "images/trim/396.jpg",
+   "imageCut": "images/cut/396.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/396/img.jpg"
   },
   {
@@ -10322,6 +10730,7 @@
    "firstYear": 2022,
    "image": "images/figures/398.jpg",
    "imageTrim": "images/trim/398.jpg",
+   "imageCut": "images/cut/398.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/398/img.jpg"
   },
   {
@@ -10345,6 +10754,7 @@
    "firstYear": 2022,
    "image": "images/figures/399.jpg",
    "imageTrim": "images/trim/399.jpg",
+   "imageCut": "images/cut/399.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/399/img.jpg"
   },
   {
@@ -10368,6 +10778,7 @@
    "firstYear": 2022,
    "image": "images/figures/403.jpg",
    "imageTrim": "images/trim/403.jpg",
+   "imageCut": "images/cut/403.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/403/img.jpg"
   },
   {
@@ -10391,6 +10802,7 @@
    "firstYear": 2022,
    "image": "images/figures/405.jpg",
    "imageTrim": "images/trim/405.jpg",
+   "imageCut": "images/cut/405.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/405/img.jpg"
   },
   {
@@ -10414,6 +10826,7 @@
    "firstYear": 2022,
    "image": "images/figures/407.jpg",
    "imageTrim": "images/trim/407.jpg",
+   "imageCut": "images/cut/407.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/407/img.jpg"
   },
   {
@@ -10437,6 +10850,7 @@
    "firstYear": 2022,
    "image": "images/figures/423.jpg",
    "imageTrim": "images/trim/423.jpg",
+   "imageCut": "images/cut/423.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/423/img.jpg"
   },
   {
@@ -10460,6 +10874,7 @@
    "firstYear": 2022,
    "image": "images/figures/442.jpg",
    "imageTrim": "images/trim/442.jpg",
+   "imageCut": "images/cut/442.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/442/img.jpg"
   },
   {
@@ -10483,6 +10898,7 @@
    "firstYear": 2022,
    "image": "images/figures/443.jpg",
    "imageTrim": "images/trim/443.jpg",
+   "imageCut": "images/cut/443.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/443/img.jpg"
   },
   {
@@ -10506,6 +10922,7 @@
    "firstYear": 2022,
    "image": "images/figures/445.jpg",
    "imageTrim": "images/trim/445.jpg",
+   "imageCut": "images/cut/445.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/445/img.jpg"
   },
   {
@@ -10529,6 +10946,7 @@
    "firstYear": 2022,
    "image": "images/figures/447.jpg",
    "imageTrim": "images/trim/447.jpg",
+   "imageCut": "images/cut/447.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/447/img.jpg"
   },
   {
@@ -10552,6 +10970,7 @@
    "firstYear": 2022,
    "image": "images/figures/448.jpg",
    "imageTrim": "images/trim/448.jpg",
+   "imageCut": "images/cut/448.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/448/img.jpg"
   },
   {
@@ -10574,6 +10993,7 @@
    "firstYear": 2026,
    "image": "images/figures/448_mega.jpg",
    "imageTrim": "images/trim/448_mega.jpg",
+   "imageCut": "images/cut/448_mega.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/448_mega/img.jpg"
   },
   {
@@ -10596,6 +11016,7 @@
    "firstYear": 2022,
    "image": "images/figures/466.jpg",
    "imageTrim": "images/trim/466.jpg",
+   "imageCut": "images/cut/466.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/466/img.jpg"
   },
   {
@@ -10619,6 +11040,7 @@
    "firstYear": 2022,
    "image": "images/figures/468.jpg",
    "imageTrim": "images/trim/468.jpg",
+   "imageCut": "images/cut/468.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/468/img.jpg"
   },
   {
@@ -10642,6 +11064,7 @@
    "firstYear": 2022,
    "image": "images/figures/470.jpg",
    "imageTrim": "images/trim/470.jpg",
+   "imageCut": "images/cut/470.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/470/img.jpg"
   },
   {
@@ -10664,6 +11087,7 @@
    "firstYear": 2024,
    "image": "images/figures/470_paldea.jpg",
    "imageTrim": "images/trim/470_paldea.jpg",
+   "imageCut": "images/cut/470_paldea.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/470_paldea/img.jpg"
   },
   {
@@ -10686,6 +11110,7 @@
    "firstYear": 2025,
    "image": "images/figures/470_hisui.jpg",
    "imageTrim": "images/trim/470_hisui.jpg",
+   "imageCut": "images/cut/470_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/470_hisui/img.jpg"
   },
   {
@@ -10709,6 +11134,7 @@
    "firstYear": 2022,
    "image": "images/figures/471.jpg",
    "imageTrim": "images/trim/471.jpg",
+   "imageCut": "images/cut/471.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/471/img.jpg"
   },
   {
@@ -10731,6 +11157,7 @@
    "firstYear": 2024,
    "image": "images/figures/471_paldea.jpg",
    "imageTrim": "images/trim/471_paldea.jpg",
+   "imageCut": "images/cut/471_paldea.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/471_paldea/img.jpg"
   },
   {
@@ -10753,6 +11180,7 @@
    "firstYear": 2025,
    "image": "images/figures/471_hisui.jpg",
    "imageTrim": "images/trim/471_hisui.jpg",
+   "imageCut": "images/cut/471_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/471_hisui/img.jpg"
   },
   {
@@ -10775,6 +11203,7 @@
    "firstYear": 2021,
    "image": "images/figures/475.jpg",
    "imageTrim": "images/trim/475.jpg",
+   "imageCut": "images/cut/475.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/475/img.jpg"
   },
   {
@@ -10798,6 +11227,7 @@
    "firstYear": 2025,
    "image": "images/figures/480_hisui.jpg",
    "imageTrim": "images/trim/480_hisui.jpg",
+   "imageCut": "images/cut/480_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/480_hisui/img.jpg"
   },
   {
@@ -10821,6 +11251,7 @@
    "firstYear": 2025,
    "image": "images/figures/481_hisui.jpg",
    "imageTrim": "images/trim/481_hisui.jpg",
+   "imageCut": "images/cut/481_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/481_hisui/img.jpg"
   },
   {
@@ -10844,6 +11275,7 @@
    "firstYear": 2025,
    "image": "images/figures/482_hisui.jpg",
    "imageTrim": "images/trim/482_hisui.jpg",
+   "imageCut": "images/cut/482_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/482_hisui/img.jpg"
   },
   {
@@ -10867,6 +11299,7 @@
    "firstYear": 2022,
    "image": "images/figures/493.jpg",
    "imageTrim": "images/trim/493.jpg",
+   "imageCut": "images/cut/493.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/493/img.jpg"
   },
   {
@@ -10890,6 +11323,7 @@
    "firstYear": 2025,
    "image": "images/figures/501_hisui.jpg",
    "imageTrim": "images/trim/501_hisui.jpg",
+   "imageCut": "images/cut/501_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/501_hisui/img.jpg"
   },
   {
@@ -10912,6 +11346,7 @@
    "firstYear": 2025,
    "image": "images/figures/503_hisui.jpg",
    "imageTrim": "images/trim/503_hisui.jpg",
+   "imageCut": "images/cut/503_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/503_hisui/img.jpg",
    "types": [
     "water",
@@ -10939,6 +11374,7 @@
    "firstYear": 2025,
    "image": "images/figures/570_hisui.jpg",
    "imageTrim": "images/trim/570_hisui.jpg",
+   "imageCut": "images/cut/570_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/570_hisui/img.jpg",
    "types": [
     "normal",
@@ -10966,6 +11402,7 @@
    "firstYear": 2025,
    "image": "images/figures/571_hisui.jpg",
    "imageTrim": "images/trim/571_hisui.jpg",
+   "imageCut": "images/cut/571_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/571_hisui/img.jpg",
    "types": [
     "normal",
@@ -10992,6 +11429,7 @@
    "firstYear": 2026,
    "image": "images/figures/652.jpg",
    "imageTrim": "images/trim/652.jpg",
+   "imageCut": "images/cut/652.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/652/img.jpg"
   },
   {
@@ -11014,6 +11452,7 @@
    "firstYear": 2026,
    "image": "images/figures/655.jpg",
    "imageTrim": "images/trim/655.jpg",
+   "imageCut": "images/cut/655.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/655/img.jpg"
   },
   {
@@ -11038,6 +11477,7 @@
    "firstYear": 2024,
    "image": "images/figures/700.jpg",
    "imageTrim": "images/trim/700.jpg",
+   "imageCut": "images/cut/700.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/700/img.jpg"
   },
   {
@@ -11061,6 +11501,7 @@
    "firstYear": 2025,
    "image": "images/figures/722_hisui.jpg",
    "imageTrim": "images/trim/722_hisui.jpg",
+   "imageCut": "images/cut/722_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/722_hisui/img.jpg"
   },
   {
@@ -11083,6 +11524,7 @@
    "firstYear": 2025,
    "image": "images/figures/724_hisui.jpg",
    "imageTrim": "images/trim/724_hisui.jpg",
+   "imageCut": "images/cut/724_hisui.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/724_hisui/img.jpg",
    "types": [
     "grass",
@@ -11110,6 +11552,7 @@
    "firstYear": 2021,
    "image": "images/figures/778.jpg",
    "imageTrim": "images/trim/778.jpg",
+   "imageCut": "images/cut/778.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/778/img.jpg"
   },
   {
@@ -11133,6 +11576,7 @@
    "firstYear": 2020,
    "image": "images/figures/810.jpg",
    "imageTrim": "images/trim/810.jpg",
+   "imageCut": "images/cut/810.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/810/img.jpg"
   },
   {
@@ -11156,6 +11600,7 @@
    "firstYear": 2020,
    "image": "images/figures/811.jpg",
    "imageTrim": "images/trim/811.jpg",
+   "imageCut": "images/cut/811.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/811/img.jpg"
   },
   {
@@ -11178,6 +11623,7 @@
    "firstYear": 2020,
    "image": "images/figures/812.jpg",
    "imageTrim": "images/trim/812.jpg",
+   "imageCut": "images/cut/812.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/812/img.jpg"
   },
   {
@@ -11201,6 +11647,7 @@
    "firstYear": 2020,
    "image": "images/figures/813.jpg",
    "imageTrim": "images/trim/813.jpg",
+   "imageCut": "images/cut/813.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/813/img.jpg"
   },
   {
@@ -11224,6 +11671,7 @@
    "firstYear": 2020,
    "image": "images/figures/814.jpg",
    "imageTrim": "images/trim/814.jpg",
+   "imageCut": "images/cut/814.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/814/img.jpg"
   },
   {
@@ -11247,6 +11695,7 @@
    "firstYear": 2020,
    "image": "images/figures/815.jpg",
    "imageTrim": "images/trim/815.jpg",
+   "imageCut": "images/cut/815.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/815/img.jpg"
   },
   {
@@ -11270,6 +11719,7 @@
    "firstYear": 2020,
    "image": "images/figures/816.jpg",
    "imageTrim": "images/trim/816.jpg",
+   "imageCut": "images/cut/816.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/816/img.jpg"
   },
   {
@@ -11293,6 +11743,7 @@
    "firstYear": 2020,
    "image": "images/figures/817.jpg",
    "imageTrim": "images/trim/817.jpg",
+   "imageCut": "images/cut/817.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/817/img.jpg"
   },
   {
@@ -11316,6 +11767,7 @@
    "firstYear": 2020,
    "image": "images/figures/818.jpg",
    "imageTrim": "images/trim/818.jpg",
+   "imageCut": "images/cut/818.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/818/img.jpg"
   },
   {
@@ -11338,6 +11790,7 @@
    "firstYear": 2021,
    "image": "images/figures/819.jpg",
    "imageTrim": "images/trim/819.jpg",
+   "imageCut": "images/cut/819.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/819/img.jpg"
   },
   {
@@ -11360,6 +11813,7 @@
    "firstYear": 2021,
    "image": "images/figures/823.jpg",
    "imageTrim": "images/trim/823.jpg",
+   "imageCut": "images/cut/823.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/823/img.jpg"
   },
   {
@@ -11382,6 +11836,7 @@
    "firstYear": 2021,
    "image": "images/figures/829.jpg",
    "imageTrim": "images/trim/829.jpg",
+   "imageCut": "images/cut/829.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/829/img.jpg"
   },
   {
@@ -11405,6 +11860,7 @@
    "firstYear": 2020,
    "image": "images/figures/831.jpg",
    "imageTrim": "images/trim/831.jpg",
+   "imageCut": "images/cut/831.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/831/img.jpg"
   },
   {
@@ -11427,6 +11883,7 @@
    "firstYear": 2021,
    "image": "images/figures/832.jpg",
    "imageTrim": "images/trim/832.jpg",
+   "imageCut": "images/cut/832.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/832/img.jpg"
   },
   {
@@ -11449,6 +11906,7 @@
    "firstYear": 2020,
    "image": "images/figures/834.jpg",
    "imageTrim": "images/trim/834.jpg",
+   "imageCut": "images/cut/834.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/834/img.jpg"
   },
   {
@@ -11472,6 +11930,7 @@
    "firstYear": 2020,
    "image": "images/figures/835.jpg",
    "imageTrim": "images/trim/835.jpg",
+   "imageCut": "images/cut/835.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/835/img.jpg"
   },
   {
@@ -11494,6 +11953,7 @@
    "firstYear": 2021,
    "image": "images/figures/837.jpg",
    "imageTrim": "images/trim/837.jpg",
+   "imageCut": "images/cut/837.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/837/img.jpg"
   },
   {
@@ -11517,6 +11977,7 @@
    "firstYear": 2021,
    "image": "images/figures/845.jpg",
    "imageTrim": "images/trim/845.jpg",
+   "imageCut": "images/cut/845.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/845/img.jpg"
   },
   {
@@ -11540,6 +12001,7 @@
    "firstYear": 2021,
    "image": "images/figures/846.jpg",
    "imageTrim": "images/trim/846.jpg",
+   "imageCut": "images/cut/846.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/846/img.jpg"
   },
   {
@@ -11563,6 +12025,7 @@
    "firstYear": 2020,
    "image": "images/figures/848.jpg",
    "imageTrim": "images/trim/848.jpg",
+   "imageCut": "images/cut/848.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/848/img.jpg"
   },
   {
@@ -11586,6 +12049,7 @@
    "firstYear": 2021,
    "image": "images/figures/849_high.jpg",
    "imageTrim": "images/trim/849_high.jpg",
+   "imageCut": "images/cut/849_high.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/849_high/img.jpg"
   },
   {
@@ -11609,6 +12073,7 @@
    "firstYear": 2021,
    "image": "images/figures/849_low.jpg",
    "imageTrim": "images/trim/849_low.jpg",
+   "imageCut": "images/cut/849_low.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/849_low/img.jpg"
   },
   {
@@ -11632,6 +12097,7 @@
    "firstYear": 2021,
    "image": "images/figures/855.jpg",
    "imageTrim": "images/trim/855.jpg",
+   "imageCut": "images/cut/855.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/855/img.jpg"
   },
   {
@@ -11654,6 +12120,7 @@
    "firstYear": 2022,
    "image": "images/figures/856.jpg",
    "imageTrim": "images/trim/856.jpg",
+   "imageCut": "images/cut/856.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/856/img.jpg"
   },
   {
@@ -11676,6 +12143,7 @@
    "firstYear": 2022,
    "image": "images/figures/857.jpg",
    "imageTrim": "images/trim/857.jpg",
+   "imageCut": "images/cut/857.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/857/img.jpg"
   },
   {
@@ -11698,6 +12166,7 @@
    "firstYear": 2022,
    "image": "images/figures/858.jpg",
    "imageTrim": "images/trim/858.jpg",
+   "imageCut": "images/cut/858.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/858/img.jpg"
   },
   {
@@ -11720,6 +12189,7 @@
    "firstYear": 2021,
    "image": "images/figures/859.jpg",
    "imageTrim": "images/trim/859.jpg",
+   "imageCut": "images/cut/859.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/859/img.jpg"
   },
   {
@@ -11743,6 +12213,7 @@
    "firstYear": 2021,
    "image": "images/figures/862.jpg",
    "imageTrim": "images/trim/862.jpg",
+   "imageCut": "images/cut/862.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/862/img.jpg"
   },
   {
@@ -11766,6 +12237,7 @@
    "firstYear": 2021,
    "image": "images/figures/864.jpg",
    "imageTrim": "images/trim/864.jpg",
+   "imageCut": "images/cut/864.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/864/img.jpg"
   },
   {
@@ -11789,6 +12261,7 @@
    "firstYear": 2021,
    "image": "images/figures/865.jpg",
    "imageTrim": "images/trim/865.jpg",
+   "imageCut": "images/cut/865.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/865/img.jpg"
   },
   {
@@ -11812,6 +12285,7 @@
    "firstYear": 2020,
    "image": "images/figures/869.jpg",
    "imageTrim": "images/trim/869.jpg",
+   "imageCut": "images/cut/869.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/869/img.jpg"
   },
   {
@@ -11835,6 +12309,7 @@
    "firstYear": 2021,
    "image": "images/figures/877_full.jpg",
    "imageTrim": "images/trim/877_full.jpg",
+   "imageCut": "images/cut/877_full.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/877_full/img.jpg"
   },
   {
@@ -11858,6 +12333,7 @@
    "firstYear": 2021,
    "image": "images/figures/877_hungry.jpg",
    "imageTrim": "images/trim/877_hungry.jpg",
+   "imageCut": "images/cut/877_hungry.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/877_hungry/img.jpg"
   },
   {
@@ -11880,6 +12356,7 @@
    "firstYear": 2020,
    "image": "images/figures/884.jpg",
    "imageTrim": "images/trim/884.jpg",
+   "imageCut": "images/cut/884.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/884/img.jpg"
   },
   {
@@ -11903,6 +12380,7 @@
    "firstYear": 2021,
    "image": "images/figures/887.jpg",
    "imageTrim": "images/trim/887.jpg",
+   "imageCut": "images/cut/887.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/887/img.jpg"
   },
   {
@@ -11926,6 +12404,7 @@
    "firstYear": 2023,
    "image": "images/figures/906.jpg",
    "imageTrim": "images/trim/906.jpg",
+   "imageCut": "images/cut/906.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/906/img.jpg"
   },
   {
@@ -11949,6 +12428,7 @@
    "firstYear": 2023,
    "image": "images/figures/907.jpg",
    "imageTrim": "images/trim/907.jpg",
+   "imageCut": "images/cut/907.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/907/img.jpg"
   },
   {
@@ -11972,6 +12452,7 @@
    "firstYear": 2023,
    "image": "images/figures/908.jpg",
    "imageTrim": "images/trim/908.jpg",
+   "imageCut": "images/cut/908.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/908/img.jpg"
   },
   {
@@ -11995,6 +12476,7 @@
    "firstYear": 2023,
    "image": "images/figures/909.jpg",
    "imageTrim": "images/trim/909.jpg",
+   "imageCut": "images/cut/909.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/909/img.jpg"
   },
   {
@@ -12018,6 +12500,7 @@
    "firstYear": 2023,
    "image": "images/figures/910.jpg",
    "imageTrim": "images/trim/910.jpg",
+   "imageCut": "images/cut/910.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/910/img.jpg"
   },
   {
@@ -12040,6 +12523,7 @@
    "firstYear": 2024,
    "image": "images/figures/911.jpg",
    "imageTrim": "images/trim/911.jpg",
+   "imageCut": "images/cut/911.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/911/img.jpg"
   },
   {
@@ -12063,6 +12547,7 @@
    "firstYear": 2023,
    "image": "images/figures/912.jpg",
    "imageTrim": "images/trim/912.jpg",
+   "imageCut": "images/cut/912.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/912/img.jpg"
   },
   {
@@ -12086,6 +12571,7 @@
    "firstYear": 2023,
    "image": "images/figures/913.jpg",
    "imageTrim": "images/trim/913.jpg",
+   "imageCut": "images/cut/913.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/913/img.jpg"
   },
   {
@@ -12109,6 +12595,7 @@
    "firstYear": 2023,
    "image": "images/figures/914.jpg",
    "imageTrim": "images/trim/914.jpg",
+   "imageCut": "images/cut/914.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/914/img.jpg"
   },
   {
@@ -12132,6 +12619,7 @@
    "firstYear": 2024,
    "image": "images/figures/921.jpg",
    "imageTrim": "images/trim/921.jpg",
+   "imageCut": "images/cut/921.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/921/img.jpg"
   },
   {
@@ -12154,6 +12642,7 @@
    "firstYear": 2024,
    "image": "images/figures/923.jpg",
    "imageTrim": "images/trim/923.jpg",
+   "imageCut": "images/cut/923.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/923/img.jpg"
   },
   {
@@ -12177,6 +12666,7 @@
    "firstYear": 2024,
    "image": "images/figures/928.jpg",
    "imageTrim": "images/trim/928.jpg",
+   "imageCut": "images/cut/928.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/928/img.jpg"
   },
   {
@@ -12200,6 +12690,7 @@
    "firstYear": 2024,
    "image": "images/figures/935.jpg",
    "imageTrim": "images/trim/935.jpg",
+   "imageCut": "images/cut/935.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/935/img.jpg"
   },
   {
@@ -12223,6 +12714,7 @@
    "firstYear": 2024,
    "image": "images/figures/936.jpg",
    "imageTrim": "images/trim/936.jpg",
+   "imageCut": "images/cut/936.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/936/img.jpg"
   },
   {
@@ -12246,6 +12738,7 @@
    "firstYear": 2024,
    "image": "images/figures/937.jpg",
    "imageTrim": "images/trim/937.jpg",
+   "imageCut": "images/cut/937.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/937/img.jpg"
   },
   {
@@ -12268,6 +12761,7 @@
    "firstYear": 2024,
    "image": "images/figures/939.jpg",
    "imageTrim": "images/trim/939.jpg",
+   "imageCut": "images/cut/939.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/939/img.jpg"
   },
   {
@@ -12290,6 +12784,7 @@
    "firstYear": 2024,
    "image": "images/figures/943.jpg",
    "imageTrim": "images/trim/943.jpg",
+   "imageCut": "images/cut/943.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/943/img.jpg"
   },
   {
@@ -12313,6 +12808,7 @@
    "firstYear": 2024,
    "image": "images/figures/960.jpg",
    "imageTrim": "images/trim/960.jpg",
+   "imageCut": "images/cut/960.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/960/img.jpg"
   },
   {
@@ -12336,6 +12832,7 @@
    "firstYear": 2024,
    "image": "images/figures/978_nobita.jpg",
    "imageTrim": "images/trim/978_nobita.jpg",
+   "imageCut": "images/cut/978_nobita.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/978_nobita/img.jpg"
   },
   {
@@ -12358,6 +12855,7 @@
    "firstYear": 2024,
    "image": "images/figures/980.jpg",
    "imageTrim": "images/trim/980.jpg",
+   "imageCut": "images/cut/980.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/980/img.jpg"
   },
   {
@@ -12381,6 +12879,7 @@
    "firstYear": 2024,
    "image": "images/figures/999_hako.jpg",
    "imageTrim": "images/trim/999_hako.jpg",
+   "imageCut": "images/cut/999_hako.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/999_hako/img.jpg"
   },
   {
@@ -12404,6 +12903,7 @@
    "firstYear": 2024,
    "image": "images/figures/1000.jpg",
    "imageTrim": "images/trim/1000.jpg",
+   "imageCut": "images/cut/1000.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/1000/img.jpg"
   },
   {
@@ -12426,6 +12926,7 @@
    "firstYear": 2024,
    "image": "images/figures/1007.jpg",
    "imageTrim": "images/trim/1007.jpg",
+   "imageCut": "images/cut/1007.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/1007/img.jpg"
   },
   {
@@ -12448,6 +12949,7 @@
    "firstYear": 2024,
    "image": "images/figures/1008.jpg",
    "imageTrim": "images/trim/1008.jpg",
+   "imageCut": "images/cut/1008.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/1008/img.jpg"
   },
   {
@@ -12474,6 +12976,7 @@
    "firstYear": 2019,
    "image": "images/figures/red.jpg",
    "imageTrim": "images/trim/red.jpg",
+   "imageCut": "images/cut/red.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/red/img.jpg"
   },
   {
@@ -12498,6 +13001,7 @@
    "firstYear": 2019,
    "image": "images/figures/leaf.jpg",
    "imageTrim": "images/trim/leaf.jpg",
+   "imageCut": "images/cut/leaf.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/leaf/img.jpg"
   },
   {
@@ -12522,6 +13026,7 @@
    "firstYear": 2019,
    "image": "images/figures/green.jpg",
    "imageTrim": "images/trim/green.jpg",
+   "imageCut": "images/cut/green.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/green/img.jpg"
   },
   {
@@ -12545,6 +13050,7 @@
    "firstYear": 2019,
    "image": "images/figures/oak.jpg",
    "imageTrim": "images/trim/oak.jpg",
+   "imageCut": "images/cut/oak.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/oak/img.jpg"
   },
   {
@@ -12567,6 +13073,7 @@
    "firstYear": 2023,
    "image": "images/figures/takeshi.jpg",
    "imageTrim": "images/trim/takeshi.jpg",
+   "imageCut": "images/cut/takeshi.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/takeshi/img.jpg"
   },
   {
@@ -12590,6 +13097,7 @@
    "firstYear": 2022,
    "image": "images/figures/kasumi.jpg",
    "imageTrim": "images/trim/kasumi.jpg",
+   "imageCut": "images/cut/kasumi.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/kasumi/img.jpg"
   },
   {
@@ -12612,6 +13120,7 @@
    "firstYear": 2024,
    "image": "images/figures/katsura.jpg",
    "imageTrim": "images/trim/katsura.jpg",
+   "imageCut": "images/cut/katsura.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/katsura/img.jpg"
   },
   {
@@ -12634,6 +13143,7 @@
    "firstYear": 2023,
    "image": "images/figures/matisse.jpg",
    "imageTrim": "images/trim/matisse.jpg",
+   "imageCut": "images/cut/matisse.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/matisse/img.jpg"
   },
   {
@@ -12656,6 +13166,7 @@
    "firstYear": 2023,
    "image": "images/figures/erika.jpg",
    "imageTrim": "images/trim/erika.jpg",
+   "imageCut": "images/cut/erika.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/erika/img.jpg"
   },
   {
@@ -12678,6 +13189,7 @@
    "firstYear": 2023,
    "image": "images/figures/kyou.jpg",
    "imageTrim": "images/trim/kyou.jpg",
+   "imageCut": "images/cut/kyou.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/kyou/img.jpg"
   },
   {
@@ -12700,6 +13212,7 @@
    "firstYear": 2023,
    "image": "images/figures/natsume.jpg",
    "imageTrim": "images/trim/natsume.jpg",
+   "imageCut": "images/cut/natsume.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/natsume/img.jpg"
   },
   {
@@ -12724,6 +13237,7 @@
    "firstYear": 2019,
    "image": "images/figures/sakaki.jpg",
    "imageTrim": "images/trim/sakaki.jpg",
+   "imageCut": "images/cut/sakaki.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/sakaki/img.jpg"
   },
   {
@@ -12751,6 +13265,7 @@
    "firstYear": 2020,
    "image": "images/figures/hibiki.jpg",
    "imageTrim": "images/trim/hibiki.jpg",
+   "imageCut": "images/cut/hibiki.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/hibiki/img.jpg"
   },
   {
@@ -12775,6 +13290,7 @@
    "firstYear": 2020,
    "image": "images/figures/kotone.jpg",
    "imageTrim": "images/trim/kotone.jpg",
+   "imageCut": "images/cut/kotone.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/kotone/img.jpg"
   },
   {
@@ -12799,6 +13315,7 @@
    "firstYear": 2020,
    "image": "images/figures/silver.jpg",
    "imageTrim": "images/trim/silver.jpg",
+   "imageCut": "images/cut/silver.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/silver/img.jpg"
   },
   {
@@ -12821,6 +13338,7 @@
    "firstYear": 2025,
    "image": "images/figures/tsukushi.jpg",
    "imageTrim": "images/trim/tsukushi.jpg",
+   "imageCut": "images/cut/tsukushi.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/tsukushi/img.jpg"
   },
   {
@@ -12843,6 +13361,7 @@
    "firstYear": 2025,
    "image": "images/figures/akane.jpg",
    "imageTrim": "images/trim/akane.jpg",
+   "imageCut": "images/cut/akane.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/akane/img.jpg"
   },
   {
@@ -12866,6 +13385,7 @@
    "firstYear": 2020,
    "image": "images/figures/matsuba.jpg",
    "imageTrim": "images/trim/matsuba.jpg",
+   "imageCut": "images/cut/matsuba.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/matsuba/img.jpg"
   },
   {
@@ -12888,6 +13408,7 @@
    "firstYear": 2025,
    "image": "images/figures/mikan.jpg",
    "imageTrim": "images/trim/mikan.jpg",
+   "imageCut": "images/cut/mikan.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/mikan/img.jpg"
   },
   {
@@ -12911,6 +13432,7 @@
    "firstYear": 2020,
    "image": "images/figures/red_hgss.jpg",
    "imageTrim": "images/trim/red_hgss.jpg",
+   "imageCut": "images/cut/red_hgss.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/red_hgss/img.jpg"
   },
   {
@@ -12934,6 +13456,7 @@
    "firstYear": 2025,
    "image": "images/figures/chris.jpg",
    "imageTrim": "images/trim/chris.jpg",
+   "imageCut": "images/cut/chris.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/chris/img.jpg"
   },
   {
@@ -12957,6 +13480,7 @@
    "firstYear": 2020,
    "image": "images/figures/green_hgss.jpg",
    "imageTrim": "images/trim/green_hgss.jpg",
+   "imageCut": "images/cut/green_hgss.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/green_hgss/img.jpg"
   },
   {
@@ -12980,6 +13504,7 @@
    "firstYear": 2020,
    "image": "images/figures/wataru.jpg",
    "imageTrim": "images/trim/wataru.jpg",
+   "imageCut": "images/cut/wataru.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/wataru/img.jpg"
   },
   {
@@ -13003,6 +13528,7 @@
    "firstYear": 2019,
    "image": "images/figures/haruka_rs.jpg",
    "imageTrim": "images/trim/haruka_rs.jpg",
+   "imageCut": "images/cut/haruka_rs.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/haruka_rs/img.jpg"
   },
   {
@@ -13027,6 +13553,7 @@
    "firstYear": 2021,
    "image": "images/figures/haruka_oras.jpg",
    "imageTrim": "images/trim/haruka_oras.jpg",
+   "imageCut": "images/cut/haruka_oras.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/haruka_oras/img.jpg"
   },
   {
@@ -13050,6 +13577,7 @@
    "firstYear": 2019,
    "image": "images/figures/yuuki_rs.jpg",
    "imageTrim": "images/trim/yuuki_rs.jpg",
+   "imageCut": "images/cut/yuuki_rs.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/yuuki_rs/img.jpg"
   },
   {
@@ -13074,6 +13602,7 @@
    "firstYear": 2021,
    "image": "images/figures/yuuki_oras.jpg",
    "imageTrim": "images/trim/yuuki_oras.jpg",
+   "imageCut": "images/cut/yuuki_oras.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/yuuki_oras/img.jpg"
   },
   {
@@ -13096,6 +13625,7 @@
    "firstYear": 2021,
    "image": "images/figures/mitsuru.jpg",
    "imageTrim": "images/trim/mitsuru.jpg",
+   "imageCut": "images/cut/mitsuru.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/mitsuru/img.jpg"
   },
   {
@@ -13118,6 +13648,7 @@
    "firstYear": 2021,
    "image": "images/figures/mikuri.jpg",
    "imageTrim": "images/trim/mikuri.jpg",
+   "imageCut": "images/cut/mikuri.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/mikuri/img.jpg"
   },
   {
@@ -13140,6 +13671,7 @@
    "firstYear": 2021,
    "image": "images/figures/daigo.jpg",
    "imageTrim": "images/trim/daigo.jpg",
+   "imageCut": "images/cut/daigo.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/daigo/img.jpg"
   },
   {
@@ -13164,6 +13696,7 @@
    "firstYear": 2021,
    "image": "images/figures/kouki_dp.jpg",
    "imageTrim": "images/trim/kouki_dp.jpg",
+   "imageCut": "images/cut/kouki_dp.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/kouki_dp/img.jpg"
   },
   {
@@ -13187,6 +13720,7 @@
    "firstYear": 2022,
    "image": "images/figures/kouki_pt.jpg",
    "imageTrim": "images/trim/kouki_pt.jpg",
+   "imageCut": "images/cut/kouki_pt.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/kouki_pt/img.jpg"
   },
   {
@@ -13211,6 +13745,7 @@
    "firstYear": 2021,
    "image": "images/figures/hikari_dp.jpg",
    "imageTrim": "images/trim/hikari_dp.jpg",
+   "imageCut": "images/cut/hikari_dp.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/hikari_dp/img.jpg"
   },
   {
@@ -13234,6 +13769,7 @@
    "firstYear": 2022,
    "image": "images/figures/hikari_pt.jpg",
    "imageTrim": "images/trim/hikari_pt.jpg",
+   "imageCut": "images/cut/hikari_pt.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/hikari_pt/img.jpg"
   },
   {
@@ -13257,6 +13793,7 @@
    "firstYear": 2022,
    "image": "images/figures/jun.jpg",
    "imageTrim": "images/trim/jun.jpg",
+   "imageCut": "images/cut/jun.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/jun/img.jpg"
   },
   {
@@ -13280,6 +13817,7 @@
    "firstYear": 2022,
    "image": "images/figures/natane.jpg",
    "imageTrim": "images/trim/natane.jpg",
+   "imageCut": "images/cut/natane.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/natane/img.jpg"
   },
   {
@@ -13302,6 +13840,7 @@
    "firstYear": 2022,
    "image": "images/figures/denzi.jpg",
    "imageTrim": "images/trim/denzi.jpg",
+   "imageCut": "images/cut/denzi.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/denzi/img.jpg"
   },
   {
@@ -13325,6 +13864,7 @@
    "firstYear": 2022,
    "image": "images/figures/shirona.jpg",
    "imageTrim": "images/trim/shirona.jpg",
+   "imageCut": "images/cut/shirona.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/shirona/img.jpg"
   },
   {
@@ -13347,6 +13887,7 @@
    "firstYear": 2026,
    "image": "images/figures/calem.jpg",
    "imageTrim": "images/trim/calem.jpg",
+   "imageCut": "images/cut/calem.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/calem/img.jpg"
   },
   {
@@ -13369,6 +13910,7 @@
    "firstYear": 2026,
    "image": "images/figures/korrina.jpg",
    "imageTrim": "images/trim/korrina.jpg",
+   "imageCut": "images/cut/korrina.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/korrina/img.jpg"
   },
   {
@@ -13392,6 +13934,7 @@
    "firstYear": 2021,
    "image": "images/figures/masaru.jpg",
    "imageTrim": "images/trim/masaru.jpg",
+   "imageCut": "images/cut/masaru.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/masaru/img.jpg"
   },
   {
@@ -13414,6 +13957,7 @@
    "firstYear": 2021,
    "image": "images/figures/masaru_uniform.jpg",
    "imageTrim": "images/trim/masaru_uniform.jpg",
+   "imageCut": "images/cut/masaru_uniform.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/masaru_uniform/img.jpg"
   },
   {
@@ -13437,6 +13981,7 @@
    "firstYear": 2020,
    "image": "images/figures/yuuri.jpg",
    "imageTrim": "images/trim/yuuri.jpg",
+   "imageCut": "images/cut/yuuri.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/yuuri/img.jpg"
   },
   {
@@ -13459,6 +14004,7 @@
    "firstYear": 2021,
    "image": "images/figures/yuuri_uniform.jpg",
    "imageTrim": "images/trim/yuuri_uniform.jpg",
+   "imageCut": "images/cut/yuuri_uniform.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/yuuri_uniform/img.jpg"
   },
   {
@@ -13481,6 +14027,7 @@
    "firstYear": 2021,
    "image": "images/figures/hop.jpg",
    "imageTrim": "images/trim/hop.jpg",
+   "imageCut": "images/cut/hop.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/hop/img.jpg"
   },
   {
@@ -13504,6 +14051,7 @@
    "firstYear": 2021,
    "image": "images/figures/mary.jpg",
    "imageTrim": "images/trim/mary.jpg",
+   "imageCut": "images/cut/mary.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/mary/img.jpg"
   },
   {
@@ -13526,6 +14074,7 @@
    "firstYear": 2022,
    "image": "images/figures/beet.jpg",
    "imageTrim": "images/trim/beet.jpg",
+   "imageCut": "images/cut/beet.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/beet/img.jpg"
   },
   {
@@ -13548,6 +14097,7 @@
    "firstYear": 2022,
    "image": "images/figures/beet_uniform.jpg",
    "imageTrim": "images/trim/beet_uniform.jpg",
+   "imageCut": "images/cut/beet_uniform.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/beet_uniform/img.jpg"
   },
   {
@@ -13570,6 +14120,7 @@
    "firstYear": 2020,
    "image": "images/figures/rurina.jpg",
    "imageTrim": "images/trim/rurina.jpg",
+   "imageCut": "images/cut/rurina.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/rurina/img.jpg"
   },
   {
@@ -13592,6 +14143,7 @@
    "firstYear": 2021,
    "image": "images/figures/saitou.jpg",
    "imageTrim": "images/trim/saitou.jpg",
+   "imageCut": "images/cut/saitou.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/saitou/img.jpg"
   },
   {
@@ -13615,6 +14167,7 @@
    "firstYear": 2021,
    "image": "images/figures/onion.jpg",
    "imageTrim": "images/trim/onion.jpg",
+   "imageCut": "images/cut/onion.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/onion/img.jpg"
   },
   {
@@ -13638,6 +14191,7 @@
    "firstYear": 2021,
    "image": "images/figures/nezu.jpg",
    "imageTrim": "images/trim/nezu.jpg",
+   "imageCut": "images/cut/nezu.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/nezu/img.jpg"
   },
   {
@@ -13660,6 +14214,7 @@
    "firstYear": 2020,
    "image": "images/figures/kibana.jpg",
    "imageTrim": "images/trim/kibana.jpg",
+   "imageCut": "images/cut/kibana.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/kibana/img.jpg"
   },
   {
@@ -13683,6 +14238,7 @@
    "firstYear": 2021,
    "image": "images/figures/dande.jpg",
    "imageTrim": "images/trim/dande.jpg",
+   "imageCut": "images/cut/dande.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/dande/img.jpg"
   },
   {
@@ -13706,6 +14262,7 @@
    "firstYear": 2023,
    "image": "images/figures/aoi_vi.jpg",
    "imageTrim": "images/trim/aoi_vi.jpg",
+   "imageCut": "images/cut/aoi_vi.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/aoi_vi/img.jpg"
   },
   {
@@ -13728,6 +14285,7 @@
    "firstYear": 2024,
    "image": "images/figures/nanjamo.jpg",
    "imageTrim": "images/trim/nanjamo.jpg",
+   "imageCut": "images/cut/nanjamo.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/nanjamo/img.jpg"
   },
   {
@@ -13750,6 +14308,7 @@
    "firstYear": 2024,
    "image": "images/figures/nemo.jpg",
    "imageTrim": "images/trim/nemo.jpg",
+   "imageCut": "images/cut/nemo.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/nemo/img.jpg"
   },
   {
@@ -13773,6 +14332,7 @@
    "firstYear": 2024,
    "image": "images/figures/haruto.jpg",
    "imageTrim": "images/trim/haruto.jpg",
+   "imageCut": "images/cut/haruto.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/haruto/img.jpg"
   },
   {
@@ -13795,6 +14355,7 @@
    "firstYear": 2024,
    "image": "images/figures/peper.jpg",
    "imageTrim": "images/trim/peper.jpg",
+   "imageCut": "images/cut/peper.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/peper/img.jpg"
   },
   {
@@ -13817,6 +14378,7 @@
    "firstYear": 2024,
    "image": "images/figures/chili.jpg",
    "imageTrim": "images/trim/chili.jpg",
+   "imageCut": "images/cut/chili.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/chili/img.jpg"
   },
   {
@@ -13839,6 +14401,7 @@
    "firstYear": 2024,
    "image": "images/figures/botan.jpg",
    "imageTrim": "images/trim/botan.jpg",
+   "imageCut": "images/cut/botan.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/botan/img.jpg"
   },
   {
@@ -13861,6 +14424,7 @@
    "firstYear": 2025,
    "image": "images/figures/teru.jpg",
    "imageTrim": "images/trim/teru.jpg",
+   "imageCut": "images/cut/teru.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/teru/img.jpg"
   },
   {
@@ -13883,6 +14447,7 @@
    "firstYear": 2025,
    "image": "images/figures/volo.jpg",
    "imageTrim": "images/trim/volo.jpg",
+   "imageCut": "images/cut/volo.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/volo/img.jpg"
   },
   {
@@ -13905,6 +14470,7 @@
    "firstYear": 2025,
    "image": "images/figures/seki.jpg",
    "imageTrim": "images/trim/seki.jpg",
+   "imageCut": "images/cut/seki.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/seki/img.jpg"
   },
   {
@@ -13927,6 +14493,7 @@
    "firstYear": 2025,
    "image": "images/figures/kai.jpg",
    "imageTrim": "images/trim/kai.jpg",
+   "imageCut": "images/cut/kai.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/kai/img.jpg"
   },
   {
@@ -13950,6 +14517,7 @@
    "firstYear": 2025,
    "image": "images/figures/sho.jpg",
    "imageTrim": "images/trim/sho.jpg",
+   "imageCut": "images/cut/sho.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/sho/img.jpg"
   },
   {
@@ -13972,6 +14540,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000259828_1_022209.jpg",
    "imageTrim": "images/trim/x1000259828_1_022209.jpg",
+   "imageCut": "images/cut/x1000259828_1_022209.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/NNo/0000004967543FKfx2pBqTCFvr9vza8lWBygOwKTFqbmuNNo.jpg"
   },
   {
@@ -13994,6 +14563,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000259828_2_1992f6.jpg",
    "imageTrim": "images/trim/x1000259828_2_1992f6.jpg",
+   "imageCut": "images/cut/x1000259828_2_1992f6.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/Jg5/000000496766Sj1qMWCEc9kNVhBS4uKhnWOfLiLGh64MKJg5.jpg"
   },
   {
@@ -14016,6 +14586,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000259828_3_ce46b3.jpg",
    "imageTrim": "images/trim/x1000259828_3_ce46b3.jpg",
+   "imageCut": "images/cut/x1000259828_3_ce46b3.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/5up/000000496778IQ7FrPmVTD2EbvDRzF3DDX0tRrSMEfpRb5up.jpg"
   },
   {
@@ -14038,6 +14609,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000259828_4_4189fe.jpg",
    "imageTrim": "images/trim/x1000259828_4_4189fe.jpg",
+   "imageCut": "images/cut/x1000259828_4_4189fe.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/j4y/000000496750WC8Vpg3cFv9aHMEntGzW8L4ieUqSnJJTij4y.jpg"
   },
   {
@@ -14060,6 +14632,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000259827_1_cda6b5.jpg",
    "imageTrim": "images/trim/x1000259827_1_cda6b5.jpg",
+   "imageCut": "images/cut/x1000259827_1_cda6b5.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/HJg/000000496714zLyrzcYSAvVBsLDiY2fiLHwxNmjgczJfaHJg.jpg"
   },
   {
@@ -14082,6 +14655,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000259827_2_24e029.jpg",
    "imageTrim": "images/trim/x1000259827_2_24e029.jpg",
+   "imageCut": "images/cut/x1000259827_2_24e029.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/51j/000000496726LVkCDNmfmWQyKMAQyN8gPWcxO4BeMd5Mr51j.jpg"
   },
   {
@@ -14104,6 +14678,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000259827_3_7497bd.jpg",
    "imageTrim": "images/trim/x1000259827_3_7497bd.jpg",
+   "imageCut": "images/cut/x1000259827_3_7497bd.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/f3a/00000049673851WPJ0MEti3X51JBQ5NkO6stcrxrUSt3rf3a.jpg"
   },
   {
@@ -14126,6 +14701,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000258097_1_668ece.jpg",
    "imageTrim": "images/trim/x1000258097_1_668ece.jpg",
+   "imageCut": "images/cut/x1000258097_1_668ece.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/hYu/000000493022VUnG21HVulkGQiM1ZV8xtAffuMc3ASZYZhYu.jpg"
   },
   {
@@ -14148,6 +14724,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000258097_2_9ace77.jpg",
    "imageTrim": "images/trim/x1000258097_2_9ace77.jpg",
+   "imageCut": "images/cut/x1000258097_2_9ace77.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/jlN/0000004930344wrr1zVomZkxEla7jJMliMOHDqX6pp12yjlN.jpg"
   },
   {
@@ -14170,6 +14747,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000258096_1_cc7d0d.jpg",
    "imageTrim": "images/trim/x1000258096_1_cc7d0d.jpg",
+   "imageCut": "images/cut/x1000258096_1_cc7d0d.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/tfA/000000492982Jp8l4Jm1lFR1ElnJ3JbgW4Bs7AZh6J9OetfA.jpg"
   },
   {
@@ -14192,6 +14770,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000258096_2_cddb7e.jpg",
    "imageTrim": "images/trim/x1000258096_2_cddb7e.jpg",
+   "imageCut": "images/cut/x1000258096_2_cddb7e.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/qIX/000000492994gErH3NOJFymHXKZGRDtqUduBBP50aEV8lqIX.jpg"
   },
   {
@@ -14214,6 +14793,7 @@
    "firstYear": 2027,
    "image": "images/figures/x1000258096_3_a9c652.jpg",
    "imageTrim": "images/trim/x1000258096_3_a9c652.jpg",
+   "imageCut": "images/cut/x1000258096_3_a9c652.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/XZC/000000493006B14TaB5jZA5nyq5NFlwV54u3P5nKSKdpzXZC.jpg"
   },
   {
@@ -14237,6 +14817,7 @@
    "firstYear": 2027,
    "image": "images/trim/x4570117932496000_2_178767_3-1.jpg",
    "imageTrim": "images/trim/x4570117932496000_2_178767_3-1.jpg",
+   "imageCut": "images/cut/x4570117932496000_2_178767_3-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/1Fa/000000488066OOH1TkCUszGefwevqaXJzztOO1sYnAe7P1Fa.jpg"
   },
   {
@@ -14260,6 +14841,7 @@
    "firstYear": 2027,
    "image": "images/trim/x4570117932496000_4_9e0743_2-1.jpg",
    "imageTrim": "images/trim/x4570117932496000_4_9e0743_2-1.jpg",
+   "imageCut": "images/cut/x4570117932496000_4_9e0743_2-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/FLV/000000488070VMsdbnHnX7dXRNCZbbdQ24aJVO2KFYhpRFLV.jpg"
   },
   {
@@ -14283,6 +14865,7 @@
    "firstYear": 2027,
    "image": "images/trim/x4570117932496000_5_9e0743_2-0.jpg",
    "imageTrim": "images/trim/x4570117932496000_5_9e0743_2-0.jpg",
+   "imageCut": "images/cut/x4570117932496000_5_9e0743_2-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/FLV/000000488070VMsdbnHnX7dXRNCZbbdQ24aJVO2KFYhpRFLV.jpg"
   },
   {
@@ -14306,6 +14889,7 @@
    "firstYear": 2027,
    "image": "images/trim/x4570117932496000_6_d24cc2_2-1.jpg",
    "imageTrim": "images/trim/x4570117932496000_6_d24cc2_2-1.jpg",
+   "imageCut": "images/cut/x4570117932496000_6_d24cc2_2-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/PAO/000000488074gKP9p1bRq5xokzt2Te38XLkyTQggkkDvSPAO.jpg"
   },
   {
@@ -14329,6 +14913,7 @@
    "firstYear": 2027,
    "image": "images/trim/x4570117932496000_7_d24cc2_2-0.jpg",
    "imageTrim": "images/trim/x4570117932496000_7_d24cc2_2-0.jpg",
+   "imageCut": "images/cut/x4570117932496000_7_d24cc2_2-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/PAO/000000488074gKP9p1bRq5xokzt2Te38XLkyTQggkkDvSPAO.jpg"
   },
   {
@@ -14352,6 +14937,7 @@
    "firstYear": 2027,
    "image": "images/trim/x4570117932496000_8_5d6182_2-1.jpg",
    "imageTrim": "images/trim/x4570117932496000_8_5d6182_2-1.jpg",
+   "imageCut": "images/cut/x4570117932496000_8_5d6182_2-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/2Cf/000000488078bK1WaKEtMDRjvg4sbqA0t5QvIDp3uLLhV2Cf.jpg"
   },
   {
@@ -14375,6 +14961,7 @@
    "firstYear": 2027,
    "image": "images/trim/x4570117932496000_9_5d6182_2-0.jpg",
    "imageTrim": "images/trim/x4570117932496000_9_5d6182_2-0.jpg",
+   "imageCut": "images/cut/x4570117932496000_9_5d6182_2-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/2Cf/000000488078bK1WaKEtMDRjvg4sbqA0t5QvIDp3uLLhV2Cf.jpg"
   },
   {
@@ -14398,6 +14985,7 @@
    "firstYear": 2027,
    "image": "images/figures/x4570117932496000_10_7582c5.jpg",
    "imageTrim": "images/trim/x4570117932496000_10_7582c5_1-0.jpg",
+   "imageCut": "images/cut/x4570117932496000_10_7582c5_1-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/QJY/000000490350tvPbQH0biSiXmq4a2Dgr4R1aZrHvfH8uJQJY.jpg"
   },
   {
@@ -14421,6 +15009,7 @@
    "firstYear": 2027,
    "image": "images/figures/x4570117932496000_11_a671ac.jpg",
    "imageTrim": "images/trim/x4570117932496000_11_a671ac_1-0.jpg",
+   "imageCut": "images/cut/x4570117932496000_11_a671ac_1-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/v8j/000000490354hCcOZaK8N9LtnXpvrEP7uClHtfnwvO0YSv8j.jpg"
   },
   {
@@ -14443,6 +15032,7 @@
    "firstYear": 2026,
    "image": "images/figures/x1000256579_1_10d8e5.jpg",
    "imageTrim": "images/trim/x1000256579_1_10d8e5.jpg",
+   "imageCut": "images/cut/x1000256579_1_10d8e5.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/vDl/000000487846cMv6ta2ZjGIWbaqqQw3ifvfJ6YV6hKb7SvDl.jpg"
   },
   {
@@ -14465,6 +15055,7 @@
    "firstYear": 2026,
    "image": "images/figures/x1000253255_1_172e1f.jpg",
    "imageTrim": "images/trim/x1000253255_1_172e1f.jpg",
+   "imageCut": "images/cut/x1000253255_1_172e1f.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/kQO/000000484130WFsz1Q56nPWeAzy9qBPU8NYllPOoHZC3ZkQO.jpg"
   },
   {
@@ -14487,6 +15078,7 @@
    "firstYear": 2026,
    "image": "images/figures/x1000253253_1_04c95c.jpg",
    "imageTrim": "images/trim/x1000253253_1_04c95c.jpg",
+   "imageCut": "images/cut/x1000253253_1_04c95c.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/hzr/000000484114rPeYH4LStPUN18lLhBXWg2oXJdY1Hf4bUhzr.jpg"
   },
   {
@@ -14510,6 +15102,7 @@
    "firstYear": 2026,
    "image": "images/trim/x4570117928949000_1_548991_3-2.jpg",
    "imageTrim": "images/trim/x4570117928949000_1_548991_3-2.jpg",
+   "imageCut": "images/cut/x4570117928949000_1_548991_3-2.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/cdA/000000491314IZdsBKas5iEA57gSpgRNnidDGLSlcQnoGcdA.jpg"
   },
   {
@@ -14533,6 +15126,7 @@
    "firstYear": 2026,
    "image": "images/trim/x4570117928949000_2_548991_3-1.jpg",
    "imageTrim": "images/trim/x4570117928949000_2_548991_3-1.jpg",
+   "imageCut": "images/cut/x4570117928949000_2_548991_3-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/cdA/000000491314IZdsBKas5iEA57gSpgRNnidDGLSlcQnoGcdA.jpg"
   },
   {
@@ -14556,6 +15150,7 @@
    "firstYear": 2026,
    "image": "images/trim/x4570117928949000_3_548991_3-0.jpg",
    "imageTrim": "images/trim/x4570117928949000_3_548991_3-0.jpg",
+   "imageCut": "images/cut/x4570117928949000_3_548991_3-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/cdA/000000491314IZdsBKas5iEA57gSpgRNnidDGLSlcQnoGcdA.jpg"
   },
   {
@@ -14579,6 +15174,7 @@
    "firstYear": 2026,
    "image": "images/trim/x4570117928949000_4_afb69d_2-0.jpg",
    "imageTrim": "images/trim/x4570117928949000_4_afb69d_2-0.jpg",
+   "imageCut": "images/cut/x4570117928949000_4_afb69d_2-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/XcD/000000491318dvWtxwfAdfpc6UbaMMk3IzGiCss3DSOdnXcD.jpg"
   },
   {
@@ -14602,6 +15198,7 @@
    "firstYear": 2026,
    "image": "images/trim/x4570117928949000_5_afb69d_2-1.jpg",
    "imageTrim": "images/trim/x4570117928949000_5_afb69d_2-1.jpg",
+   "imageCut": "images/cut/x4570117928949000_5_afb69d_2-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/XcD/000000491318dvWtxwfAdfpc6UbaMMk3IzGiCss3DSOdnXcD.jpg"
   },
   {
@@ -14625,6 +15222,7 @@
    "firstYear": 2026,
    "image": "images/trim/x4570117928949000_6_d33249_2-1.jpg",
    "imageTrim": "images/trim/x4570117928949000_6_d33249_2-1.jpg",
+   "imageCut": "images/cut/x4570117928949000_6_d33249_2-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/Acg/000000491322644shyMCmcGwiQwM3CZ0jy3l8WMH9SjVvAcg.jpg"
   },
   {
@@ -14648,6 +15246,7 @@
    "firstYear": 2026,
    "image": "images/trim/x4570117928949000_7_d33249_2-0.jpg",
    "imageTrim": "images/trim/x4570117928949000_7_d33249_2-0.jpg",
+   "imageCut": "images/cut/x4570117928949000_7_d33249_2-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/Acg/000000491322644shyMCmcGwiQwM3CZ0jy3l8WMH9SjVvAcg.jpg"
   },
   {
@@ -14671,6 +15270,7 @@
    "firstYear": 2026,
    "image": "images/trim/x4570117928949000_8_94e175_2-0.jpg",
    "imageTrim": "images/trim/x4570117928949000_8_94e175_2-0.jpg",
+   "imageCut": "images/cut/x4570117928949000_8_94e175_2-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/AcM/000000491326AmmFbjjrBXZVqkA3luRjPPyxGinTDSm1FAcM.jpg"
   },
   {
@@ -14694,6 +15294,7 @@
    "firstYear": 2026,
    "image": "images/trim/x4570117928949000_9_94e175_2-1.jpg",
    "imageTrim": "images/trim/x4570117928949000_9_94e175_2-1.jpg",
+   "imageCut": "images/cut/x4570117928949000_9_94e175_2-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/AcM/000000491326AmmFbjjrBXZVqkA3luRjPPyxGinTDSm1FAcM.jpg",
    "types": [
     "grass",
@@ -14721,6 +15322,7 @@
    "firstYear": 2026,
    "image": "images/figures/x4570117928949000_10_ef89df.jpg",
    "imageTrim": "images/trim/x4570117928949000_10_ef89df_1-0.jpg",
+   "imageCut": "images/cut/x4570117928949000_10_ef89df_1-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/VX1/000000491330MMNO1kAWQWmEc6dn8HJ9qLm07qKAnNka8VX1.jpg"
   },
   {
@@ -14744,6 +15346,7 @@
    "firstYear": 2026,
    "image": "images/figures/x4570117928949000_11_954fff.jpg",
    "imageTrim": "images/trim/x4570117928949000_11_954fff_1-0.jpg",
+   "imageCut": "images/cut/x4570117928949000_11_954fff_1-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/bWX/0000004913343YjFtWBOm0Qca7sqzcOAdsmhkIn0POEcfbWX.jpg"
   },
   {
@@ -14766,6 +15369,7 @@
    "firstYear": 2026,
    "image": "images/figures/x1000248354_1_7ef622.jpg",
    "imageTrim": "images/trim/x1000248354_1_7ef622.jpg",
+   "imageCut": "images/cut/x1000248354_1_7ef622.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/LVB/000000470849JQIm8KsiEAVBewvb7OeLAkbi2shqTV9ZqLVB.jpg"
   },
   {
@@ -14788,6 +15392,7 @@
    "firstYear": 2026,
    "image": "images/figures/x1000248354_2_4eb28b.jpg",
    "imageTrim": "images/trim/x1000248354_2_4eb28b.jpg",
+   "imageCut": "images/cut/x1000248354_2_4eb28b.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/2lb/000000470861cKA4IfSoSsJ6QDkV0u25kfcpWiiICMMwB2lb.jpg",
    "types": [
     "fire",
@@ -14814,6 +15419,7 @@
    "firstYear": 2025,
    "image": "images/trim/x4570117923258000_1_5df5a6_3-0.jpg",
    "imageTrim": "images/trim/x4570117923258000_1_5df5a6_3-0.jpg",
+   "imageCut": "images/cut/x4570117923258000_1_5df5a6_3-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/h7k/000000459767iAHdv3ERN3uDrNdVRfhH5vzRwAwpBj4inh7k.jpg"
   },
   {
@@ -14836,6 +15442,7 @@
    "firstYear": 2025,
    "image": "images/trim/x4570117923258000_2_5df5a6_3-1.jpg",
    "imageTrim": "images/trim/x4570117923258000_2_5df5a6_3-1.jpg",
+   "imageCut": "images/cut/x4570117923258000_2_5df5a6_3-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/h7k/000000459767iAHdv3ERN3uDrNdVRfhH5vzRwAwpBj4inh7k.jpg"
   },
   {
@@ -14858,6 +15465,7 @@
    "firstYear": 2025,
    "image": "images/trim/x4570117923258000_3_5df5a6_3-2.jpg",
    "imageTrim": "images/trim/x4570117923258000_3_5df5a6_3-2.jpg",
+   "imageCut": "images/cut/x4570117923258000_3_5df5a6_3-2.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/h7k/000000459767iAHdv3ERN3uDrNdVRfhH5vzRwAwpBj4inh7k.jpg"
   },
   {
@@ -14880,6 +15488,7 @@
    "firstYear": 2025,
    "image": "images/trim/x4570117923258000_4_48d54e_2-0.jpg",
    "imageTrim": "images/trim/x4570117923258000_4_48d54e_2-0.jpg",
+   "imageCut": "images/cut/x4570117923258000_4_48d54e_2-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/PUR/0000004597713PLf2ealSIvJ9cAwLP49xs4kfEWb1sj1YPUR.jpg"
   },
   {
@@ -14902,6 +15511,7 @@
    "firstYear": 2025,
    "image": "images/trim/x4570117923258000_5_48d54e_2-1.jpg",
    "imageTrim": "images/trim/x4570117923258000_5_48d54e_2-1.jpg",
+   "imageCut": "images/cut/x4570117923258000_5_48d54e_2-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/PUR/0000004597713PLf2ealSIvJ9cAwLP49xs4kfEWb1sj1YPUR.jpg"
   },
   {
@@ -14924,6 +15534,7 @@
    "firstYear": 2025,
    "image": "images/trim/x4570117923258000_6_1895fc_2-0.jpg",
    "imageTrim": "images/trim/x4570117923258000_6_1895fc_2-0.jpg",
+   "imageCut": "images/cut/x4570117923258000_6_1895fc_2-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/W8u/000000459775eIcaaQ1TBLO4BbVCFusA6lkBMjKjmSRzyW8u.jpg"
   },
   {
@@ -14946,6 +15557,7 @@
    "firstYear": 2025,
    "image": "images/trim/x4570117923258000_7_1895fc_2-1.jpg",
    "imageTrim": "images/trim/x4570117923258000_7_1895fc_2-1.jpg",
+   "imageCut": "images/cut/x4570117923258000_7_1895fc_2-1.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/W8u/000000459775eIcaaQ1TBLO4BbVCFusA6lkBMjKjmSRzyW8u.jpg"
   },
   {
@@ -14968,6 +15580,7 @@
    "firstYear": 2025,
    "image": "images/trim/x4570117923258000_9_ede3e9_2-0.jpg",
    "imageTrim": "images/trim/x4570117923258000_9_ede3e9_2-0.jpg",
+   "imageCut": "images/cut/x4570117923258000_9_ede3e9_2-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/Yyh/000000459779PR6AGsmqElClQGNU3u4OF5RjtpYh9FOBtYyh.jpg"
   },
   {
@@ -14990,6 +15603,7 @@
    "firstYear": 2025,
    "image": "images/figures/x4570117923258000_10_e7125d.jpg",
    "imageTrim": "images/trim/x4570117923258000_10_e7125d_1-0.jpg",
+   "imageCut": "images/cut/x4570117923258000_10_e7125d_1-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/0Mp/000000459783MsSRzU2ZK78fdOOHROWVSE5lN6S2zPK8j0Mp.jpg"
   },
   {
@@ -15012,6 +15626,7 @@
    "firstYear": 2025,
    "image": "images/figures/x4570117923258000_11_007241.jpg",
    "imageTrim": "images/trim/x4570117923258000_11_007241_1-0.jpg",
+   "imageCut": "images/cut/x4570117923258000_11_007241_1-0.webp",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/dFY/0000004597879DX19azudrZK3jbXoHrUwR5eQOksjS6dDdFY.jpg"
   }
  ],

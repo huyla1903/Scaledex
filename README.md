@@ -25,9 +25,9 @@ If the vault syncs (iCloud, or Obsidian Sync with "Installed community plugins" 
 ### What's in the dex
 
 - **Regions:** one card per Scale World line (Kanto, Johto, … Paldea) with your completion, plus **All** and **Upcoming** (figures in sets that ship after today).
-- **Pokémon pages:** types, the evolution line with Megas (each one links to its page), every figure version, and every release of the selected figure.
-- **Trainer pages:** their role in the games (Gym Leader · Rock, Champion, Rival, Professor, Team Boss, …). Trainers are listed in the order of Bulbapedia's "List of Trainer figurines".
-- **Search:** English, Japanese or romaji names, dex numbers and trainer roles. Searching a Pokémon also finds its evolution line ("charmander" shows Charmeleon and Charizard).
+- **Pokémon pages:** types, a Legendary / Mythical / Powerhouse note, the evolution line with Megas (each one links to its page), every figure version, and every release of the selected figure. Tap a type or note to list every Pokémon that shares it.
+- **Trainer pages:** their role in the games (Gym Leader · Rock, Champion, Rival, Professor, Team Boss, …); tap it to list every trainer with that role. Trainers are listed in the order of Bulbapedia's "List of Trainer figurines".
+- **Search:** English, Japanese or romaji names, dex numbers, types ("fire"), Legendary / Mythical / Powerhouse and trainer roles ("gym leader"). Press `/` or `Ctrl+K` (`⌘K` on Mac) to start searching, `Esc` to close. Searching a Pokémon also finds its evolution line ("charmander" shows Charmeleon and Charizard).
 - **Filters and sorting:** Pokémon / Trainers / Owned / Missing / Wishlist, sorted by dex number, name or release year (menu).
 
 ### Where your collection is saved
@@ -43,7 +43,7 @@ The web app opens straight to a view with `?region=kanto`, `?region=upcoming`, `
 
 ### Offline images
 
-- **Web app:** menu → "Save all images for offline".
+- **Web app:** menu → "Save all images for offline" stores them in the browser's own offline cache for that site (not in your files).
 - **Obsidian:** command palette → "Download images (offline use)" saves about 50 MB into the plugin's own folder (`.obsidian/plugins/scaledex/cache/images/`), so your notes stay clean. Without it, images load from the web app's site (Settings → Image source), with Bandai's website as fallback.
 
 ### Where the data comes from
@@ -53,7 +53,7 @@ The web app opens straight to a view with `?region=kanto`, `?region=upcoming`, `
 - **Candy-aisle releases** (price per box, date, where sold): Bandai Candy product pages.
 - **Premium Bandai** (price, ship date): Internet Archive snapshots of p-bandai.jp, which blocks visitors outside Japan. Each release links to the snapshot it used.
 - **Re-releases the official dex doesn't link, trainer order:** Bulbapedia's Pokémon Scale World article.
-- **English names, types, evolution lines:** PokeAPI. Trainer names, roles and product-name translations are mapped by hand.
+- **English names, types, evolution lines, Legendary / Mythical:** PokeAPI. Powerhouse follows Bulbapedia's "Powerhouse Pokémon" list. Trainer names, roles and product-name translations are mapped by hand.
 
 Prices are Japanese retail prices including tax; candy-aisle prices are per box. Figure and product images © Bandai / Pokémon. This is a personal, unofficial index.
 

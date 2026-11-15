@@ -25,6 +25,8 @@
 @changelog    0.2.0  brand-page products/figures, types, evolution chains, trainer roles
                      and Bulbapedia trainer order, per-figure photos from
                      product galleries (box photos split per figure),
+                     transparent cut-outs (images/cut/*.webp) for region cards,
+                     Legendary / Mythical / Powerhouse status,
                      Lumiose City region alias; --refresh-index also re-reads
                      the brand list and pages of unreleased products
               0.1.0  first version
@@ -629,7 +631,8 @@ def load_pokeapi():
     sp = {}
     for r in rows("pokemon_species"):
         sp[int(r["id"])] = {"from": int(r["evolves_from_species_id"]) if r["evolves_from_species_id"] else None,
-                            "chain": int(r["evolution_chain_id"]) if r["evolution_chain_id"] else None}
+                            "chain": int(r["evolution_chain_id"]) if r["evolution_chain_id"] else None,
+                            "legendary": r["is_legendary"] == "1", "mythical": r["is_mythical"] == "1"}
     types = {}
     for r in rows("types"):
         types[int(r["id"])] = {"id": r["identifier"]}
@@ -648,6 +651,10 @@ def load_pokeapi():
              if t["id"] not in ("unknown", "shadow", "stellar")}
     return sp, forms, names
 
+
+# Bulbapedia "Powerhouse Pokémon" (fan term: pseudo-legendary): final stage of a three-stage
+# line with a base stat total of exactly 600. Not in PokeAPI, so listed here.
+POWERHOUSE = {149, 248, 373, 376, 445, 635, 706, 784, 887, 998}
 
 FORM_WORDS = {"hisuian": "hisui", "galarian": "galar", "alolan": "alola", "paldean": "paldea",
               "10%": "10", "rotom": None, "ver.": None}
@@ -775,6 +782,77 @@ def save_image(url, sub, name):
     with open(dst, "wb") as f:
         f.write(data)
     return rel
+
+
+def _drop_specks(alpha, share=0.03):
+    """Clear opaque blobs smaller than share of the biggest one (labelled on a small copy)."""
+    from PIL import Image, ImageDraw
+    w, h = alpha.size
+    k = max(1, max(w, h) // 80)
+    small = alpha.resize((max(1, w // k), max(1, h // k)), Image.BOX).point(lambda v: 255 if v > 40 else 0)
+    sw, sh = small.size
+    px = small.load()
+    blobs, colour = [], 1
+    for y in range(sh):
+        for x in range(sw):
+            if px[x, y] == 255:
+                ImageDraw.floodfill(small, (x, y), colour, thresh=0)
+                blobs.append(colour)
+                colour += 1
+                if colour == 255:
+                    return alpha  # too fragmented to judge; leave as is
+    if len(blobs) < 2:
+        return alpha
+    hist = small.histogram()
+    biggest = max(hist[c] for c in blobs)
+    out = alpha.copy()
+    draw = ImageDraw.Draw(out)
+    for c in blobs:
+        if hist[c] < biggest * share:
+            box = small.point(lambda v, c=c: 255 if v == c else 0).getbbox()
+            draw.rectangle((box[0] * k - k, box[1] * k - k, box[2] * k + k, box[3] * k + k), fill=0)
+    return out
+
+
+def cutout_image(rel, name, height=320):
+    """Figure on a transparent background -> images/cut/<name>.webp, for artwork that sits
+    on a coloured pattern (region cards). White that touches the photo's edge becomes
+    transparent; white inside the figure (e.g. between an arm and the body) stays.
+    Needs Pillow with WebP; returns None without it."""
+    try:
+        from PIL import Image, ImageDraw, ImageFilter, features
+    except ImportError:
+        return None
+    if not rel or not features.check("webp"):
+        return None
+    src = os.path.join(OUT_DIR, rel.replace("/", os.sep))
+    out_rel = f"images/cut/{name}.webp"
+    dst = os.path.join(OUT_DIR, out_rel.replace("/", os.sep))
+    if os.path.exists(dst) and os.path.getmtime(dst) >= os.path.getmtime(src):
+        return out_rel
+    try:
+        im = Image.open(src).convert("RGB")
+        if im.height > height:
+            im = im.resize((max(1, round(im.width * height / im.height)), height), Image.LANCZOS)
+        w, h = im.size
+        # near-white = 255, everything else 0; then flood the near-white that touches the border
+        bg = im.convert("L").point(lambda v: 255 if v > 236 else 0)
+        edge = [(x, 0) for x in range(w)] + [(x, h - 1) for x in range(w)] + \
+               [(0, y) for y in range(h)] + [(w - 1, y) for y in range(h)]
+        for pt in edge:
+            if bg.getpixel(pt) == 255:
+                ImageDraw.floodfill(bg, pt, 128, thresh=0)
+        alpha = bg.point(lambda v: 0 if v == 128 else 255)
+        alpha = _drop_specks(alpha)  # e.g. a corner of Bandai's stamp next to the figure
+        alpha = alpha.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(0.7))  # no white halo
+        out = im.convert("RGBA")
+        out.putalpha(alpha)
+        os.makedirs(os.path.dirname(dst), exist_ok=True)
+        out.save(dst, "WEBP", quality=85, method=6)
+        return out_rel
+    except Exception as e:
+        print("   ! cutout failed:", rel, e)
+        return None
 
 
 def _column_runs(mask, n):
@@ -1144,6 +1222,8 @@ def main():
             else:
                 f["image"] = save_image(f["_img"], "figures", f["id"])
                 f["imageTrim"] = trim_image(f["image"], f["id"])
+            src = f["imageTrim"] or f["image"]
+            f["imageCut"] = cutout_image(src, os.path.splitext(os.path.basename(src))[0]) if src else None
         for i, p in enumerate(products.values(), 1):
             if i % 50 == 0:
                 print(f"    products {i}/{len(products)}")
@@ -1174,6 +1254,9 @@ def main():
             continue
         c["types"] = form_types(forms, c["dex"], None)
         c["chain"] = evo_sp.get(c["dex"], {}).get("chain")
+        s = evo_sp.get(c["dex"], {})
+        c["status"] = ("mythical" if s.get("mythical") else "legendary" if s.get("legendary")
+                       else "powerhouse" if c["dex"] in POWERHOUSE else None)
     for f in fig_out:
         c = characters[f["characterId"]]
         if c["kind"] == "pokemon" and f["labelEn"]:
@@ -1215,8 +1298,21 @@ def main():
     with open(out, "w", encoding="utf-8") as fh:
         json.dump(data, fh, ensure_ascii=False, indent=1)
 
+    # ---- remove images the data no longer uses (old picks, box photos behind per-figure crops)
+    used_imgs = {f.get(k) for f in fig_out for k in ("image", "imageTrim", "imageCut")} | {p.get("image") for p in products.values()}
+    removed = 0
+    if want_images:
+        for sub in ("figures", "trim", "cut", "products"):
+            folder = os.path.join(IMG_DIR, sub)
+            for n in (os.listdir(folder) if os.path.isdir(folder) else []):
+                if f"images/{sub}/{n}" not in used_imgs:
+                    os.remove(os.path.join(folder, n))
+                    removed += 1
+
     # ---- report
     np = len(products)
+    if removed:
+        print(f"  removed {removed} unused images")
     print(f"\nWrote {out}")
     print(f"  characters {len(characters)}  figures {len(fig_out)}  products {np}")
     print(f"  products with price {sum(1 for p in products.values() if p['priceJPY'])}/{np}, "

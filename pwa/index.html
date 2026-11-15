@@ -68,7 +68,9 @@
     function cacheAll(api, data) {
       if (!("caches" in window)) { alert("Offline cache not supported in this browser."); return; }
       var urls = [];
-      data.figures.forEach(function (f) { if (f.image) urls.push("data/" + f.image); });
+      data.figures.forEach(function (f) {
+        [f.image, f.imageTrim, f.imageCut].forEach(function (r) { if (r && urls.indexOf("data/" + r) < 0) urls.push("data/" + r); });
+      });
       data.products.forEach(function (p) { if (p.image) urls.push("data/" + p.image); });
       var done = 0, failed = 0;
       caches.open("swdex-img-v1").then(function (c) {
@@ -90,7 +92,7 @@
       Scaledex.mount(root, {
         data: data,
         img: function (rel, url) { return LOCAL_IMAGES && rel ? "data/" + rel : url; },
-        load: load, save: save, history: true,
+        load: load, save: save, history: true, keyboard: "global",
         menu: [
           { label: "Export collection", run: exportState },
           { label: "Import collection", run: importState }
