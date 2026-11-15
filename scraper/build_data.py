@@ -861,7 +861,7 @@ def _column_runs(mask, n):
     narrowest gaps, and touching figures are cut at the thinnest column."""
     from PIL import Image
     w, h = mask.size
-    col = list(mask.resize((w, 1), Image.BOX).getdata())  # share of non-white pixels per column
+    col = list(mask.resize((w, 1), Image.BOX).tobytes())  # share of non-white pixels per column (L mode: 1 byte each)
     runs, start = [], None
     for x, v in enumerate(col + [0]):
         if v > 0 and start is None:
@@ -1206,6 +1206,7 @@ def main():
         f["firstYear"] = next((p["year"] for p in ps if p["year"]), None)
 
     # ---- images
+    box_photos = set()
     if want_images:
         print("5/5 Downloading images ...")
         for i, f in enumerate(fig_out, 1):
@@ -1218,6 +1219,7 @@ def main():
                 tkey = key + ("_%d-%d" % split if split else "")
                 f["imageTrim"] = trim_image(f["image"], tkey, ignore_marks=True, split=split)
                 if split and split[0] > 1 and f["imageTrim"]:
+                    box_photos.add(f["image"])  # only needed to cut the crop from
                     f["image"] = f["imageTrim"]  # the box photo shows other figures too
             else:
                 f["image"] = save_image(f["_img"], "figures", f["id"])
@@ -1305,9 +1307,10 @@ def main():
         for sub in ("figures", "trim", "cut", "products"):
             folder = os.path.join(IMG_DIR, sub)
             for n in (os.listdir(folder) if os.path.isdir(folder) else []):
-                if f"images/{sub}/{n}" not in used_imgs:
+                rel = f"images/{sub}/{n}"
+                if rel not in used_imgs:
                     os.remove(os.path.join(folder, n))
-                    removed += 1
+                    removed += rel not in box_photos  # box photos come back from the cache each run
 
     # ---- report
     np = len(products)

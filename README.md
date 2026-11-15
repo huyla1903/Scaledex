@@ -78,6 +78,8 @@ node tools/build.mjs                           # assemble dist/pwa/ and dist/sca
 node tools/build.mjs --vault "<vault path>"    # ...and install the plugin into a vault
 ```
 
+**Picking up new Scale World sets (Windows):** double-click `update.bat`. It runs the scraper and the build, shows what changed, and asks before publishing (pushing `data/scaledex.json` and uploading the images). Then copy `dist/scaledex/` into your vault.
+
 Serve `dist/pwa/` with any static web server to try the web app. Every push to `main` rebuilds the live site (`.github/workflows/pages.yml`). Images are not committed: after a data update that adds images, run `tools/upload_images.ps1` to publish them to the `images` release that the site and the plugin load from.
 
 ```

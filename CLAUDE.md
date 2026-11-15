@@ -22,6 +22,10 @@ Pokédex for Bandai's Pokémon Scale World figures. One data set, two front ends
 ## Run
 
 ```
+update.bat                              # all of the below + asks before publishing (push data, upload images)
 python scraper/build_data.py            # add --refresh-index to pick up new figures
 node tools/build.mjs --vault "<vault path>"
+powershell -ExecutionPolicy Bypass -File tools/upload_images.ps1
 ```
+
+The live site builds from the committed `data/scaledex.json`, so publish = push the data, then upload the images (the upload starts the Pages build).
