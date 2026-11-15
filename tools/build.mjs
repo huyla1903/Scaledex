@@ -1,9 +1,9 @@
 /*
 @title        Scaledex - build
-@version      0.1.1
+@version      0.1.2
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-14
+@updated      2026-11-15
 @engine       Node.js 18+ (no npm packages)
 @target       Windows / any OS
 @about        Assembles dist/ from the shared core (app/), the data (data/) and the
@@ -12,7 +12,8 @@
                 dist/scaledex/ Obsidian plugin folder (main.js, manifest.json, styles.css)
               Options:
                 --vault "<path>"     also install the plugin into <path>/.obsidian/plugins/
-                --vault-images       with --vault: copy images to <vault>/Scaledex/
+                --vault-images       with --vault: copy images to the plugin's cache
+                                     (<vault>/.obsidian/plugins/scaledex/cache/images/)
                 --remote-images      PWA loads pictures from bandai.co.jp and no
                                      images are copied (used for GitHub Pages)
 */
@@ -103,7 +104,8 @@ if (vault) {
   for (const f of ["main.js", "manifest.json", "styles.css"]) fs.copyFileSync(path.join(pluginDir, f), path.join(target, f));
   console.log("Installed plugin into " + target);
   if (args.includes("--vault-images")) {
-    const n = copyDir(p("data", "images"), path.join(vault, "Scaledex", "images"));
-    console.log("Copied " + n + " images into " + path.join(vault, "Scaledex", "images"));
+    const dst = path.join(target, "cache", "images");
+    const n = copyDir(p("data", "images"), dst);
+    console.log("Copied " + n + " images into " + dst);
   }
 }

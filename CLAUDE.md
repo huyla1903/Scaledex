@@ -12,12 +12,12 @@ Pokédex for Bandai's Pokémon Scale World figures. One data set, two front ends
 
 ## Data notes
 
-- Source of truth is the official dex at bandai.co.jp/candy/pokemonscaleworld/lineup/. It lags months behind, so products it doesn't list come from the Bandai Candy brand page (`BRAND_LIST`, `?__offset=20...`); their figures get `x<product>_<n>` ids and are matched to existing figures by character + label. New trainers there need an entry in `NEW_TRAINERS` and a role in `TRAINER_ROLES` (the scraper warns when one is missing). Trainer display order comes from Bulbapedia's "List of Trainer figurines" (`bulbapedia_trainer_order`). Each lineup id (`025`, `025_2`, `470_hisui`) is one figure; figures are grouped into characters by dex number (Pokémon) or id prefix (trainers).
+- Source of truth is the official dex at bandai.co.jp/candy/pokemonscaleworld/lineup/. It lags months behind, so products it doesn't list come from the Bandai Candy brand page (`BRAND_LIST`, `?__offset=20...`); their figures get `x<product>_<n>` ids and are matched to existing figures by character + label. Their photos come from the product page gallery (`figure_photo`: Premium Bandai = group shot + 3 views per figure; candy = one photo per numbered box, split into one crop per figure). Fix wrong picks in `FIGURE_IMAGES` and wrong left-to-right order in `FIGURE_CROPS`. New trainers there need an entry in `NEW_TRAINERS` and a role in `TRAINER_ROLES` (the scraper warns when one is missing). Trainer display order comes from Bulbapedia's "List of Trainer figurines" (`bulbapedia_trainer_order`). Each lineup id (`025`, `025_2`, `470_hisui`) is one figure; figures are grouped into characters by dex number (Pokémon) or id prefix (trainers).
 - p-bandai.jp blocks non-Japanese IPs. Premium Bandai prices and ship dates come from the Wayback Machine (`id_` raw snapshots, JSON-LD `price`). Keep archive.org requests slow (`ARCHIVE_DELAY`).
 - Trainer English names are mapped by hand in `TRAINERS`; product names are machine-translated from Japanese with `PRODUCT_WORDS` + character names. Add to those tables when new lines appear.
 - Prices are JPY including tax. Candy products are per box.
 - "Upcoming" is computed in the UI from product dates vs. today, not stored in the data.
-- Images are not committed (Projects rule). The Pages site gets them from the `images` GitHub Release (`tools/upload_images.ps1`).
+- Images are not committed (Projects rule). The Pages site gets them from the `images` GitHub Release (`tools/upload_images.ps1`); the Obsidian plugin downloads them into `<plugin dir>/cache/images` (`cacheDir()`, from `this.manifest.dir`) and otherwise loads them from the Pages site (`IMAGE_BASE`), falling back to Bandai's URL. Re-upload after the scraper adds or changes images.
 
 ## Run
 

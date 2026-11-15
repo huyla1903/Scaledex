@@ -1,6 +1,6 @@
 /*
 @title        Scaledex - Obsidian plugin
-@version      0.1.4
+@version      0.1.6
 @author       La Gia Huy
 @since        2026-11-14
 @updated      2026-11-15
@@ -10,8 +10,9 @@
               wishlist tracking. Source file: tools/build.mjs inlines the shared UI core
               (app/dex.js) and the data (data/scaledex.json) into main.js, so the
               plugin is self-contained and syncs with Obsidian Sync or iCloud.
-              Images load from the vault folder set in settings (filled by the
-              "Download images to vault" command) and fall back to Bandai's servers.
+              Images load from the plugin's cache folder (<plugin dir>/cache/images,
+              filled by the "Download images" command), else from the Scaledex web
+              app's site, else from Bandai's servers.
 */
 "use strict";
 var obsidian = require("obsidian");
@@ -26,7 +27,9 @@ var ICON_SVG = '<g fill="none" stroke="currentColor" stroke-width="7" stroke-lin
   '<rect x="12" y="6" width="76" height="88" rx="12"/><circle cx="34" cy="28" r="11"/>' +
   '<path d="M12 50 H44 L52 42 H88"/><rect x="26" y="60" width="48" height="24" rx="5"/></g>' +
   '<g fill="currentColor"><circle cx="58" cy="22" r="4.5"/><circle cx="73" cy="22" r="4.5"/></g>';
-var DEFAULTS = { imageFolder: "Scaledex", collection: { owned: {}, wish: {}, prefs: {} } };
+// The web app hosts the scraper's images (incl. per-figure crops); Bandai's URL is the fallback.
+var IMAGE_BASE = "https://huyla1903.github.io/Scaledex/data/";
+var DEFAULTS = { imageBase: IMAGE_BASE, collection: { owned: {}, wish: {}, prefs: {} } };
 
 function isDark() { return document.body.classList.contains("theme-dark"); }
 
@@ -73,17 +76,18 @@ class ScaledexView extends obsidian.ItemView {
     var data = await plugin.getData();
     var hasLocal = await plugin.hasLocalImages();
     var adapter = this.app.vault.adapter;
-    var folder = obsidian.normalizePath(plugin.settings.imageFolder || "");
+    var folder = plugin.cacheDir();
     this.api = Scaledex.mount(root, {
       data: data,
       dark: isDark(),
-      img: function (rel, url) {
+      img: function (rel, url) {  // the core falls back to url if this one fails to load
         if (rel && hasLocal) return adapter.getResourcePath(obsidian.normalizePath(folder + "/" + rel));
+        if (rel && plugin.settings.imageBase) return plugin.settings.imageBase.replace(/\/?$/, "/") + rel;
         return url || "";
       },
       load: function () { return plugin.settings.collection; },
       save: function (s) { plugin.settings.collection = s; plugin.saveSoon(); },
-      menu: [{ label: "Download images to vault (offline)", run: function () { plugin.downloadImages(); } }]
+      menu: [{ label: "Download images (offline use)", run: function () { plugin.downloadImages(); } }]
     });
     var self = this;
     this.registerEvent(this.app.workspace.on("css-change", function () { if (self.api) self.api.setDark(isDark()); }));
@@ -98,16 +102,17 @@ class ScaledexSettings extends obsidian.PluginSettingTab {
     var el = this.containerEl, plugin = this.plugin;
     el.empty();
     new obsidian.Setting(el)
-      .setName("Image folder")
-      .setDesc("Vault folder for figure and product images. If it has no images, they load from Bandai's website (needs internet).")
+      .setName("Image source")
+      .setDesc("Where online images come from: the Scaledex web app's data folder. Empty = Bandai's website (no per-figure crops for new sets).")
       .addText(function (t) {
-        t.setPlaceholder("Scaledex").setValue(plugin.settings.imageFolder).onChange(async function (v) {
-          plugin.settings.imageFolder = v.trim(); await plugin.saveData(plugin.settings); plugin.localChecked = null;
+        t.setPlaceholder(IMAGE_BASE).setValue(plugin.settings.imageBase).onChange(async function (v) {
+          plugin.settings.imageBase = v.trim(); await plugin.saveData(plugin.settings);
         });
       });
     new obsidian.Setting(el)
       .setName("Download images")
-      .setDesc("Save every figure and product image into the image folder so the dex works offline (about 30 MB).")
+      .setDesc("Save every figure and product image into " + plugin.cacheDir() + "/images so the dex works offline (about 50 MB). " +
+        "Without them, images load from the image source above (needs internet).")
       .addButton(function (b) { b.setButtonText("Download").setCta().onClick(function () { plugin.downloadImages(); }); });
     var data = DEX_DATA;
     if (data) el.createEl("p", { text: "Data generated " + data.generated + ": " + data.characters.length + " characters, " +
@@ -125,7 +130,7 @@ module.exports = class ScaledexPlugin extends obsidian.Plugin {
     obsidian.addIcon(ICON, ICON_SVG);
     this.addRibbonIcon(ICON, "Open Scaledex", function () { plugin.openView(); });
     this.addCommand({ id: "open", name: "Open Scaledex", callback: function () { plugin.openView(); } });
-    this.addCommand({ id: "download-images", name: "Download images to vault (offline use)", callback: function () { plugin.downloadImages(); } });
+    this.addCommand({ id: "download-images", name: "Download images (offline use)", callback: function () { plugin.downloadImages(); } });
     this.addSettingTab(new ScaledexSettings(this.app, this));
   }
 
@@ -142,11 +147,14 @@ module.exports = class ScaledexPlugin extends obsidian.Plugin {
     this._t = setTimeout(function () { self.saveData(self.settings); }, 400);
   }
 
-  // A newer scaledex.json placed in the image folder overrides the bundled data.
+  // <plugin dir>/cache: downloaded images, and an optional newer scaledex.json
+  cacheDir() { return obsidian.normalizePath(this.manifest.dir + "/cache"); }
+
+  // A newer scaledex.json placed in the cache folder overrides the bundled data.
   async getData() {
-    var p = obsidian.normalizePath((this.settings.imageFolder || "") + "/scaledex.json");
+    var p = this.cacheDir() + "/scaledex.json";
     try {
-      if (this.settings.imageFolder && await this.app.vault.adapter.exists(p)) {
+      if (await this.app.vault.adapter.exists(p)) {
         var d = JSON.parse(await this.app.vault.adapter.read(p));
         if (d && d.figures && (!DEX_DATA || d.generated >= DEX_DATA.generated)) return d;
       }
@@ -156,19 +164,25 @@ module.exports = class ScaledexPlugin extends obsidian.Plugin {
 
   async hasLocalImages() {
     if (this.localChecked != null) return this.localChecked;
-    var f = this.settings.imageFolder;
-    this.localChecked = !!f && await this.app.vault.adapter.exists(obsidian.normalizePath(f + "/images/figures"));
+    this.localChecked = await this.app.vault.adapter.exists(this.cacheDir() + "/images/figures");
     return this.localChecked;
   }
 
   async downloadImages() {
-    var folder = obsidian.normalizePath(this.settings.imageFolder || "Scaledex");
+    var folder = this.cacheDir();
     var adapter = this.app.vault.adapter;
     var data = await this.getData();
-    var jobs = [];
-    data.figures.forEach(function (f) { if (f.image && f.imageUrl) jobs.push([f.image, f.imageUrl, f.imageTrim]); });
-    data.products.forEach(function (p) { if (p.image && p.imageUrl) jobs.push([p.image, p.imageUrl]); });
-    var notice = new obsidian.Notice("Scaledex: downloading " + jobs.length + " images…", 0);
+    var base = (this.settings.imageBase || "").replace(/\/?$/, "/");
+    // [vault-relative path, Bandai fallback URL, local original to crop if the image source fails]
+    var seen = {}, jobs = [], trims = [];
+    function add(list, job) { if (job[0] && !seen[job[0]]) { seen[job[0]] = true; list.push(job); } }
+    data.figures.forEach(function (f) {
+      add(jobs, [f.image, f.imageUrl, null]);
+      if (f.imageTrim) add(trims, [f.imageTrim, null, f.image]);
+    });
+    data.products.forEach(function (p) { add(jobs, [p.image, p.imageUrl, null]); });
+    var total = jobs.length + trims.length;
+    var notice = new obsidian.Notice("Scaledex: downloading " + total + " images…", 0);
     var done = 0, skipped = 0, failed = 0;
     var dirs = {};
     async function ensureDir(path) {
@@ -181,31 +195,32 @@ module.exports = class ScaledexPlugin extends obsidian.Plugin {
         dirs[cur] = true;
       }
     }
+    async function get(url) {
+      if (!url) return null;
+      try {
+        var res = await obsidian.requestUrl({ url: url, throw: false });
+        return res.status === 200 ? res.arrayBuffer : null;
+      } catch (e) { return null; }
+    }
     async function one(job) {
       var path = obsidian.normalizePath(folder + "/" + job[0]);
-      var trimPath = job[2] ? obsidian.normalizePath(folder + "/" + job[2]) : null;
       try {
-        var buf;
-        if (await adapter.exists(path)) {
-          if (!trimPath || await adapter.exists(trimPath)) { skipped++; return; }
-          buf = await adapter.readBinary(path);
-        } else {
-          var res = await obsidian.requestUrl({ url: job[1], throw: false });
-          if (res.status !== 200) { failed++; return; }
-          buf = res.arrayBuffer;
-          await ensureDir(path);
-          await adapter.writeBinary(path, buf);
+        if (await adapter.exists(path)) { skipped++; return; }
+        var buf = (base !== "/" ? await get(base + job[0]) : null) || await get(job[1]);
+        if (!buf && job[2]) {  // crop it here from the original we already have
+          var orig = obsidian.normalizePath(folder + "/" + job[2]);
+          if (await adapter.exists(orig)) buf = await trimWhite(await adapter.readBinary(orig));
         }
-        if (trimPath) {
-          var trimmed = await trimWhite(buf);
-          if (trimmed) { await ensureDir(trimPath); await adapter.writeBinary(trimPath, trimmed); }
-        }
+        if (!buf) { failed++; return; }
+        await ensureDir(path);
+        await adapter.writeBinary(path, buf);
         done++;
       } catch (e) { failed++; }
     }
-    for (var i = 0; i < jobs.length; i += 6) {
-      await Promise.all(jobs.slice(i, i + 6).map(one));
-      notice.setMessage("Scaledex: images " + Math.min(i + 6, jobs.length) + " / " + jobs.length);
+    var all = jobs.concat(trims);  // originals first: a crop may be made from one
+    for (var i = 0; i < all.length; i += 6) {
+      await Promise.all(all.slice(i, i + 6).map(one));
+      notice.setMessage("Scaledex: images " + Math.min(i + 6, all.length) + " / " + all.length);
     }
     notice.hide();
     new obsidian.Notice("Scaledex: " + done + " downloaded, " + skipped + " already there" + (failed ? ", " + failed + " failed" : "") +

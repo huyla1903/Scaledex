@@ -1,55 +1,101 @@
 # Scaledex
 
-A Pokédex for Bandai's **Pokémon Scale World** (1/20 scale) figures, styled after the Pokémon GO Pokédex. It lists every Pokémon and trainer with an official figure, with the English name first and the Japanese name second. For each figure it shows the official image, scale height and every release (including re-releases and re-orders), with the date, where it was sold and the price in JPY. Trainer pages show their role in the games (Gym Leader · Rock, Champion, Rival, Professor, Team Boss...); Pokémon pages show the types and the evolution line (Megas included), and search finds the whole line ("charmander" also shows Charmeleon and Charizard). You can mark figures as **owned** or put them on your **wishlist**, and see completion per region. The **Upcoming** card lists figures in sets that ship after today.
+A Pokédex for Bandai's **Pokémon Scale World** (1/20 scale) figures, as a web app and a mobile-friendly Obsidian plugin.
 
-It comes in two forms built from the same data:
+## 💡 Motivation
 
-| | Where it runs | Collection is saved in |
+Pokémon Scale World has hundreds of figures spread over candy-aisle waves, Premium Bandai sets, re-orders and single re-sales. The official dex is in Japanese only, runs months behind new announcements, and doesn't tell you what each figure cost or when it was re-released. Premium Bandai doesn't even open outside Japan.
+
+Scaledex puts it all in one place, styled after the Pokémon GO Pokédex: every Pokémon and trainer with a figure, English and Japanese names (with romaji), scale height, and every release with its date, sales channel and price in JPY. You can mark figures as **owned** or put them on your **wishlist** and track completion per region.
+
+## 🚀 Quick Start
+
+**Web app:** open **https://huyla1903.github.io/Scaledex/**. On iPhone, tap Share → **Add to Home Screen** to use it like an app (it works offline once loaded).
+
+**Obsidian plugin (desktop, iOS and Android):**
+
+1. Copy the `dist/scaledex/` folder to `<your vault>/.obsidian/plugins/scaledex/`.
+2. In Obsidian, open **Settings → Community plugins** and enable **Scaledex**.
+3. Open it from the ribbon (dex icon) or the command palette: "Open Scaledex".
+
+If the vault syncs (iCloud, or Obsidian Sync with "Installed community plugins" on), the plugin reaches your phone on its own.
+
+## 📖 Usage
+
+### What's in the dex
+
+- **Regions:** one card per Scale World line (Kanto, Johto, … Paldea) with your completion, plus **All** and **Upcoming** (figures in sets that ship after today).
+- **Pokémon pages:** types, the evolution line with Megas (each one links to its page), every figure version, and every release of the selected figure.
+- **Trainer pages:** their role in the games (Gym Leader · Rock, Champion, Rival, Professor, Team Boss, …). Trainers are listed in the order of Bulbapedia's "List of Trainer figurines".
+- **Search:** English, Japanese or romaji names, dex numbers and trainer roles. Searching a Pokémon also finds its evolution line ("charmander" shows Charmeleon and Charizard).
+- **Filters and sorting:** Pokémon / Trainers / Owned / Missing / Wishlist, sorted by dex number, name or release year (menu).
+
+### Where your collection is saved
+
+| | Saved in | Backup |
 |---|---|---|
-| **Obsidian plugin** (`dist/scaledex/`) | Obsidian desktop **and iOS/Android** (`isDesktopOnly: false`) | the plugin's `data.json`, so it syncs with your vault |
-| **Web app / PWA** (`dist/pwa/`) | any browser; "Add to Home Screen" on iPhone, works offline | the browser's localStorage (export/import from Settings) |
+| Web app | the browser's local storage | menu → Export / Import collection |
+| Obsidian plugin | the plugin's `data.json` in your vault | syncs with the vault |
 
-## Install the Obsidian plugin (iPhone included)
+### Links
 
-1. Build (see below), or take the ready-made `dist/scaledex/` folder.
-2. Copy that folder to `<your vault>/.obsidian/plugins/scaledex/`. If the vault syncs (iCloud, Obsidian Sync with "installed community plugins" on), it reaches your phone on its own. Or run `node tools/build.mjs --vault "<vault path>"`.
-3. In Obsidian go to **Settings → Community plugins**, then enable **Scaledex**.
-4. Open it from the ribbon (grid icon) or the command palette: "Open Scaledex".
-5. Optional, for offline use: run "Download images to vault" from the command palette (about 35 MB, saved into the `Scaledex/` folder). Without this step, images load from Bandai's website.
+The web app opens straight to a view with `?region=kanto`, `?region=upcoming`, `?open=p0025` (Pikachu), `?open=t-red` or `?q=charmander`.
 
-All the data (`main.js`, about 330 KB) is inside the plugin, so no extra files are needed.
+### Offline images
 
-## Use the web app
+- **Web app:** menu → "Save all images for offline".
+- **Obsidian:** command palette → "Download images (offline use)" saves about 50 MB into the plugin's own folder (`.obsidian/plugins/scaledex/cache/images/`), so your notes stay clean. Without it, images load from the web app's site (Settings → Image source), with Bandai's website as fallback.
 
-Live version: **https://huyla1903.github.io/Scaledex/**. Every push to `main` rebuilds it with `.github/workflows/pages.yml`. Images are not in git: `tools/upload_images.ps1` zips `data/images/` into the `images` GitHub Release, and the workflow serves those copies (without that release it falls back to linking bandai.co.jp with `--remote-images`). You can also host a local `dist/pwa/` build, which includes the images, on any HTTPS static host. On the iPhone, open it in Safari and choose Share → **Add to Home Screen**. In Settings, "Save all images for offline" caches everything. Deep links: `?region=kanto`, `?region=upcoming`, `?open=p0025`, `?open=t-red`, `?q=charmander`.
+### Where the data comes from
 
-## Update the data
+- **Figures, images, scale heights:** the official dex at bandai.co.jp/candy/pokemonscaleworld/lineup/.
+- **New and upcoming sets the official dex doesn't list yet:** the Bandai Candy Scale World brand page. These figures use Bandai's product photos (one per figure, cropped from the set gallery) until the official dex adds them.
+- **Candy-aisle releases** (price per box, date, where sold): Bandai Candy product pages.
+- **Premium Bandai** (price, ship date): Internet Archive snapshots of p-bandai.jp, which blocks visitors outside Japan. Each release links to the snapshot it used.
+- **Re-releases the official dex doesn't link, trainer order:** Bulbapedia's Pokémon Scale World article.
+- **English names, types, evolution lines:** PokeAPI. Trainer names, roles and product-name translations are mapped by hand.
 
+Prices are Japanese retail prices including tax; candy-aisle prices are per box. Figure and product images © Bandai / Pokémon. This is a personal, unofficial index.
+
+See [CLAUDE.md](CLAUDE.md) for implementation notes.
+
+## 🤝 Contributing
+
+### Clone the repo
+
+```bash
+git clone https://github.com/huyla1903/Scaledex.git
+cd Scaledex
 ```
-python scraper/build_data.py --refresh-index   # picks up new figures/products; everything else comes from cache
-node tools/build.mjs [--vault "<vault path>"] [--vault-images]
-powershell -ExecutionPolicy Bypass -File tools/upload_images.ps1   # publish new images to the web app
+
+### Run it locally
+
+You need Python 3 and Node.js 18+. There are no npm packages. Pillow (`scraper/requirements.txt`) is optional: it crops figure photos so they fill a tile.
+
+```bash
+python scraper/build_data.py --refresh-index   # rebuild data/scaledex.json + data/images/ (responses are cached)
+node tools/build.mjs                           # assemble dist/pwa/ and dist/scaledex/
+node tools/build.mjs --vault "<vault path>"    # ...and install the plugin into a vault
 ```
 
-The scraper uses only the Python standard library. Pillow (`scraper/requirements.txt`) is optional: it crops the white margin around renders so they fill a tile. "Show figures at true relative scale" in Settings shows the uncropped originals.
-
-## Where the data comes from
-
-- **Figures, images, scale height, which products each figure was in**: the official dex at bandai.co.jp/candy/pokemonscaleworld/lineup/
-- **Products the official dex doesn't list yet** (new and upcoming sets, their figures and sizes): the Bandai Candy Scale World brand page. Figures from there have ids starting with `x` and use the product photo until the dex adds them.
-- **Candy-aisle releases** (price per box, release date, 売場): Bandai Candy product pages
-- **Premium Bandai** (price, ship date): p-bandai.jp blocks visitors outside Japan, so these come from Internet Archive snapshots of the Japanese pages. Each release links to the snapshot it used.
-- **Candy re-releases the official dex doesn't link**: Bulbapedia's Scale World article
-- **English Pokémon names, types, evolution lines**: PokeAPI. Trainer roles are mapped by hand in `TRAINER_ROLES`; trainers are listed in the order of Bulbapedia's "List of Trainer figurines" (new ones it doesn't list yet go last). Trainer names and product-name translation are mapped by hand in `scraper/build_data.py`.
-
-Prices are Japanese retail prices including tax. Figure and product images © Bandai / Pokémon. This is a personal, unofficial index.
-
-## Layout
+Serve `dist/pwa/` with any static web server to try the web app. Every push to `main` rebuilds the live site (`.github/workflows/pages.yml`). Images are not committed: after a data update that adds images, run `tools/upload_images.ps1` to publish them to the `images` release that the site and the plugin load from.
 
 ```
 scraper/build_data.py      data builder -> data/scaledex.json + data/images/
 app/dex.js, app/dex.css    shared UI core (no framework)
 pwa/                       web-app wrapper (index.html, sw.js, manifest, icons)
 obsidian-plugin/           plugin wrapper (main.src.js, manifest.json)
-tools/build.mjs            assembles dist/
+tools/                     build.mjs (assembles dist/), upload_images.ps1
 ```
+
+### Test your changes
+
+There is no automated test suite yet. Before opening a pull request, build and check in the web app (and in Obsidian if you touched the plugin) that:
+
+- the home screen, a region grid and a few Pokémon and trainer pages render,
+- search, filters and owned / wishlist marks still work,
+- the scraper run ends without new `!` warnings.
+
+### Submit a pull request
+
+If you'd like to contribute, please fork the repository and open a pull request to the `main` branch.

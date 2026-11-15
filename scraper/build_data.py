@@ -23,7 +23,8 @@
               fetch what is new. Delete the cache folder to force a full refresh.
               Usage:  python build_data.py [--no-images] [--refresh-index]
 @changelog    0.2.0  brand-page products/figures, types, evolution chains, trainer roles
-                     and Bulbapedia trainer order,
+                     and Bulbapedia trainer order, per-figure photos from
+                     product galleries (box photos split per figure),
                      Lumiose City region alias; --refresh-index also re-reads
                      the brand list and pages of unreleased products
               0.1.0  first version
@@ -31,6 +32,7 @@
 
 import csv
 import gzip
+import hashlib
 import html
 import io
 import json
@@ -457,6 +459,10 @@ def read_brand_page(url):
     info["nameJa"] = re.sub(r"^ポケモンスケールワールド\s*", "", title)
     m = re.search(r'property="og:image"\s+content="([^"]+)"', t) or re.search(r'content="([^"]+)"\s+property="og:image"', t)
     info["image"] = m.group(1) if m and "__dummy" not in m.group(1) else None
+    # the page's own photo gallery, in page order ("-product-main/-mobile" are thumbnails)
+    info["gallery"] = list(dict.fromkeys(
+        u for u in re.findall(r"https://www\.bandai\.co\.jp/candy/published/bnc_files/product/[^\"' )]+?\.jpg", t)
+        if "-product-" not in u))
     lines = _page_lines(t)
     body = lines[next((i for i, x in enumerate(lines) if x == "価格"), 0):]
     end = next((i for i, x in enumerate(body) if x.startswith("ポケットモンスター・ポケモン") or x.startswith("©Pok") or x.startswith("(C)Pok")), len(body))
@@ -467,26 +473,29 @@ def read_brand_page(url):
     text = " ".join(body)
     info["route"] = (re.search(r"販売ルート[:：]\s*(\S+)", text) or [None, ""])[1]
     # figure names: 【ラインナップ】 bullets, numbered set lists, or ・A＆B under the contents
-    names = []
+    names = []  # (name, box number of a numbered candy lineup or None)
     for i, x in enumerate(body):
         if x.startswith("【ラインナップ】"):
             for y in body[i + 1:]:
                 if y.startswith("【"):
                     break
-                names += [n for n in re.split(r"[・＆&]", y) if n.strip()]
+                names += [(n, None) for n in re.split(r"[・＆&]", y) if n.strip()]
             break
     if not names:
         for x in body:
-            m = re.match(r"^(?:\d+\s*[．.]|・)\s*(.+)$", x)
-            if m and not re.search(r"ガム|フィギュア", m.group(1)):
-                names += [n for n in re.split(r"[＆&]", m.group(1)) if n.strip()]
+            m = re.match(r"^(?:(\d+)\s*[．.]|・)\s*(.+)$", x)
+            if m and not re.search(r"ガム|フィギュア", m.group(2)):
+                box = int(m.group(1)) if m.group(1) else None
+                names += [(n, box) for n in re.split(r"[＆&]", m.group(2)) if n.strip()]
     if not names:  # "<region> A＆B" in the title
         rest = re.sub(r"【.*?】", "", info["nameJa"])
         rest = re.sub(r"^\S*(?:地方|シティ)\d*\s*", "", rest).strip()
         if rest and not rest.endswith("セット"):
-            names = re.split(r"[＆&]", rest)
-    names = [re.sub(r"^スペシャル|[【】]", "", n).strip() for n in names]
-    info["figureNames"] = [n for n in names if n]
+            names = [(n, None) for n in re.split(r"[＆&]", rest)]
+    names = [(re.sub(r"^スペシャル|[【】]", "", n).strip(), box) for n, box in names]
+    names = [(n, box) for n, box in names if n]
+    info["figureNames"] = [n for n, _ in names]
+    info["figureBoxes"] = [box for _, box in names]
     # sizes: "name：H約95mm×W..." per figure, or a single "H約270mm"
     sizes = {}
     sz = text[text.find("【サイズ】"):] if "【サイズ】" in text else ""
@@ -499,6 +508,47 @@ def read_brand_page(url):
             sizes[""] = float(m.group(1).replace(",", "")) / 10
     info["sizes"] = sizes
     return info
+
+
+# Figure photo picks that the gallery rules get wrong: figure id -> gallery index
+# (0-based, in page order). Check a product's gallery on its Bandai Candy page.
+FIGURE_IMAGES = {}
+
+# Candy box photos show 2-3 figures side by side; each figure gets its own crop.
+# By default the k-th name of a box is the k-th figure from the left; these are the
+# boxes Bandai photographed in another order. Figure id -> position from the left (0-based).
+FIGURE_CROPS = {
+    # Lumiose City set: Pignite|Mawile, Absol|Mega Sableye, Zygarde|Espurr
+    "x4570117932496000_4": 1, "x4570117932496000_5": 0, "x4570117932496000_6": 1,
+    "x4570117932496000_7": 0, "x4570117932496000_8": 1, "x4570117932496000_9": 0,
+    # Sinnoh 3: Munchlax|Buneary|Pachirisu, Rotom|Drifblim
+    "x4570117928949000_1": 2, "x4570117928949000_2": 1, "x4570117928949000_3": 0,
+    "x4570117928949000_6": 1, "x4570117928949000_7": 0,
+    # Kalos: Dedenne|Sylveon
+    "x4570117923258000_9": 0,
+}
+
+
+def figure_photo(fid, page, k):
+    """Best product-page photo for the k-th figure (1-based) of a brand-page product.
+    Premium Bandai items: group shot, then 3 views per figure in lineup order.
+    Candy waves/sets: package art and/or lineup grid, then one photo per numbered box."""
+    g = page.get("gallery") or []
+    if fid in FIGURE_IMAGES and FIGURE_IMAGES[fid] < len(g):
+        return g[FIGURE_IMAGES[fid]], None
+    if not g:
+        return page.get("image"), None
+    box = page["figureBoxes"][k - 1] if k - 1 < len(page.get("figureBoxes", [])) else None
+    if box:
+        nboxes = max(b for b in page["figureBoxes"] if b)
+        first = 1 if len(g) == nboxes + 1 else 2  # skip the group/package shot (and the lineup grid)
+        i = first + box - 1
+        if i >= len(g):
+            return g[0], None
+        mates = [j for j, b in enumerate(page["figureBoxes"]) if b == box]
+        return g[i], (len(mates), FIGURE_CROPS.get(fid, mates.index(k - 1)))
+    i = 1 + (k - 1) * 3
+    return (g[i] if i < len(g) else g[0]), None  # no solo photo: the group shot
 
 
 def wayback_latest(url, max_tries=5):
@@ -727,7 +777,35 @@ def save_image(url, sub, name):
     return rel
 
 
-def trim_image(rel, name):
+def _column_runs(mask, n):
+    """Left/right x of the n figures in a white-background photo, or None.
+    Splits at empty columns; extra pieces (a detached tail, a gem) merge across the
+    narrowest gaps, and touching figures are cut at the thinnest column."""
+    from PIL import Image
+    w, h = mask.size
+    col = list(mask.resize((w, 1), Image.BOX).getdata())  # share of non-white pixels per column
+    runs, start = [], None
+    for x, v in enumerate(col + [0]):
+        if v > 0 and start is None:
+            start = x
+        elif v == 0 and start is not None:
+            if x - start >= w * 0.006:
+                runs.append([start, x])
+            start = None
+    while 0 < len(runs) < n:  # figures touch: cut the widest piece at its thinnest column
+        i = max(range(len(runs)), key=lambda r: runs[r][1] - runs[r][0])
+        a, z = runs[i]
+        lo, hi = a + (z - a) // 5, z - (z - a) // 5
+        cut = min(range(lo, hi), key=lambda x: col[x])
+        runs[i:i + 1] = [[a, cut], [cut, z]]
+    while len(runs) > n:
+        gaps = [runs[i + 1][0] - runs[i][1] for i in range(len(runs) - 1)]
+        i = gaps.index(min(gaps))
+        runs[i:i + 2] = [[runs[i][0], runs[i + 1][1]]]
+    return runs if len(runs) == n else None
+
+
+def trim_image(rel, name, ignore_marks=False, split=None):
     """Crop the white margin around an official render -> images/trim/<name>.jpg.
     The originals keep Bandai's true relative scale; trimmed copies fill a tile.
     Needs Pillow; returns None (and the UI falls back to the original) without it."""
@@ -745,13 +823,27 @@ def trim_image(rel, name):
     try:
         im = Image.open(src).convert("RGB")
         diff = ImageChops.difference(im, Image.new("RGB", im.size, (255, 255, 255))).convert("L")
-        box = diff.point(lambda v: 255 if v > 14 else 0).getbbox()
+        w, h = im.size
+        if ignore_marks:  # Bandai product photos: "食玩" stamp bottom-right, fine print along the bottom
+            diff.paste(0, (int(w * 0.80), int(h * 0.80), w, h))
+            diff.paste(0, (0, int(h * (0.86 if split else 0.94)), w, h))
+        mask = diff.point(lambda v: 255 if v > 14 else 0)
+        if split:  # (count, position): the position-th of count figures standing side by side
+            cols = _column_runs(mask, split[0])
+            if not cols:
+                print("   ! could not split", rel, "into", split[0], "figures")
+                return None
+            x0, x1 = cols[split[1]]
+            im, mask = im.crop((x0, 0, x1, h)), mask.crop((x0, 0, x1, h))  # keep neighbours out
+        box = mask.getbbox()
         if not box:
             return None
         pad = int(max(box[2] - box[0], box[3] - box[1]) * 0.04)
-        box = (max(0, box[0] - pad), max(0, box[1] - pad), min(im.width, box[2] + pad), min(im.height, box[3] + pad))
+        crop = im.crop(box)  # white margin added on a canvas, so nothing next to the figure creeps in
+        out = Image.new("RGB", (crop.width + 2 * pad, crop.height + 2 * pad), (255, 255, 255))
+        out.paste(crop, (pad, pad))
         os.makedirs(os.path.dirname(dst), exist_ok=True)
-        im.crop(box).save(dst, "JPEG", quality=88, optimize=True)
+        out.save(dst, "JPEG", quality=88, optimize=True)
         return out_rel
     except Exception as e:  # corrupt download etc.
         print("   ! trim failed:", rel, e)
@@ -1014,8 +1106,10 @@ def main():
             h = sizes.get(name) or sizes.get(base_name) or (
                 next(iter(sizes.values())) if len(b["figureNames"]) == 1 and sizes else None)
             fid = f"x{digits}_{k}"
+            img, split = figure_photo(fid, b, k)
             f = {"id": fid, "characterId": cid, "kind": kind, "nameJa": name, "labelJa": lab_ja, "labelEn": lab_en,
-                 "heightCm": h, "source": url, "has360": False, "_img": b["image"], "_btn": None, "productIds": [pid]}
+                 "heightCm": h, "source": url, "has360": False, "_img": img, "_split": split, "_btn": None,
+                 "productIds": [pid]}
             fig_out.append(f)
             figs_by_char.setdefault(cid, []).append(f)
             characters[cid]["figures"].append(fid)
@@ -1039,13 +1133,23 @@ def main():
         for i, f in enumerate(fig_out, 1):
             if i % 50 == 0:
                 print(f"    figures {i}/{len(fig_out)}")
-            f["image"] = save_image(f["_img"], "figures", f["id"])
-            f["imageTrim"] = trim_image(f["image"], f["id"])
+            if f["id"].startswith("x") and f["_img"]:  # product photo: name by URL so a new pick re-downloads
+                key = f["id"] + "_" + hashlib.md5(f["_img"].encode()).hexdigest()[:6]
+                f["image"] = save_image(f["_img"], "figures", key)
+                split = f.get("_split")
+                tkey = key + ("_%d-%d" % split if split else "")
+                f["imageTrim"] = trim_image(f["image"], tkey, ignore_marks=True, split=split)
+                if split and split[0] > 1 and f["imageTrim"]:
+                    f["image"] = f["imageTrim"]  # the box photo shows other figures too
+            else:
+                f["image"] = save_image(f["_img"], "figures", f["id"])
+                f["imageTrim"] = trim_image(f["image"], f["id"])
         for i, p in enumerate(products.values(), 1):
             if i % 50 == 0:
                 print(f"    products {i}/{len(products)}")
             p["image"] = save_image(p["_image"], "products", p["id"])
     for f in fig_out:
+        f.pop("_split", None)
         f["imageUrl"] = f.pop("_img")
         f.pop("_btn", None)
     for p in products.values():
