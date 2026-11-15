@@ -1,9 +1,9 @@
 /*
 @title        Scaledex - Obsidian plugin
-@version      0.1.2
+@version      0.1.4
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-14
+@updated      2026-11-15
 @engine       JavaScript (CommonJS, Obsidian plugin API)
 @target       Obsidian 1.5+ desktop and mobile (iOS / Android)
 @about        Pokédex view of Bandai Pokémon Scale World figures with owned /
@@ -20,6 +20,12 @@ var obsidian = require("obsidian");
 
 var DEX_DATA = /*__DEX_DATA__*/ null;
 var VIEW_TYPE = "scaledex";
+// line version of the app icon (dex handheld: lens, lights, hinge, screen); 0 0 100 100 per addIcon
+var ICON = "scaledex-dex";
+var ICON_SVG = '<g fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">' +
+  '<rect x="12" y="6" width="76" height="88" rx="12"/><circle cx="34" cy="28" r="11"/>' +
+  '<path d="M12 50 H44 L52 42 H88"/><rect x="26" y="60" width="48" height="24" rx="5"/></g>' +
+  '<g fill="currentColor"><circle cx="58" cy="22" r="4.5"/><circle cx="73" cy="22" r="4.5"/></g>';
 var DEFAULTS = { imageFolder: "Scaledex", collection: { owned: {}, wish: {}, prefs: {} } };
 
 function isDark() { return document.body.classList.contains("theme-dark"); }
@@ -56,7 +62,7 @@ class ScaledexView extends obsidian.ItemView {
   constructor(leaf, plugin) { super(leaf); this.plugin = plugin; this.api = null; }
   getViewType() { return VIEW_TYPE; }
   getDisplayText() { return "Scaledex"; }
-  getIcon() { return "layout-grid"; }
+  getIcon() { return ICON; }
 
   async onOpen() {
     var plugin = this.plugin;
@@ -116,7 +122,8 @@ module.exports = class ScaledexPlugin extends obsidian.Plugin {
     this.localChecked = null;
     var plugin = this;
     this.registerView(VIEW_TYPE, function (leaf) { return new ScaledexView(leaf, plugin); });
-    this.addRibbonIcon("layout-grid", "Open Scaledex", function () { plugin.openView(); });
+    obsidian.addIcon(ICON, ICON_SVG);
+    this.addRibbonIcon(ICON, "Open Scaledex", function () { plugin.openView(); });
     this.addCommand({ id: "open", name: "Open Scaledex", callback: function () { plugin.openView(); } });
     this.addCommand({ id: "download-images", name: "Download images to vault (offline use)", callback: function () { plugin.downloadImages(); } });
     this.addSettingTab(new ScaledexSettings(this.app, this));

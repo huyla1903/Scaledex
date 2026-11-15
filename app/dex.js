@@ -2,7 +2,7 @@
 @title        Scaledex - shared UI core
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-14
+@updated      2026-11-15
 @about        Framework-free Pokédex UI for Bandai's Pokémon Scale World figures.
               Used by both the PWA (pwa/) and the Obsidian plugin (obsidian-plugin/).
               Usage:
@@ -13,7 +13,8 @@
                   save: (state) => void,
                   history: true,              // use history.pushState (PWA only)
                   menu: [{ label, run }],     // extra menu entries (export/import...)
-                  dark: false | true | 'auto'
+                  dark: false | true | 'auto',
+                  today: 'YYYY-MM-DD'         // optional; "Upcoming" = releases after this date
                 })
 */
 (function (global) {
@@ -22,8 +23,22 @@
   var REGION_COLORS = {
     all: "#1b86b6", kanto: "#2aa6dc", johto: "#e0a526", hoenn: "#3caa66", sinnoh: "#6b7fd6",
     hisui: "#8f7a52", unova: "#5c6470", kalos: "#3a6fd0", alola: "#f08a30", galar: "#c5427e",
-    paldea: "#d4473b", special: "#8c6bd1"
+    paldea: "#d4473b", special: "#8c6bd1", upcoming: "#e2732a"
   };
+  var TYPE_COLORS = {
+    normal: "#9fa19f", fire: "#e62829", water: "#2980ef", electric: "#fac000", grass: "#3fa129", ice: "#3dcef3",
+    fighting: "#ff8000", poison: "#9141cb", ground: "#915121", flying: "#81b9ef", psychic: "#ef4179", bug: "#91a119",
+    rock: "#afa981", ghost: "#704170", dragon: "#5060e1", dark: "#624d4e", steel: "#60a1b8", fairy: "#ef70ef"
+  };
+  var UPCOMING = { id: "upcoming", nameEn: "Upcoming", nameJa: "発売予定" };
+  // header logo: same drawing as pwa/icons/icon.svg, flat colours, rounded
+  var LOGO = '<svg class="sw-logo" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#d8352c"/>' +
+    '<path d="M40 252H226L262 214H472" fill="none" stroke="#8e1b17" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<circle cx="150" cy="140" r="76" fill="#fff"/><circle cx="150" cy="140" r="60" fill="#2f9be0"/><circle cx="128" cy="116" r="16" fill="#fff" opacity=".85"/>' +
+    '<circle cx="266" cy="104" r="18" fill="#ff8a80"/><circle cx="318" cy="104" r="18" fill="#ffd54a"/><circle cx="370" cy="104" r="18" fill="#6fdc8c"/>' +
+    '<rect x="106" y="292" width="300" height="156" rx="22" fill="#f4f7f8"/><rect x="126" y="310" width="260" height="120" rx="12" fill="#183b48"/>' +
+    '<rect x="168" y="382" width="34" height="30" rx="8" fill="#58d0ff"/><rect x="239" y="352" width="34" height="60" rx="8" fill="#58d0ff"/>' +
+    '<rect x="310" y="326" width="34" height="86" rx="8" fill="#58d0ff"/></svg>';
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   var FILTERS = [
     ["all", "All"], ["pokemon", "Pokémon"], ["trainer", "Trainers"],
@@ -130,11 +145,23 @@
 
     // ------------------------------------------------------------ data index
     function buildIndex(d) {
-      var o = { fig: {}, chr: {}, prod: {}, reg: {} };
+      var o = { fig: {}, chr: {}, prod: {}, reg: {}, chain: {}, upcoming: {} };
+      var today = opts.today || new Date().toISOString().slice(0, 10);
       d.figures.forEach(function (f) { o.fig[f.id] = f; });
-      d.products.forEach(function (p) { o.prod[p.id] = p; });
-      d.characters.forEach(function (c) { o.chr[c.id] = c; });
+      d.products.forEach(function (p) {
+        o.prod[p.id] = p;
+        // compare at the precision of the date: "2026-12" is upcoming until December starts
+        p.upcoming = !!p.date && p.date > today.slice(0, p.date.length);
+      });
+      d.characters.forEach(function (c) {
+        o.chr[c.id] = c;
+        if (c.chain) (o.chain[c.chain] = o.chain[c.chain] || []).push(c);
+      });
       d.regions.forEach(function (r) { o.reg[r.id] = r; });
+      o.reg.upcoming = UPCOMING;
+      d.figures.forEach(function (f) {
+        if (f.productIds.some(function (id) { return o.prod[id] && o.prod[id].upcoming; })) o.upcoming[f.id] = true;
+      });
       return o;
     }
     function src(rel, url) { return opts.img ? opts.img(rel, url) : (rel || url || ""); }
@@ -149,9 +176,16 @@
       return imgTag(useTrim && f.imageTrim ? f.imageTrim : f.image, f.imageUrl, cls, alt);
     }
     function figsIn(region) {
+      if (region === "upcoming") return data.figures.filter(function (f) { return idx.upcoming[f.id]; });
       return data.figures.filter(function (f) { return region === "all" || f.regions.indexOf(region) >= 0; });
     }
     function charName(c) { return c.nameEn; }
+    // "gym:rock" -> { en: "Gym Leader · Rock", ja: "ジムリーダー", type: "rock" }
+    function roleInfo(r) {
+      var k = r.split(":"), d = (data.roles && data.roles[k[0]]) || { en: k[0], ja: "" };
+      var t = k[1] && data.types && data.types[k[1]];
+      return { en: d.en + (t ? " · " + t.en : ""), short: d.en, ja: d.ja + (t ? "（" + t.ja + "）" : ""), type: k[1] || "", id: k[0] };
+    }
     function figLabel(f) {
       var c = idx.chr[f.characterId];
       return f.labelEn || (idx.reg[f.region] ? idx.reg[f.region].nameEn : "") || c.nameEn;
@@ -183,6 +217,9 @@
         var q = norm(ui.query).trim();
         if (!q) return true;
         var hay = [t.c.nameEn, t.c.nameJa, romaji(t.c.nameJa), t.c.dex ? pad4(t.c.dex) : "", t.c.dex || ""];
+        // the whole evolution line: "charmander" also finds Charmeleon and Charizard
+        (t.c.chain && idx.chain[t.c.chain] || []).forEach(function (o) { hay.push(o.nameEn, o.nameJa, romaji(o.nameJa)); });
+        (t.c.roles || []).forEach(function (r) { var i = roleInfo(r); hay.push(i.en, i.ja); });
         t.figs.forEach(function (x) { hay.push(x.labelEn, x.labelJa, x.nameJa); });
         if (norm(hay.join(" ")).indexOf(q) < 0) return false;
       }
@@ -201,7 +238,9 @@
       var ka = a.c.kind === "pokemon" ? 0 : 1, kb = b.c.kind === "pokemon" ? 0 : 1;
       if (ka !== kb) return ka - kb;
       if (ka === 0) return a.c.dex - b.c.dex;
-      return (a.year - b.year) || a.c.nameEn.localeCompare(b.c.nameEn);
+      // trainers: Bulbapedia's "List of Trainer figurines" order, then unlisted ones by year
+      var oa = a.c.order == null ? 1e4 : a.c.order, ob = b.c.order == null ? 1e4 : b.c.order;
+      return (oa - ob) || (a.year - b.year) || a.c.nameEn.localeCompare(b.c.nameEn);
     }
 
     // ------------------------------------------------------------ screens
@@ -235,10 +274,14 @@
 
     function renderHome() {
       var all = regionStats("all");
-      var h = '<div class="sw-top"><h1>Scaledex</h1><span class="sw-count">Owned: ' + all.owned + "</span></div>";
+      var h = '<div class="sw-top"><h1>' + LOGO + 'Scaledex</h1><span class="sw-count">Owned: ' + all.owned + "</span></div>";
       h += '<div class="sw-sub">' + data.characters.length + " characters · " + data.figures.length + " figures · " +
         data.products.length + " releases</div>";
       var regs = [{ id: "all", nameEn: "All", nameJa: "すべてのフィギュア" }].concat(data.regions);
+      if (figsIn("upcoming").length) {
+        var at = regs.map(function (r) { return r.id; }).indexOf("special");
+        regs.splice(at < 0 ? regs.length : at, 0, UPCOMING);
+      }
       regs.forEach(function (r) {
         var s = regionStats(r.id);
         var done = s.total > 0 && s.owned >= s.total;
@@ -295,7 +338,8 @@
       var badgeL = t.owned >= n ? '<span class="sw-dot own">✓</span>' :
         t.owned ? '<span class="sw-dot part">' + t.owned + "/" + n + "</span>" : (n > 1 ? '<span class="sw-dot multi">×' + n + "</span>" : "<span></span>");
       var badgeR = t.wish ? '<span class="sw-dot wish">♥</span>' : "";
-      var label = t.c.kind === "pokemon" ? '<div class="sw-tile-no">' + pad4(t.c.dex) + "</div>" : "";
+      var label = t.c.kind === "pokemon" ? '<div class="sw-tile-no">' + pad4(t.c.dex) + "</div>" :
+        (t.c.roles && t.c.roles.length ? '<div class="sw-tile-role">' + esc(roleInfo(t.c.roles[0]).short) + "</div>" : "");
       return '<button class="sw-tile' + (t.owned ? "" : " is-missing") + '" data-act="open" data-id="' + esc(t.c.id) +
         '" data-fig="' + esc(f.id) + '">' +
         '<div class="sw-tile-badges">' + badgeL + badgeR + "</div>" +
@@ -356,6 +400,17 @@
         '<button class="sw-close" data-act="close" aria-label="Close">✕</button></div><div class="sw-body">' +
         '<h2 class="sw-name">' + esc(c.nameEn) + '</h2><div class="sw-name-ja">' + esc(c.nameJa) +
         (romaji(c.nameJa) ? ' <span class="sw-romaji">· ' + esc(romaji(c.nameJa)) + "</span>" : "") + "</div>";
+      var types = f.types || c.types || [];
+      if (types.length) h += '<div class="sw-types">' + types.map(function (t) {
+        var n = data.types && data.types[t];
+        return '<span class="sw-type" style="--tc:' + (TYPE_COLORS[t] || "#888") + '" title="' + esc(n ? n.ja : "") + '">' +
+          esc(n ? n.en : t) + "</span>";
+      }).join("") + "</div>";
+      if (c.roles && c.roles.length) h += '<div class="sw-types">' + c.roles.map(function (r) {
+        var i = roleInfo(r);
+        return '<span class="sw-type sw-role role-' + esc(i.id) + '"' + (i.type ? ' style="--tc:' + (TYPE_COLORS[i.type] || "#888") + '"' : "") +
+          ' title="' + esc(i.ja) + '">' + esc(i.en) + "</span>";
+      }).join("") + "</div>";
 
       if (figs.length > 1) {
         var labels = figs.map(figLabel), count = {};
@@ -381,6 +436,8 @@
         '<button class="sw-toggle wish' + (st.wish[f.id] ? " on" : "") + '" data-act="wish" data-id="' + esc(f.id) + '">' + (st.wish[f.id] ? "♥ Wishlist" : "Wishlist") + "</button>" +
         "</div></div>";
 
+      h += evolutionHtml(c, f);
+
       var prods = f.productIds.map(function (id) { return idx.prod[id]; }).filter(Boolean);
       h += '<div class="sw-h">Releases (' + prods.length + ")</div>";
       var firstDate = prods.length ? (prods[0].date || "") : "";
@@ -393,9 +450,48 @@
 
       h += '<div class="sw-note">Prices are Japanese retail prices including tax unless marked “+ tax”. Candy-aisle prices are per box. ' +
         "Premium Bandai prices come from archived product pages. " +
-        '<a href="' + esc(f.source) + '" target="_blank" rel="noopener">Official dex page ↗</a></div></div>';
+        '<a href="' + esc(f.source) + '" target="_blank" rel="noopener">' +
+        (/\/lineup\//.test(f.source || "") ? "Official dex page ↗" : "Product page ↗ (not in the official dex yet)") + "</a></div></div>";
       sheet.innerHTML = h;
       sheet.scrollTop = prevScroll;
+    }
+
+    // Charmander › Charmeleon › Charizard › Mega Charizard X; grey = no figure yet
+    function evolutionHtml(c, cur) {
+      if (c.kind !== "pokemon") return "";
+      var rows = (c.chain && data.evolution && data.evolution[c.chain]) || [[c.dex, null]];
+      var from = {}, stage = {}, stages = [], megas = [];
+      rows.forEach(function (r) { from[r[0]] = r[1]; });
+      function depth(d) {
+        if (stage[d] != null) return stage[d];
+        var p = from[d];
+        return (stage[d] = p && from.hasOwnProperty(p) ? depth(p) + 1 : 0);
+      }
+      rows.forEach(function (r) { var k = depth(r[0]); (stages[k] = stages[k] || []).push(r[0]); });
+      rows.forEach(function (r) {
+        var o = idx.chr["p" + pad4(r[0])];
+        (o ? o.figures : []).forEach(function (id) {
+          var x = idx.fig[id];
+          if (x && /^Mega /.test(x.labelEn || "")) megas.push({ c: o, f: x });
+        });
+      });
+      if (megas.length) stages.push(megas);
+      if (stages.length < 2) return "";
+      function item(o, x, name) {
+        if (!o) return '<span class="sw-evo is-none"><span class="sw-evo-img">?</span><span class="sw-evo-name">' + esc(name) + "</span></span>";
+        var on = x ? x.id === cur.id : o.id === c.id && !/^Mega /.test(cur.labelEn || "");
+        var f = x || idx.fig[o.figures[0]];
+        return '<button class="sw-evo' + (on ? " on" : "") + '" data-act="open" data-id="' + esc(o.id) + '" data-fig="' + esc(f.id) + '">' +
+          '<span class="sw-evo-img">' + figImg(f, "", "", true) + '</span><span class="sw-evo-name">' + esc(name) + "</span></button>";
+      }
+      var h = stages.map(function (list) {
+        return '<div class="sw-evo-stage">' + list.map(function (e) {
+          if (e.f) return item(e.c, e.f, e.f.labelEn);
+          var o = idx.chr["p" + pad4(e)], n = data.speciesNames && data.speciesNames[e];
+          return item(o, null, o ? o.nameEn : (n ? n[0] : "#" + e));
+        }).join("") + "</div>";
+      }).join('<span class="sw-evo-arrow">›</span>');
+      return '<div class="sw-h">Evolution</div><div class="sw-card sw-evos">' + h + "</div>";
     }
 
     function releaseHtml(p, isRe) {
@@ -411,6 +507,7 @@
       if (p.priceJPY) tags.push('<span class="sw-tag price">' + yen(p.priceJPY) + "</span>");
       else if (p.priceExTax) tags.push('<span class="sw-tag price">' + yen(p.priceExTax) + " + tax</span>");
       if (isRe) tags.push('<span class="sw-tag re">Re-release</span>');
+      if (p.upcoming) tags.push('<span class="sw-tag soon">Upcoming</span>');
       var links = p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + (p.store === "pbandai" ? "Premium Bandai ↗" : "Official page ↗") + "</a>" : "";
       if (p.priceSource && p.priceSource.indexOf("wayback:") === 0) {
         links += '<a href="https://web.archive.org/web/' + esc(p.priceSource.slice(8)) + "/" + esc(p.url) + '" target="_blank" rel="noopener">Archived ↗</a>';

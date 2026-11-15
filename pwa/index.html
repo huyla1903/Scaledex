@@ -3,7 +3,7 @@
 @title        Scaledex - PWA shell
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-14
+@updated      2026-11-15
 @about        Standalone web app (add to iPhone home screen). Loads data/scaledex.json,
               stores owned/wishlist in localStorage, works offline via sw.js.
               Built with --remote-images, pictures load from bandai.co.jp instead.
@@ -21,7 +21,8 @@
   <meta name="apple-mobile-web-app-title" content="Scaledex">
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="apple-touch-icon" href="icons/icon-180.png">
-  <link rel="icon" href="icons/icon-192.png">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="icon" href="icons/icon-192.png" sizes="192x192">
   <link rel="stylesheet" href="dex.css">
   <style>
     html, body { margin: 0; height: 100%; background: #b4eaf0; overscroll-behavior: none; }
@@ -95,10 +96,15 @@
           { label: "Import collection", run: importState }
         ].concat(LOCAL_IMAGES ? [{ label: "Save all images for offline", run: function (api) { cacheAll(api, data); } }] : [])
       });
-      // deep links: ?region=kanto  ?open=p0025  ?menu=1
+      // deep links: ?region=kanto  ?open=p0025  ?q=charmander  ?menu=1
       var q = new URLSearchParams(location.search);
       function tap(sel) { var el = root.querySelector(sel); if (el) el.click(); }
       if (q.get("region")) tap('[data-act="region"][data-id="' + q.get("region") + '"]');
+      if (q.get("q")) {  // ?q=charmander opens the search with that text
+        tap('[data-act="search"]');
+        var box = root.querySelector(".sw-search");
+        if (box) { box.value = q.get("q"); box.dispatchEvent(new Event("input")); }
+      }
       if (q.get("open")) {
         if (!q.get("region")) tap('[data-act="region"][data-id="all"]');
         tap('[data-act="open"][data-id="' + q.get("open") + '"]');

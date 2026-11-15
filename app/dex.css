@@ -2,7 +2,7 @@
 @title        Scaledex - shared styles
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-14
+@updated      2026-11-15
 @about        Pokémon GO Pokédex-inspired look, scoped under .swdex so it can
               live inside Obsidian as well as the standalone PWA.
 */
@@ -78,7 +78,9 @@
   display: flex; align-items: baseline; justify-content: space-between;
   padding: 18px 8px 16px; font-weight: 800; letter-spacing: 0.02em;
 }
-.swdex .sw-top h1 { margin: 0; font-size: 21px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink); }
+.swdex .sw-top h1 { margin: 0; font-size: 21px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink);
+  display: flex; align-items: center; gap: 9px; }
+.swdex .sw-logo { width: 30px; height: 30px; flex: 0 0 auto; display: block; box-shadow: 0 2px 6px rgba(0,0,0,0.18); border-radius: 7px; }
 .swdex .sw-top .sw-count { font-size: 18px; }
 .swdex .sw-sub { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin: -10px 8px 14px; }
 
@@ -212,6 +214,33 @@
 .swdex .sw-name { text-align: center; margin: 14px 0 0; font-size: 30px; font-weight: 800; color: var(--sw-ink-strong); line-height: 1.1; }
 .swdex .sw-name-ja { text-align: center; font-size: 15px; font-weight: 700; color: var(--sw-ink-soft); margin-top: 4px; }
 .swdex .sw-romaji { font-weight: 600; font-style: italic; }
+.swdex .sw-types { display: flex; justify-content: center; gap: 8px; margin-top: 10px; }
+.swdex .sw-type { background: var(--tc); color: #fff; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em;
+  padding: 4px 14px; border-radius: 20px; text-shadow: 0 1px 1px rgba(0,0,0,0.35); }
+.swdex .sw-types { flex-wrap: wrap; }
+.swdex .sw-role { --tc: #5f7d8c; text-transform: none; letter-spacing: 0.01em; font-size: 13px; }
+.swdex .sw-role.role-protagonist { --tc: #1b86b6; }
+.swdex .sw-role.role-rival { --tc: #c8553d; }
+.swdex .sw-role.role-champion { --tc: #c99a12; }
+.swdex .sw-role.role-professor { --tc: #3c9a6b; }
+.swdex .sw-role.role-boss { --tc: #4a3b5c; }
+.swdex .sw-role.role-teammz { --tc: #d1497a; }
+.swdex .sw-tile-role { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; color: var(--sw-ink-soft);
+  line-height: 1.2; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 1px; }
+/* evolution line */
+.swdex .sw-evos { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; padding: 12px 10px; }
+.swdex .sw-evos::-webkit-scrollbar { display: none; }
+.swdex .sw-evo-stage { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; flex: 0 0 auto; max-width: 100%; }
+.swdex .sw-evo-arrow { flex: 0 0 auto; font-size: 24px; font-weight: 800; color: var(--sw-ink-soft); padding: 0 2px; }
+.swdex .sw-evo { width: 76px; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 5px 3px;
+  border-radius: 14px; border: 2px solid transparent; text-align: center; }
+.swdex .sw-evo.on { border-color: var(--sw-accent); }
+.swdex .sw-evo-img { width: 60px; height: 60px; border-radius: 12px; background: #fff; display: grid; place-items: center; overflow: hidden;
+  font-size: 22px; font-weight: 800; color: #b9c2c7; }
+.swdex .sw-evo-img img { max-width: 92%; max-height: 92%; object-fit: contain; }
+.swdex .sw-evo-name { font-size: 11px; font-weight: 800; line-height: 1.15; color: var(--sw-ink); }
+.swdex .sw-evo.is-none { opacity: 0.45; }
+.swdex.sw-dark .sw-evo-img { background: #f3f8f9; }
 .swdex .sw-figtabs { display: flex; gap: 8px; overflow-x: auto; padding: 14px 2px 6px; scrollbar-width: none; }
 .swdex .sw-figtabs::-webkit-scrollbar { display: none; }
 .swdex .sw-figtab {
@@ -251,6 +280,8 @@
 .swdex .sw-tag.price { background: #fff3d6; color: #8a5a00; }
 .swdex.sw-dark .sw-tag.price { background: #4a3a14; color: #ffd98a; }
 .swdex .sw-tag.re { background: #fde3ea; color: #b2264f; }
+.swdex .sw-tag.soon { background: #ffe6d3; color: #a84a10; }
+.swdex.sw-dark .sw-tag.soon { background: #52301a; color: #ffc79e; }
 .swdex.sw-dark .sw-tag.re { background: #4d1d2b; color: #ffadc4; }
 .swdex .sw-tag.ch-pbandai, .swdex .sw-tag.ch-pbandai_std { background: #e9e3ff; color: #4b33a8; }
 .swdex .sw-tag.ch-supermarket { background: #dff5e6; color: #1d7a42; }

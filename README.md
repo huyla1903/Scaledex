@@ -1,6 +1,6 @@
 # Scaledex
 
-A Pokédex for Bandai's **Pokémon Scale World** (1/20 scale) figures, styled after the Pokémon GO Pokédex. It lists every Pokémon and trainer with an official figure, with the English name first and the Japanese name second. For each figure it shows the official image, scale height and every release (including re-releases and re-orders), with the date, where it was sold and the price in JPY. You can mark figures as **owned** or put them on your **wishlist**, and see completion per region.
+A Pokédex for Bandai's **Pokémon Scale World** (1/20 scale) figures, styled after the Pokémon GO Pokédex. It lists every Pokémon and trainer with an official figure, with the English name first and the Japanese name second. For each figure it shows the official image, scale height and every release (including re-releases and re-orders), with the date, where it was sold and the price in JPY. Trainer pages show their role in the games (Gym Leader · Rock, Champion, Rival, Professor, Team Boss...); Pokémon pages show the types and the evolution line (Megas included), and search finds the whole line ("charmander" also shows Charmeleon and Charizard). You can mark figures as **owned** or put them on your **wishlist**, and see completion per region. The **Upcoming** card lists figures in sets that ship after today.
 
 It comes in two forms built from the same data:
 
@@ -21,13 +21,14 @@ All the data (`main.js`, about 330 KB) is inside the plugin, so no extra files a
 
 ## Use the web app
 
-Live version: **https://huyla1903.github.io/Scaledex/**. Every push to `main` rebuilds it with `.github/workflows/pages.yml` (`node tools/build.mjs --remote-images`, so pictures load from bandai.co.jp because `data/images/` is not in the repo). You can also host a local `dist/pwa/` build, which includes the images, on any HTTPS static host. On the iPhone, open it in Safari and choose Share → **Add to Home Screen**. In Settings, "Save all images for offline" caches everything. Deep links: `?region=kanto`, `?open=p0025`, `?open=t-red`.
+Live version: **https://huyla1903.github.io/Scaledex/**. Every push to `main` rebuilds it with `.github/workflows/pages.yml`. Images are not in git: `tools/upload_images.ps1` zips `data/images/` into the `images` GitHub Release, and the workflow serves those copies (without that release it falls back to linking bandai.co.jp with `--remote-images`). You can also host a local `dist/pwa/` build, which includes the images, on any HTTPS static host. On the iPhone, open it in Safari and choose Share → **Add to Home Screen**. In Settings, "Save all images for offline" caches everything. Deep links: `?region=kanto`, `?region=upcoming`, `?open=p0025`, `?open=t-red`, `?q=charmander`.
 
 ## Update the data
 
 ```
 python scraper/build_data.py --refresh-index   # picks up new figures/products; everything else comes from cache
 node tools/build.mjs [--vault "<vault path>"] [--vault-images]
+powershell -ExecutionPolicy Bypass -File tools/upload_images.ps1   # publish new images to the web app
 ```
 
 The scraper uses only the Python standard library. Pillow (`scraper/requirements.txt`) is optional: it crops the white margin around renders so they fill a tile. "Show figures at true relative scale" in Settings shows the uncropped originals.
@@ -35,10 +36,11 @@ The scraper uses only the Python standard library. Pillow (`scraper/requirements
 ## Where the data comes from
 
 - **Figures, images, scale height, which products each figure was in**: the official dex at bandai.co.jp/candy/pokemonscaleworld/lineup/
+- **Products the official dex doesn't list yet** (new and upcoming sets, their figures and sizes): the Bandai Candy Scale World brand page. Figures from there have ids starting with `x` and use the product photo until the dex adds them.
 - **Candy-aisle releases** (price per box, release date, 売場): Bandai Candy product pages
 - **Premium Bandai** (price, ship date): p-bandai.jp blocks visitors outside Japan, so these come from Internet Archive snapshots of the Japanese pages. Each release links to the snapshot it used.
 - **Candy re-releases the official dex doesn't link**: Bulbapedia's Scale World article
-- **English Pokémon names**: PokeAPI. Trainer names and product-name translation are mapped by hand in `scraper/build_data.py`.
+- **English Pokémon names, types, evolution lines**: PokeAPI. Trainer roles are mapped by hand in `TRAINER_ROLES`; trainers are listed in the order of Bulbapedia's "List of Trainer figurines" (new ones it doesn't list yet go last). Trainer names and product-name translation are mapped by hand in `scraper/build_data.py`.
 
 Prices are Japanese retail prices including tax. Figure and product images © Bandai / Pokémon. This is a personal, unofficial index.
 

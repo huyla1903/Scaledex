@@ -1,5 +1,7 @@
-# Builds the PWA (pictures load from bandai.co.jp) and publishes it to GitHub Pages
-# on every push to main. Repo Settings -> Pages -> Source must be "GitHub Actions".
+# Builds the PWA and publishes it to GitHub Pages on every push to main.
+# Images come from the "images" release (images.zip, uploaded by tools/upload_images.ps1)
+# so they are served from github.io; without that asset the build links to bandai.co.jp.
+# Repo Settings -> Pages -> Source must be "GitHub Actions".
 name: Deploy PWA to GitHub Pages
 
 on:
@@ -27,7 +29,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: node tools/build.mjs --remote-images
+      - name: Download images
+        id: images
+        run: |
+          if curl -fsSL -o images.zip "https://github.com/${{ github.repository }}/releases/download/images/images.zip"; then
+            mkdir -p data/images && unzip -q -o images.zip -d data/images && rm images.zip
+            echo "local=true" >> "$GITHUB_OUTPUT"
+            echo "$(find data/images -type f | wc -l) images"
+          else
+            echo "No images release - pictures will load from bandai.co.jp"
+            echo "local=false" >> "$GITHUB_OUTPUT"
+          fi
+      - run: node tools/build.mjs ${{ steps.images.outputs.local != 'true' && '--remote-images' || '' }}
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
