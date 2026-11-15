@@ -1,6 +1,6 @@
 ﻿<#
 @title        Scaledex - upload images release
-@version      0.1.0
+@version      0.1.1
 @author       La Gia Huy
 @since        2026-11-15
 @updated      2026-11-15
@@ -36,7 +36,7 @@ $ErrorActionPreference = "Continue"  # gh writes progress to stderr; PS 5.1 woul
 try {
     $null = gh release view images 2>$null
     if ($LASTEXITCODE -ne 0) {
-        gh release create images --title "Images" --notes "data/images/ for the GitHub Pages build (uploaded by tools/upload_images.ps1). Figure and product images (c) Bandai / Pokemon." $zip
+        gh release create images --prerelease --title "Image data for the web app (not a release)" --notes "images.zip = data/images/ for the GitHub Pages site and the Obsidian plugin's online images. Uploaded by tools/upload_images.ps1; not a software release. Figure and product images (c) Bandai / Pokemon." $zip
     } else {
         gh release upload images $zip --clobber
     }
