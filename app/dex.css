@@ -69,7 +69,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding: calc(env(safe-area-inset-top, 0px) + 14px) 14px calc(env(safe-area-inset-bottom, 0px) + 120px);
+  padding: calc(env(safe-area-inset-top, 0px) + 14px) 14px calc(env(safe-area-inset-bottom, 0px) + 170px);  /* clear of the search + menu buttons */
 }
 .swdex .sw-wrap { max-width: 760px; margin: 0 auto; }
 
@@ -82,6 +82,12 @@
   display: flex; align-items: center; gap: 9px; }
 .swdex .sw-logo { width: 30px; height: 30px; flex: 0 0 auto; display: block; box-shadow: 0 2px 6px rgba(0,0,0,0.18); border-radius: 7px; }
 .swdex .sw-top .sw-count { font-size: 18px; }
+.swdex .sw-top-end { display: flex; align-items: center; gap: 12px; align-self: center; }
+.swdex .sw-theme {
+  width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; padding: 0;
+  background: var(--sw-chip); border: 2px solid var(--sw-card-line); box-shadow: var(--sw-shadow); color: var(--sw-ink-strong);
+}
+.swdex .sw-theme svg { width: 22px; height: 22px; }
 .swdex .sw-sub { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin: -10px 8px 14px; }
 
 /* ---------- region cards (home) ---------- */
@@ -113,6 +119,17 @@
 /* blend every figure into the pattern: white (photo backgrounds, display bases, floor shadows) disappears */
 .swdex .sw-region-fig img { mix-blend-mode: multiply; }
 .swdex .sw-region-art { isolation: isolate; }
+/* hand-picked row (REGION_PICKS): every card shares one scale. --H = height of a full-size
+   figure: the row height, or less when the home screen's widest row (--sum, in row heights)
+   would not fit the width. Each figure: --u (its size, 0..1) and --r (photo width / height). */
+.swdex .sw-region-figs.is-row {
+  flex-direction: row; left: 18%; right: 2%; gap: 0; justify-content: space-evenly; container-type: size;
+}
+.swdex .sw-region-figs.is-row .sw-region-fig {
+  --H: min(100cqh, calc(92cqw / var(--sum)));
+  flex: none; height: calc(var(--u) * var(--H)); width: calc(var(--u) * var(--H) * var(--r));
+}
+.swdex .sw-region-figs.is-row .sw-region-fig img { width: 100%; height: 100%; max-width: none; }
 .swdex .sw-region-text { position: relative; z-index: 1; padding: 20px 22px; }
 .swdex .sw-region-name { font-size: 28px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink); line-height: 1.05; }
 .swdex .sw-region-ja { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin-top: 2px; }
@@ -181,7 +198,7 @@
 .swdex .sw-chip.on { background: var(--sw-accent); color: var(--sw-accent-ink); border-color: rgba(255,255,255,0.7); }
 /* filters as a rail on the left, above the search button, so they never cover the tiles */
 .swdex.has-rail .sw-chips {
-  position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 84px);
+  position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 150px);
   flex-direction: column; width: 104px; overflow: visible; padding: 0; gap: 7px;
 }
 /* rail, back button and search button share one left edge (12px, the .sw-bottom padding) */
@@ -192,7 +209,9 @@
 .swdex.has-rail .sw-wrap { padding-left: 116px; }
 @media (max-width: 640px) { .swdex.has-rail .sw-grid { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 420px) { .swdex.has-rail .sw-grid { grid-template-columns: repeat(2, 1fr); } }
-.swdex .sw-fabs { display: flex; justify-content: space-between; align-items: center; pointer-events: none; padding: 0; }
+/* search over menu, both on the left edge; the search field opens to the right of its button */
+.swdex .sw-fabs { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; pointer-events: none; padding: 0; }
+.swdex .sw-fab-row { display: flex; align-items: center; width: 100%; max-width: 560px; }
 .swdex .sw-fab {
   pointer-events: auto; width: 56px; height: 56px; border-radius: 50%;
   background: var(--sw-chip); border: 2px solid var(--sw-card-line); box-shadow: var(--sw-shadow);

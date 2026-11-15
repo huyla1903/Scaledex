@@ -1,6 +1,6 @@
 /*
 @title        Scaledex - Obsidian plugin
-@version      0.1.10
+@version      0.1.11
 @author       La Gia Huy
 @since        2026-11-14
 @updated      2026-11-15
@@ -91,10 +91,13 @@ class ScaledexView extends obsidian.ItemView {
     });
     var self = this;
     this.registerEvent(this.app.workspace.on("css-change", function () { if (self.api) self.api.setDark(isDark()); }));
-    // "/" or Ctrl/Cmd+K opens the dex search, only while this tab is the active one
+    // "/" or Ctrl/Cmd+K opens the dex search, Esc closes, Backspace goes back;
+    // only while this tab is the active one
     this.registerDomEvent(document, "keydown", function (e) {
-      if (!self.api || self.app.workspace.getActiveViewOfType(ScaledexView) !== self || !self.api.isSearchKey(e)) return;
-      e.preventDefault(); e.stopPropagation(); self.api.openSearch();
+      if (!self.api || self.app.workspace.getActiveViewOfType(ScaledexView) !== self) return;
+      if (self.api.isSearchKey(e)) self.api.openSearch();
+      else if (!self.api.navKey(e)) return;
+      e.preventDefault(); e.stopPropagation();
     }, true);
   }
 

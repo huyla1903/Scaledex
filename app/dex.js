@@ -53,6 +53,8 @@
 
   var ICON_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>';
   var ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
+  var ICON_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>';
+  var ICON_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
   var ICON_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
 
   function esc(s) {
@@ -142,8 +144,11 @@
     var sheet = null;
     var mq = global.matchMedia ? global.matchMedia("(prefers-color-scheme: dark)") : null;
 
+    function isDark() {
+      return prefs.theme === "dark" || (prefs.theme === "auto" && (opts.dark === true || (opts.dark !== false && mq && mq.matches)));
+    }
     function applyTheme() {
-      var dark = prefs.theme === "dark" || (prefs.theme === "auto" && (opts.dark === true || (opts.dark !== false && mq && mq.matches)));
+      var dark = isDark();
       root.classList.toggle("sw-dark", !!dark);
       root.classList.toggle("sw-dim", !!prefs.dim);
     }
@@ -267,7 +272,48 @@
       return { total: figs.length, owned: owned };
     }
 
+    // card figures, left to right. Regions: the three first-stage starters, the protagonist
+    // and the region's boss / champion / best-known character. "All": a Legendary, a Mythical,
+    // a Powerhouse and two Champions. Upcoming: only ids that are still upcoming. Missing ids
+    // are skipped; under three left, the card picks its own.
+    var REGION_PICKS = {
+      all: ["150", "151", "149", "shirona", "dande"],
+      kanto: ["001", "004", "007", "red", "sakaki"],
+      johto: ["152", "155", "158", "hibiki", "silver"],
+      hoenn: ["252", "255", "258", "yuuki_rs", "daigo"],
+      sinnoh: ["387", "390", "393", "kouki_dp", "x4570117928949000_11"],
+      hisui: ["722_hisui", "155_hisui", "501_hisui", "teru", "volo"],
+      kalos: ["x4570117923258000_6", "x4570117923258000_4", "x4570117923258000_1", "calem", "x1000248354_1"],
+      galar: ["810", "813", "816", "masaru", "hop"],
+      paldea: ["906", "909", "912", "haruto", "nemo"],
+      upcoming: ["x1000256579_1", "x1000258097_2", "x4570117932496000_11"]
+    };
+    function picksFor(region) {
+      var pick = (REGION_PICKS[region] || []).map(function (id) { return idx.fig[id]; }).filter(function (f) {
+        return f && (f.image || f.imageUrl) && (region !== "upcoming" || idx.upcoming[f.id]);
+      });
+      return pick.length >= 3 ? pick : null;
+    }
+    // one size rule for every card: (cm / 9)^0.45 of the row height, capped at 1, so a 2 cm
+    // starter stands at about half a 9 cm trainer and big Pokémon don't tower over the row
+    function figUnit(f) { return Math.min(1, Math.pow((f.heightCm || f.heightEst || 5) / 9, 0.45)); }
+    function rowWidth(pick) {  // row width in row heights
+      return pick.reduce(function (w, f) { return w + figUnit(f) * (f.trimRatio || 0.6); }, 0);
+    }
+    var cardRowWidth = 1;  // widest region row: every card uses its scale (a wider All / Upcoming row shrinks to fit)
+    function pickedArt(region) {
+      var pick = picksFor(region);
+      if (!pick) return null;
+      var sum = Math.max(cardRowWidth, rowWidth(pick));
+      return '<div class="sw-region-figs is-row" style="--sum:' + sum.toFixed(3) + '">' + pick.map(function (f) {
+        return '<span class="sw-region-fig" style="--u:' + figUnit(f).toFixed(3) + ";--r:" + (f.trimRatio || 0.6) + '">' +
+          imgTag(f.imageTrim || f.image, f.imageUrl, "", "", true) + "</span>";
+      }).join("") + "</div>";
+    }
+
     function regionArt(region) {
+      var picked = pickedArt(region);
+      if (picked) return picked;
       var figs = figsIn(region).filter(function (f) { return f.image || f.imageUrl; });
       if (region !== "upcoming") {  // card art: released figures first
         var out = figs.filter(function (f) { return !idx.upcoming[f.id]; });
@@ -289,7 +335,10 @@
 
     function renderHome() {
       var all = regionStats("all");
-      var h = '<div class="sw-top"><h1>' + LOGO + 'Scaledex</h1><span class="sw-count">Owned: ' + all.owned + "</span></div>";
+      var dk = isDark();  // light / dark switch; until it is used the theme follows the system
+      var h = '<div class="sw-top"><h1>' + LOGO + 'Scaledex</h1><span class="sw-top-end"><span class="sw-count">Owned: ' + all.owned + "</span>" +
+        '<button class="sw-theme" data-act="theme-toggle" role="switch" aria-checked="' + dk + '" aria-label="Dark theme" title="' +
+        (dk ? "Switch to light theme" : "Switch to dark theme") + '">' + (dk ? ICON_MOON : ICON_SUN) + "</button></span></div>";
       h += '<div class="sw-sub">' + data.characters.length + " characters · " + data.figures.length + " figures · " +
         data.products.length + " releases</div>";
       var regs = [{ id: "all", nameEn: "All", nameJa: "すべてのフィギュア" }].concat(data.regions);
@@ -297,6 +346,7 @@
         var at = regs.map(function (r) { return r.id; }).indexOf("special");
         regs.splice(at < 0 ? regs.length : at, 0, UPCOMING);
       }
+      cardRowWidth = Math.max.apply(null, data.regions.map(function (r) { var p = picksFor(r.id); return p ? rowWidth(p) : 1; }));
       regs.forEach(function (r) {
         var s = regionStats(r.id);
         var done = s.total > 0 && s.owned >= s.total;
@@ -370,14 +420,15 @@
           return '<button class="sw-chip' + (ui.filter === f[0] ? " on" : "") + '" data-act="filter" data-id="' + f[0] + '">' + f[1] + "</button>";
         }).join("") + "</div>";
       }
-      h += '<div class="sw-fabs">';
+      // left column: search (its field opens to the right), menu under it
+      h += '<div class="sw-fabs"><div class="sw-fab-row">';
       if (ui.search) {
         h += '<button class="sw-fab" data-act="search-close" aria-label="Close search">' + ICON_X + "</button>" +
           '<input class="sw-search" type="search" placeholder="Name, 名前 or dex no." value="' + esc(ui.query) + '" autocomplete="off">';
       } else {
         h += '<button class="sw-fab" data-act="search" aria-label="Search">' + ICON_SEARCH + "</button>";
       }
-      h += '<button class="sw-fab" data-act="menu" aria-label="Menu">' + ICON_MENU + "</button></div>";
+      h += '</div><button class="sw-fab" data-act="menu" aria-label="Menu">' + ICON_MENU + "</button></div>";
       bottom.innerHTML = h;
       nav.innerHTML = rail ? '<button class="sw-back" data-act="home" aria-label="Back">' + ICON_BACK + "</button>" : "";
       var input = bottom.querySelector(".sw-search");
@@ -560,9 +611,6 @@
         '<div class="sw-h">Sort grid by</div><div class="sw-sort">' + SORTS.map(function (s) {
           return '<button class="' + (prefs.sort === s[0] ? "on" : "") + '" data-act="sort" data-id="' + s[0] + '">' + s[1] + "</button>";
         }).join("") + "</div>" +
-        '<div class="sw-h">Theme</div><div class="sw-sort">' + [["auto", "Auto"], ["light", "Light"], ["dark", "Dark"]].map(function (s) {
-          return '<button class="' + (prefs.theme === s[0] ? "on" : "") + '" data-act="theme" data-id="' + s[0] + '">' + s[1] + "</button>";
-        }).join("") + "</div>" +
         '<div class="sw-h">Display</div><div class="sw-menu">' +
         '<label>Grey out figures I don’t own <input type="checkbox" data-act="dim"' + (prefs.dim ? " checked" : "") + "></label>" +
         '<label>Show figures at true relative scale <input type="checkbox" data-act="truescale"' + (prefs.trueScale ? " checked" : "") + "></label></div>" +
@@ -614,6 +662,12 @@
       });
     }
 
+    // back button: region list
+    function goHome() {
+      if (opts.history && ui.screen !== "home") { global.history.back(); return; }
+      ui.screen = "home"; ui.query = ""; ui.search = false; render(); scroller.scrollTop = scrollMemo.homeall || 0;
+    }
+
     // ------------------------------------------------------------ events
     function onClick(e) {
       var el = e.target.closest ? e.target.closest("[data-act]") : null;
@@ -625,9 +679,7 @@
           scrollMemo[ui.screen + ui.region] = scroller.scrollTop;
           ui.screen = "grid"; ui.region = id; ui.filter = "all";
           pushHistory(); render(); scroller.scrollTop = 0; break;
-        case "home":
-          if (opts.history && ui.screen !== "home") { global.history.back(); break; }
-          ui.screen = "home"; ui.query = ""; ui.search = false; render(); scroller.scrollTop = scrollMemo.homeall || 0; break;
+        case "home": goHome(); break;
         case "filter": ui.filter = id; renderGrid(); renderBottom(); scroller.scrollTop = 0; break;
         case "open": scrollMemo[ui.screen + ui.region] = scroller.scrollTop; openDetail(id, el.getAttribute("data-fig")); break;
         case "fig": ui.fig = id; renderSheet(); break;
@@ -642,7 +694,7 @@
         case "search-close": ui.search = false; ui.query = ""; render(); break;
         case "menu": openMenu(); break;
         case "sort": prefs.sort = id; save(); openMenu(); render(); break;
-        case "theme": prefs.theme = id; save(); applyTheme(); openMenu(); break;
+        case "theme-toggle": prefs.theme = isDark() ? "light" : "dark"; save(); applyTheme(); renderHome(); break;
         case "xmenu": opts.menu[+id].run(api); break;
         case "reset":
           if (global.confirm && !global.confirm("Clear all owned and wishlist marks?")) break;
@@ -660,8 +712,26 @@
         t.src = t.getAttribute("data-fb"); t.removeAttribute("data-fb");
       }
     }
+    // Esc = close button (sheet, menu, search); Backspace = back button (previous page in a
+    // sheet, else back to the region list). Returns true when it handled the key.
+    function navKey(e) {
+      if (e.ctrlKey || e.metaKey || e.altKey) return false;
+      var t = e.target, typing = t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable);
+      if (e.key === "Escape") {
+        if (ui.detail || ui.menu) { closeSheet(); return true; }
+        if (ui.search) { ui.search = false; ui.query = ""; render(); return true; }
+        return false;
+      }
+      if (e.key !== "Backspace" || typing) return false;
+      if (ui.menu || ui.detail) {
+        if (opts.history && ui.detail && ui.depth > 1) global.history.back(); else closeSheet();
+        return true;
+      }
+      if (ui.screen !== "home") { goHome(); return true; }
+      return false;
+    }
     function onKey(e) {
-      if (e.key === "Escape" && (ui.detail || ui.menu)) closeSheet();
+      if (opts.keyboard !== "global" && navKey(e)) e.preventDefault();
     }
     // "/" or Ctrl/Cmd+K opens the search, like Google or YouTube
     function isSearchKey(e) {
@@ -675,6 +745,7 @@
     }
     function onGlobalKey(e) {
       if (isSearchKey(e)) { e.preventDefault(); openSearch(); }
+      else if (navKey(e)) e.preventDefault();
     }
     if (opts.keyboard === "global") global.addEventListener("keydown", onGlobalKey);
     root.addEventListener("click", onClick);
@@ -689,6 +760,7 @@
       setData: function (d) { data = d; idx = buildIndex(d); render(); },
       setDark: function (v) { opts.dark = v; applyTheme(); },
       isSearchKey: isSearchKey,
+      navKey: navKey,  // host-level Esc / Backspace (see navKey); true = handled
       openSearch: openSearch,
       destroy: function () {
         root.removeEventListener("click", onClick); root.removeEventListener("change", onChange);

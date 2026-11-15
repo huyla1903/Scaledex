@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 @title        Scaledex - data builder
-@version      0.2.0
+@version      0.2.1
 @author       La Gia Huy
 @since        2026-11-14
 @updated      2026-11-15
@@ -22,7 +22,11 @@
               Every HTTP response is cached in scraper/cache/, so re-runs only
               fetch what is new. Delete the cache folder to force a full refresh.
               Usage:  python build_data.py [--no-images] [--refresh-index]
-@changelog    0.2.0  brand-page products/figures, types, evolution chains, trainer roles
+@changelog    0.2.1  heightEst for figures without an official height (PokeAPI, 1:20),
+                     trimRatio of the card photo; Emma / Harmony photos swapped back;
+                     trims ignore the bottom-left copyright line and whiten the stamp;
+                     FIGURE_PHOTO_URLS
+              0.2.0  brand-page products/figures, types, evolution chains, trainer roles
                      and Bulbapedia trainer order, per-figure photos from
                      product galleries (box photos split per figure),
                      Legendary / Mythical / Powerhouse status,
@@ -513,7 +517,10 @@ def read_brand_page(url):
 
 # Figure photo picks that the gallery rules get wrong: figure id -> gallery index
 # (0-based, in page order). Check a product's gallery on its Bandai Candy page.
-FIGURE_IMAGES = {}
+FIGURE_IMAGES = {
+    # Lumiose City set: boxes 5 (Emma) and 6 (Harmony) are photographed the other way round
+    "x4570117932496000_10": 6, "x4570117932496000_11": 5,
+}
 
 # Candy box photos show 2-3 figures side by side; each figure gets its own crop.
 # By default the k-th name of a box is the k-th figure from the left; these are the
@@ -530,11 +537,21 @@ FIGURE_CROPS = {
 }
 
 
+# Figures whose product page has no photo of their own: photo URL to use instead. Premium
+# Bandai's image server (bandai-a.akamaihd.net/bc/img/model/b/<item>_<n>.jpg) is not
+# region-blocked and often has more views than the Bandai Candy page.
+FIGURE_PHOTO_URLS = {
+    "x1000259828_4": "https://bandai-a.akamaihd.net/bc/img/model/b/1000259828_11.jpg",  # Mega Tyranitar
+}
+
+
 def figure_photo(fid, page, k):
     """Best product-page photo for the k-th figure (1-based) of a brand-page product.
     Premium Bandai items: group shot, then 3 views per figure in lineup order.
     Candy waves/sets: package art and/or lineup grid, then one photo per numbered box."""
     g = page.get("gallery") or []
+    if fid in FIGURE_PHOTO_URLS:
+        return FIGURE_PHOTO_URLS[fid], None
     if fid in FIGURE_IMAGES and FIGURE_IMAGES[fid] < len(g):
         return g[FIGURE_IMAGES[fid]], None
     if not g:
@@ -833,7 +850,18 @@ def trim_image(rel, name, ignore_marks=False, split=None):
         if ignore_marks:  # Bandai product photos: "食玩" stamp bottom-right, fine print along the bottom
             diff.paste(0, (int(w * 0.80), int(h * 0.80), w, h))
             diff.paste(0, (0, int(h * (0.86 if split else 0.94)), w, h))
+            diff.paste(0, (0, int(h * 0.88), int(w * 0.18), h))  # "©Pokémon" bottom-left
         mask = diff.point(lambda v: 255 if v > 14 else 0)
+        if ignore_marks:  # the grey "食玩" stamp can sit inside the crop next to a foot: whiten
+            x0, y0 = int(w * 0.80), int(h * 0.80)  # its light grey pixels (figure colours stay)
+            corner = im.crop((x0, y0, w, h))
+            px = corner.load()
+            for yy in range(corner.height):
+                for xx in range(corner.width):
+                    r, g, b = px[xx, yy]
+                    if min(r, g, b) > 150 and max(r, g, b) - min(r, g, b) < 24:
+                        px[xx, yy] = (255, 255, 255)
+            im.paste(corner, (x0, y0))
         if split:  # (count, position): the position-th of count figures standing side by side
             cols = _column_runs(mask, split[0])
             if not cols:
@@ -1156,6 +1184,15 @@ def main():
             if i % 50 == 0:
                 print(f"    products {i}/{len(products)}")
             p["image"] = save_image(p["_image"], "products", p["id"])
+    try:  # width / height of the photo the home cards use, so they can size figures to one scale
+        from PIL import Image
+        for f in fig_out:
+            rel = f.get("imageTrim") or f.get("image")
+            if rel and os.path.exists(os.path.join(OUT_DIR, rel)):
+                with Image.open(os.path.join(OUT_DIR, rel)) as im:
+                    f["trimRatio"] = round(im.width / im.height, 3)
+    except ImportError:
+        pass
     for f in fig_out:
         f.pop("_split", None)
         f["imageUrl"] = f.pop("_img")
@@ -1191,6 +1228,27 @@ def main():
             t = form_types(forms, c["dex"], f["labelEn"])
             if t != c["types"]:
                 f["types"] = t
+    # ---- figures the official dex gives no height for (brand-page sets): estimate it from the
+    # character's real height, as Scale World is 1:20 (PokeAPI heights are in decimetres)
+    base = POKEAPI_CSV.rsplit("/", 1)[0] + "/"
+    dm, ident = {}, {}
+    for r in csv.DictReader(io.StringIO(fetch(base + "pokemon.csv") or "")):
+        dm[r["identifier"]] = int(r["height"] or 0)
+        if r["is_default"] == "1":
+            ident[int(r["species_id"])] = r["identifier"]
+    for f in fig_out:
+        if f["heightCm"]:
+            continue
+        c = characters[f["characterId"]]
+        if c["kind"] != "pokemon":
+            f["heightEst"] = 7.8  # typical trainer figure
+            continue
+        name = ident.get(c["dex"])
+        form = (f["labelEn"] or "").split(" ")[0].lower().strip("%")  # "Mega", "10% Forme", "Sky Forme"
+        if name and form and name.split("-")[0] + "-" + form in dm:  # default may be "zygarde-50"
+            name = name.split("-")[0] + "-" + form
+        if dm.get(name):
+            f["heightEst"] = max(1.0, round(dm[name] / 2, 1))
     chains, chain_names = {}, {}
     wanted = {c["chain"] for c in characters.values() if c.get("chain")}
     for sid, s in sorted(evo_sp.items()):
