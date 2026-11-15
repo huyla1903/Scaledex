@@ -301,6 +301,9 @@
 .swdex.sw-dark .sw-evo-img { background: #f3f8f9; }
 .swdex .sw-figtabs { display: flex; gap: 8px; overflow-x: auto; padding: 14px 2px 6px; scrollbar-width: none; }
 .swdex .sw-figtabs::-webkit-scrollbar { display: none; }
+/* centred rows that still scroll from the first item when they overflow (auto margins, unlike justify-content) */
+.swdex .sw-figtabs > :first-child, .swdex .sw-evos > :first-child { margin-left: auto; }
+.swdex .sw-figtabs > :last-child, .swdex .sw-evos > :last-child { margin-right: auto; }
 .swdex .sw-figtab {
   flex: 0 0 auto; width: 74px; border-radius: 14px; background: var(--sw-card);
   display: flex; flex-direction: column; align-items: center; gap: 2px;
@@ -320,7 +323,7 @@
 .swdex .sw-toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
 .swdex .sw-toggle {
   border-radius: 30px; padding: 12px 10px; font-weight: 800; font-size: 15px; text-transform: uppercase;
-  background: rgba(27,134,182,0.10); color: var(--sw-ink); border: 2px solid transparent;
+  background: rgba(27,134,182,0.10); color: var(--sw-ink); border: 2px solid transparent; text-align: center;
 }
 .swdex .sw-toggle.own.on { background: var(--sw-owned); color: #fff; }
 .swdex .sw-toggle.wish.on { background: var(--sw-wish); color: #fff; }

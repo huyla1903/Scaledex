@@ -62,7 +62,7 @@
       pokemon: "Pokémon", trainers: "Trainers", figures: "Figures", wishlist: "Wishlist", ownedPct: "★ Owned",
       noMatch: "No figures match “{0}”", nothing: "Nothing here yet",
       search: "Search", closeSearch: "Close search", searchPh: "Name, 名前 or dex no.", menu: "Menu", back: "Back", close: "Close",
-      trainer: "Trainer", height: "Scale height", line: "Line", firstRelease: "First release",
+      trainer: "Trainer", height: "Scale height", region: "Region", firstRelease: "First release",
       owned: "Owned", wish: "Wishlist", releases: "Releases ({0})", noReleases: "No release information found.",
       priceNote: "Prices are Japanese retail prices including tax unless marked “+ tax”. Candy-aisle prices are per box. " +
         "Premium Bandai prices come from archived product pages. ",
@@ -86,7 +86,7 @@
       pokemon: "Pokémon", trainers: "Huấn luyện viên", figures: "Mô hình", wishlist: "Muốn mua", ownedPct: "★ Đã có",
       noMatch: "Không có mô hình nào khớp “{0}”", nothing: "Chưa có gì ở đây",
       search: "Tìm kiếm", closeSearch: "Đóng tìm kiếm", searchPh: "Tên, 名前 hoặc số dex", menu: "Menu", back: "Quay lại", close: "Đóng",
-      trainer: "Huấn luyện viên", height: "Chiều cao", line: "Dòng", firstRelease: "Phát hành lần đầu",
+      trainer: "Huấn luyện viên", height: "Chiều cao", region: "Vùng", firstRelease: "Phát hành lần đầu",
       owned: "Đã có", wish: "Muốn mua", releases: "Các đợt phát hành ({0})", noReleases: "Không tìm thấy thông tin phát hành.",
       priceNote: "Giá bán lẻ tại Nhật, đã gồm thuế trừ khi ghi “+ thuế”. Giá hàng quầy bánh kẹo tính theo hộp. " +
         "Giá Premium Bandai lấy từ các trang sản phẩm được lưu trữ. ",
@@ -606,7 +606,7 @@
       if (f.labelEn || f.labelJa) h += '<div class="sw-label">' + esc(f.labelEn || f.labelJa) + (showJa && f.labelEn ? ' <span style="opacity:.7">' + esc(f.labelJa) + "</span>" : "") + "</div>";
       h += '<div class="sw-facts">' +
         "<div><b>" + (f.heightCm ? f.heightCm + " cm" : "—") + "</b><span>" + esc(t("height")) + "</span></div>" +
-        "<div><b>" + esc(reg ? regionName(reg) : "—") + "</b><span>" + esc(t("line")) + "</span></div>" +
+        "<div><b>" + esc(reg ? reg.nameEn : "—") + "</b><span>" + esc(t("region")) + "</span></div>" +
         "<div><b>" + (f.firstYear || "—") + "</b><span>" + esc(t("firstRelease")) + "</span></div></div>" +
         '<div class="sw-toggles">' +
         '<button class="sw-toggle own' + (st.owned[f.id] ? " on" : "") + '" data-act="own" data-id="' + esc(f.id) + '">' + (st.owned[f.id] ? "✓ " : "") + esc(t("owned")) + "</button>" +
