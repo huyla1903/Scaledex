@@ -1,6 +1,6 @@
 /*
 @title        Scaledex - Obsidian plugin
-@version      0.1.11
+@version      0.1.12
 @author       La Gia Huy
 @since        2026-11-14
 @updated      2026-11-15
@@ -87,7 +87,7 @@ class ScaledexView extends obsidian.ItemView {
       },
       load: function () { return plugin.settings.collection; },
       save: function (s) { plugin.settings.collection = s; plugin.saveSoon(); },
-      menu: [{ label: "Download images (offline use)", run: function () { plugin.downloadImages(); } }]
+      menu: [{ label: "Download images (offline use)", labelVi: "Tải ảnh về (dùng offline)", run: function () { plugin.downloadImages(); } }]
     });
     var self = this;
     this.registerEvent(this.app.workspace.on("css-change", function () { if (self.api) self.api.setDark(isDark()); }));

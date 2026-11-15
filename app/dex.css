@@ -76,18 +76,20 @@
 /* ---------- header ---------- */
 .swdex .sw-top {
   display: flex; align-items: baseline; justify-content: space-between;
-  padding: 18px 8px 16px; font-weight: 800; letter-spacing: 0.02em;
+  padding: 18px 8px 16px; font-weight: 800; letter-spacing: 0.02em; gap: 10px;
 }
 .swdex .sw-top h1 { margin: 0; font-size: 21px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink);
   display: flex; align-items: center; gap: 9px; }
 .swdex .sw-logo { width: 30px; height: 30px; flex: 0 0 auto; display: block; box-shadow: 0 2px 6px rgba(0,0,0,0.18); border-radius: 7px; }
 .swdex .sw-top .sw-count { font-size: 18px; }
-.swdex .sw-top-end { display: flex; align-items: center; gap: 12px; align-self: center; }
+.swdex .sw-top-end { display: flex; align-items: center; gap: 8px; align-self: center; white-space: nowrap; }
+.swdex .sw-top-end .sw-count { margin-right: 4px; }
 .swdex .sw-theme {
   width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; padding: 0;
   background: var(--sw-chip); border: 2px solid var(--sw-card-line); box-shadow: var(--sw-shadow); color: var(--sw-ink-strong);
 }
 .swdex .sw-theme svg { width: 22px; height: 22px; }
+.swdex .sw-lang { font: inherit; font-size: 14px; font-weight: 800; letter-spacing: 0.04em; }
 .swdex .sw-sub { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin: -10px 8px 14px; }
 
 /* ---------- region cards (home) ---------- */
@@ -132,6 +134,9 @@
 .swdex .sw-region-figs.is-row .sw-region-fig img { width: 100%; height: 100%; max-width: none; }
 .swdex .sw-region-text { position: relative; z-index: 1; padding: 20px 22px; }
 .swdex .sw-region-name { font-size: 28px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink); line-height: 1.05; }
+/* Vietnamese "VÙNG KANTO": smaller name and prefix so it stays clear of the card art */
+.swdex[lang="vi"] .sw-region-name { font-size: 24px; white-space: nowrap; }
+.swdex .sw-region-pre { font-size: 0.65em; }
 .swdex .sw-region-ja { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin-top: 2px; }
 .swdex .sw-region-progress { font-size: 22px; font-weight: 800; margin-top: 8px; color: var(--sw-ink); }
 .swdex .sw-bar { width: 150px; height: 9px; border-radius: 9px; background: rgba(27,134,182,0.18); margin-top: 8px; overflow: hidden; }
@@ -148,9 +153,15 @@
 .swdex .sw-back { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: var(--sw-ink-strong);
   background: var(--sw-chip); border: 2px solid var(--sw-card-line); box-shadow: var(--sw-shadow); }
 .swdex .sw-back svg { width: 26px; height: 26px; }
-.swdex .sw-stat-title { font-weight: 800; font-size: 19px; text-transform: uppercase; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.swdex .sw-stat-head { flex-wrap: wrap; padding-right: 100px; min-height: 42px; }
+/* language + theme, top right of the card (like the figure page's top bar) */
+.swdex .sw-statcard { position: relative; }
+.swdex .sw-grid-tools { position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; }
+.swdex .sw-stat-title { font-weight: 800; font-size: 19px; text-transform: uppercase; flex: 1 1 auto; min-width: min-content; line-height: 1.15; }
 .swdex .sw-pill { background: var(--sw-accent); color: var(--sw-accent-ink); font-weight: 800; font-size: 20px; padding: 3px 18px; border-radius: 30px; white-space: nowrap; }
-.swdex .sw-stats { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 14px; text-align: center; }
+/* five across when there is room, else wrap into rows (narrow phone + rail) */
+.swdex .sw-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); row-gap: 10px; margin-top: 14px; text-align: center; }
+.swdex .sw-stats span { display: block; line-height: 1.2; }
 .swdex .sw-stats b { display: block; font-size: 24px; font-weight: 800; line-height: 1.1; }
 .swdex .sw-stats span { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; }
 
@@ -202,7 +213,7 @@
   flex-direction: column; width: 104px; overflow: visible; padding: 0; gap: 7px;
 }
 /* rail, back button and search button share one left edge (12px, the .sw-bottom padding) */
-.swdex.has-rail .sw-chip { width: 100%; padding: 9px 4px; font-size: 12px; text-align: center; letter-spacing: 0.01em; }
+.swdex.has-rail .sw-chip { width: 100%; padding: 9px 4px; font-size: 12px; text-align: center; letter-spacing: 0.01em; white-space: nowrap; }
 /* back button: top of the left rail, outside the header, always in reach */
 .swdex .sw-nav { position: absolute; z-index: 6; top: calc(env(safe-area-inset-top, 0px) + 18px); left: 12px; }
 .swdex .sw-nav .sw-back { width: 56px; height: 56px; }
@@ -219,7 +230,7 @@
 }
 .swdex .sw-fab svg { width: 26px; height: 26px; }
 .swdex .sw-search {
-  pointer-events: auto; flex: 1; margin: 0 10px; height: 50px; border-radius: 30px; padding: 0 18px;
+  pointer-events: auto; flex: 0 1 250px; margin: 0 10px; height: 50px; border-radius: 30px; padding: 0 18px;
   border: 2px solid var(--sw-card-line); background: var(--sw-chip); color: var(--sw-ink-strong);
   font: 700 16px var(--sw-font); box-shadow: var(--sw-shadow); outline: none; min-width: 0;
   user-select: text; -webkit-user-select: text;
@@ -243,9 +254,11 @@
 }
 .swdex.sw-dark .sw-hero { background: radial-gradient(circle at 50% 60%, #2b5868 0, #173a47 70%); }
 .swdex .sw-hero img { max-height: 240px; max-width: 82%; object-fit: contain; mix-blend-mode: multiply; }
+/* sheet top bar: language, theme, close */
+.swdex .sw-sheet-tools { display: flex; align-items: center; gap: 8px; }
+.swdex .sw-hero .sw-sheet-tools { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 14px; z-index: 1; }
 .swdex .sw-close {
-  position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 14px;
-  width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.85);
+  flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.85);
   box-shadow: var(--sw-shadow); display: grid; place-items: center; color: #1d6f8f; font-size: 24px; font-weight: 700;
 }
 .swdex .sw-hero-no { position: absolute; left: 18px; top: calc(env(safe-area-inset-top, 0px) + 16px); font-weight: 800; font-size: 18px; color: var(--sw-ink-soft); }

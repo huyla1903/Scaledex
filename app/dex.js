@@ -12,7 +12,7 @@
                   load: () => state,          // { owned:{}, wish:{}, prefs:{} }
                   save: (state) => void,
                   history: true,              // use history.pushState (PWA only)
-                  menu: [{ label, run }],     // extra menu entries (export/import...)
+                  menu: [{ label, labelVi, run }], // extra menu entries (export/import...)
                   dark: false | true | 'auto',
                   today: 'YYYY-MM-DD',        // optional; "Upcoming" = releases after this date
                   keyboard: 'global'          // "/" and Ctrl/Cmd+K open search page-wide (PWA);
@@ -45,11 +45,77 @@
     '<rect x="168" y="382" width="34" height="30" rx="8" fill="#58d0ff"/><rect x="239" y="352" width="34" height="60" rx="8" fill="#58d0ff"/>' +
     '<rect x="310" y="326" width="34" height="86" rx="8" fill="#58d0ff"/></svg>';
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  var FILTERS = [
-    ["all", "All"], ["pokemon", "Pokémon"], ["trainer", "Trainers"],
-    ["owned", "Owned"], ["missing", "Missing"], ["wish", "Wishlist"]
-  ];
-  var SORTS = [["dex", "Dex no."], ["name", "Name"], ["year", "Release year"]];
+  var FILTERS = ["all", "pokemon", "trainer", "owned", "missing", "wish"];  // labels: "f_" + id
+  var SORTS = ["dex", "name", "year"];                                     // labels: "s_" + id
+
+  // UI text, English / Vietnamese. Character, region, product and form names stay as they are.
+  // "{0}" is replaced by t()'s second argument.
+  var I18N = {
+    en: {
+      f_all: "All", f_pokemon: "Pokémon", f_trainer: "Trainers", f_owned: "Owned", f_missing: "Missing", f_wish: "Wishlist",
+      s_dex: "Dex no.", s_name: "Name", s_year: "Release year",
+      reg_all: "All", reg_upcoming: "Upcoming", allFigures: "All figures",
+      ownedCount: "Owned: {0}", dark: "Dark theme", toLight: "Switch to light theme", toDark: "Switch to dark theme",
+      lang: "Language", toOther: "Tiếng Việt",
+      sub: "{0} characters · {1} figures · {2} releases", complete: "Complete!",
+      footer: "Data {0} · official Bandai Scale World dex, Bandai Candy & Premium Bandai pages",
+      pokemon: "Pokémon", trainers: "Trainers", figures: "Figures", wishlist: "Wishlist", ownedPct: "★ Owned",
+      noMatch: "No figures match “{0}”", nothing: "Nothing here yet",
+      search: "Search", closeSearch: "Close search", searchPh: "Name, 名前 or dex no.", menu: "Menu", back: "Back", close: "Close",
+      trainer: "Trainer", height: "Scale height", line: "Line", firstRelease: "First release",
+      owned: "Owned", wish: "Wishlist", releases: "Releases ({0})", noReleases: "No release information found.",
+      priceNote: "Prices are Japanese retail prices including tax unless marked “+ tax”. Candy-aisle prices are per box. " +
+        "Premium Bandai prices come from archived product pages. ",
+      dexPage: "Official dex page ↗", productPage: "Product page ↗ (not in the official dex yet)",
+      evolution: "Evolution", ships: "Ships {0}", plusTax: "{0} + tax", rerelease: "Re-release", upcoming: "Upcoming",
+      officialPage: "Official page ↗", archived: "Archived ↗",
+      settings: "Settings", sortBy: "Sort grid by", display: "Display", dim: "Grey out figures I don’t own",
+      trueScale: "Show figures at true relative scale", collection: "Collection", collCount: "{0} owned · {1} on wishlist",
+      reset: "Clear owned & wishlist", resetAsk: "Clear all owned and wishlist marks?", about: "About the data",
+      aboutText: "Generated {0}. {1} characters, {2} figures, {3} releases.<br>Sources: official Pokémon Scale World dex (bandai.co.jp), " +
+        "Bandai Candy product pages, Premium Bandai pages via the Internet Archive, PokeAPI names. Figure and product images © Bandai / Pokémon."
+    },
+    vi: {
+      f_all: "Tất cả", f_pokemon: "Pokémon", f_trainer: "HLV", f_owned: "Đã có", f_missing: "Còn thiếu", f_wish: "Muốn mua",
+      s_dex: "Số dex", s_name: "Tên", s_year: "Năm phát hành",
+      reg_all: "Tất cả", reg_upcoming: "Sắp ra mắt", allFigures: "Tất cả mô hình",
+      ownedCount: "Đã có: {0}", dark: "Giao diện tối", toLight: "Chuyển sang giao diện sáng", toDark: "Chuyển sang giao diện tối",
+      lang: "Ngôn ngữ", toOther: "English",
+      sub: "{0} nhân vật · {1} mô hình · {2} đợt phát hành", complete: "Hoàn thành!",
+      footer: "Dữ liệu {0} · dex chính thức Bandai Scale World, trang Bandai Candy & Premium Bandai",
+      pokemon: "Pokémon", trainers: "Huấn luyện viên", figures: "Mô hình", wishlist: "Muốn mua", ownedPct: "★ Đã có",
+      noMatch: "Không có mô hình nào khớp “{0}”", nothing: "Chưa có gì ở đây",
+      search: "Tìm kiếm", closeSearch: "Đóng tìm kiếm", searchPh: "Tên, 名前 hoặc số dex", menu: "Menu", back: "Quay lại", close: "Đóng",
+      trainer: "Huấn luyện viên", height: "Chiều cao", line: "Dòng", firstRelease: "Phát hành lần đầu",
+      owned: "Đã có", wish: "Muốn mua", releases: "Các đợt phát hành ({0})", noReleases: "Không tìm thấy thông tin phát hành.",
+      priceNote: "Giá bán lẻ tại Nhật, đã gồm thuế trừ khi ghi “+ thuế”. Giá hàng quầy bánh kẹo tính theo hộp. " +
+        "Giá Premium Bandai lấy từ các trang sản phẩm được lưu trữ. ",
+      dexPage: "Trang dex chính thức ↗", productPage: "Trang sản phẩm ↗ (chưa có trong dex chính thức)",
+      evolution: "Tiến hóa", ships: "Giao {0}", plusTax: "{0} + thuế", rerelease: "Tái bản", upcoming: "Sắp ra mắt",
+      officialPage: "Trang chính thức ↗", archived: "Bản lưu trữ ↗",
+      settings: "Cài đặt", sortBy: "Sắp xếp theo", display: "Hiển thị", dim: "Làm mờ mô hình chưa có",
+      trueScale: "Hiển thị mô hình theo đúng tỉ lệ", collection: "Bộ sưu tập", collCount: "Đã có {0} · Muốn mua {1}",
+      reset: "Xóa đã có & muốn mua", resetAsk: "Xóa toàn bộ đánh dấu đã có và muốn mua?", about: "Về dữ liệu",
+      aboutText: "Tạo ngày {0}. {1} nhân vật, {2} mô hình, {3} đợt phát hành.<br>Nguồn: dex chính thức Pokémon Scale World (bandai.co.jp), " +
+        "trang sản phẩm Bandai Candy, trang Premium Bandai qua Internet Archive, tên từ PokeAPI. Ảnh mô hình và sản phẩm © Bandai / Pokémon."
+    }
+  };
+  // Vietnamese names for data.types / data.roles / data.channels / STATUS (no official ones exist: fan terms)
+  var VI_TYPES = {
+    normal: "Thường", fighting: "Giác đấu", flying: "Bay", poison: "Độc", ground: "Đất", rock: "Đá", bug: "Côn trùng",
+    ghost: "Ma", steel: "Thép", fire: "Lửa", water: "Nước", grass: "Cỏ", electric: "Điện", psychic: "Siêu linh",
+    ice: "Băng", dragon: "Rồng", dark: "Bóng tối", fairy: "Tiên"
+  };
+  var VI_ROLES = {
+    protagonist: "Nhân vật chính", rival: "Đối thủ", professor: "Giáo sư", gym: "Trưởng Gym", e4: "Tứ Thiên Vương",
+    champion: "Nhà vô địch", boss: "Trùm phản diện", clan: "Thủ lĩnh tộc", teammz: "Đội MZ", friend: "Bạn bè",
+    merchant: "Thương nhân", detective: "Thám tử"
+  };
+  var VI_CHANNELS = {
+    supermarket: "Siêu thị & đại siêu thị (quầy bánh kẹo)", convenience: "Cửa hàng tiện lợi", hobby: "Cửa hàng mô hình",
+    pokecen: "Pokémon Center", pbandai: "Premium Bandai (đặt trước)", pbandai_std: "Premium Bandai (bán lẻ thường xuyên)", other: "Khác"
+  };
+  var VI_STATUS = { legendary: "Huyền thoại", mythical: "Thần thoại", powerhouse: "Bán huyền thoại" };
 
   var ICON_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>';
   var ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
@@ -63,9 +129,10 @@
     });
   }
   function pad4(n) { return ("000" + n).slice(-4); }
-  function fmtDate(d) {
+  function fmtDate(d, lang) {
     if (!d) return "";
     var p = String(d).split("-");
+    if (lang === "vi") return p.slice().reverse().join("/");  // 15/11/2026, 11/2026
     if (p.length === 3) return (+p[2]) + " " + MONTHS[+p[1] - 1] + " " + p[0];
     if (p.length === 2) return MONTHS[+p[1] - 1] + " " + p[0];
     return p[0];
@@ -75,6 +142,7 @@
     // lower-case, strip accents, katakana -> hiragana so either script matches
     s = String(s || "").toLowerCase();
     if (s.normalize) s = s.normalize("NFKD").replace(/[̀-ͯ]/g, "");
+    s = s.replace(/đ/g, "d");  // Vietnamese: "dat" finds "Đất"
     return s.replace(/[ァ-ヶ]/g, function (c) { return String.fromCharCode(c.charCodeAt(0) - 0x60); });
   }
 
@@ -130,6 +198,32 @@
     if (!prefs.sort) prefs.sort = "dex";
     if (prefs.dim == null) prefs.dim = false;
     if (!prefs.theme) prefs.theme = "auto";
+    if (!I18N[prefs.lang]) prefs.lang = /^vi\b/i.test((global.navigator && global.navigator.language) || "") ? "vi" : "en";
+
+    function t(k, a, b, c, d) {
+      var s = I18N[prefs.lang][k], args = [a, b, c, d];
+      if (s == null) s = I18N.en[k] != null ? I18N.en[k] : k;
+      return s.replace(/\{(\d)\}/g, function (x, i) { return args[i]; });
+    }
+    function vi() { return prefs.lang === "vi"; }
+    function typeName(id) {
+      var n = data.types && data.types[id];
+      return vi() && VI_TYPES[id] ? VI_TYPES[id] : (n ? n.en : id);
+    }
+    function statusName(s) { return vi() ? VI_STATUS[s] : STATUS[s][0]; }
+    // Vietnamese: real regions (…地方) get "Vùng": "Vùng Kanto"
+    function regionName(r) {
+      if (I18N.en["reg_" + r.id]) return t("reg_" + r.id);
+      return vi() && /地方$/.test(r.nameJa || "") ? "Vùng " + r.nameEn : r.nameEn;
+    }
+    // language + theme switches; on every screen (home header, grid header card, sheet top bar)
+    function togglesHtml() {
+      var dk = isDark();  // until the theme switch is used the theme follows the system
+      return '<button class="sw-theme sw-lang" data-act="lang-toggle" aria-label="' + esc(t("lang")) + '" title="' + esc(t("toOther")) + '">' +
+        (vi() ? "VI" : "EN") + "</button>" +
+        '<button class="sw-theme" data-act="theme-toggle" role="switch" aria-checked="' + dk + '" aria-label="' + esc(t("dark")) + '" title="' +
+        esc(dk ? t("toLight") : t("toDark")) + '">' + (dk ? ICON_MOON : ICON_SUN) + "</button>";
+    }
 
     var ui = { screen: "home", region: "all", filter: "all", query: "", detail: null, fig: null, menu: false, search: false };
     var idx = buildIndex(data);
@@ -151,6 +245,7 @@
       var dark = isDark();
       root.classList.toggle("sw-dark", !!dark);
       root.classList.toggle("sw-dim", !!prefs.dim);
+      root.setAttribute("lang", prefs.lang);
     }
     function save() { try { opts.save(st); } catch (e) { console.error("Scaledex save failed", e); } }
 
@@ -191,11 +286,14 @@
       return data.figures.filter(function (f) { return region === "all" || f.regions.indexOf(region) >= 0; });
     }
     function charName(c) { return c.nameEn; }
-    // "gym:rock" -> { en: "Gym Leader · Rock", ja: "ジムリーダー", type: "rock" }
+    // "gym:rock" -> { label: "Gym Leader · Rock" (current language), short: "Gym Leader", ja: "ジムリーダー（いわ）",
+    //               search: every language's wording, type: "rock" }
     function roleInfo(r) {
       var k = r.split(":"), d = (data.roles && data.roles[k[0]]) || { en: k[0], ja: "" };
-      var t = k[1] && data.types && data.types[k[1]];
-      return { en: d.en + (t ? " · " + t.en : ""), short: d.en, ja: d.ja + (t ? "（" + t.ja + "）" : ""), type: k[1] || "", id: k[0] };
+      var ty = k[1] && data.types && data.types[k[1]];
+      var short = vi() && VI_ROLES[k[0]] ? VI_ROLES[k[0]] : d.en;
+      return { label: short + (ty ? " · " + typeName(k[1]) : ""), short: short, ja: d.ja + (ty ? "（" + ty.ja + "）" : ""),
+               search: [d.en, VI_ROLES[k[0]] || "", ty ? ty.en : "", k[1] ? VI_TYPES[k[1]] || "" : ""].join(" "), type: k[1] || "", id: k[0] };
     }
     function figLabel(f) {
       var c = idx.chr[f.characterId];
@@ -230,12 +328,12 @@
         var hay = [t.c.nameEn, t.c.nameJa, romaji(t.c.nameJa), t.c.dex ? pad4(t.c.dex) : "", t.c.dex || ""];
         // the whole evolution line: "charmander" also finds Charmeleon and Charizard
         (t.c.chain && idx.chain[t.c.chain] || []).forEach(function (o) { hay.push(o.nameEn, o.nameJa, romaji(o.nameJa)); });
-        (t.c.roles || []).forEach(function (r) { var i = roleInfo(r); hay.push(i.en, i.ja); });
-        // types (all forms) and Legendary / Mythical / Powerhouse: "fire", "legendary" ...
+        (t.c.roles || []).forEach(function (r) { var i = roleInfo(r); hay.push(i.search, i.ja); });
+        // types (all forms) and Legendary / Mythical / Powerhouse, in either language: "fire", "lửa", "legendary" ...
         var ts = (t.c.types || []).slice();
         t.figs.forEach(function (x) { (x.types || []).forEach(function (y) { ts.push(y); }); });
-        ts.forEach(function (y) { var n = data.types && data.types[y]; hay.push(n ? n.en : y, n ? n.ja : ""); });
-        if (t.c.status && STATUS[t.c.status]) hay.push(STATUS[t.c.status][0]);
+        ts.forEach(function (y) { var n = data.types && data.types[y]; hay.push(n ? n.en : y, n ? n.ja : "", VI_TYPES[y] || ""); });
+        if (t.c.status && STATUS[t.c.status]) hay.push(STATUS[t.c.status][0], VI_STATUS[t.c.status]);
         t.figs.forEach(function (x) { hay.push(x.labelEn, x.labelJa, x.nameJa); });
         if (norm(hay.join(" ")).indexOf(q) < 0) return false;
       }
@@ -335,12 +433,9 @@
 
     function renderHome() {
       var all = regionStats("all");
-      var dk = isDark();  // light / dark switch; until it is used the theme follows the system
-      var h = '<div class="sw-top"><h1>' + LOGO + 'Scaledex</h1><span class="sw-top-end"><span class="sw-count">Owned: ' + all.owned + "</span>" +
-        '<button class="sw-theme" data-act="theme-toggle" role="switch" aria-checked="' + dk + '" aria-label="Dark theme" title="' +
-        (dk ? "Switch to light theme" : "Switch to dark theme") + '">' + (dk ? ICON_MOON : ICON_SUN) + "</button></span></div>";
-      h += '<div class="sw-sub">' + data.characters.length + " characters · " + data.figures.length + " figures · " +
-        data.products.length + " releases</div>";
+      var h = '<div class="sw-top"><h1>' + LOGO + 'Scaledex</h1><span class="sw-top-end"><span class="sw-count">' + esc(t("ownedCount", all.owned)) + "</span>" +
+        togglesHtml() + "</span></div>";
+      h += '<div class="sw-sub">' + esc(t("sub", data.characters.length, data.figures.length, data.products.length)) + "</div>";
       var regs = [{ id: "all", nameEn: "All", nameJa: "すべてのフィギュア" }].concat(data.regions);
       if (figsIn("upcoming").length) {
         var at = regs.map(function (r) { return r.id; }).indexOf("special");
@@ -354,42 +449,42 @@
         h += '<button class="sw-region' + (done ? " is-complete" : "") + '" data-act="region" data-id="' + r.id +
           '" style="--rc:' + (REGION_COLORS[r.id] || "#1b86b6") + '">' +
           '<div class="sw-region-art">' + regionArt(r.id) + "</div>" +
-          '<div class="sw-region-text"><div class="sw-region-name">' + esc(r.nameEn) + "</div>" +
+          '<div class="sw-region-text"><div class="sw-region-name">' +
+          esc(regionName(r)).replace(/^Vùng /, '<span class="sw-region-pre">Vùng</span> ') + "</div>" +
           '<div class="sw-region-ja">' + esc(r.nameJa) + "</div>" +
-          (done ? '<div class="sw-done">Complete!</div>' : '<div class="sw-bar"><i style="width:' + pct + '%"></i></div>') +
+          (done ? '<div class="sw-done">' + esc(t("complete")) + "</div>" : '<div class="sw-bar"><i style="width:' + pct + '%"></i></div>') +
           '<div class="sw-region-progress">' + s.owned + " / " + s.total + "</div></div></button>";
       });
-      h += '<div class="sw-note" style="text-align:center;margin:18px 0">Data ' + esc(data.generated) +
-        " · official Bandai Scale World dex, Bandai Candy & Premium Bandai pages</div>";
+      h += '<div class="sw-note" style="text-align:center;margin:18px 0">' + esc(t("footer", data.generated)) + "</div>";
       wrap.innerHTML = h;
     }
 
     function renderGrid() {
       var region = ui.screen === "home" ? "all" : ui.region;
-      var r = region === "all" ? { nameEn: "All figures" } : idx.reg[region];
+      var title = region === "all" ? t("allFigures") : regionName(idx.reg[region]);
       var tiles = tilesFor(region);
       var s = regionStats(region);
       var nP = tiles.filter(function (t) { return t.c.kind === "pokemon"; }).length;
       var nW = figsIn(region).filter(function (f) { return st.wish[f.id]; }).length;
-      var h = '<div class="sw-statcard"><div class="sw-stat-head">' +
-        '<div class="sw-stat-title">' + esc(r.nameEn) + "</div>" +
+      var h = '<div class="sw-statcard"><div class="sw-grid-tools">' + togglesHtml() + '</div><div class="sw-stat-head">' +
+        '<div class="sw-stat-title">' + esc(title) + "</div>" +
         '<div class="sw-pill">' + s.owned + " / " + s.total + "</div></div>" +
         '<div class="sw-stats">' +
-        "<div><b>" + nP + "</b><span>Pokémon</span></div>" +
-        "<div><b>" + (tiles.length - nP) + "</b><span>Trainers</span></div>" +
-        "<div><b>" + s.total + "</b><span>Figures</span></div>" +
-        "<div><b>" + nW + "</b><span>Wishlist</span></div>" +
-        "<div><b>" + (s.total ? Math.round(100 * s.owned / s.total) : 0) + "%</b><span>★ Owned</span></div>" +
+        "<div><b>" + nP + "</b><span>" + esc(t("pokemon")) + "</span></div>" +
+        "<div><b>" + (tiles.length - nP) + "</b><span>" + esc(t("trainers")) + "</span></div>" +
+        "<div><b>" + s.total + "</b><span>" + esc(t("figures")) + "</span></div>" +
+        "<div><b>" + nW + "</b><span>" + esc(t("wishlist")) + "</span></div>" +
+        "<div><b>" + (s.total ? Math.round(100 * s.owned / s.total) : 0) + "%</b><span>" + esc(t("ownedPct")) + "</span></div>" +
         "</div></div>";
 
       var shown = sortTiles(tiles.filter(matches));
       if (!shown.length) {
-        h += '<div class="sw-empty">' + (ui.query ? "No figures match “" + esc(ui.query) + "”" : "Nothing here yet") + "</div>";
+        h += '<div class="sw-empty">' + esc(ui.query ? t("noMatch", ui.query) : t("nothing")) + "</div>";
       } else if (prefs.sort === "dex" && ui.filter === "all") {
-        var p = shown.filter(function (t) { return t.c.kind === "pokemon"; });
-        var tr = shown.filter(function (t) { return t.c.kind !== "pokemon"; });
-        if (p.length) h += '<div class="sw-section">Pokémon</div><div class="sw-grid">' + p.map(tileHtml).join("") + "</div>";
-        if (tr.length) h += '<div class="sw-section">Trainers</div><div class="sw-grid">' + tr.map(tileHtml).join("") + "</div>";
+        var p = shown.filter(function (x) { return x.c.kind === "pokemon"; });
+        var tr = shown.filter(function (x) { return x.c.kind !== "pokemon"; });
+        if (p.length) h += '<div class="sw-section">' + esc(t("pokemon")) + '</div><div class="sw-grid">' + p.map(tileHtml).join("") + "</div>";
+        if (tr.length) h += '<div class="sw-section">' + esc(t("trainers")) + '</div><div class="sw-grid">' + tr.map(tileHtml).join("") + "</div>";
       } else {
         h += '<div class="sw-grid">' + shown.map(tileHtml).join("") + "</div>";
       }
@@ -417,20 +512,20 @@
       root.classList.toggle("has-rail", rail);
       if (rail) {
         h += '<div class="sw-chips">' + FILTERS.map(function (f) {
-          return '<button class="sw-chip' + (ui.filter === f[0] ? " on" : "") + '" data-act="filter" data-id="' + f[0] + '">' + f[1] + "</button>";
+          return '<button class="sw-chip' + (ui.filter === f ? " on" : "") + '" data-act="filter" data-id="' + f + '">' + esc(t("f_" + f)) + "</button>";
         }).join("") + "</div>";
       }
       // left column: search (its field opens to the right), menu under it
       h += '<div class="sw-fabs"><div class="sw-fab-row">';
       if (ui.search) {
-        h += '<button class="sw-fab" data-act="search-close" aria-label="Close search">' + ICON_X + "</button>" +
-          '<input class="sw-search" type="search" placeholder="Name, 名前 or dex no." value="' + esc(ui.query) + '" autocomplete="off">';
+        h += '<button class="sw-fab" data-act="search-close" aria-label="' + esc(t("closeSearch")) + '">' + ICON_X + "</button>" +
+          '<input class="sw-search" type="search" placeholder="' + esc(t("searchPh")) + '" value="' + esc(ui.query) + '" autocomplete="off">';
       } else {
-        h += '<button class="sw-fab" data-act="search" aria-label="Search">' + ICON_SEARCH + "</button>";
+        h += '<button class="sw-fab" data-act="search" aria-label="' + esc(t("search")) + '">' + ICON_SEARCH + "</button>";
       }
-      h += '</div><button class="sw-fab" data-act="menu" aria-label="Menu">' + ICON_MENU + "</button></div>";
+      h += '</div><button class="sw-fab" data-act="menu" aria-label="' + esc(t("menu")) + '">' + ICON_MENU + "</button></div>";
       bottom.innerHTML = h;
-      nav.innerHTML = rail ? '<button class="sw-back" data-act="home" aria-label="Back">' + ICON_BACK + "</button>" : "";
+      nav.innerHTML = rail ? '<button class="sw-back" data-act="home" aria-label="' + esc(t("back")) + '">' + ICON_BACK + "</button>" : "";
       var input = bottom.querySelector(".sw-search");
       if (input) {
         input.addEventListener("input", function () {
@@ -472,24 +567,25 @@
       var prevScroll = sheet.scrollTop;
 
       var h = '<div class="sw-hero">' +
-        (c.dex ? '<div class="sw-hero-no">#' + pad4(c.dex) + "</div>" : '<div class="sw-hero-no">Trainer</div>') +
+        (c.dex ? '<div class="sw-hero-no">#' + pad4(c.dex) + "</div>" : '<div class="sw-hero-no">' + esc(t("trainer")) + "</div>") +
         figImg(f, "", c.nameEn) +
-        '<button class="sw-close" data-act="close" aria-label="Close">✕</button></div><div class="sw-body">' +
+        '<div class="sw-sheet-tools">' + togglesHtml() + '<button class="sw-close" data-act="close" aria-label="' + esc(t("close")) + '">✕</button></div>' +
+        '</div><div class="sw-body">' +
         '<h2 class="sw-name">' + esc(c.nameEn) + '</h2><div class="sw-name-ja">' + esc(c.nameJa) +
         (romaji(c.nameJa) ? ' <span class="sw-romaji">· ' + esc(romaji(c.nameJa)) + "</span>" : "") + "</div>";
       // chips: tap to list everything of that type / role / status
       var types = f.types || c.types || [];
-      var chips = types.map(function (t) {
-        var n = data.types && data.types[t];
-        return '<button class="sw-type" data-act="find" data-id="' + esc(n ? n.en : t) + '" style="--tc:' + (TYPE_COLORS[t] || "#888") +
-          '" title="' + esc(n ? n.ja : "") + '">' + esc(n ? n.en : t) + "</button>";
+      var chips = types.map(function (y) {
+        var n = data.types && data.types[y];
+        return '<button class="sw-type" data-act="find" data-id="' + esc(typeName(y)) + '" style="--tc:' + (TYPE_COLORS[y] || "#888") +
+          '" title="' + esc(n ? n.ja : "") + '">' + esc(typeName(y)) + "</button>";
       });
       if (c.status && STATUS[c.status]) chips.push('<button class="sw-type sw-status st-' + c.status + '" data-act="find" data-id="' +
-        STATUS[c.status][0] + '" title="' + esc(STATUS[c.status][1]) + '">★ ' + STATUS[c.status][0] + "</button>");
+        esc(statusName(c.status)) + '" title="' + esc(STATUS[c.status][1]) + '">★ ' + esc(statusName(c.status)) + "</button>");
       (c.roles || []).forEach(function (r) {
         var i = roleInfo(r);
         chips.push('<button class="sw-type sw-role role-' + esc(i.id) + '" data-act="find" data-id="' + esc(i.short) + '"' +
-          (i.type ? ' style="--tc:' + (TYPE_COLORS[i.type] || "#888") + '"' : "") + ' title="' + esc(i.ja) + '">' + esc(i.en) + "</button>");
+          (i.type ? ' style="--tc:' + (TYPE_COLORS[i.type] || "#888") + '"' : "") + ' title="' + esc(i.ja) + '">' + esc(i.label) + "</button>");
       });
       if (chips.length) h += '<div class="sw-types">' + chips.join("") + "</div>";
 
@@ -509,30 +605,29 @@
       var showJa = f.labelJa && /[^\x00-\x7f]/.test(f.labelJa);
       if (f.labelEn || f.labelJa) h += '<div class="sw-label">' + esc(f.labelEn || f.labelJa) + (showJa && f.labelEn ? ' <span style="opacity:.7">' + esc(f.labelJa) + "</span>" : "") + "</div>";
       h += '<div class="sw-facts">' +
-        "<div><b>" + (f.heightCm ? f.heightCm + " cm" : "—") + "</b><span>Scale height</span></div>" +
-        "<div><b>" + esc(reg ? reg.nameEn : "—") + "</b><span>Line</span></div>" +
-        "<div><b>" + (f.firstYear || "—") + "</b><span>First release</span></div></div>" +
+        "<div><b>" + (f.heightCm ? f.heightCm + " cm" : "—") + "</b><span>" + esc(t("height")) + "</span></div>" +
+        "<div><b>" + esc(reg ? regionName(reg) : "—") + "</b><span>" + esc(t("line")) + "</span></div>" +
+        "<div><b>" + (f.firstYear || "—") + "</b><span>" + esc(t("firstRelease")) + "</span></div></div>" +
         '<div class="sw-toggles">' +
-        '<button class="sw-toggle own' + (st.owned[f.id] ? " on" : "") + '" data-act="own" data-id="' + esc(f.id) + '">' + (st.owned[f.id] ? "✓ Owned" : "Owned") + "</button>" +
-        '<button class="sw-toggle wish' + (st.wish[f.id] ? " on" : "") + '" data-act="wish" data-id="' + esc(f.id) + '">' + (st.wish[f.id] ? "♥ Wishlist" : "Wishlist") + "</button>" +
+        '<button class="sw-toggle own' + (st.owned[f.id] ? " on" : "") + '" data-act="own" data-id="' + esc(f.id) + '">' + (st.owned[f.id] ? "✓ " : "") + esc(t("owned")) + "</button>" +
+        '<button class="sw-toggle wish' + (st.wish[f.id] ? " on" : "") + '" data-act="wish" data-id="' + esc(f.id) + '">' + (st.wish[f.id] ? "♥ " : "") + esc(t("wish")) + "</button>" +
         "</div></div>";
 
       h += evolutionHtml(c, f);
 
       var prods = f.productIds.map(function (id) { return idx.prod[id]; }).filter(Boolean);
-      h += '<div class="sw-h">Releases (' + prods.length + ")</div>";
+      h += '<div class="sw-h">' + esc(t("releases", prods.length)) + "</div>";
       var firstDate = prods.length ? (prods[0].date || "") : "";
-      if (!prods.length) h += '<div class="sw-card sw-note">No release information found.</div>';
+      if (!prods.length) h += '<div class="sw-card sw-note">' + esc(t("noReleases")) + "</div>";
       else h += '<div class="sw-card">' + prods.map(function (p) {
         // later than the first release (by month) or flagged as re-order/re-sale
         var later = p.date && firstDate && p.date.slice(0, 7) > firstDate.slice(0, 7);
         return releaseHtml(p, p.rerelease || later);
       }).join("") + "</div>";
 
-      h += '<div class="sw-note">Prices are Japanese retail prices including tax unless marked “+ tax”. Candy-aisle prices are per box. ' +
-        "Premium Bandai prices come from archived product pages. " +
+      h += '<div class="sw-note">' + esc(t("priceNote")) +
         '<a href="' + esc(f.source) + '" target="_blank" rel="noopener">' +
-        (/\/lineup\//.test(f.source || "") ? "Official dex page ↗" : "Product page ↗ (not in the official dex yet)") + "</a></div></div>";
+        esc(/\/lineup\//.test(f.source || "") ? t("dexPage") : t("productPage")) + "</a></div></div>";
       sheet.innerHTML = h;
       sheet.scrollTop = prevScroll;
     }
@@ -572,26 +667,28 @@
           return item(o, null, o ? o.nameEn : (n ? n[0] : "#" + e));
         }).join("") + "</div>";
       }).join('<span class="sw-evo-arrow">›</span>');
-      return '<div class="sw-h">Evolution</div><div class="sw-card sw-evos">' + h + "</div>";
+      return '<div class="sw-h">' + esc(t("evolution")) + '</div><div class="sw-card sw-evos">' + h + "</div>";
     }
 
     function releaseHtml(p, isRe) {
       var tags = [];
       if (p.date) {
         var ships = /発送|お届け/.test(p.dateText || "");
-        tags.push('<span class="sw-tag">' + (ships ? "Ships " : "") + esc(fmtDate(p.date)) + "</span>");
+        var day = fmtDate(p.date, prefs.lang);
+        tags.push('<span class="sw-tag">' + esc(ships ? t("ships", day) : day) + "</span>");
       }
       (p.channels || []).forEach(function (k) {
         var ch = data.channels[k];
-        tags.push('<span class="sw-tag ch-' + esc(k) + '" title="' + esc(ch ? ch.ja : "") + '">' + esc(ch ? ch.en : k) + "</span>");
+        var name = vi() && VI_CHANNELS[k] ? VI_CHANNELS[k] : (ch ? ch.en : k);
+        tags.push('<span class="sw-tag ch-' + esc(k) + '" title="' + esc(ch ? ch.ja : "") + '">' + esc(name) + "</span>");
       });
       if (p.priceJPY) tags.push('<span class="sw-tag price">' + yen(p.priceJPY) + "</span>");
-      else if (p.priceExTax) tags.push('<span class="sw-tag price">' + yen(p.priceExTax) + " + tax</span>");
-      if (isRe) tags.push('<span class="sw-tag re">Re-release</span>');
-      if (p.upcoming) tags.push('<span class="sw-tag soon">Upcoming</span>');
-      var links = p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + (p.store === "pbandai" ? "Premium Bandai ↗" : "Official page ↗") + "</a>" : "";
+      else if (p.priceExTax) tags.push('<span class="sw-tag price">' + esc(t("plusTax", yen(p.priceExTax))) + "</span>");
+      if (isRe) tags.push('<span class="sw-tag re">' + esc(t("rerelease")) + "</span>");
+      if (p.upcoming) tags.push('<span class="sw-tag soon">' + esc(t("upcoming")) + "</span>");
+      var links = p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + (p.store === "pbandai" ? "Premium Bandai ↗" : esc(t("officialPage"))) + "</a>" : "";
       if (p.priceSource && p.priceSource.indexOf("wayback:") === 0) {
-        links += '<a href="https://web.archive.org/web/' + esc(p.priceSource.slice(8)) + "/" + esc(p.url) + '" target="_blank" rel="noopener">Archived ↗</a>';
+        links += '<a href="https://web.archive.org/web/' + esc(p.priceSource.slice(8)) + "/" + esc(p.url) + '" target="_blank" rel="noopener">' + esc(t("archived")) + "</a>";
       }
       return '<div class="sw-rel"><div class="sw-rel-img">' + imgTag(p.image, p.imageUrl, "", "", true) + "</div>" +
         '<div class="sw-rel-main"><div class="sw-rel-name">' + esc(p.nameEn) + "</div>" +
@@ -606,22 +703,23 @@
       if (!sheet) { sheet = document.createElement("div"); sheet.className = "sw-sheet"; root.appendChild(sheet); }
       var nOwn = Object.keys(st.owned).length, nWish = Object.keys(st.wish).length;
       var h = '<div class="sw-body" style="padding-top:calc(env(safe-area-inset-top,0px) + 18px)">' +
-        '<div class="sw-top" style="padding-left:0;padding-right:0"><h1>Settings</h1>' +
-        '<button class="sw-close" style="position:static" data-act="close" aria-label="Close">✕</button></div>' +
-        '<div class="sw-h">Sort grid by</div><div class="sw-sort">' + SORTS.map(function (s) {
-          return '<button class="' + (prefs.sort === s[0] ? "on" : "") + '" data-act="sort" data-id="' + s[0] + '">' + s[1] + "</button>";
+        '<div class="sw-top" style="padding-left:0;padding-right:0"><h1>' + esc(t("settings")) + "</h1>" +
+        '<span class="sw-sheet-tools">' + togglesHtml() + '<button class="sw-close" data-act="close" aria-label="' + esc(t("close")) + '">✕</button></span></div>' +
+        '<div class="sw-h">' + esc(t("sortBy")) + '</div><div class="sw-sort">' + SORTS.map(function (s) {
+          return '<button class="' + (prefs.sort === s ? "on" : "") + '" data-act="sort" data-id="' + s + '">' + esc(t("s_" + s)) + "</button>";
         }).join("") + "</div>" +
-        '<div class="sw-h">Display</div><div class="sw-menu">' +
-        '<label>Grey out figures I don’t own <input type="checkbox" data-act="dim"' + (prefs.dim ? " checked" : "") + "></label>" +
-        '<label>Show figures at true relative scale <input type="checkbox" data-act="truescale"' + (prefs.trueScale ? " checked" : "") + "></label></div>" +
-        '<div class="sw-h">Collection</div><div class="sw-menu">' +
-        '<div class="sw-note" style="margin:0 4px 4px">' + nOwn + " owned · " + nWish + " on wishlist</div>" +
-        (opts.menu || []).map(function (m, i) { return '<button data-act="xmenu" data-id="' + i + '">' + esc(m.label) + " <span>›</span></button>"; }).join("") +
-        '<button data-act="reset">Clear owned & wishlist <span>›</span></button></div>' +
-        '<div class="sw-h">About the data</div><div class="sw-card sw-note" style="margin-top:6px">' +
-        "Generated " + esc(data.generated) + ". " + data.characters.length + " characters, " + data.figures.length + " figures, " +
-        data.products.length + " releases.<br>Sources: official Pokémon Scale World dex (bandai.co.jp), Bandai Candy product pages, " +
-        "Premium Bandai pages via the Internet Archive, PokeAPI names. Figure and product images © Bandai / Pokémon.</div></div>";
+        '<div class="sw-h">' + esc(t("display")) + '</div><div class="sw-menu">' +
+        "<label>" + esc(t("dim")) + ' <input type="checkbox" data-act="dim"' + (prefs.dim ? " checked" : "") + "></label>" +
+        "<label>" + esc(t("trueScale")) + ' <input type="checkbox" data-act="truescale"' + (prefs.trueScale ? " checked" : "") + "></label></div>" +
+        '<div class="sw-h">' + esc(t("collection")) + '</div><div class="sw-menu">' +
+        '<div class="sw-note" style="margin:0 4px 4px">' + esc(t("collCount", nOwn, nWish)) + "</div>" +
+        // host entries: { label, labelVi? }
+        (opts.menu || []).map(function (m, i) {
+          return '<button data-act="xmenu" data-id="' + i + '">' + esc(vi() && m.labelVi ? m.labelVi : m.label) + " <span>›</span></button>";
+        }).join("") +
+        '<button data-act="reset">' + esc(t("reset")) + " <span>›</span></button></div>" +
+        '<div class="sw-h">' + esc(t("about")) + '</div><div class="sw-card sw-note" style="margin-top:6px">' +
+        t("aboutText", esc(data.generated), data.characters.length, data.figures.length, data.products.length) + "</div></div>";
       sheet.innerHTML = h;
       sheet.scrollTop = 0;
     }
@@ -694,10 +792,14 @@
         case "search-close": ui.search = false; ui.query = ""; render(); break;
         case "menu": openMenu(); break;
         case "sort": prefs.sort = id; save(); openMenu(); render(); break;
-        case "theme-toggle": prefs.theme = isDark() ? "light" : "dark"; save(); applyTheme(); renderHome(); break;
+        case "theme-toggle": case "lang-toggle":
+          if (act === "theme-toggle") prefs.theme = isDark() ? "light" : "dark"; else prefs.lang = vi() ? "en" : "vi";
+          save(); var top = scroller.scrollTop; render(); scroller.scrollTop = top;
+          if (ui.menu) { var ms = sheet.scrollTop; openMenu(); sheet.scrollTop = ms; } else renderSheet();  // redraw the open sheet in place
+          break;
         case "xmenu": opts.menu[+id].run(api); break;
         case "reset":
-          if (global.confirm && !global.confirm("Clear all owned and wishlist marks?")) break;
+          if (global.confirm && !global.confirm(t("resetAsk"))) break;
           st.owned = {}; st.wish = {}; save(); openMenu(); render(); break;
       }
     }
@@ -759,6 +861,7 @@
       setState: function (s) { st = s || {}; st.owned = st.owned || {}; st.wish = st.wish || {}; st.prefs = st.prefs || prefs; prefs = st.prefs; save(); render(); if (ui.menu) openMenu(); },
       setData: function (d) { data = d; idx = buildIndex(d); render(); },
       setDark: function (v) { opts.dark = v; applyTheme(); },
+      lang: function () { return prefs.lang; },  // "en" | "vi", for host messages
       isSearchKey: isSearchKey,
       navKey: navKey,  // host-level Esc / Backspace (see navKey); true = handled
       openSearch: openSearch,

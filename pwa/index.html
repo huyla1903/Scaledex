@@ -94,9 +94,9 @@
         img: function (rel, url) { return LOCAL_IMAGES && rel ? "data/" + rel : url; },
         load: load, save: save, history: true, keyboard: "global",
         menu: [
-          { label: "Export collection", run: exportState },
-          { label: "Import collection", run: importState }
-        ].concat(LOCAL_IMAGES ? [{ label: "Save all images for offline", run: function (api) { cacheAll(api, data); } }] : [])
+          { label: "Export collection", labelVi: "Xuất bộ sưu tập", run: exportState },
+          { label: "Import collection", labelVi: "Nhập bộ sưu tập", run: importState }
+        ].concat(LOCAL_IMAGES ? [{ label: "Save all images for offline", labelVi: "Lưu toàn bộ ảnh để dùng offline", run: function (api) { cacheAll(api, data); } }] : [])
       });
       // deep links: ?region=kanto  ?open=p0025  ?q=charmander  ?menu=1
       var q = new URLSearchParams(location.search);
