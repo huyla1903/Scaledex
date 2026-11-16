@@ -307,14 +307,15 @@
 /* evolution line */
 .swdex .sw-evos { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; padding: 12px 10px; }
 .swdex .sw-evos::-webkit-scrollbar { display: none; }
-.swdex .sw-evo-stage { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; flex: 0 0 auto; max-width: 100%; }
+.swdex .sw-evo-stage { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; flex: 0 1 auto; min-width: 76px; max-width: 100%; }
 .swdex .sw-evo-arrow { flex: 0 0 auto; font-size: 24px; font-weight: 800; color: var(--sw-ink-soft); padding: 0 2px; }
 .swdex .sw-evo { width: 76px; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 5px 3px;
   border-radius: 14px; border: 2px solid transparent; text-align: center; }
 .swdex .sw-evo.on { border-color: var(--sw-accent); }
 .swdex .sw-evo-img { width: 60px; height: 60px; border-radius: 12px; background: #fff; display: grid; place-items: center; overflow: hidden;
   font-size: 22px; font-weight: 800; color: #b9c2c7; }
-.swdex .sw-evo-img img { max-width: 92%; max-height: 92%; object-fit: contain; }
+/* px, not %: a % max-size doesn't stop the grid track growing to the photo's natural size, which then gets clipped */
+.swdex .sw-evo-img img { display: block; max-width: 54px; max-height: 54px; object-fit: contain; }
 .swdex .sw-evo-name { font-size: 11px; font-weight: 800; line-height: 1.15; color: var(--sw-ink); }
 .swdex .sw-evo.is-none { opacity: 0.45; }
 .swdex.sw-dark .sw-evo-img { background: #f3f8f9; }
