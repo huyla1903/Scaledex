@@ -2,7 +2,7 @@
 @title        Scaledex - shared UI core
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-15
+@updated      2026-11-16
 @about        Framework-free Pokédex UI for Bandai's Pokémon Scale World figures.
               Used by both the PWA (pwa/) and the Obsidian plugin (obsidian-plugin/).
               Usage:
@@ -32,6 +32,9 @@
     fighting: "#ff8000", poison: "#9141cb", ground: "#915121", flying: "#81b9ef", psychic: "#ef4179", bug: "#91a119",
     rock: "#afa981", ghost: "#704170", dragon: "#5060e1", dark: "#624d4e", steel: "#60a1b8", fairy: "#ef70ef"
   };
+  // home-card landscapes (app/landscapes/<region>.jpg), filled in by tools/build.mjs: file URLs
+  // for the PWA, data URIs for the Obsidian plugin. A region without one shows its figure row.
+  var LANDSCAPES = /*__LANDSCAPES__*/ {};
   var UPCOMING = { id: "upcoming", nameEn: "Upcoming", nameJa: "発売予定" };
   var STATUS = { legendary: ["Legendary", "伝説のポケモン"], mythical: ["Mythical", "幻のポケモン"],
                  powerhouse: ["Powerhouse", "600族 (pseudo-legendary)"] };
@@ -121,6 +124,15 @@
   var ICON_X = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>';
   var ICON_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>';
   var ICON_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
+  // filter rail icons; the filter's name is the tooltip / aria-label
+  var FILTER_ICONS = {
+    all: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><rect x="4" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="4" width="6.5" height="6.5" rx="1.5"/><rect x="4" y="13.5" width="6.5" height="6.5" rx="1.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5" rx="1.5"/></svg>',
+    pokemon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h5.5M15 12h5.5"/><circle cx="12" cy="12" r="3"/></svg>',
+    trainer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4.5 20.5c.8-4 3.8-6 7.5-6s6.7 2 7.5 6"/></svg>',
+    owned: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>',
+    missing: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="3.2 3.2"><circle cx="12" cy="12" r="8"/></svg>',
+    wish: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.3a4.3 4.3 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/></svg>'
+  };
   var ICON_MENU = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>';
 
   function esc(s) {
@@ -448,7 +460,8 @@
         var pct = s.total ? Math.round(100 * s.owned / s.total) : 0;
         h += '<button class="sw-region' + (done ? " is-complete" : "") + '" data-act="region" data-id="' + r.id +
           '" style="--rc:' + (REGION_COLORS[r.id] || "#1b86b6") + '">' +
-          '<div class="sw-region-art">' + regionArt(r.id) + "</div>" +
+          (LANDSCAPES[r.id] ? '<div class="sw-region-art is-photo" style="background-image:url(' + LANDSCAPES[r.id] + ')"></div>'
+            : '<div class="sw-region-art">' + regionArt(r.id) + "</div>") +
           '<div class="sw-region-text"><div class="sw-region-name">' +
           esc(regionName(r)).replace(/^Vùng /, '<span class="sw-region-pre">Vùng</span> ') + "</div>" +
           '<div class="sw-region-ja">' + esc(r.nameJa) + "</div>" +
@@ -467,7 +480,8 @@
       var nP = tiles.filter(function (t) { return t.c.kind === "pokemon"; }).length;
       var nW = figsIn(region).filter(function (f) { return st.wish[f.id]; }).length;
       var h = '<div class="sw-statcard"><div class="sw-grid-tools">' + togglesHtml() + '</div><div class="sw-stat-head">' +
-        '<div class="sw-stat-title">' + esc(title) + "</div>" +
+        '<div class="sw-stat-title">' + esc(title) +
+        (ui.filter !== "all" ? '<span class="sw-stat-filter"> · ' + esc(t("f_" + ui.filter)) + "</span>" : "") + "</div>" +
         '<div class="sw-pill">' + s.owned + " / " + s.total + "</div></div>" +
         '<div class="sw-stats">' +
         "<div><b>" + nP + "</b><span>" + esc(t("pokemon")) + "</span></div>" +
@@ -512,7 +526,8 @@
       root.classList.toggle("has-rail", rail);
       if (rail) {
         h += '<div class="sw-chips">' + FILTERS.map(function (f) {
-          return '<button class="sw-chip' + (ui.filter === f ? " on" : "") + '" data-act="filter" data-id="' + f + '">' + esc(t("f_" + f)) + "</button>";
+          return '<button class="sw-chip' + (ui.filter === f ? " on" : "") + '" data-act="filter" data-id="' + f + '" aria-label="' + esc(t("f_" + f)) +
+            '" title="' + esc(t("f_" + f)) + '"><span class="sw-chip-ico">' + FILTER_ICONS[f] + "</span></button>";
         }).join("") + "</div>";
       }
       // left column: search (its field opens to the right), menu under it

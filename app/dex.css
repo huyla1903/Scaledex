@@ -2,7 +2,7 @@
 @title        Scaledex - shared styles
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-15
+@updated      2026-11-16
 @about        Pokémon GO Pokédex-inspired look, scoped under .swdex so it can
               live inside Obsidian as well as the standalone PWA.
 */
@@ -111,6 +111,16 @@
     repeating-linear-gradient(0deg, color-mix(in srgb, var(--rc, #2aa6dc) 18%, transparent) 0 6px, transparent 6px 12px),
     repeating-linear-gradient(90deg, color-mix(in srgb, var(--rc, #2aa6dc) 18%, transparent) 0 6px, transparent 6px 12px);
 }
+/* landscape photo (LANDSCAPES in dex.js) instead of pattern + figure row; white behind it */
+.swdex .sw-region-art.is-photo {
+  /* capped width on wide screens: a less letterbox-shaped panel crops less off the photo's top and bottom */
+  width: min(64%, 420px);
+  /* --y: which part survives when the panel is wider than the photo (0% top .. 100% feet) */
+  background: #fff center var(--y, 92%) / cover no-repeat;
+}
+.swdex .sw-region[data-id="all"] .sw-region-art.is-photo { --y: 100%; }
+.swdex .sw-region[data-id="kanto"] .sw-region-art.is-photo { --y: 50%; }
+.swdex .sw-region[data-id="johto"] .sw-region-art.is-photo { --y: 45%; }
 /* trainer right, two Pokémon to its left, evenly spaced and standing on one baseline */
 .swdex .sw-region-figs {
   position: absolute; left: 16%; right: 2%; top: 10%; bottom: 7%;
@@ -133,7 +143,8 @@
 }
 .swdex .sw-region-figs.is-row .sw-region-fig img { width: 100%; height: 100%; max-width: none; }
 .swdex .sw-region-text { position: relative; z-index: 1; padding: 20px 22px; }
-.swdex .sw-region-name { font-size: 28px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink); line-height: 1.05; }
+.swdex .sw-region-name { font-size: 28px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink);
+  line-height: 30px; height: 30px; white-space: nowrap; }  /* fixed px: the text below stays put when the language (font size) changes */
 /* Vietnamese "VÙNG KANTO": smaller name and prefix so it stays clear of the card art */
 .swdex[lang="vi"] .sw-region-name { font-size: 24px; white-space: nowrap; }
 .swdex .sw-region-pre { font-size: 0.65em; }
@@ -158,6 +169,7 @@
 .swdex .sw-statcard { position: relative; }
 .swdex .sw-grid-tools { position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; }
 .swdex .sw-stat-title { font-weight: 800; font-size: 19px; text-transform: uppercase; flex: 1 1 auto; min-width: min-content; line-height: 1.15; }
+.swdex .sw-stat-filter { color: var(--sw-ink-soft); white-space: nowrap; }
 .swdex .sw-pill { background: var(--sw-accent); color: var(--sw-accent-ink); font-weight: 800; font-size: 20px; padding: 3px 18px; border-radius: 30px; white-space: nowrap; }
 /* five across when there is room, else wrap into rows (narrow phone + rail) */
 .swdex .sw-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); row-gap: 10px; margin-top: 14px; text-align: center; }
@@ -207,19 +219,26 @@
   box-shadow: var(--sw-shadow); border: 2px solid var(--sw-card-line);
 }
 .swdex .sw-chip.on { background: var(--sw-accent); color: var(--sw-accent-ink); border-color: rgba(255,255,255,0.7); }
-/* filters as a rail on the left, above the search button, so they never cover the tiles */
+/* filters as a rail of 56px icon circles on the left, above search / menu and the same width,
+   so they never cover the tiles; the name is the tooltip and, for the active one, in the header card */
 .swdex.has-rail .sw-chips {
-  position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 150px);
-  flex-direction: column; width: 104px; overflow: visible; padding: 0; gap: 7px;
+  position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 144px);
+  flex-direction: column; width: 56px; overflow: visible; padding: 0; gap: 8px;
 }
-/* rail, back button and search button share one left edge (12px, the .sw-bottom padding) */
-.swdex.has-rail .sw-chip { width: 100%; padding: 9px 4px; font-size: 12px; text-align: center; letter-spacing: 0.01em; white-space: nowrap; }
+.swdex.has-rail .sw-chip { width: 56px; height: 56px; padding: 0; border-radius: 50%; display: grid; place-items: center; }
+.swdex .sw-chip-ico svg { width: 24px; height: 24px; display: block; }
 /* back button: top of the left rail, outside the header, always in reach */
 .swdex .sw-nav { position: absolute; z-index: 6; top: calc(env(safe-area-inset-top, 0px) + 18px); left: 12px; }
 .swdex .sw-nav .sw-back { width: 56px; height: 56px; }
-.swdex.has-rail .sw-wrap { padding-left: 116px; }
+.swdex.has-rail .sw-wrap { padding-left: 76px; }
 @media (max-width: 640px) { .swdex.has-rail .sw-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 420px) { .swdex.has-rail .sw-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 330px) { .swdex.has-rail .sw-grid { grid-template-columns: repeat(2, 1fr); } }
+/* short screens (iPhone SE): smaller circles so the rail clears the back button */
+@media (max-height: 700px) {
+  .swdex.has-rail .sw-chips { gap: 6px; }
+  .swdex.has-rail .sw-chip { width: 48px; height: 48px; margin-left: 4px; }
+  .swdex.has-rail .sw-chip-ico svg { width: 22px; height: 22px; }
+}
 /* search over menu, both on the left edge; the search field opens to the right of its button */
 .swdex .sw-fabs { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; pointer-events: none; padding: 0; }
 .swdex .sw-fab-row { display: flex; align-items: center; width: 100%; max-width: 560px; }

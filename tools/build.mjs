@@ -1,9 +1,9 @@
 /*
 @title        Scaledex - build
-@version      0.1.2
+@version      0.1.3
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-15
+@updated      2026-11-16
 @engine       Node.js 18+ (no npm packages)
 @target       Windows / any OS
 @about        Assembles dist/ from the shared core (app/), the data (data/) and the
@@ -59,13 +59,18 @@ const dataRaw = read(dataFile);
 const data = JSON.parse(dataRaw);
 const core = read(p("app", "dex.js"));
 const css = read(p("app", "dex.css"));
-const hash = crypto.createHash("sha1").update(core + css + dataRaw).digest("hex").slice(0, 8);
+// home-card landscapes: app/landscapes/<region>.jpg -> LANDSCAPES in the core
+const landDir = p("app", "landscapes");
+const lands = fs.existsSync(landDir) ? fs.readdirSync(landDir).filter((f) => /\.jpe?g$/i.test(f)).sort() : [];
+const landMap = (url) => JSON.stringify(Object.fromEntries(lands.map((f) => [f.replace(/\.[^.]+$/, ""), url(f)])));
+const withLands = (url) => core.replace("/*__LANDSCAPES__*/ {}", () => landMap(url));
+const hash = crypto.createHash("sha1").update(core + css + dataRaw + lands.map((f) => f + fs.statSync(path.join(landDir, f)).size).join()).digest("hex").slice(0, 8);
 
 // ---------- Obsidian plugin
 const pluginDir = p("dist", "scaledex");
 const compactData = JSON.stringify(data);
 let main = read(p("obsidian-plugin", "main.src.js"))
-  .replace("/*__DEX_CORE__*/", () => core)
+  .replace("/*__DEX_CORE__*/", () => withLands((f) => "data:image/jpeg;base64," + fs.readFileSync(path.join(landDir, f)).toString("base64")))
   .replace("/*__DEX_DATA__*/ null", () => compactData);
 write(path.join(pluginDir, "main.js"), main);
 fs.copyFileSync(p("obsidian-plugin", "manifest.json"), path.join(pluginDir, "manifest.json"));
@@ -85,7 +90,8 @@ if (remoteImages) indexHtml = indexHtml.replace("var LOCAL_IMAGES = true;", "var
 write(path.join(pwa, "index.html"), indexHtml);
 fs.copyFileSync(p("pwa", "manifest.webmanifest"), path.join(pwa, "manifest.webmanifest"));
 write(path.join(pwa, "sw.js"), read(p("pwa", "sw.js")).replace(/swdex-shell-v1/g, "swdex-shell-" + hash));
-fs.copyFileSync(p("app", "dex.js"), path.join(pwa, "dex.js"));
+write(path.join(pwa, "dex.js"), withLands((f) => "landscapes/" + f));
+copyDir(landDir, path.join(pwa, "landscapes"));
 fs.copyFileSync(p("app", "dex.css"), path.join(pwa, "dex.css"));
 copyDir(p("pwa", "icons"), path.join(pwa, "icons"));
 write(path.join(pwa, "data", "scaledex.json"), compactData);
