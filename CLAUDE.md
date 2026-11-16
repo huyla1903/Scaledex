@@ -30,3 +30,13 @@ powershell -ExecutionPolicy Bypass -File tools/upload_images.ps1
 ```
 
 The live site builds from the committed `data/scaledex.json`, so publish = push the data, then upload the images (the upload starts the Pages build).
+
+## Workflow
+
+Every push to `main` deploys straight to the live site, so `main` must always build and run.
+
+- Do each feature or fix on its own branch (`git switch -c <name>`); merge into `main` only after it has been built and checked in a browser.
+- Before changing code, check that the working tree is clean. If it isn't, say so, so the user can commit first and roll back easily.
+- One task per change: keep diffs small and focused, and explain anything non-obvious in the summary.
+- Before merging, run `node tools/check.mjs` (JS syntax, data parses, ids unique and linked; the Pages workflow runs it too and won't deploy if it fails) and `node tools/build.mjs`. Say so if the change wasn't tested in the PWA or in Obsidian (desktop and mobile).
+- No secrets anywhere in the repo or the front end. Collection data stays on the user's device (localStorage / the plugin's `data.json`), and Export/Import must keep working.

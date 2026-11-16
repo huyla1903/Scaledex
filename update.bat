@@ -1,18 +1,20 @@
 @echo off
 @rem @title        Scaledex - update data
-@rem @version      0.1.0
+@rem @version      0.1.1
 @rem @author       La Gia Huy
 @rem @since        2026-11-15
-@rem @updated      2026-11-15
+@rem @updated      2026-11-16
 @rem @engine       Windows batch (cmd.exe)
 @rem @target       Windows; Python 3, Node.js 18+, git, GitHub CLI (gh) logged in
 @rem @about        Picks up new Pokemon Scale World sets in one go:
 @rem               1. scraper/build_data.py --refresh-index (new figures, sets, prices)
-@rem               2. tools/build.mjs (rebuilds dist/pwa and dist/scaledex)
+@rem               2. tools/check.mjs (stops on broken data or JS), then
+@rem                  tools/build.mjs (rebuilds dist/pwa and dist/scaledex)
 @rem               3. asks before publishing: commits and pushes data/scaledex.json,
 @rem                  then uploads the images release (tools/upload_images.ps1),
 @rem                  which rebuilds the live web app.
 @rem               Copy dist/scaledex into your vault's plugins folder yourself afterwards.
+@rem @changelog    0.1.1  run tools/check.mjs before building and publishing
 setlocal
 cd /d "%~dp0"
 title Scaledex update
@@ -28,6 +30,7 @@ python scraper\build_data.py --refresh-index || goto :fail
 
 echo.
 echo === 2/3  Building the web app and the Obsidian plugin ===
+node tools\check.mjs || goto :fail
 node tools\build.mjs || goto :fail
 
 echo.
