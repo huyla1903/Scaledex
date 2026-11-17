@@ -77,7 +77,9 @@
       officialPage: "Official page ↗", archived: "Archived ↗",
       settings: "Settings", sortBy: "Sort grid by", display: "Display", dim: "Grey out figures I don’t own",
       trueScale: "Show figures at true relative scale", collection: "Collection", collCount: "{0} owned · {1} on wishlist",
-      reset: "Clear owned & wishlist", resetAsk: "Clear all owned and wishlist marks?", about: "About the data", prev: "Previous", next: "Next",
+      reset: "Clear owned & wishlist", resetAsk: "Clear all owned and wishlist marks?", about: "About the data", prev: "Previous", next: "Next", keys: "Keyboard shortcuts",
+      k_search: "Search", k_menu: "Menu", k_lang: "Language", k_theme: "Light / dark theme", k_home: "Region list",
+      k_back: "Back", k_close: "Close", k_step: "Previous / next figure page", k_own: "Mark owned / wishlist (figure page)", k_filter: "Grid filters",
       support: "Buy me a coffee", supportText: "Enjoying Scaledex? Scan with MoMo or any Vietnamese banking app (VietQR / Napas 247) to chip in.",
       aboutText: "Generated {0}. {1} characters, {2} figures, {3} releases.<br>Sources: official Pokémon Scale World dex (bandai.co.jp), " +
         "Bandai Candy product pages, Premium Bandai pages via the Internet Archive, PokeAPI names. Figure and product images © Bandai / Pokémon."
@@ -102,7 +104,9 @@
       officialPage: "Trang chính thức ↗", archived: "Bản lưu trữ ↗",
       settings: "Cài đặt", sortBy: "Sắp xếp theo", display: "Hiển thị", dim: "Làm mờ mô hình chưa có",
       trueScale: "Hiển thị mô hình theo đúng tỉ lệ", collection: "Bộ sưu tập", collCount: "Đã có {0} · Muốn mua {1}",
-      reset: "Xóa đã có & muốn mua", resetAsk: "Xóa toàn bộ đánh dấu đã có và muốn mua?", about: "Về dữ liệu", prev: "Trước", next: "Tiếp",
+      reset: "Xóa đã có & muốn mua", resetAsk: "Xóa toàn bộ đánh dấu đã có và muốn mua?", about: "Về dữ liệu", prev: "Trước", next: "Tiếp", keys: "Phím tắt",
+      k_search: "Tìm kiếm", k_menu: "Menu", k_lang: "Ngôn ngữ", k_theme: "Giao diện sáng / tối", k_home: "Danh sách vùng",
+      k_back: "Quay lại", k_close: "Đóng", k_step: "Trang mô hình trước / sau", k_own: "Đánh dấu đã có / muốn mua (trang mô hình)", k_filter: "Bộ lọc lưới",
       support: "Mời mình ly cà phê", supportText: "Thấy Scaledex hữu ích? Quét mã bằng MoMo hoặc app ngân hàng bất kỳ (VietQR / Napas 247) để ủng hộ mình nhé.",
       aboutText: "Tạo ngày {0}. {1} nhân vật, {2} mô hình, {3} đợt phát hành.<br>Nguồn: dex chính thức Pokémon Scale World (bandai.co.jp), " +
         "trang sản phẩm Bandai Candy, trang Premium Bandai qua Internet Archive, tên từ PokeAPI. Ảnh mô hình và sản phẩm © Bandai / Pokémon."
@@ -236,10 +240,10 @@
     // language + theme switches; on every screen (home header, grid header card, sheet top bar)
     function togglesHtml() {
       var dk = isDark();  // until the theme switch is used the theme follows the system
-      return '<button class="sw-theme sw-lang" data-act="lang-toggle" aria-label="' + esc(t("lang")) + '" title="' + esc(t("toOther")) + '">' +
+      return '<button class="sw-theme sw-lang" data-act="lang-toggle" aria-label="' + esc(t("lang")) + '" title="' + esc(t("toOther")) + ' (L)">' +
         (vi() ? "VI" : "EN") + "</button>" +
         '<button class="sw-theme" data-act="theme-toggle" role="switch" aria-checked="' + dk + '" aria-label="' + esc(t("dark")) + '" title="' +
-        esc(dk ? t("toLight") : t("toDark")) + '">' + (dk ? ICON_MOON : ICON_SUN) + "</button>";
+        esc(dk ? t("toLight") : t("toDark")) + ' (T)">' + (dk ? ICON_MOON : ICON_SUN) + "</button>";
     }
 
     var ui = { screen: "home", region: "all", filter: "all", query: "", detail: null, fig: null, menu: false, search: false };
@@ -559,7 +563,7 @@
       if (rail) {
         h += '<div class="sw-chips">' + FILTERS.map(function (f) {
           return '<button class="sw-chip' + (ui.filter === f ? " on" : "") + '" data-act="filter" data-id="' + f + '" aria-label="' + esc(t("f_" + f)) +
-            '" title="' + esc(t("f_" + f)) + '"><span class="sw-chip-ico">' + FILTER_ICONS[f] + "</span></button>";
+            '" title="' + esc(t("f_" + f)) + " (" + (FILTERS.indexOf(f) + 1) + ')"><span class="sw-chip-ico">' + FILTER_ICONS[f] + "</span></button>";
         }).join("") + "</div>";
       }
       // left column: search (its field opens to the right), menu under it
@@ -568,11 +572,11 @@
         h += '<button class="sw-fab" data-act="search-close" aria-label="' + esc(t("closeSearch")) + '">' + ICON_X + "</button>" +
           '<input class="sw-search" type="search" placeholder="' + esc(t("searchPh")) + '" value="' + esc(ui.query) + '" autocomplete="off">';
       } else {
-        h += '<button class="sw-fab" data-act="search" aria-label="' + esc(t("search")) + '">' + ICON_SEARCH + "</button>";
+        h += '<button class="sw-fab" data-act="search" aria-label="' + esc(t("search")) + '" title="' + esc(t("search")) + ' (/)">' + ICON_SEARCH + "</button>";
       }
-      h += '</div><button class="sw-fab" data-act="menu" aria-label="' + esc(t("menu")) + '">' + ICON_MENU + "</button></div>";
+      h += '</div><button class="sw-fab" data-act="menu" aria-label="' + esc(t("menu")) + '" title="' + esc(t("menu")) + ' (M)">' + ICON_MENU + "</button></div>";
       bottom.innerHTML = h;
-      nav.innerHTML = rail ? '<button class="sw-back" data-act="home" aria-label="' + esc(t("back")) + '">' + ICON_BACK + "</button>" : "";
+      nav.innerHTML = rail ? '<button class="sw-back" data-act="home" aria-label="' + esc(t("back")) + '" title="' + esc(t("back")) + ' (H)">' + ICON_BACK + "</button>" : "";
       var input = bottom.querySelector(".sw-search");
       if (input) {
         input.addEventListener("input", function () {
@@ -636,9 +640,9 @@
         (c.dex ? '<div class="sw-hero-no">#' + pad4(c.dex) + "</div>" : '<div class="sw-hero-no">' + esc(t("trainer")) + "</div>") +
         figImg(f, "", c.nameEn) +
         (ui.listAt >= 0 && ui.list.length > 1 ?
-          '<button class="sw-step prev" data-act="step" data-id="-1" aria-label="' + esc(t("prev")) + '"' + (ui.listAt > 0 ? "" : " disabled") + ">" + ICON_BACK + "</button>" +
-          '<button class="sw-step next" data-act="step" data-id="1" aria-label="' + esc(t("next")) + '"' + (ui.listAt < ui.list.length - 1 ? "" : " disabled") + ">" + ICON_NEXT + "</button>" : "") +
-        '<div class="sw-sheet-tools">' + togglesHtml() + '<button class="sw-close" data-act="close" aria-label="' + esc(t("close")) + '">✕</button></div>' +
+          '<button class="sw-step prev" data-act="step" data-id="-1" aria-label="' + esc(t("prev")) + '" title="' + esc(t("prev")) + ' (←)"' + (ui.listAt > 0 ? "" : " disabled") + ">" + ICON_BACK + "</button>" +
+          '<button class="sw-step next" data-act="step" data-id="1" aria-label="' + esc(t("next")) + '" title="' + esc(t("next")) + ' (→)"' + (ui.listAt < ui.list.length - 1 ? "" : " disabled") + ">" + ICON_NEXT + "</button>" : "") +
+        '<div class="sw-sheet-tools">' + togglesHtml() + '<button class="sw-close" data-act="close" aria-label="' + esc(t("close")) + '" title="' + esc(t("close")) + ' (Esc)">✕</button></div>' +
         '</div><div class="sw-body">' +
         '<h2 class="sw-name">' + esc(c.nameEn) + '</h2><div class="sw-name-ja">' + esc(c.nameJa) +
         (romaji(c.nameJa) ? ' <span class="sw-romaji">· ' + esc(romaji(c.nameJa)) + "</span>" : "") + "</div>";
@@ -773,7 +777,7 @@
       var nOwn = Object.keys(st.owned).length, nWish = Object.keys(st.wish).length;
       var h = '<div class="sw-body" style="padding-top:calc(env(safe-area-inset-top,0px) + 18px)">' +
         '<div class="sw-top" style="padding-left:0;padding-right:0"><h1>' + esc(t("settings")) + "</h1>" +
-        '<span class="sw-sheet-tools">' + togglesHtml() + '<button class="sw-close" data-act="close" aria-label="' + esc(t("close")) + '">✕</button></span></div>' +
+        '<span class="sw-sheet-tools">' + togglesHtml() + '<button class="sw-close" data-act="close" aria-label="' + esc(t("close")) + '" title="' + esc(t("close")) + ' (Esc)">✕</button></span></div>' +
         '<div class="sw-h">' + esc(t("sortBy")) + '</div><div class="sw-sort">' + SORTS.map(function (s) {
           return '<button class="' + (prefs.sort === s ? "on" : "") + '" data-act="sort" data-id="' + s + '">' + esc(t("s_" + s)) + "</button>";
         }).join("") + "</div>" +
@@ -787,6 +791,11 @@
           return '<button data-act="xmenu" data-id="' + i + '">' + esc(vi() && m.labelVi ? m.labelVi : m.label) + " <span>›</span></button>";
         }).join("") +
         '<button data-act="reset">' + esc(t("reset")) + " <span>›</span></button></div>" +
+        '<div class="sw-keys"><div class="sw-h">' + esc(t("keys")) + '</div><div class="sw-card sw-keylist">' +
+          [["/", "k_search"], ["M", "k_menu"], ["L", "k_lang"], ["T", "k_theme"], ["H", "k_home"], ["← →", "k_step"],
+           ["O · W", "k_own"], ["1–6", "k_filter"], ["Backspace", "k_back"], ["Esc", "k_close"]].map(function (k) {
+            return "<div><kbd>" + esc(k[0]) + "</kbd><span>" + esc(t(k[1])) + "</span></div>";
+          }).join("") + "</div></div>" +
         (DONATE_QR ? '<div class="sw-h">' + esc(t("support")) + '</div><div class="sw-card sw-donate">' +
           '<img src="' + DONATE_QR + '" alt="MoMo / VietQR">' +
           '<div class="sw-note">' + esc(t("supportText")) + "</div></div>" : "") +
@@ -844,6 +853,10 @@
       if (!el || !root.contains(el)) return;
       var act = el.getAttribute("data-act"), id = el.getAttribute("data-id");
       if (act === "dim" || act === "truescale") return; // handled by change
+      run(act, id, el);
+    }
+    // a button's action; also used by the keyboard shortcuts (shortcutKey)
+    function run(act, id, el) {
       switch (act) {
         case "region":
           scrollMemo[ui.screen + ui.region] = scroller.scrollTop;
@@ -851,7 +864,7 @@
           pushHistory(); render(); scroller.scrollTop = 0; break;
         case "home": goHome(); break;
         case "filter": ui.filter = id; renderGrid(); renderBottom(); scroller.scrollTop = 0; break;
-        case "open": scrollMemo[ui.screen + ui.region] = scroller.scrollTop; openDetail(id, el.getAttribute("data-fig")); break;
+        case "open": scrollMemo[ui.screen + ui.region] = scroller.scrollTop; openDetail(id, el && el.getAttribute("data-fig")); break;
         case "fig": ui.fig = id; renderSheet(); break;
         case "close": closeSheet(); break;
         case "step": stepDetail(+id); break;
@@ -897,6 +910,7 @@
         if (ui.search) { ui.search = false; ui.query = ""; render(); return true; }
         return false;
       }
+      if (!typing && shortcutKey(e)) return true;
       // ← / → : previous / next character on an open page
       if ((e.key === "ArrowLeft" || e.key === "ArrowRight") && ui.detail && !ui.menu && !typing) {
         stepDetail(e.key === "ArrowLeft" ? -1 : 1);
@@ -908,6 +922,24 @@
         return true;
       }
       if (ui.screen !== "home") { goHome(); return true; }
+      return false;
+    }
+    // single-key shortcuts (listed in the menu): M menu, L language, T theme, H region list,
+    // O / W owned / wishlist on a figure page, 1-6 grid filters
+    function shortcutKey(e) {
+      if (e.ctrlKey || e.metaKey || e.altKey || !e.key || e.key.length !== 1) return false;
+      var k = e.key.toLowerCase();
+      if (k === "m") { if (ui.menu) closeSheet(); else if (ui.detail) closeSheet(openMenu); else openMenu(); return true; }
+      if (k === "l") { run("lang-toggle"); return true; }
+      if (k === "t") { run("theme-toggle"); return true; }
+      if (k === "h") {
+        var home = function () { if (ui.screen !== "home" || ui.query) { ui.search = false; ui.query = ""; goHome(); } };
+        if (ui.detail || ui.menu) closeSheet(home); else home();
+        return true;
+      }
+      if ((k === "o" || k === "w") && ui.detail && !ui.menu && ui.fig) { run(k === "o" ? "own" : "wish", ui.fig); return true; }
+      var n = +k;
+      if (n >= 1 && n <= FILTERS.length && !ui.detail && !ui.menu && (ui.screen !== "home" || ui.query)) { run("filter", FILTERS[n - 1]); return true; }
       return false;
     }
     function onKey(e) {

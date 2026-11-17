@@ -351,6 +351,12 @@
 .swdex .sw-figtab .sw-dot { position: absolute; top: 3px; right: 3px; min-width: 14px; height: 14px; font-size: 9px; padding: 0 3px; }
 
 .swdex .sw-card { background: var(--sw-card); border: 2px solid var(--sw-card-line); border-radius: var(--sw-radius); padding: 14px 16px; margin: 12px 0; box-shadow: var(--sw-shadow); }
+/* menu: keyboard shortcut list; not on touch-only devices */
+.swdex .sw-keylist { display: grid; gap: 6px; font-size: 13px; font-weight: 700; color: var(--sw-ink); }
+.swdex .sw-keylist > div { display: flex; align-items: center; gap: 10px; }
+.swdex .sw-keylist kbd { flex: 0 0 auto; min-width: 74px; text-align: center; font: 800 12px/1 ui-monospace, monospace; padding: 5px 6px;
+  border-radius: 7px; background: var(--sw-chip); border: 1px solid var(--sw-card-line); color: var(--sw-ink-strong); }
+@media (hover: none) and (pointer: coarse) { .swdex .sw-keys { display: none; } }
 /* menu: donation QR (DONATE_QR); white tile so the code scans in dark mode too */
 .swdex .sw-donate { text-align: center; }
 .swdex .sw-donate img { display: block; width: min(240px, 100%); margin: 2px auto 10px; padding: 10px; background: #fff; border-radius: 14px; }
