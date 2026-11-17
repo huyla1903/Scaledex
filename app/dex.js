@@ -2,7 +2,7 @@
 @title        Scaledex - shared UI core
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-16
+@updated      2026-11-17
 @about        Framework-free Pokédex UI for Bandai's Pokémon Scale World figures.
               Used by both the PWA (pwa/) and the Obsidian plugin (obsidian-plugin/).
               Usage:
@@ -35,6 +35,8 @@
   // home-card landscapes (app/landscapes/<region>.jpg), filled in by tools/build.mjs: file URLs
   // for the PWA, data URIs for the Obsidian plugin. A region without one shows its figure row.
   var LANDSCAPES = /*__LANDSCAPES__*/ {};
+  // donation QR in the menu (app/donate.jpg), filled in by tools/build.mjs the same way; "" hides the section
+  var DONATE_QR = /*__DONATE__*/ "";
   var UPCOMING = { id: "upcoming", nameEn: "Upcoming", nameJa: "発売予定" };
   var STATUS = { legendary: ["Legendary", "伝説のポケモン"], mythical: ["Mythical", "幻のポケモン"],
                  powerhouse: ["Powerhouse", "600族 (pseudo-legendary)"] };
@@ -75,6 +77,7 @@
       settings: "Settings", sortBy: "Sort grid by", display: "Display", dim: "Grey out figures I don’t own",
       trueScale: "Show figures at true relative scale", collection: "Collection", collCount: "{0} owned · {1} on wishlist",
       reset: "Clear owned & wishlist", resetAsk: "Clear all owned and wishlist marks?", about: "About the data",
+      support: "Buy me a coffee", supportText: "Enjoying Scaledex? Scan with MoMo or any Vietnamese banking app (VietQR / Napas 247) to chip in.",
       aboutText: "Generated {0}. {1} characters, {2} figures, {3} releases.<br>Sources: official Pokémon Scale World dex (bandai.co.jp), " +
         "Bandai Candy product pages, Premium Bandai pages via the Internet Archive, PokeAPI names. Figure and product images © Bandai / Pokémon."
     },
@@ -99,6 +102,7 @@
       settings: "Cài đặt", sortBy: "Sắp xếp theo", display: "Hiển thị", dim: "Làm mờ mô hình chưa có",
       trueScale: "Hiển thị mô hình theo đúng tỉ lệ", collection: "Bộ sưu tập", collCount: "Đã có {0} · Muốn mua {1}",
       reset: "Xóa đã có & muốn mua", resetAsk: "Xóa toàn bộ đánh dấu đã có và muốn mua?", about: "Về dữ liệu",
+      support: "Mời mình ly cà phê", supportText: "Thấy Scaledex hữu ích? Quét mã bằng MoMo hoặc app ngân hàng bất kỳ (VietQR / Napas 247) để ủng hộ mình nhé.",
       aboutText: "Tạo ngày {0}. {1} nhân vật, {2} mô hình, {3} đợt phát hành.<br>Nguồn: dex chính thức Pokémon Scale World (bandai.co.jp), " +
         "trang sản phẩm Bandai Candy, trang Premium Bandai qua Internet Archive, tên từ PokeAPI. Ảnh mô hình và sản phẩm © Bandai / Pokémon."
     }
@@ -753,6 +757,9 @@
           return '<button data-act="xmenu" data-id="' + i + '">' + esc(vi() && m.labelVi ? m.labelVi : m.label) + " <span>›</span></button>";
         }).join("") +
         '<button data-act="reset">' + esc(t("reset")) + " <span>›</span></button></div>" +
+        (DONATE_QR ? '<div class="sw-h">' + esc(t("support")) + '</div><div class="sw-card sw-donate">' +
+          '<img src="' + DONATE_QR + '" alt="MoMo / VietQR">' +
+          '<div class="sw-note">' + esc(t("supportText")) + "</div></div>" : "") +
         '<div class="sw-h">' + esc(t("about")) + '</div><div class="sw-card sw-note" style="margin-top:6px">' +
         t("aboutText", esc(data.generated), data.characters.length, data.figures.length, data.products.length) + "</div></div>";
       sheet.innerHTML = h;

@@ -1,9 +1,9 @@
 /*
 @title        Scaledex - build
-@version      0.1.3
+@version      0.1.4
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-16
+@updated      2026-11-17
 @engine       Node.js 18+ (no npm packages)
 @target       Windows / any OS
 @about        Assembles dist/ from the shared core (app/), the data (data/) and the
@@ -63,14 +63,19 @@ const css = read(p("app", "dex.css"));
 const landDir = p("app", "landscapes");
 const lands = fs.existsSync(landDir) ? fs.readdirSync(landDir).filter((f) => /\.jpe?g$/i.test(f)).sort() : [];
 const landMap = (url) => JSON.stringify(Object.fromEntries(lands.map((f) => [f.replace(/\.[^.]+$/, ""), url(f)])));
-const withLands = (url) => core.replace("/*__LANDSCAPES__*/ {}", () => landMap(url));
-const hash = crypto.createHash("sha1").update(core + css + dataRaw + lands.map((f) => f + fs.statSync(path.join(landDir, f)).size).join()).digest("hex").slice(0, 8);
+// menu donation QR: app/donate.jpg -> DONATE_QR in the core (absent = no section)
+const donateFile = p("app", "donate.jpg");
+const hasDonate = fs.existsSync(donateFile);
+const withLands = (url, donate) => core.replace("/*__LANDSCAPES__*/ {}", () => landMap(url))
+  .replace('/*__DONATE__*/ ""', () => JSON.stringify(hasDonate ? donate : ""));
+const hash = crypto.createHash("sha1").update(core + css + dataRaw + lands.map((f) => f + fs.statSync(path.join(landDir, f)).size).join() + (hasDonate ? fs.statSync(donateFile).size : "")).digest("hex").slice(0, 8);
 
 // ---------- Obsidian plugin
 const pluginDir = p("dist", "scaledex");
 const compactData = JSON.stringify(data);
 let main = read(p("obsidian-plugin", "main.src.js"))
-  .replace("/*__DEX_CORE__*/", () => withLands((f) => "data:image/jpeg;base64," + fs.readFileSync(path.join(landDir, f)).toString("base64")))
+  .replace("/*__DEX_CORE__*/", () => withLands((f) => "data:image/jpeg;base64," + fs.readFileSync(path.join(landDir, f)).toString("base64"),
+    hasDonate ? "data:image/jpeg;base64," + fs.readFileSync(donateFile).toString("base64") : ""))
   .replace("/*__DEX_DATA__*/ null", () => compactData);
 write(path.join(pluginDir, "main.js"), main);
 fs.copyFileSync(p("obsidian-plugin", "manifest.json"), path.join(pluginDir, "manifest.json"));
@@ -90,7 +95,8 @@ if (remoteImages) indexHtml = indexHtml.replace("var LOCAL_IMAGES = true;", "var
 write(path.join(pwa, "index.html"), indexHtml);
 fs.copyFileSync(p("pwa", "manifest.webmanifest"), path.join(pwa, "manifest.webmanifest"));
 write(path.join(pwa, "sw.js"), read(p("pwa", "sw.js")).replace(/swdex-shell-v1/g, "swdex-shell-" + hash));
-write(path.join(pwa, "dex.js"), withLands((f) => "landscapes/" + f));
+write(path.join(pwa, "dex.js"), withLands((f) => "landscapes/" + f, "donate.jpg"));
+if (hasDonate) fs.copyFileSync(donateFile, path.join(pwa, "donate.jpg"));
 copyDir(landDir, path.join(pwa, "landscapes"));
 fs.copyFileSync(p("app", "dex.css"), path.join(pwa, "dex.css"));
 copyDir(p("pwa", "icons"), path.join(pwa, "icons"));
