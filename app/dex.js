@@ -41,6 +41,7 @@
   var STATUS = { legendary: ["Legendary", "伝説のポケモン"], mythical: ["Mythical", "幻のポケモン"],
                  powerhouse: ["Powerhouse", "600族 (pseudo-legendary)"] };
   var ICON_BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
+  var ICON_NEXT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>';
   // header logo: same drawing as pwa/icons/icon.svg, flat colours, rounded
   var LOGO = '<svg class="sw-logo" viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" rx="112" fill="#d8352c"/>' +
     '<path d="M40 252H226L262 214H472" fill="none" stroke="#8e1b17" stroke-width="14" stroke-linejoin="round" stroke-linecap="round"/>' +
@@ -76,7 +77,7 @@
       officialPage: "Official page ↗", archived: "Archived ↗",
       settings: "Settings", sortBy: "Sort grid by", display: "Display", dim: "Grey out figures I don’t own",
       trueScale: "Show figures at true relative scale", collection: "Collection", collCount: "{0} owned · {1} on wishlist",
-      reset: "Clear owned & wishlist", resetAsk: "Clear all owned and wishlist marks?", about: "About the data",
+      reset: "Clear owned & wishlist", resetAsk: "Clear all owned and wishlist marks?", about: "About the data", prev: "Previous", next: "Next",
       support: "Buy me a coffee", supportText: "Enjoying Scaledex? Scan with MoMo or any Vietnamese banking app (VietQR / Napas 247) to chip in.",
       aboutText: "Generated {0}. {1} characters, {2} figures, {3} releases.<br>Sources: official Pokémon Scale World dex (bandai.co.jp), " +
         "Bandai Candy product pages, Premium Bandai pages via the Internet Archive, PokeAPI names. Figure and product images © Bandai / Pokémon."
@@ -101,7 +102,7 @@
       officialPage: "Trang chính thức ↗", archived: "Bản lưu trữ ↗",
       settings: "Cài đặt", sortBy: "Sắp xếp theo", display: "Hiển thị", dim: "Làm mờ mô hình chưa có",
       trueScale: "Hiển thị mô hình theo đúng tỉ lệ", collection: "Bộ sưu tập", collCount: "Đã có {0} · Muốn mua {1}",
-      reset: "Xóa đã có & muốn mua", resetAsk: "Xóa toàn bộ đánh dấu đã có và muốn mua?", about: "Về dữ liệu",
+      reset: "Xóa đã có & muốn mua", resetAsk: "Xóa toàn bộ đánh dấu đã có và muốn mua?", about: "Về dữ liệu", prev: "Trước", next: "Tiếp",
       support: "Mời mình ly cà phê", supportText: "Thấy Scaledex hữu ích? Quét mã bằng MoMo hoặc app ngân hàng bất kỳ (VietQR / Napas 247) để ủng hộ mình nhé.",
       aboutText: "Tạo ngày {0}. {1} nhân vật, {2} mô hình, {3} đợt phát hành.<br>Nguồn: dex chính thức Pokémon Scale World (bandai.co.jp), " +
         "trang sản phẩm Bandai Candy, trang Premium Bandai qua Internet Archive, tên từ PokeAPI. Ảnh mô hình và sản phẩm © Bandai / Pokémon."
@@ -515,18 +516,25 @@
         "<div><b>" + (s.total ? Math.round(100 * s.owned / s.total) : 0) + "%</b><span>" + esc(t("ownedPct")) + "</span></div>" +
         "</div></div>";
 
-      var shown = sortTiles(tiles.filter(matches));
+      var shown = shownTiles(tiles);
       if (!shown.length) {
         h += '<div class="sw-empty">' + esc(ui.query ? t("noMatch", ui.query) : t("nothing")) + "</div>";
       } else if (prefs.sort === "dex" && ui.filter === "all") {
         var p = shown.filter(function (x) { return x.c.kind === "pokemon"; });
-        var tr = shown.filter(function (x) { return x.c.kind !== "pokemon"; });
+        var tr = shown.filter(function (x) { return x.c.kind !== "pokemon"; });  // same split as shownTiles()
         if (p.length) h += '<div class="sw-section">' + esc(t("pokemon")) + '</div><div class="sw-grid">' + p.map(tileHtml).join("") + "</div>";
         if (tr.length) h += '<div class="sw-section">' + esc(t("trainers")) + '</div><div class="sw-grid">' + tr.map(tileHtml).join("") + "</div>";
       } else {
         h += '<div class="sw-grid">' + shown.map(tileHtml).join("") + "</div>";
       }
       wrap.innerHTML = h;
+    }
+
+    // the grid's tiles in on-screen order (dex sort, no filter: Pokémon section, then Trainers)
+    function shownTiles(tiles) {
+      var shown = sortTiles((tiles || tilesFor(ui.screen === "home" ? "all" : ui.region)).filter(matches));
+      if (prefs.sort !== "dex" || ui.filter !== "all") return shown;
+      return shown.filter(function (x) { return x.c.kind === "pokemon"; }).concat(shown.filter(function (x) { return x.c.kind !== "pokemon"; }));
     }
 
     function tileHtml(t) {
@@ -588,6 +596,9 @@
 
     // ------------------------------------------------------------ detail sheet
     function openDetail(cid, figId, push) {
+      // opened from the grid: remember its order for the prev / next arrows (kept through detours
+      // like the evolution row, so the arrows always walk the grid the page was opened from)
+      if (!ui.detail) { ui.list = shownTiles().map(function (x) { return x.c.id; }); ui.listAt = -1; }
       ui.depth = ui.detail ? (ui.depth || 1) + 1 : 1;  // pages opened on top of each other
       ui.detail = cid;
       var c = idx.chr[cid];
@@ -597,8 +608,24 @@
       renderSheet();
     }
 
+    // prev / next character in ui.list; replaces the current page, so Back still returns to the grid
+    function stepDetail(d) {
+      var list = ui.list || [], i = ui.listAt + d;
+      if (ui.listAt < 0 || i < 0 || i >= list.length || !idx.chr[list[i]]) return false;
+      ui.detail = list[i];
+      ui.fig = idx.chr[list[i]].figures.filter(function (id) { return idx.fig[id]; })[0];
+      if (opts.history && global.history) {
+        try { global.history.replaceState({ sw: { screen: ui.screen, region: ui.region, detail: ui.detail, fig: ui.fig, depth: ui.depth } }, ""); } catch (e) { /* ignore */ }
+      }
+      renderSheet();
+      sheet.scrollTop = 0;
+      return true;
+    }
+
     function renderSheet() {
       if (!ui.detail) { if (sheet) { sheet.remove(); sheet = null; } return; }
+      var at = (ui.list || []).indexOf(ui.detail);
+      if (at >= 0) ui.listAt = at;
       var c = idx.chr[ui.detail];
       var figs = c.figures.map(function (id) { return idx.fig[id]; }).filter(Boolean);
       var f = idx.fig[ui.fig] || figs[0];
@@ -608,6 +635,9 @@
       var h = '<div class="sw-hero">' +
         (c.dex ? '<div class="sw-hero-no">#' + pad4(c.dex) + "</div>" : '<div class="sw-hero-no">' + esc(t("trainer")) + "</div>") +
         figImg(f, "", c.nameEn) +
+        (ui.listAt >= 0 && ui.list.length > 1 ?
+          '<button class="sw-step prev" data-act="step" data-id="-1" aria-label="' + esc(t("prev")) + '"' + (ui.listAt > 0 ? "" : " disabled") + ">" + ICON_BACK + "</button>" +
+          '<button class="sw-step next" data-act="step" data-id="1" aria-label="' + esc(t("next")) + '"' + (ui.listAt < ui.list.length - 1 ? "" : " disabled") + ">" + ICON_NEXT + "</button>" : "") +
         '<div class="sw-sheet-tools">' + togglesHtml() + '<button class="sw-close" data-act="close" aria-label="' + esc(t("close")) + '">✕</button></div>' +
         '</div><div class="sw-body">' +
         '<h2 class="sw-name">' + esc(c.nameEn) + '</h2><div class="sw-name-ja">' + esc(c.nameJa) +
@@ -824,6 +854,7 @@
         case "open": scrollMemo[ui.screen + ui.region] = scroller.scrollTop; openDetail(id, el.getAttribute("data-fig")); break;
         case "fig": ui.fig = id; renderSheet(); break;
         case "close": closeSheet(); break;
+        case "step": stepDetail(+id); break;
         case "find": findAll(id); break;
         case "own": case "wish":
           var bag = act === "own" ? st.owned : st.wish;
@@ -865,6 +896,11 @@
         if (ui.detail || ui.menu) { closeSheet(); return true; }
         if (ui.search) { ui.search = false; ui.query = ""; render(); return true; }
         return false;
+      }
+      // ← / → : previous / next character on an open page
+      if ((e.key === "ArrowLeft" || e.key === "ArrowRight") && ui.detail && !ui.menu && !typing) {
+        stepDetail(e.key === "ArrowLeft" ? -1 : 1);
+        return true;
       }
       if (e.key !== "Backspace" || typing) return false;
       if (ui.menu || ui.detail) {
