@@ -99,6 +99,7 @@
   background: var(--sw-card-solid);
   border: 4px solid var(--sw-card-line);
   box-shadow: var(--sw-shadow);
+  container-type: inline-size;  /* cqw below = card width, to keep the text left of the slanted art edge */
 }
 .swdex .sw-region.is-complete { border-color: #d9dde0; box-shadow: 0 0 0 2px #b9c2c7 inset, var(--sw-shadow); }
 .swdex .sw-region-art {
@@ -144,13 +145,16 @@
 .swdex .sw-region-figs.is-row .sw-region-fig img { width: 100%; height: 100%; max-width: none; }
 .swdex .sw-region-text { position: relative; z-index: 1; padding: 20px 22px; }
 .swdex .sw-region-name { font-size: 28px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink);
-  line-height: 30px; height: 30px; white-space: nowrap; }  /* fixed px: the text below stays put when the language (font size) changes */
+  line-height: 30px; height: 30px; white-space: nowrap;  /* fixed px: the text below stays put when the language (font size) changes */
+  /* room left of the art edge at the name's baseline (art = 64% wide, slant = 22% of it; ~35% down the card);
+     fitRegionNames() in dex.js shrinks the font of a name wider than this */
+  max-width: calc(100cqw - 0.857 * 64cqw - 36px); }
 /* Vietnamese "VÙNG KANTO": smaller name and prefix so it stays clear of the card art */
 .swdex[lang="vi"] .sw-region-name { font-size: 24px; white-space: nowrap; }
 .swdex .sw-region-pre { font-size: 0.65em; }
 .swdex .sw-region-ja { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin-top: 2px; }
 .swdex .sw-region-progress { font-size: 22px; font-weight: 800; margin-top: 8px; color: var(--sw-ink); }
-.swdex .sw-bar { width: 150px; height: 9px; border-radius: 9px; background: rgba(27,134,182,0.18); margin-top: 8px; overflow: hidden; }
+.swdex .sw-bar { width: 150px; width: min(150px, calc(100cqw - 0.91 * 64cqw - 30px)); height: 9px; border-radius: 9px; background: rgba(27,134,182,0.18); margin-top: 8px; overflow: hidden; }
 .swdex .sw-bar > i { display: block; height: 100%; background: var(--sw-accent); border-radius: 9px; }
 .swdex .sw-done { font-size: 15px; font-weight: 700; color: var(--sw-ink); margin-top: 4px; }
 

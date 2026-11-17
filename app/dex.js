@@ -470,7 +470,27 @@
       });
       h += '<div class="sw-note" style="text-align:center;margin:18px 0">' + esc(t("footer", data.generated)) + "</div>";
       wrap.innerHTML = h;
+      fitRegionNames();
     }
+
+    // shrink a region name that is wider than the room left of the card art (its CSS max-width):
+    // narrow phones, "UPCOMING", Vietnamese "VÙNG ..." names. Reset all, then measure all, then write.
+    function fitRegionNames() {
+      var els = wrap.querySelectorAll(".sw-region-name"), i, el, fit = [];
+      for (i = 0; i < els.length; i++) els[i].style.fontSize = "";
+      for (i = 0; i < els.length; i++) {
+        el = els[i];
+        if (el.clientWidth && el.scrollWidth > el.clientWidth + 1) {
+          fit.push([el, parseFloat(global.getComputedStyle(el).fontSize) * el.clientWidth / el.scrollWidth]);
+        }
+      }
+      for (i = 0; i < fit.length; i++) fit[i][0].style.fontSize = Math.max(14, Math.floor(fit[i][1] * 10) / 10) + "px";
+    }
+    function onResize() { if (wrap.querySelector(".sw-region-name")) fitRegionNames(); }
+    var resizeObs = global.ResizeObserver ? new global.ResizeObserver(onResize) : null;
+    if (resizeObs) resizeObs.observe(root); else global.addEventListener("resize", onResize);
+    // web font arriving after the first render changes the widths
+    if (global.document && global.document.fonts && global.document.fonts.ready) global.document.fonts.ready.then(onResize);
 
     function renderGrid() {
       var region = ui.screen === "home" ? "all" : ui.region;
@@ -886,6 +906,7 @@
         if (opts.history) global.removeEventListener("popstate", onPop);
         if (opts.keyboard === "global") global.removeEventListener("keydown", onGlobalKey);
         if (mq && mq.removeEventListener) mq.removeEventListener("change", applyTheme);
+        if (resizeObs) resizeObs.disconnect(); else global.removeEventListener("resize", onResize);
         root.innerHTML = ""; root.classList.remove("swdex", "sw-dark", "sw-dim");
       }
     };
