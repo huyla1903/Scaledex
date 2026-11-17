@@ -37,6 +37,8 @@
   var LANDSCAPES = /*__LANDSCAPES__*/ {};
   // donation QR in the menu (app/donate.jpg), filled in by tools/build.mjs the same way; "" hides the section
   var DONATE_QR = /*__DONATE__*/ "";
+  // Ko-fi page for supporters outside Vietnam, shown under the QR; "" hides the button
+  var KOFI_URL = "https://ko-fi.com/huyla";
   var UPCOMING = { id: "upcoming", nameEn: "Upcoming", nameJa: "発売予定" };
   var STATUS = { legendary: ["Legendary", "伝説のポケモン"], mythical: ["Mythical", "幻のポケモン"],
                  powerhouse: ["Powerhouse", "600族 (pseudo-legendary)"] };
@@ -81,6 +83,7 @@
       k_search: "Search", k_menu: "Menu", k_lang: "Language", k_theme: "Light / dark theme", k_home: "Region list",
       k_back: "Back", k_close: "Close", k_step: "Previous / next figure page", k_own: "Mark owned / wishlist (figure page)", k_filter: "Grid filters",
       support: "Buy me a coffee", supportText: "Enjoying Scaledex? Scan with MoMo or any Vietnamese banking app (VietQR / Napas 247) to chip in.",
+      kofi: "Support on Ko-fi ↗", kofiText: "Outside Vietnam? Ko-fi takes cards and PayPal.",
       aboutText: "Generated {0}. {1} characters, {2} figures, {3} releases.<br>Sources: official Pokémon Scale World dex (bandai.co.jp), " +
         "Bandai Candy product pages, Premium Bandai pages via the Internet Archive, PokeAPI names. Figure and product images © Bandai / Pokémon."
     },
@@ -108,6 +111,7 @@
       k_search: "Tìm kiếm", k_menu: "Menu", k_lang: "Ngôn ngữ", k_theme: "Giao diện sáng / tối", k_home: "Danh sách vùng",
       k_back: "Quay lại", k_close: "Đóng", k_step: "Trang mô hình trước / sau", k_own: "Đánh dấu đã có / muốn mua (trang mô hình)", k_filter: "Bộ lọc lưới",
       support: "Mời mình ly cà phê", supportText: "Thấy Scaledex hữu ích? Quét mã bằng MoMo hoặc app ngân hàng bất kỳ (VietQR / Napas 247) để ủng hộ mình nhé.",
+      kofi: "Ủng hộ qua Ko-fi ↗", kofiText: "Ở nước ngoài? Ko-fi nhận thẻ và PayPal.",
       aboutText: "Tạo ngày {0}. {1} nhân vật, {2} mô hình, {3} đợt phát hành.<br>Nguồn: dex chính thức Pokémon Scale World (bandai.co.jp), " +
         "trang sản phẩm Bandai Candy, trang Premium Bandai qua Internet Archive, tên từ PokeAPI. Ảnh mô hình và sản phẩm © Bandai / Pokémon."
     }
@@ -796,9 +800,12 @@
            ["O · W", "k_own"], ["1–6", "k_filter"], ["Backspace", "k_back"], ["Esc", "k_close"]].map(function (k) {
             return "<div><kbd>" + esc(k[0]) + "</kbd><span>" + esc(t(k[1])) + "</span></div>";
           }).join("") + "</div></div>" +
-        (DONATE_QR ? '<div class="sw-h">' + esc(t("support")) + '</div><div class="sw-card sw-donate">' +
-          '<img src="' + DONATE_QR + '" alt="MoMo / VietQR">' +
-          '<div class="sw-note">' + esc(t("supportText")) + "</div></div>" : "") +
+        (DONATE_QR || KOFI_URL ? '<div class="sw-h">' + esc(t("support")) + '</div><div class="sw-card sw-donate">' +
+          (DONATE_QR ? '<img src="' + DONATE_QR + '" alt="MoMo / VietQR">' +
+            '<div class="sw-note">' + esc(t("supportText")) + "</div>" : "") +
+          (KOFI_URL ? '<a class="sw-kofi" href="' + esc(KOFI_URL) + '" target="_blank" rel="noopener">' + esc(t("kofi")) + "</a>" +
+            '<div class="sw-note">' + esc(t("kofiText")) + "</div>" : "") +
+          "</div>" : "") +
         '<div class="sw-h">' + esc(t("about")) + '</div><div class="sw-card sw-note" style="margin-top:6px">' +
         t("aboutText", esc(data.generated), data.characters.length, data.figures.length, data.products.length) + "</div></div>";
       sheet.innerHTML = h;
