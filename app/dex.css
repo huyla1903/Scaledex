@@ -2,7 +2,7 @@
 @title        Scaledex - shared styles
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-17
+@updated      2026-11-25
 @about        Pokémon GO Pokédex-inspired look, scoped under .swdex so it can
               live inside Obsidian as well as the standalone PWA.
 */
@@ -149,9 +149,6 @@
   /* room left of the art edge at the name's baseline (art = 64% wide, slant = 22% of it; ~35% down the card);
      fitRegionNames() in dex.js shrinks the font of a name wider than this */
   max-width: calc(100cqw - 0.857 * 64cqw - 36px); }
-/* Vietnamese "VÙNG KANTO": smaller name and prefix so it stays clear of the card art */
-.swdex[lang="vi"] .sw-region-name { font-size: 24px; white-space: nowrap; }
-.swdex .sw-region-pre { font-size: 0.65em; }
 .swdex .sw-region-ja { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin-top: 2px; }
 .swdex .sw-region-progress { font-size: 22px; font-weight: 800; margin-top: 8px; color: var(--sw-ink); }
 .swdex .sw-bar { width: 150px; width: min(150px, calc(100cqw - 0.91 * 64cqw - 30px)); height: 9px; border-radius: 9px; background: rgba(27,134,182,0.18); margin-top: 8px; overflow: hidden; }
@@ -192,11 +189,15 @@
   padding: 6px 4px 7px; overflow: hidden;
 }
 .swdex .sw-tile:active { transform: scale(0.97); }
+/* light: an opaque tile (about the see-through one over the page gradient), so the multiply-blended
+   render has a solid backdrop in its own layer. Over a see-through one, iOS Safari (which composites
+   the scroller separately) keeps the photo's white box. */
+.swdex:not(.sw-dark) .sw-tile { background: #e8f8f9; }
 .swdex .sw-tile-img { flex: 1; width: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; }
 .swdex .sw-tile-img img { max-width: 92%; max-height: 92%; object-fit: contain; mix-blend-mode: multiply; }
 /* dark: renders sit on white, so give every tile the same white panel */
 .swdex.sw-dark .sw-tile-img { background: #f3f8f9; border-radius: 10px; margin-bottom: 4px; }
-.swdex.sw-dark .sw-hero img { mix-blend-mode: normal; border-radius: 18px; background: #fff; padding: 10px; }
+.swdex.sw-dark .sw-hero img { mix-blend-mode: normal; border-radius: 18px; background: #fff; }
 .swdex .sw-tile-no { font-size: 17px; font-weight: 600; color: var(--sw-ink); line-height: 1.1; }
 .swdex .sw-tile-name { font-size: 12px; font-weight: 800; color: var(--sw-ink); line-height: 1.1; text-align: center; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .swdex .sw-tile-badges { position: absolute; top: 5px; left: 5px; right: 5px; display: flex; justify-content: space-between; pointer-events: none; }
@@ -276,7 +277,8 @@
   padding-top: env(safe-area-inset-top, 0px);
 }
 .swdex.sw-dark .sw-hero { background: radial-gradient(circle at 50% 60%, #2b5868 0, #173a47 70%); }
-.swdex .sw-hero img { max-height: 240px; max-width: 82%; object-fit: contain; mix-blend-mode: multiply; }
+/* padding in both themes (dark shows it as a white frame), so switching theme doesn't resize the picture */
+.swdex .sw-hero img { max-height: 240px; max-width: 82%; object-fit: contain; mix-blend-mode: multiply; padding: 10px; }
 /* sheet top bar: language, theme, close */
 .swdex .sw-sheet-tools { display: flex; align-items: center; gap: 8px; }
 .swdex .sw-hero .sw-sheet-tools { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 14px; z-index: 1; }
@@ -386,6 +388,8 @@
 .swdex .sw-rel-ja { font-size: 12px; font-weight: 600; color: var(--sw-ink-soft); margin-top: 2px; line-height: 1.3; }
 .swdex .sw-rel-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; align-items: center; }
 .swdex .sw-tag { font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 20px; background: rgba(27,134,182,0.12); color: var(--sw-ink); white-space: nowrap; }
+/* a long tag ("Supermarkets & mass retailers (candy aisle)") wraps instead of running off a phone screen */
+.swdex .sw-rel-meta .sw-tag { white-space: normal; max-width: 100%; overflow-wrap: anywhere; }
 .swdex .sw-tag.price { background: #fff3d6; color: #8a5a00; }
 .swdex.sw-dark .sw-tag.price { background: #4a3a14; color: #ffd98a; }
 .swdex .sw-tag.re { background: #fde3ea; color: #b2264f; }

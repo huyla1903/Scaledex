@@ -2,7 +2,7 @@
 @title        Scaledex - shared UI core
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-17
+@updated      2026-11-25
 @about        Framework-free Pokédex UI for Bandai's Pokémon Scale World figures.
               Used by both the PWA (pwa/) and the Obsidian plugin (obsidian-plugin/).
               Usage:
@@ -241,6 +241,10 @@
       if (I18N.en["reg_" + r.id]) return t("reg_" + r.id);
       return vi() && /地方$/.test(r.nameJa || "") ? "Vùng " + r.nameEn : r.nameEn;
     }
+    // home cards: just the name ("Kanto"), no "Vùng"; the card already reads as a region
+    function homeRegionName(r) {
+      return I18N.en["reg_" + r.id] ? t("reg_" + r.id) : r.nameEn;
+    }
     // language + theme switches; on every screen (home header, grid header card, sheet top bar)
     function togglesHtml() {
       var dk = isDark();  // until the theme switch is used the theme follows the system
@@ -476,7 +480,7 @@
           (LANDSCAPES[r.id] ? '<div class="sw-region-art is-photo" style="background-image:url(' + LANDSCAPES[r.id] + ')"></div>'
             : '<div class="sw-region-art">' + regionArt(r.id) + "</div>") +
           '<div class="sw-region-text"><div class="sw-region-name">' +
-          esc(regionName(r)).replace(/^Vùng /, '<span class="sw-region-pre">Vùng</span> ') + "</div>" +
+          esc(homeRegionName(r)) + "</div>" +
           '<div class="sw-region-ja">' + esc(r.nameJa) + "</div>" +
           (done ? '<div class="sw-done">' + esc(t("complete")) + "</div>" : '<div class="sw-bar"><i style="width:' + pct + '%"></i></div>') +
           '<div class="sw-region-progress">' + s.owned + " / " + s.total + "</div></div></button>";
