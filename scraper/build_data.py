@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 @title        Scaledex - data builder
-@version      0.2.1
+@version      0.2.2
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-15
+@updated      2026-11-26
 @engine       Python 3 (standard library only)
 @target       Windows / any OS; network access to bandai.co.jp, web.archive.org,
               raw.githubusercontent.com (PokeAPI CSV)
@@ -22,7 +22,14 @@
               Every HTTP response is cached in scraper/cache/, so re-runs only
               fetch what is new. Delete the cache folder to force a full refresh.
               Usage:  python build_data.py [--no-images] [--refresh-index]
-@changelog    0.2.1  heightEst for figures without an official height (PokeAPI, 1:20),
+@changelog    0.2.2  EXTRA_PBANDAI: Premium Bandai items with no bandai.co.jp page
+                     (Kalos Diantha & Mega Gardevoir); English product names now
+                     include new trainers (Sycamore, Urbain, Lida, Naveen, Diantha);
+                     a same-title product 2+ years later counts as a re-release
+                     (Sinnoh Volkner & Electivire 2026 re-order); DATE_OVERRIDES
+                     (Hoenn 2 set 2021, Kanto re-orders 2023, not 2019);
+                     EXTRA_PBANDAI re-orders (Kanto Silph Co. / Leaf 2026)
+              0.2.1  heightEst for figures without an official height (PokeAPI, 1:20),
                      trimRatio of the card photo; Emma / Harmony photos swapped back;
                      trims ignore the bottom-left copyright line and whiten the stamp;
                      FIGURE_PHOTO_URLS
@@ -147,11 +154,31 @@ URL_OVERRIDES = {
     "1000175683": "https://www.bandai.co.jp/candy/products/2020/4549660425250000.html",
 }
 
+# Release dates the official item list gets wrong: product id -> date text to use instead.
+DATE_OVERRIDES = {
+    "1000157450": "2021年8月30日発売",  # Hoenn 2 set: item list says 2019 (the wave came out 2021-08-30)
+    # Kanto re-orders: the item list repeats the 2019 originals' dates (p-bandai pages, Wayback)
+    "1000179667": "2023年3月発送",  # Leaf & Clefable & Gengar
+    "1000181491": "2023年4月発送",  # Silph Co. set
+}
+
 BULBAPEDIA_RAW = "https://bulbapedia.bulbagarden.net/w/index.php?title=Pok%C3%A9mon_Scale_World&action=raw"
 
 # Bandai Candy's Scale World brand page lists every product, newest first, 20 per
 # page (?__offset=20, 40, ...). It runs months ahead of the official dex.
 BRAND_LIST = "https://www.bandai.co.jp/candy/brand/brand154/index.html"
+
+# Premium Bandai items that neither the dex nor the brand page lists (no bandai.co.jp
+# page at all). Item number -> (title without "ポケモンスケールワールド", {figure: height cm}
+# or, for a re-order, the product id whose figures it contains).
+# Price and date come from the Wayback copy of the p-bandai page, photos from
+# bandai-a.akamaihd.net (group shot + 3 views per figure).
+EXTRA_PBANDAI = {
+    "1000243806": ("カロス地方 カルネ＆メガサーナイト", {"カルネ": 8.8, "メガサーナイト": 8.0}),
+    "1000249834": ("カントー地方 シルフカンパニーセット【再受注：2026年8月発送】", "1000137722"),
+    "1000249835": ("カントー地方 リーフ＆ピクシー＆ゲンガー【再受注：2026年8月発送】", "1000137782"),
+}
+PBANDAI_IMG = "https://bandai-a.akamaihd.net/bc/img/model/b/%s_%d.jpg"
 
 # Trainers that appear on product pages before they get an official dex page.
 # Japanese name -> (id base, English name)
@@ -988,7 +1015,8 @@ def main():
         elif store == "pbandai":
             info = read_pbandai_page(url)
         name_ja = p["nameJa"]
-        rel_text = info.get("releaseText") or p.get("releaseText") or info.get("shipText")
+        rel_text = (DATE_OVERRIDES.get(pid) or info.get("releaseText") or p.get("releaseText")
+                    or info.get("shipText"))
         d, y = parse_jdate(rel_text)
         if not d and info.get("orderStart"):
             d, y = info["orderStart"], int(info["orderStart"][:4])
@@ -1104,19 +1132,36 @@ def main():
             return cid, "trainer", lab, label_en(lab)
         return None
 
+    def extra_pbandai_page(digits):
+        name, sizes = EXTRA_PBANDAI[digits]
+        if isinstance(sizes, str):  # re-order: same figures as an earlier product
+            return {"nameJa": name, "image": PBANDAI_IMG % (digits, 1), "gallery": [],
+                    "route": "プレミアムバンダイ", "figureNames": [], "figureBoxes": [], "sizes": {},
+                    "sameAs": sizes}
+        n = len(sizes)
+        return {"nameJa": name, "image": PBANDAI_IMG % (digits, 1),
+                "gallery": [PBANDAI_IMG % (digits, i) for i in range(1, 2 + 3 * n)],
+                "route": "プレミアムバンダイ", "figureNames": list(sizes), "figureBoxes": [None] * n,
+                "sizes": sizes}
+
     added_p = added_f = 0
-    for url in read_brand_list():
-        digits = re.search(r"/(\d+)\.html", url).group(1)
+    extra_urls = ["https://p-bandai.jp/item/item-%s/" % d for d in EXTRA_PBANDAI]
+    for url in read_brand_list() + extra_urls:
+        digits = re.search(r"/(?:item-)?(\d+)(?:\.html|/)$", url).group(1)
         if digits in known_digits:
             continue
-        b = read_brand_page(url)
+        b = extra_pbandai_page(digits) if digits in EXTRA_PBANDAI else read_brand_page(url)
         if not b or not b.get("nameJa"):
             continue
         pid = digits if len(digits) <= 10 else "c" + digits
         p = make_product(pid, {"url": url, "nameJa": b["nameJa"], "image": b["image"]})
         seen = known_names.get(bare(p["nameJa"]))
-        if seen is not None and (not is_reorder(p["nameJa"]) or p["year"] in seen):
+        # an untagged re-order (same title, 2+ years later) is a re-release, not a mirror
+        later = len(digits) == 10 and bool(seen) and p["year"] and all(y and p["year"] - y >= 2 for y in seen)
+        if seen is not None and not later and (not is_reorder(p["nameJa"]) or p["year"] in seen):
             continue  # same product under another URL
+        if later:
+            p["rerelease"] = True
         if "プレミアムバンダイ" in b["route"] or "発送" in (p["dateText"] or "") or len(digits) == 10:
             p["channels"] = ["pbandai_std" if "定番単品販売" in p["nameJa"] else "pbandai"]
             if "ポケモンセンター" in b["route"] or "ポケモンセンター" in p["nameJa"]:
@@ -1124,6 +1169,11 @@ def main():
         products[pid] = p
         known_digits.add(digits)
         added_p += 1
+        if b.get("sameAs"):
+            p["rerelease"] = True
+            for f in fig_out:
+                if b["sameAs"] in f["productIds"]:
+                    f["productIds"].append(pid)
         for k, name in enumerate(b["figureNames"], 1):
             r = resolve(name)
             if not r:
@@ -1148,6 +1198,8 @@ def main():
             figs_by_char.setdefault(cid, []).append(f)
             characters[cid]["figures"].append(fid)
             added_f += 1
+    for p in products.values():  # again, now that new trainers' English names are known
+        p["nameEn"] = translate_product(p["nameJa"], ja2en)
     print(f"    + {added_p} products and {added_f} figures from the Bandai Candy brand page")
 
     # ---- re-release flags: a product is a re-release for a figure if an

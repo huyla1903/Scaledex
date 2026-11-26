@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "generated": "2026-11-15",
+ "generated": "2026-11-26",
  "sources": {
   "officialDex": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/",
   "officialItems": "https://www.bandai.co.jp/candy/pokemonscaleworld/item/",
@@ -3810,7 +3810,8 @@
    "nameEn": "Gardevoir",
    "nameJa": "サーナイト",
    "figures": [
-    "282"
+    "282",
+    "x1000243806_2"
    ],
    "types": [
     "psychic",
@@ -6090,6 +6091,20 @@
    "order": 38
   },
   {
+   "id": "t-carnet",
+   "kind": "trainer",
+   "dex": null,
+   "nameEn": "Diantha",
+   "nameJa": "カルネ",
+   "figures": [
+    "x1000243806_1"
+   ],
+   "roles": [
+    "champion"
+   ],
+   "order": 42
+  },
+  {
    "id": "t-chili",
    "kind": "trainer",
    "dex": null,
@@ -7428,9 +7443,10 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=031",
    "has360": true,
    "productIds": [
-    "1000181491",
     "1000137722",
-    "1000151858"
+    "1000151858",
+    "1000181491",
+    "1000249834"
    ],
    "region": "kanto",
    "regions": [
@@ -7522,9 +7538,10 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=036",
    "has360": true,
    "productIds": [
-    "1000179667",
     "1000137782",
-    "1000151860"
+    "1000151860",
+    "1000179667",
+    "1000249835"
    ],
    "region": "kanto",
    "regions": [
@@ -7935,9 +7952,10 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=094",
    "has360": true,
    "productIds": [
-    "1000179667",
     "1000137782",
-    "1000151860"
+    "1000151860",
+    "1000179667",
+    "1000249835"
    ],
    "region": "kanto",
    "regions": [
@@ -8202,9 +8220,10 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=131",
    "has360": true,
    "productIds": [
-    "1000181491",
     "1000137722",
-    "1000151858"
+    "1000151858",
+    "1000181491",
+    "1000249834"
    ],
    "region": "kanto",
    "regions": [
@@ -8442,9 +8461,10 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=137",
    "has360": true,
    "productIds": [
-    "1000181491",
     "1000137722",
-    "1000151858"
+    "1000151858",
+    "1000181491",
+    "1000249834"
    ],
    "region": "kanto",
    "regions": [
@@ -10121,7 +10141,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/280.jpg",
    "imageTrim": "images/trim/280.jpg",
    "trimRatio": 0.586,
@@ -10145,7 +10165,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/281.jpg",
    "imageTrim": "images/trim/281.jpg",
    "trimRatio": 0.596,
@@ -10169,7 +10189,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/282.jpg",
    "imageTrim": "images/trim/282.jpg",
    "trimRatio": 0.67,
@@ -10218,7 +10238,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/311.jpg",
    "imageTrim": "images/trim/311.jpg",
    "trimRatio": 0.738,
@@ -10242,7 +10262,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/312.jpg",
    "imageTrim": "images/trim/312.jpg",
    "trimRatio": 0.714,
@@ -10266,7 +10286,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/333.jpg",
    "imageTrim": "images/trim/333.jpg",
    "trimRatio": 1.867,
@@ -10290,7 +10310,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/334.jpg",
    "imageTrim": "images/trim/334.jpg",
    "trimRatio": 1.596,
@@ -10314,7 +10334,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/349.jpg",
    "imageTrim": "images/trim/349.jpg",
    "trimRatio": 0.721,
@@ -10361,7 +10381,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/351.jpg",
    "imageTrim": "images/trim/351.jpg",
    "trimRatio": 0.617,
@@ -11007,7 +11027,8 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=466",
    "has360": true,
    "productIds": [
-    "1000167057"
+    "1000167057",
+    "1000251043"
    ],
    "region": "sinnoh",
    "regions": [
@@ -12990,9 +13011,10 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/trainer/?id=leaf",
    "has360": false,
    "productIds": [
-    "1000179667",
     "1000137782",
-    "1000151860"
+    "1000151860",
+    "1000179667",
+    "1000249835"
    ],
    "region": "kanto",
    "regions": [
@@ -13226,9 +13248,10 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/trainer/?id=sakaki",
    "has360": false,
    "productIds": [
-    "1000181491",
     "1000137722",
-    "1000151858"
+    "1000151858",
+    "1000181491",
+    "1000249834"
    ],
    "region": "kanto",
    "regions": [
@@ -13525,7 +13548,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/haruka_rs.jpg",
    "imageTrim": "images/trim/haruka_rs.jpg",
    "trimRatio": 0.499,
@@ -13574,7 +13597,7 @@
    "regions": [
     "hoenn"
    ],
-   "firstYear": 2019,
+   "firstYear": 2021,
    "image": "images/figures/yuuki_rs.jpg",
    "imageTrim": "images/trim/yuuki_rs.jpg",
    "trimRatio": 0.568,
@@ -13831,7 +13854,8 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/trainer/?id=denzi",
    "has360": false,
    "productIds": [
-    "1000167057"
+    "1000167057",
+    "1000251043"
    ],
    "region": "sinnoh",
    "regions": [
@@ -15658,31 +15682,55 @@
    "trimRatio": 0.62,
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/dFY/0000004597879DX19azudrZK3jbXoHrUwR5eQOksjS6dDdFY.jpg",
    "heightEst": 7.8
+  },
+  {
+   "id": "x1000243806_1",
+   "characterId": "t-carnet",
+   "kind": "trainer",
+   "nameJa": "カルネ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 8.8,
+   "source": "https://p-bandai.jp/item/item-1000243806/",
+   "has360": false,
+   "productIds": [
+    "1000243806"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2026,
+   "image": "images/figures/x1000243806_1_13945f.jpg",
+   "imageTrim": "images/trim/x1000243806_1_13945f.jpg",
+   "trimRatio": 0.546,
+   "imageUrl": "https://bandai-a.akamaihd.net/bc/img/model/b/1000243806_2.jpg"
+  },
+  {
+   "id": "x1000243806_2",
+   "characterId": "p0282",
+   "kind": "pokemon",
+   "nameJa": "メガサーナイト",
+   "labelJa": "メガ",
+   "labelEn": "Mega Gardevoir",
+   "heightCm": 8.0,
+   "source": "https://p-bandai.jp/item/item-1000243806/",
+   "has360": false,
+   "productIds": [
+    "1000243806"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2026,
+   "image": "images/figures/x1000243806_2_14460f.jpg",
+   "imageTrim": "images/trim/x1000243806_2_14460f.jpg",
+   "trimRatio": 0.789,
+   "imageUrl": "https://bandai-a.akamaihd.net/bc/img/model/b/1000243806_5.jpg"
   }
  ],
  "products": [
-  {
-   "id": "1000157450",
-   "nameJa": "ホウエン地方2 セット",
-   "nameEn": "Hoenn Region 2 Set",
-   "url": "https://p-bandai.jp/item/item-1000157450/",
-   "store": "pbandai",
-   "region": "hoenn",
-   "date": "2019-08-30",
-   "year": 2019,
-   "dateText": "2019年8月30日発売",
-   "channels": [
-    "pbandai"
-   ],
-   "shopTextJa": null,
-   "priceJPY": 3300,
-   "priceExTax": null,
-   "orderStart": null,
-   "rerelease": false,
-   "priceSource": "wayback:20260520074942",
-   "image": "images/products/1000157450.jpg",
-   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000157450.jpg"
-  },
   {
    "id": "1000136257",
    "nameJa": "カントー地方 オーキド博士セット【プレミアムバンダイ限定】",
@@ -15948,28 +15996,6 @@
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000137780.jpg"
   },
   {
-   "id": "1000179667",
-   "nameJa": "カントー地方 リーフ＆ピクシー＆ゲンガー【再受注】",
-   "nameEn": "Kanto Region Leaf & Clefable & Gengar [Re-order]",
-   "url": "https://p-bandai.jp/item/item-1000179667/",
-   "store": "pbandai",
-   "region": "kanto",
-   "date": "2019-11",
-   "year": 2019,
-   "dateText": "2019年11月以降順次発送",
-   "channels": [
-    "pbandai"
-   ],
-   "shopTextJa": null,
-   "priceJPY": 6325,
-   "priceExTax": null,
-   "orderStart": null,
-   "rerelease": true,
-   "priceSource": "wayback:20260313142318",
-   "image": "images/products/1000179667.jpg",
-   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000179667.jpg"
-  },
-  {
    "id": "1000137722",
    "nameJa": "カントー地方 シルフカンパニーセット【プレミアムバンダイ限定】",
    "nameEn": "Kanto Region Silph Co. Set [Premium Bandai exclusive]",
@@ -16012,28 +16038,6 @@
    "priceSource": "wayback:20260121131813",
    "image": "images/products/1000137782.jpg",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000137782.jpg"
-  },
-  {
-   "id": "1000181491",
-   "nameJa": "カントー地方 シルフカンパニーセット【再受注】",
-   "nameEn": "Kanto Region Silph Co. Set [Re-order]",
-   "url": "https://p-bandai.jp/item/item-1000137722/",
-   "store": "pbandai",
-   "region": "kanto",
-   "date": "2019-12",
-   "year": 2019,
-   "dateText": "2019年12月以降順次発送",
-   "channels": [
-    "pbandai"
-   ],
-   "shopTextJa": null,
-   "priceJPY": 8800,
-   "priceExTax": null,
-   "orderStart": null,
-   "rerelease": true,
-   "priceSource": "wayback:20260315200552",
-   "image": "images/products/1000181491.jpg",
-   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000181491.jpg"
   },
   {
    "id": "1000140059",
@@ -17404,6 +17408,28 @@
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/000000003.jpg"
   },
   {
+   "id": "1000157450",
+   "nameJa": "ホウエン地方2 セット",
+   "nameEn": "Hoenn Region 2 Set",
+   "url": "https://p-bandai.jp/item/item-1000157450/",
+   "store": "pbandai",
+   "region": "hoenn",
+   "date": "2021-08-30",
+   "year": 2021,
+   "dateText": "2021年8月30日発売",
+   "channels": [
+    "pbandai"
+   ],
+   "shopTextJa": null,
+   "priceJPY": 3300,
+   "priceExTax": null,
+   "orderStart": null,
+   "rerelease": false,
+   "priceSource": "wayback:20260520074942",
+   "image": "images/products/1000157450.jpg",
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000157450.jpg"
+  },
+  {
    "id": "1000157140",
    "nameJa": "ガラル地方 ホップ＆バイウールー",
    "nameEn": "Galar Region Hop & Dubwool",
@@ -17979,6 +18005,28 @@
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000179664.jpg"
   },
   {
+   "id": "1000179667",
+   "nameJa": "カントー地方 リーフ＆ピクシー＆ゲンガー【再受注】",
+   "nameEn": "Kanto Region Leaf & Clefable & Gengar [Re-order]",
+   "url": "https://p-bandai.jp/item/item-1000179667/",
+   "store": "pbandai",
+   "region": "kanto",
+   "date": "2023-03",
+   "year": 2023,
+   "dateText": "2023年3月発送",
+   "channels": [
+    "pbandai"
+   ],
+   "shopTextJa": null,
+   "priceJPY": 6325,
+   "priceExTax": null,
+   "orderStart": null,
+   "rerelease": true,
+   "priceSource": "wayback:20260313142318",
+   "image": "images/products/1000179667.jpg",
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000179667.jpg"
+  },
+  {
    "id": "1000181875",
    "nameJa": "カントー地方 ニドラン♂&ニドリーノ&ニドキング",
    "nameEn": "Kanto Region Nidoran♂ & Nidorino & Nidoking",
@@ -17999,6 +18047,28 @@
    "priceSource": "bandai-candy",
    "image": "images/products/1000181875.jpg",
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000181875.jpg"
+  },
+  {
+   "id": "1000181491",
+   "nameJa": "カントー地方 シルフカンパニーセット【再受注】",
+   "nameEn": "Kanto Region Silph Co. Set [Re-order]",
+   "url": "https://p-bandai.jp/item/item-1000137722/",
+   "store": "pbandai",
+   "region": "kanto",
+   "date": "2023-04",
+   "year": 2023,
+   "dateText": "2023年4月発送",
+   "channels": [
+    "pbandai"
+   ],
+   "shopTextJa": null,
+   "priceJPY": 8800,
+   "priceExTax": null,
+   "orderStart": null,
+   "rerelease": true,
+   "priceSource": "wayback:20260315200552",
+   "image": "images/products/1000181491.jpg",
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000181491.jpg"
   },
   {
    "id": "1000183560",
@@ -19695,9 +19765,31 @@
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/model/1000242595.jpg"
   },
   {
+   "id": "1000243806",
+   "nameJa": "カロス地方 カルネ＆メガサーナイト",
+   "nameEn": "Kalos Region Diantha & Mega Gardevoir",
+   "url": "https://p-bandai.jp/item/item-1000243806/",
+   "store": "pbandai",
+   "region": "kalos",
+   "date": "2026-06",
+   "year": 2026,
+   "dateText": "2026年6月発送予定",
+   "channels": [
+    "pbandai"
+   ],
+   "shopTextJa": null,
+   "priceJPY": 6380,
+   "priceExTax": null,
+   "orderStart": null,
+   "rerelease": false,
+   "priceSource": "wayback:20260307184043",
+   "image": "images/products/1000243806.jpg",
+   "imageUrl": "https://bandai-a.akamaihd.net/bc/img/model/b/1000243806_1.jpg"
+  },
+  {
    "id": "1000248354",
    "nameJa": "カロス地方 プラターヌ＆メガリザードンX",
-   "nameEn": "Kalos Region プラターヌ & Mega CharizardX",
+   "nameEn": "Kalos Region Professor Sycamore & Mega Charizard X",
    "url": "https://www.bandai.co.jp/candy/products/2026/1000248354.html",
    "store": "candy",
    "region": "kalos",
@@ -19715,6 +19807,73 @@
    "priceSource": "bandai-candy",
    "image": "images/products/1000248354.jpg",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/5NZ/000000470845bRbDGIl7KmJyO3cfJUV5mahBe3zamZFIW5NZ.jpg"
+  },
+  {
+   "id": "1000249834",
+   "nameJa": "カントー地方 シルフカンパニーセット【再受注：2026年8月発送】",
+   "nameEn": "Kanto Region Silph Co. Set [Re-order, ships Aug 2026]",
+   "url": "https://p-bandai.jp/item/item-1000249834/",
+   "store": "pbandai",
+   "region": "kanto",
+   "date": "2026-08",
+   "year": 2026,
+   "dateText": "2026年8月発送予定",
+   "channels": [
+    "pbandai"
+   ],
+   "shopTextJa": null,
+   "priceJPY": 10120,
+   "priceExTax": null,
+   "orderStart": null,
+   "rerelease": true,
+   "priceSource": "wayback:20260618154056",
+   "image": "images/products/1000249834.jpg",
+   "imageUrl": "https://bandai-a.akamaihd.net/bc/img/model/b/1000249834_1.jpg"
+  },
+  {
+   "id": "1000249835",
+   "nameJa": "カントー地方 リーフ＆ピクシー＆ゲンガー【再受注：2026年8月発送】",
+   "nameEn": "Kanto Region Leaf & Clefable & Gengar [Re-order, ships Aug 2026]",
+   "url": "https://p-bandai.jp/item/item-1000249835/",
+   "store": "pbandai",
+   "region": "kanto",
+   "date": "2026-08",
+   "year": 2026,
+   "dateText": "2026年8月発送予定",
+   "channels": [
+    "pbandai"
+   ],
+   "shopTextJa": null,
+   "priceJPY": 6325,
+   "priceExTax": null,
+   "orderStart": null,
+   "rerelease": true,
+   "priceSource": "wayback:20260618154150",
+   "image": "images/products/1000249835.jpg",
+   "imageUrl": "https://bandai-a.akamaihd.net/bc/img/model/b/1000249835_1.jpg"
+  },
+  {
+   "id": "1000251043",
+   "nameJa": "シンオウ地方 デンジ＆エレキブル",
+   "nameEn": "Sinnoh Region Volkner & Electivire",
+   "url": "https://www.bandai.co.jp/candy/products/2026/1000251043.html",
+   "store": "candy",
+   "region": "sinnoh",
+   "date": "2026-09",
+   "year": 2026,
+   "dateText": "2026年9月",
+   "channels": [
+    "pbandai",
+    "pokecen"
+   ],
+   "shopTextJa": null,
+   "priceJPY": 6050,
+   "priceExTax": 5500,
+   "orderStart": null,
+   "rerelease": true,
+   "priceSource": "bandai-candy",
+   "image": "images/products/1000251043.jpg",
+   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/yoH/000000477257GfSYIasUc0JVlNL8IVNxTSgnNfAKbnzOtyoH.jpg"
   },
   {
    "id": "1000253253",
@@ -20027,7 +20186,7 @@
   {
    "id": "1000258096",
    "nameJa": "ミアレシティ ガイ＆エンブオー＆ニャオニクス（オスのすがた）",
-   "nameEn": "Lumiose City ガイ & Emboar & Meowstic (Male)",
+   "nameEn": "Lumiose City Urbain & Emboar & Meowstic (Male)",
    "url": "https://www.bandai.co.jp/candy/products/2027/1000258096.html",
    "store": "candy",
    "region": "kalos",
@@ -20115,7 +20274,7 @@
   {
    "id": "1000258097",
    "nameJa": "ミアレシティ デウロ＆メガスターミー",
-   "nameEn": "Lumiose City デウロ & Mega Starmie",
+   "nameEn": "Lumiose City Lida & Mega Starmie",
    "url": "https://www.bandai.co.jp/candy/products/2027/1000258097.html",
    "store": "candy",
    "region": "kalos",
@@ -20159,7 +20318,7 @@
   {
    "id": "1000259827",
    "nameJa": "ミアレシティ ピュール＆メガズルズキン＆ギルガルド（シールドフォルム）",
-   "nameEn": "Lumiose City ピュール & Mega Scrafty & Aegislash (Shield Forme)",
+   "nameEn": "Lumiose City Naveen & Mega Scrafty & Aegislash (Shield Forme)",
    "url": "https://www.bandai.co.jp/candy/products/2027/1000259827.html",
    "store": "candy",
    "region": "kalos",
