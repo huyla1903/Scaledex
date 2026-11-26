@@ -2,7 +2,7 @@
 @title        Scaledex - shared styles
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-25
+@updated      2026-11-26
 @about        Pokémon GO Pokédex-inspired look, scoped under .swdex so it can
               live inside Obsidian as well as the standalone PWA.
 */
@@ -151,7 +151,7 @@
   max-width: calc(100cqw - 0.857 * 64cqw - 36px); }
 .swdex .sw-region-ja { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin-top: 2px; }
 .swdex .sw-region-progress { font-size: 22px; font-weight: 800; margin-top: 8px; color: var(--sw-ink); }
-.swdex .sw-bar { width: 150px; width: min(150px, calc(100cqw - 0.91 * 64cqw - 30px)); height: 9px; border-radius: 9px; background: rgba(27,134,182,0.18); margin-top: 8px; overflow: hidden; }
+.swdex .sw-bar { width: min(150px, calc(100cqw - 0.91 * 64cqw - 30px)); height: 9px; border-radius: 9px; background: rgba(27,134,182,0.18); margin-top: 8px; overflow: hidden; }
 .swdex .sw-bar > i { display: block; height: 100%; background: var(--sw-accent); border-radius: 9px; }
 .swdex .sw-done { font-size: 15px; font-weight: 700; color: var(--sw-ink); margin-top: 4px; }
 
@@ -224,7 +224,7 @@
   padding: 0 12px calc(env(safe-area-inset-bottom, 0px) + 12px);
   pointer-events: none;
 }
-.swdex .sw-chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; pointer-events: auto; padding: 4px 2px 10px; }
+.swdex .sw-chips { display: flex; gap: 8px; overflow-x: auto; pointer-events: auto; padding: 4px 2px 10px; }
 .swdex .sw-chips::-webkit-scrollbar { display: none; }
 .swdex .sw-chip {
   flex: 0 0 auto; padding: 11px 22px; border-radius: 30px; font-weight: 800; font-size: 15px;
@@ -330,7 +330,7 @@
 .swdex .sw-tile-role { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.03em; color: var(--sw-ink-soft);
   line-height: 1.2; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-bottom: 1px; }
 /* evolution line */
-.swdex .sw-evos { display: flex; align-items: center; gap: 4px; overflow-x: auto; scrollbar-width: none; padding: 12px 10px; }
+.swdex .sw-evos { display: flex; align-items: center; gap: 4px; overflow-x: auto; padding: 12px 10px; }
 .swdex .sw-evos::-webkit-scrollbar { display: none; }
 .swdex .sw-evo-stage { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; flex: 0 1 auto; min-width: 76px; max-width: 100%; }
 .swdex .sw-evo-arrow { flex: 0 0 auto; font-size: 24px; font-weight: 800; color: var(--sw-ink-soft); padding: 0 2px; }
@@ -344,7 +344,7 @@
 .swdex .sw-evo-name { font-size: 11px; font-weight: 800; line-height: 1.15; color: var(--sw-ink); }
 .swdex .sw-evo.is-none { opacity: 0.45; }
 .swdex.sw-dark .sw-evo-img { background: #f3f8f9; }
-.swdex .sw-figtabs { display: flex; gap: 8px; overflow-x: auto; padding: 14px 2px 6px; scrollbar-width: none; }
+.swdex .sw-figtabs { display: flex; gap: 8px; overflow-x: auto; padding: 14px 2px 6px; }
 .swdex .sw-figtabs::-webkit-scrollbar { display: none; }
 /* centred rows that still scroll from the first item when they overflow (auto margins, unlike justify-content) */
 .swdex .sw-figtabs > :first-child, .swdex .sw-evos > :first-child { margin-left: auto; }
