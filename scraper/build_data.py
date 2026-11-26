@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 @title        Scaledex - data builder
-@version      0.2.2
+@version      0.2.3
 @author       La Gia Huy
 @since        2026-11-14
 @updated      2026-11-26
@@ -22,7 +22,10 @@
               Every HTTP response is cached in scraper/cache/, so re-runs only
               fetch what is new. Delete the cache folder to force a full refresh.
               Usage:  python build_data.py [--no-images] [--refresh-index]
-@changelog    0.2.2  EXTRA_PBANDAI: Premium Bandai items with no bandai.co.jp page
+@changelog    0.2.3  dex entries with a "NEW" badge were skipped (Lysandre, Pyroar,
+                     Kalos Sylveon ...); NEW_SCULPTS (Lumiose City Chikorita /
+                     Totodile are new figures); idAliases: old -> new figure ids
+              0.2.2  EXTRA_PBANDAI: Premium Bandai items with no bandai.co.jp page
                      (Kalos Diantha & Mega Gardevoir); English product names now
                      include new trainers (Sycamore, Urbain, Lida, Naveen, Diantha);
                      a same-title product 2+ years later counts as a re-release
@@ -220,7 +223,7 @@ TRAINER_ROLES = {
     "chili": ["e4:ground"], "wataru": ["champion", "e4:dragon"], "daigo": ["champion"],
     "mikuri": ["champion", "gym:water"], "shirona": ["champion"], "carnet": ["champion"], "dande": ["champion"],
     # villains, Hisui, Lumiose City
-    "akagi": ["boss"], "furadari": ["boss"], "fura": ["boss"], "seki": ["clan"], "kai": ["clan"], "volo": ["merchant"],
+    "akagi": ["boss"], "furadari": ["boss"], "lysandre": ["boss"], "fura": ["boss"], "seki": ["clan"], "kai": ["clan"], "volo": ["merchant"],
     "gai": ["teammz"], "deuro": ["teammz"], "pyuure": ["teammz"], "matiere": ["detective"],
 }
 
@@ -326,8 +329,10 @@ def parse_jdate(s):
 def read_lineup():
     t = fetch(SITE + "lineup/")
     out = []
+    # new figures have a "NEW" badge (<span ...-new"><img ...></span>) before their button image
     for kind, fid, src, alt in re.findall(
-            r'lineup/(pokemon|trainer)/\?id=([^"]+)"[^>]*>\s*<img src="([^"]+)" alt="([^"]*)"', t):
+            r'lineup/(pokemon|trainer)/\?id=([^"]+)"[^>]*>\s*(?:<span[^>]*>\s*<img[^>]*>\s*</span>\s*)?'
+            r'<img src="([^"]+)" alt="([^"]*)"', t):
         out.append({"kind": kind, "id": fid, "btn": urllib.parse.urljoin(SITE + "lineup/", src.split("?")[0]),
                     "alt": html.unescape(alt)})
     return out
@@ -563,6 +568,14 @@ FIGURE_CROPS = {
     "x4570117923258000_9": 0,
 }
 
+# Brand-page figures that are a new sculpt of a character the dex already has with the
+# same (usually empty) label, so they must not be merged into the old figure.
+# Product number -> names on its page. Products with the same figures share a group.
+NEW_SCULPTS = [
+    # Lumiose City set (single box + set): new Chikorita and Totodile, not the 2020 Johto ones
+    ({"4570117932496000", "4570117932472000"}, {"チコリータ", "ワニノコ"}),
+]
+
 
 # Figures whose product page has no photo of their own: photo URL to use instead. Premium
 # Bandai's image server (bandai-a.akamaihd.net/bc/img/model/b/<item>_<n>.jpg) is not
@@ -570,6 +583,45 @@ FIGURE_CROPS = {
 FIGURE_PHOTO_URLS = {
     "x1000259828_4": "https://bandai-a.akamaihd.net/bc/img/model/b/1000259828_11.jpg",  # Mega Tyranitar
 }
+
+
+def id_aliases(prev_path, figs):
+    """Old figure id -> new id, for figures whose id changed since the last build (an "x" id
+    from the brand page once the official dex lists the figure). A vanished figure maps to the
+    one new figure of the same character (same label if there are several). Earlier aliases are
+    kept and followed, so marks saved under any old id still find the figure."""
+    try:
+        with open(prev_path, encoding="utf-8") as fh:
+            prev = json.load(fh)
+    except (OSError, ValueError):
+        return {}
+    new_ids = {f["id"] for f in figs}
+    old_figs = prev.get("figures", [])
+    old_ids = {f["id"] for f in old_figs}
+    added = {}
+    for f in figs:
+        if f["id"] not in old_ids:
+            added.setdefault(f["characterId"], []).append(f)
+    out = dict(prev.get("idAliases") or {})
+    for o in old_figs:
+        if o["id"] in new_ids:
+            continue
+        cands = added.get(o["characterId"], [])
+        same = [f for f in cands if (f.get("labelJa") or "") == (o.get("labelJa") or "")]
+        pick = same if len(same) == 1 else cands if len(cands) == 1 else []
+        if pick:
+            out[o["id"]] = pick[0]["id"]
+        else:
+            print("   ! figure", o["id"], "is gone and has no successor: owned / wishlist marks on it are lost")
+    final = {}
+    for k, v in out.items():
+        seen = {k}
+        while v not in new_ids and v in out and v not in seen:
+            seen.add(v)
+            v = out[v]
+        if k not in new_ids and v in new_ids:
+            final[k] = v
+    return dict(sorted(final.items()))
 
 
 def figure_photo(fid, page, k):
@@ -1180,7 +1232,13 @@ def main():
                 print("   ! unknown figure name on", url, ":", name)
                 continue
             cid, kind, lab_ja, lab_en = r
-            match = next((f for f in figs_by_char.get(cid, []) if squash(f["labelJa"]) == squash(lab_ja)), None)
+            sculpt = next((i for i, (ds, ns) in enumerate(NEW_SCULPTS) if digits in ds and name in ns), None)
+            if sculpt is not None:  # only the figure an earlier product of the same group created
+                match = next((f for f in figs_by_char.get(cid, []) if f.get("_sculpt") == (sculpt, name)), None)
+            else:  # several sculpts with the same label (Paldea / Kalos Sylveon): prefer the product's region
+                same = [f for f in figs_by_char.get(cid, []) if squash(f["labelJa"]) == squash(lab_ja)]
+                local = [f for f in same if any(products[x]["region"] == p["region"] for x in f["productIds"] if x in products)]
+                match = (local or same or [None])[0]
             if match:
                 if pid not in match["productIds"]:
                     match["productIds"].append(pid)
@@ -1194,6 +1252,8 @@ def main():
             f = {"id": fid, "characterId": cid, "kind": kind, "nameJa": name, "labelJa": lab_ja, "labelEn": lab_en,
                  "heightCm": h, "source": url, "has360": False, "_img": img, "_split": split, "_btn": None,
                  "productIds": [pid]}
+            if sculpt is not None:
+                f["_sculpt"] = (sculpt, name)
             fig_out.append(f)
             figs_by_char.setdefault(cid, []).append(f)
             characters[cid]["figures"].append(fid)
@@ -1247,6 +1307,7 @@ def main():
         pass
     for f in fig_out:
         f.pop("_split", None)
+        f.pop("_sculpt", None)
         f["imageUrl"] = f.pop("_img")
         f.pop("_btn", None)
     for p in products.values():
@@ -1311,6 +1372,9 @@ def main():
     chains = {k: v for k, v in chains.items() if len(v) > 1}
 
     used = {r for f in fig_out for r in f["regions"]}
+    aliases = id_aliases(os.path.join(OUT_DIR, "scaledex.json"), fig_out)
+    if aliases:
+        print(f"    {len(aliases)} old figure ids now point to new ones (owned / wishlist marks move over)")
     data = {
         "schema": 1,
         "generated": date.today().isoformat(),
@@ -1330,6 +1394,7 @@ def main():
                              key=lambda c: (c["kind"] != "pokemon", c["dex"] or 0, c["id"])),
         "figures": fig_out,
         "products": sorted(products.values(), key=lambda p: (p["date"] or "9999", p["id"])),
+        "idAliases": aliases,          # old figure id -> current id (the UI moves collection marks)
     }
     os.makedirs(OUT_DIR, exist_ok=True)
     out = os.path.join(OUT_DIR, "scaledex.json")

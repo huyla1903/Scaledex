@@ -1,15 +1,16 @@
 /*
 @title        Scaledex - pre-deploy check
-@version      0.1.0
+@version      0.1.1
 @author       La Gia Huy
 @since        2026-11-16
-@updated      2026-11-16
+@updated      2026-11-26
 @engine       Node.js 18+ (no npm packages)
 @target       Windows / any OS; GitHub Actions (runs before the Pages deploy)
 @about        Fails (exit 1) when something would break the live site:
                 - a JS source file has a syntax error
                 - data/scaledex.json doesn't parse, is missing a list, has an
                   empty list, duplicate ids or links to ids that don't exist
+                  (incl. idAliases targets)
               Usage: node tools/check.mjs
 */
 import fs from "node:fs";
@@ -58,6 +59,11 @@ if (d) {
     ref("figure " + f.id, ids.characters, f.characterId, "character");
     for (const p of f.productIds || []) ref("figure " + f.id, ids.products, p, "product");
     for (const r of f.regions || []) ref("figure " + f.id, ids.regions, r, "region");
+  }
+  // old figure id -> current id: the target must exist, the old id must not (or marks would move off it)
+  for (const [from, to] of Object.entries(d.idAliases || {})) {
+    ref("idAliases " + from, ids.figures, to, "figure");
+    if (ids.figures.has(from)) fail("idAliases: " + from + " is still a figure id");
   }
 }
 
