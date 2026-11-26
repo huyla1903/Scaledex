@@ -14,9 +14,9 @@ Scaledex puts it all in one place, styled after the Pokémon GO Pokédex: every 
 
 **Obsidian plugin (desktop, iOS and Android):**
 
-1. Copy the `dist/scaledex/` folder to `<your vault>/.obsidian/plugins/scaledex/`.
-2. In Obsidian, open **Settings → Community plugins** and enable **Scaledex**.
-3. Open it from the ribbon (dex icon) or the command palette: "Open Scaledex".
+1. In Obsidian, open **Settings → Community plugins → Browse**, search for **Scaledex**, install and enable it.
+   Manual install: download `main.js`, `manifest.json` and `styles.css` from the [latest release](https://github.com/huyla1903/Scaledex/releases/latest) into `<your vault>/.obsidian/plugins/scaledex/`, then enable **Scaledex** under **Settings → Community plugins**.
+2. Open it from the ribbon (dex icon) or the command palette: "Open Scaledex".
 
 If the vault syncs (iCloud, or Obsidian Sync with "Installed community plugins" on), the plugin reaches your phone on its own.
 
@@ -45,6 +45,10 @@ The web app opens straight to a view with `?region=kanto`, `?region=upcoming`, `
 
 - **Web app:** menu → "Save all images for offline" stores them in the browser's own offline cache for that site (not in your files).
 - **Obsidian:** command palette → "Download images (offline use)" saves about 50 MB into the plugin's own folder (`.obsidian/plugins/scaledex/cache/images/`), so your notes stay clean. Without it, images load from the web app's site (Settings → Image source), with Bandai's website as fallback.
+
+### Network use
+
+The figure data ships inside the plugin. The only network requests are for figure images: from the web app's site (`huyla1903.github.io`), with Bandai's image servers as fallback. Nothing about you or your collection is sent anywhere; there are no accounts, ads or telemetry.
 
 ### Where the data comes from
 
@@ -86,7 +90,8 @@ Serve `dist/pwa/` with any static web server to try the web app. Every push to `
 scraper/build_data.py      data builder -> data/scaledex.json + data/images/
 app/dex.js, app/dex.css    shared UI core (no framework)
 pwa/                       web-app wrapper (index.html, sw.js, manifest, icons)
-obsidian-plugin/           plugin wrapper (main.src.js, manifest.json)
+obsidian-plugin/           plugin wrapper (main.src.js)
+manifest.json, versions.json   Obsidian plugin manifest (repo root, where Obsidian looks for it)
 tools/                     build.mjs (assembles dist/), upload_images.ps1
 ```
 

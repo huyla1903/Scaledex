@@ -1,0 +1,33 @@
+# Builds the Obsidian plugin and publishes a GitHub release when a version tag is pushed.
+# The tag must equal "version" in manifest.json, without a "v" (e.g. 0.1.12):
+#   git tag 0.1.12; git push origin 0.1.12
+# Obsidian installs main.js, manifest.json and styles.css from that release.
+name: Release Obsidian plugin
+
+on:
+  push:
+    tags: ["[0-9]+.[0-9]+.[0-9]+"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Tag matches manifest.json version
+        run: |
+          v=$(node -p "require('./manifest.json').version")
+          if [ "$v" != "${GITHUB_REF_NAME}" ]; then echo "Tag ${GITHUB_REF_NAME} != manifest version $v"; exit 1; fi
+      - run: node tools/check.mjs
+      - run: node tools/build.mjs
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" --title "${GITHUB_REF_NAME}" --notes "Scaledex ${GITHUB_REF_NAME}" --latest \
+            dist/scaledex/main.js dist/scaledex/manifest.json dist/scaledex/styles.css

@@ -9,6 +9,7 @@ Pokédex for Bandai's Pokémon Scale World figures. One data set, two front ends
 - `app/landscapes/<region>.jpg`: home-card photos (cropped to the figures, ~900 px wide). `tools/build.mjs` fills `LANDSCAPES` in the core with file URLs (PWA) or data URIs (plugin); a region without one falls back to its `REGION_PICKS` figure row.
 - `pwa/`: thin wrapper (localStorage, export/import, service worker).
 - `obsidian-plugin/main.src.js`: thin wrapper. `isDesktopOnly` must stay `false`; don't use Node/Electron APIs (`fs`, `path`, `require` of anything but `obsidian`), or it stops working on iOS.
+- `manifest.json` (plugin manifest) and `versions.json` stay at the repo root: Obsidian's plugin directory reads them there. To release: bump `version` in `manifest.json`, add it to `versions.json`, merge to `main`, then push a tag equal to the version without `v` (`git tag 0.1.13; git push origin 0.1.13`); `.github/workflows/release.yml` builds and attaches `main.js`, `manifest.json`, `styles.css`.
 - `tools/build.mjs` assembles `dist/pwa/` and `dist/scaledex/` (inlines core + data into the plugin's `main.js`). `--vault "<path>"` installs the plugin.
 
 ## Data notes
