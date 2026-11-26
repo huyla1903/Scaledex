@@ -1,13 +1,14 @@
 /*
 @title        Scaledex - build
-@version      0.1.4
+@version      0.1.5
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-17
+@updated      2026-11-26
 @engine       Node.js 18+ (no npm packages)
 @target       Windows / any OS
 @about        Assembles dist/ from the shared core (app/), the data (data/) and the
-              two wrappers (pwa/, obsidian-plugin/):
+              two wrappers (pwa/, obsidian-plugin/). The plugin's manifest.json lives
+              at the repo root, where Obsidian's plugin directory looks for it:
                 dist/pwa/            static web app; host it on any HTTPS static host
                 dist/scaledex/ Obsidian plugin folder (main.js, manifest.json, styles.css)
               Options:
@@ -78,7 +79,7 @@ let main = read(p("obsidian-plugin", "main.src.js"))
     hasDonate ? "data:image/jpeg;base64," + fs.readFileSync(donateFile).toString("base64") : ""))
   .replace("/*__DEX_DATA__*/ null", () => compactData);
 write(path.join(pluginDir, "main.js"), main);
-fs.copyFileSync(p("obsidian-plugin", "manifest.json"), path.join(pluginDir, "manifest.json"));
+fs.copyFileSync(p("manifest.json"), path.join(pluginDir, "manifest.json"));
 const hostCss = `
 /* Obsidian host */
 .workspace-leaf-content[data-type="scaledex"] .view-content.swdex-host { padding: 0; overflow: hidden; position: relative; }
