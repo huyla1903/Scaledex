@@ -1270,6 +1270,16 @@
     657
    ]
   ],
+  "343": [
+   [
+    667,
+    null
+   ],
+   [
+    668,
+    667
+   ]
+  ],
   "346": [
    [
     674,
@@ -1903,6 +1913,10 @@
   "559": [
    "Scraggy",
    "ズルッグ"
+  ],
+  "667": [
+   "Litleo",
+   "シシコ"
   ],
   "675": [
    "Pangoro",
@@ -2956,7 +2970,8 @@
    "nameEn": "Chikorita",
    "nameJa": "チコリータ",
    "figures": [
-    "152"
+    "152",
+    "x4570117932496000_1"
    ],
    "types": [
     "grass"
@@ -3048,7 +3063,8 @@
    "nameEn": "Totodile",
    "nameJa": "ワニノコ",
    "figures": [
-    "158"
+    "158",
+    "x4570117932496000_3"
    ],
    "types": [
     "water"
@@ -4836,7 +4852,7 @@
    "nameEn": "Chespin",
    "nameJa": "ハリマロン",
    "figures": [
-    "x4570117923258000_6"
+    "650"
    ],
    "types": [
     "grass"
@@ -4851,7 +4867,7 @@
    "nameEn": "Quilladin",
    "nameJa": "ハリボーグ",
    "figures": [
-    "x4570117923258000_7"
+    "651"
    ],
    "types": [
     "grass"
@@ -4882,7 +4898,7 @@
    "nameEn": "Fennekin",
    "nameJa": "フォッコ",
    "figures": [
-    "x4570117923258000_4"
+    "653"
    ],
    "types": [
     "fire"
@@ -4897,7 +4913,7 @@
    "nameEn": "Braixen",
    "nameJa": "テールナー",
    "figures": [
-    "x4570117923258000_5"
+    "654"
    ],
    "types": [
     "fire"
@@ -4928,7 +4944,7 @@
    "nameEn": "Froakie",
    "nameJa": "ケロマツ",
    "figures": [
-    "x4570117923258000_1"
+    "656"
    ],
    "types": [
     "water"
@@ -4943,7 +4959,7 @@
    "nameEn": "Frogadier",
    "nameJa": "ゲコガシラ",
    "figures": [
-    "x4570117923258000_2"
+    "657"
    ],
    "types": [
     "water"
@@ -4958,7 +4974,7 @@
    "nameEn": "Greninja",
    "nameJa": "ゲッコウガ",
    "figures": [
-    "x4570117923258000_10"
+    "658"
    ],
    "types": [
     "water",
@@ -4968,13 +4984,29 @@
    "status": null
   },
   {
+   "id": "p0668",
+   "kind": "pokemon",
+   "dex": 668,
+   "nameEn": "Pyroar",
+   "nameJa": "カエンジシ",
+   "figures": [
+    "668_male"
+   ],
+   "types": [
+    "fire",
+    "normal"
+   ],
+   "chain": 343,
+   "status": null
+  },
+  {
    "id": "p0674",
    "kind": "pokemon",
    "dex": 674,
    "nameEn": "Pancham",
    "nameJa": "ヤンチャム",
    "figures": [
-    "x4570117923258000_3"
+    "674"
    ],
    "types": [
     "fighting"
@@ -5035,7 +5067,8 @@
    "nameEn": "Sylveon",
    "nameJa": "ニンフィア",
    "figures": [
-    "700"
+    "700",
+    "700_kalos"
    ],
    "types": [
     "fairy"
@@ -5050,7 +5083,7 @@
    "nameEn": "Dedenne",
    "nameJa": "デデンネ",
    "figures": [
-    "x4570117923258000_9"
+    "702"
    ],
    "types": [
     "electric",
@@ -6446,6 +6479,20 @@
    "order": 1
   },
   {
+   "id": "t-lysandre",
+   "kind": "trainer",
+   "dex": null,
+   "nameEn": "Lysandre",
+   "nameJa": "フラダリ",
+   "figures": [
+    "lysandre"
+   ],
+   "roles": [
+    "boss"
+   ],
+   "order": 41
+  },
+  {
    "id": "t-mary",
    "kind": "trainer",
    "dex": null,
@@ -6794,7 +6841,7 @@
    "nameEn": "Serena",
    "nameJa": "セレナ",
    "figures": [
-    "x4570117923258000_11"
+    "serena"
    ],
    "roles": [
     "protagonist"
@@ -8663,14 +8710,11 @@
     "c4549660820727000",
     "c4549660820734000",
     "1000194369",
-    "1000223869",
-    "c4570117932496000",
-    "c4570117932472000"
+    "1000223869"
    ],
    "region": "johto",
    "regions": [
-    "johto",
-    "kalos"
+    "johto"
    ],
    "firstYear": 2020,
    "image": "images/figures/152.jpg",
@@ -8744,13 +8788,11 @@
     "c4549660820727000",
     "c4549660820734000",
     "1000194369",
-    "1000223870",
-    "c4570117921711000"
+    "1000223870"
    ],
    "region": "johto",
    "regions": [
-    "johto",
-    "hisui"
+    "johto"
    ],
    "firstYear": 2020,
    "image": "images/figures/155.jpg",
@@ -8769,7 +8811,8 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=155_hisui",
    "has360": false,
    "productIds": [
-    "1000228278"
+    "1000228278",
+    "c4570117921711000"
    ],
    "region": "hisui",
    "regions": [
@@ -8880,14 +8923,11 @@
     "c4549660820727000",
     "c4549660820734000",
     "1000194369",
-    "1000223871",
-    "c4570117932496000",
-    "c4570117932472000"
+    "1000223871"
    ],
    "region": "johto",
    "regions": [
-    "johto",
-    "kalos"
+    "johto"
    ],
    "firstYear": 2020,
    "image": "images/figures/158.jpg",
@@ -11431,6 +11471,54 @@
    ]
   },
   {
+   "id": "650",
+   "characterId": "p0650",
+   "kind": "pokemon",
+   "nameJa": "ハリマロン",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 2.0,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=650",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/650.jpg",
+   "imageTrim": "images/trim/650.jpg",
+   "trimRatio": 0.817,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/650/img.jpg"
+  },
+  {
+   "id": "651",
+   "characterId": "p0651",
+   "kind": "pokemon",
+   "nameJa": "ハリボーグ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 3.5,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=651",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/651.jpg",
+   "imageTrim": "images/trim/651.jpg",
+   "trimRatio": 1.074,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/651/img.jpg"
+  },
+  {
    "id": "652",
    "characterId": "p0652",
    "kind": "pokemon",
@@ -11452,6 +11540,54 @@
    "imageTrim": "images/trim/652.jpg",
    "trimRatio": 1.037,
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/652/img.jpg"
+  },
+  {
+   "id": "653",
+   "characterId": "p0653",
+   "kind": "pokemon",
+   "nameJa": "フォッコ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 2.0,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=653",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/653.jpg",
+   "imageTrim": "images/trim/653.jpg",
+   "trimRatio": 0.919,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/653/img.jpg"
+  },
+  {
+   "id": "654",
+   "characterId": "p0654",
+   "kind": "pokemon",
+   "nameJa": "テールナー",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 5.0,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=654",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/654.jpg",
+   "imageTrim": "images/trim/654.jpg",
+   "trimRatio": 0.872,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/654/img.jpg"
   },
   {
    "id": "655",
@@ -11477,6 +11613,125 @@
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/655/img.jpg"
   },
   {
+   "id": "656",
+   "characterId": "p0656",
+   "kind": "pokemon",
+   "nameJa": "ケロマツ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 1.5,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=656",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/656.jpg",
+   "imageTrim": "images/trim/656.jpg",
+   "trimRatio": 0.783,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/656/img.jpg"
+  },
+  {
+   "id": "657",
+   "characterId": "p0657",
+   "kind": "pokemon",
+   "nameJa": "ゲコガシラ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 3.0,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=657",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/657.jpg",
+   "imageTrim": "images/trim/657.jpg",
+   "trimRatio": 1.217,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/657/img.jpg"
+  },
+  {
+   "id": "658",
+   "characterId": "p0658",
+   "kind": "pokemon",
+   "nameJa": "ゲッコウガ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 7.5,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=658",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/658.jpg",
+   "imageTrim": "images/trim/658.jpg",
+   "trimRatio": 1.561,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/658/img.jpg"
+  },
+  {
+   "id": "668_male",
+   "characterId": "p0668",
+   "kind": "pokemon",
+   "nameJa": "カエンジシ（オスのすがた）",
+   "labelJa": "オスのすがた",
+   "labelEn": "Male",
+   "heightCm": 7.5,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=668_male",
+   "has360": false,
+   "productIds": [
+    "1000242595"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2026,
+   "image": "images/figures/668_male.jpg",
+   "imageTrim": "images/trim/668_male.jpg",
+   "trimRatio": 0.874,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/668_male/img.jpg"
+  },
+  {
+   "id": "674",
+   "characterId": "p0674",
+   "kind": "pokemon",
+   "nameJa": "ヤンチャム",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 3.0,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=674",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/674.jpg",
+   "imageTrim": "images/trim/674.jpg",
+   "trimRatio": 0.777,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/674/img.jpg"
+  },
+  {
    "id": "700",
    "characterId": "p0700",
    "kind": "pokemon",
@@ -11487,12 +11742,10 @@
    "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=700",
    "has360": true,
    "productIds": [
-    "1000212788",
-    "c4570117923258000"
+    "1000212788"
    ],
    "region": "paldea",
    "regions": [
-    "kalos",
     "paldea"
    ],
    "firstYear": 2024,
@@ -11500,6 +11753,54 @@
    "imageTrim": "images/trim/700.jpg",
    "trimRatio": 0.535,
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/700/img.jpg"
+  },
+  {
+   "id": "700_kalos",
+   "characterId": "p0700",
+   "kind": "pokemon",
+   "nameJa": "ニンフィア",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 5.0,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=700_kalos",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/700_kalos.jpg",
+   "imageTrim": "images/trim/700_kalos.jpg",
+   "trimRatio": 0.704,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/700_kalos/img.jpg"
+  },
+  {
+   "id": "702",
+   "characterId": "p0702",
+   "kind": "pokemon",
+   "nameJa": "デデンネ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 1.0,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/pokemon/?id=702",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/702.jpg",
+   "imageTrim": "images/trim/702.jpg",
+   "trimRatio": 1.088,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/pokemon/702/img.jpg"
   },
   {
    "id": "722_hisui",
@@ -13938,6 +14239,53 @@
    "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/korrina/img.jpg"
   },
   {
+   "id": "lysandre",
+   "characterId": "t-lysandre",
+   "kind": "trainer",
+   "nameJa": "フラダリ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 10.0,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/trainer/?id=lysandre",
+   "has360": false,
+   "productIds": [
+    "1000242595"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2026,
+   "image": "images/figures/lysandre.jpg",
+   "imageTrim": "images/trim/lysandre.jpg",
+   "trimRatio": 0.435,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/lysandre/img.jpg"
+  },
+  {
+   "id": "serena",
+   "characterId": "t-serena",
+   "kind": "trainer",
+   "nameJa": "セレナ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": 7.5,
+   "source": "https://www.bandai.co.jp/candy/pokemonscaleworld/lineup/trainer/?id=serena",
+   "has360": false,
+   "productIds": [
+    "4570117923234000",
+    "c4570117923258000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2025,
+   "image": "images/figures/serena.jpg",
+   "imageTrim": "images/trim/serena.jpg",
+   "trimRatio": 0.601,
+   "imageUrl": "https://www.bandai.co.jp/candy/pokemonscaleworld/images/lineup/trainer/serena/img.jpg"
+  },
+  {
    "id": "masaru",
    "characterId": "t-masaru",
    "kind": "trainer",
@@ -14821,6 +15169,31 @@
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/XZC/000000493006B14TaB5jZA5nyq5NFlwV54u3P5nKSKdpzXZC.jpg"
   },
   {
+   "id": "x4570117932496000_1",
+   "characterId": "p0152",
+   "kind": "pokemon",
+   "nameJa": "チコリータ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": null,
+   "source": "https://www.bandai.co.jp/candy/products/2027/4570117932496000.html",
+   "has360": false,
+   "productIds": [
+    "c4570117932496000",
+    "c4570117932472000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2027,
+   "image": "images/trim/x4570117932496000_1_178767_3-0.jpg",
+   "imageTrim": "images/trim/x4570117932496000_1_178767_3-0.jpg",
+   "trimRatio": 0.818,
+   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/1Fa/000000488066OOH1TkCUszGefwevqaXJzztOO1sYnAe7P1Fa.jpg",
+   "heightEst": 4.5
+  },
+  {
    "id": "x4570117932496000_2",
    "characterId": "p0498",
    "kind": "pokemon",
@@ -14844,6 +15217,31 @@
    "trimRatio": 0.823,
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/1Fa/000000488066OOH1TkCUszGefwevqaXJzztOO1sYnAe7P1Fa.jpg",
    "heightEst": 2.5
+  },
+  {
+   "id": "x4570117932496000_3",
+   "characterId": "p0158",
+   "kind": "pokemon",
+   "nameJa": "ワニノコ",
+   "labelJa": null,
+   "labelEn": null,
+   "heightCm": null,
+   "source": "https://www.bandai.co.jp/candy/products/2027/4570117932496000.html",
+   "has360": false,
+   "productIds": [
+    "c4570117932496000",
+    "c4570117932472000"
+   ],
+   "region": "kalos",
+   "regions": [
+    "kalos"
+   ],
+   "firstYear": 2027,
+   "image": "images/trim/x4570117932496000_3_178767_3-2.jpg",
+   "imageTrim": "images/trim/x4570117932496000_3_178767_3-2.jpg",
+   "trimRatio": 0.793,
+   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/1Fa/000000488066OOH1TkCUszGefwevqaXJzztOO1sYnAe7P1Fa.jpg",
+   "heightEst": 3.0
   },
   {
    "id": "x4570117932496000_4",
@@ -15442,246 +15840,6 @@
     "fire",
     "dragon"
    ]
-  },
-  {
-   "id": "x4570117923258000_1",
-   "characterId": "p0656",
-   "kind": "pokemon",
-   "nameJa": "ケロマツ",
-   "labelJa": null,
-   "labelEn": null,
-   "heightCm": null,
-   "source": "https://www.bandai.co.jp/candy/products/2025/4570117923258000.html",
-   "has360": false,
-   "productIds": [
-    "c4570117923258000"
-   ],
-   "region": "kalos",
-   "regions": [
-    "kalos"
-   ],
-   "firstYear": 2025,
-   "image": "images/trim/x4570117923258000_1_5df5a6_3-0.jpg",
-   "imageTrim": "images/trim/x4570117923258000_1_5df5a6_3-0.jpg",
-   "trimRatio": 0.792,
-   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/h7k/000000459767iAHdv3ERN3uDrNdVRfhH5vzRwAwpBj4inh7k.jpg",
-   "heightEst": 1.5
-  },
-  {
-   "id": "x4570117923258000_2",
-   "characterId": "p0657",
-   "kind": "pokemon",
-   "nameJa": "ゲコガシラ",
-   "labelJa": null,
-   "labelEn": null,
-   "heightCm": null,
-   "source": "https://www.bandai.co.jp/candy/products/2025/4570117923258000.html",
-   "has360": false,
-   "productIds": [
-    "c4570117923258000"
-   ],
-   "region": "kalos",
-   "regions": [
-    "kalos"
-   ],
-   "firstYear": 2025,
-   "image": "images/trim/x4570117923258000_2_5df5a6_3-1.jpg",
-   "imageTrim": "images/trim/x4570117923258000_2_5df5a6_3-1.jpg",
-   "trimRatio": 1.21,
-   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/h7k/000000459767iAHdv3ERN3uDrNdVRfhH5vzRwAwpBj4inh7k.jpg",
-   "heightEst": 3.0
-  },
-  {
-   "id": "x4570117923258000_3",
-   "characterId": "p0674",
-   "kind": "pokemon",
-   "nameJa": "ヤンチャム",
-   "labelJa": null,
-   "labelEn": null,
-   "heightCm": null,
-   "source": "https://www.bandai.co.jp/candy/products/2025/4570117923258000.html",
-   "has360": false,
-   "productIds": [
-    "c4570117923258000"
-   ],
-   "region": "kalos",
-   "regions": [
-    "kalos"
-   ],
-   "firstYear": 2025,
-   "image": "images/trim/x4570117923258000_3_5df5a6_3-2.jpg",
-   "imageTrim": "images/trim/x4570117923258000_3_5df5a6_3-2.jpg",
-   "trimRatio": 0.707,
-   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/h7k/000000459767iAHdv3ERN3uDrNdVRfhH5vzRwAwpBj4inh7k.jpg",
-   "heightEst": 3.0
-  },
-  {
-   "id": "x4570117923258000_4",
-   "characterId": "p0653",
-   "kind": "pokemon",
-   "nameJa": "フォッコ",
-   "labelJa": null,
-   "labelEn": null,
-   "heightCm": null,
-   "source": "https://www.bandai.co.jp/candy/products/2025/4570117923258000.html",
-   "has360": false,
-   "productIds": [
-    "c4570117923258000"
-   ],
-   "region": "kalos",
-   "regions": [
-    "kalos"
-   ],
-   "firstYear": 2025,
-   "image": "images/trim/x4570117923258000_4_48d54e_2-0.jpg",
-   "imageTrim": "images/trim/x4570117923258000_4_48d54e_2-0.jpg",
-   "trimRatio": 0.92,
-   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/PUR/0000004597713PLf2ealSIvJ9cAwLP49xs4kfEWb1sj1YPUR.jpg",
-   "heightEst": 2.0
-  },
-  {
-   "id": "x4570117923258000_5",
-   "characterId": "p0654",
-   "kind": "pokemon",
-   "nameJa": "テールナー",
-   "labelJa": null,
-   "labelEn": null,
-   "heightCm": null,
-   "source": "https://www.bandai.co.jp/candy/products/2025/4570117923258000.html",
-   "has360": false,
-   "productIds": [
-    "c4570117923258000"
-   ],
-   "region": "kalos",
-   "regions": [
-    "kalos"
-   ],
-   "firstYear": 2025,
-   "image": "images/trim/x4570117923258000_5_48d54e_2-1.jpg",
-   "imageTrim": "images/trim/x4570117923258000_5_48d54e_2-1.jpg",
-   "trimRatio": 0.87,
-   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/PUR/0000004597713PLf2ealSIvJ9cAwLP49xs4kfEWb1sj1YPUR.jpg",
-   "heightEst": 5.0
-  },
-  {
-   "id": "x4570117923258000_6",
-   "characterId": "p0650",
-   "kind": "pokemon",
-   "nameJa": "ハリマロン",
-   "labelJa": null,
-   "labelEn": null,
-   "heightCm": null,
-   "source": "https://www.bandai.co.jp/candy/products/2025/4570117923258000.html",
-   "has360": false,
-   "productIds": [
-    "c4570117923258000"
-   ],
-   "region": "kalos",
-   "regions": [
-    "kalos"
-   ],
-   "firstYear": 2025,
-   "image": "images/trim/x4570117923258000_6_1895fc_2-0.jpg",
-   "imageTrim": "images/trim/x4570117923258000_6_1895fc_2-0.jpg",
-   "trimRatio": 0.81,
-   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/W8u/000000459775eIcaaQ1TBLO4BbVCFusA6lkBMjKjmSRzyW8u.jpg",
-   "heightEst": 2.0
-  },
-  {
-   "id": "x4570117923258000_7",
-   "characterId": "p0651",
-   "kind": "pokemon",
-   "nameJa": "ハリボーグ",
-   "labelJa": null,
-   "labelEn": null,
-   "heightCm": null,
-   "source": "https://www.bandai.co.jp/candy/products/2025/4570117923258000.html",
-   "has360": false,
-   "productIds": [
-    "c4570117923258000"
-   ],
-   "region": "kalos",
-   "regions": [
-    "kalos"
-   ],
-   "firstYear": 2025,
-   "image": "images/trim/x4570117923258000_7_1895fc_2-1.jpg",
-   "imageTrim": "images/trim/x4570117923258000_7_1895fc_2-1.jpg",
-   "trimRatio": 1.067,
-   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/W8u/000000459775eIcaaQ1TBLO4BbVCFusA6lkBMjKjmSRzyW8u.jpg",
-   "heightEst": 3.5
-  },
-  {
-   "id": "x4570117923258000_9",
-   "characterId": "p0702",
-   "kind": "pokemon",
-   "nameJa": "デデンネ",
-   "labelJa": null,
-   "labelEn": null,
-   "heightCm": null,
-   "source": "https://www.bandai.co.jp/candy/products/2025/4570117923258000.html",
-   "has360": false,
-   "productIds": [
-    "c4570117923258000"
-   ],
-   "region": "kalos",
-   "regions": [
-    "kalos"
-   ],
-   "firstYear": 2025,
-   "image": "images/trim/x4570117923258000_9_ede3e9_2-0.jpg",
-   "imageTrim": "images/trim/x4570117923258000_9_ede3e9_2-0.jpg",
-   "trimRatio": 1.081,
-   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/Yyh/000000459779PR6AGsmqElClQGNU3u4OF5RjtpYh9FOBtYyh.jpg",
-   "heightEst": 1.0
-  },
-  {
-   "id": "x4570117923258000_10",
-   "characterId": "p0658",
-   "kind": "pokemon",
-   "nameJa": "ゲッコウガ",
-   "labelJa": null,
-   "labelEn": null,
-   "heightCm": null,
-   "source": "https://www.bandai.co.jp/candy/products/2025/4570117923258000.html",
-   "has360": false,
-   "productIds": [
-    "c4570117923258000"
-   ],
-   "region": "kalos",
-   "regions": [
-    "kalos"
-   ],
-   "firstYear": 2025,
-   "image": "images/figures/x4570117923258000_10_e7125d.jpg",
-   "imageTrim": "images/trim/x4570117923258000_10_e7125d_1-0.jpg",
-   "trimRatio": 1.549,
-   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/0Mp/000000459783MsSRzU2ZK78fdOOHROWVSE5lN6S2zPK8j0Mp.jpg",
-   "heightEst": 7.5
-  },
-  {
-   "id": "x4570117923258000_11",
-   "characterId": "t-serena",
-   "kind": "trainer",
-   "nameJa": "セレナ",
-   "labelJa": null,
-   "labelEn": null,
-   "heightCm": null,
-   "source": "https://www.bandai.co.jp/candy/products/2025/4570117923258000.html",
-   "has360": false,
-   "productIds": [
-    "c4570117923258000"
-   ],
-   "region": "kalos",
-   "regions": [
-    "kalos"
-   ],
-   "firstYear": 2025,
-   "image": "images/figures/x4570117923258000_11_007241.jpg",
-   "imageTrim": "images/trim/x4570117923258000_11_007241_1-0.jpg",
-   "trimRatio": 0.62,
-   "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/dFY/0000004597879DX19azudrZK3jbXoHrUwR5eQOksjS6dDdFY.jpg",
-   "heightEst": 7.8
   },
   {
    "id": "x1000243806_1",
@@ -20359,5 +20517,17 @@
    "image": "images/products/1000259828.jpg",
    "imageUrl": "https://www.bandai.co.jp/candy/published/bnc_files/product/j4y/000000496750WC8Vpg3cFv9aHMEntGzW8L4ieUqSnJJTij4y.jpg"
   }
- ]
+ ],
+ "idAliases": {
+  "x4570117923258000_1": "656",
+  "x4570117923258000_10": "658",
+  "x4570117923258000_11": "serena",
+  "x4570117923258000_2": "657",
+  "x4570117923258000_3": "674",
+  "x4570117923258000_4": "653",
+  "x4570117923258000_5": "654",
+  "x4570117923258000_6": "650",
+  "x4570117923258000_7": "651",
+  "x4570117923258000_9": "702"
+ }
 }

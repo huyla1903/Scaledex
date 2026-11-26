@@ -171,6 +171,13 @@
 .swdex .sw-grid-tools { position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; }
 .swdex .sw-stat-title { font-weight: 800; font-size: 19px; text-transform: uppercase; flex: 1 1 auto; min-width: min-content; line-height: 1.15; }
 .swdex .sw-stat-filter { color: var(--sw-ink-soft); white-space: nowrap; }
+/* phone: region name on one line (fitTitle() shrinks it if it doesn't fit), filter on the next, no separator */
+@media (max-width: 640px) {
+  .swdex .sw-stat-title { min-width: 0; }
+  .swdex .sw-stat-name { display: block; white-space: nowrap; }
+  .swdex .sw-stat-filter { display: block; }
+  .swdex .sw-stat-sep { display: none; }
+}
 .swdex .sw-pill { background: var(--sw-accent); color: var(--sw-accent-ink); font-weight: 800; font-size: 20px; padding: 3px 18px; border-radius: 30px; white-space: nowrap; }
 /* five across when there is room, else wrap into rows (narrow phone + rail) */
 .swdex .sw-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); row-gap: 10px; margin-top: 14px; text-align: center; }
@@ -193,10 +200,11 @@
    render has a solid backdrop in its own layer. Over a see-through one, iOS Safari (which composites
    the scroller separately) keeps the photo's white box. */
 .swdex:not(.sw-dark) .sw-tile { background: #e8f8f9; }
-.swdex .sw-tile-img { flex: 1; width: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; }
+/* panel box (radius, margin) the same in both themes, so switching theme doesn't resize the picture */
+.swdex .sw-tile-img { flex: 1; width: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-bottom: 4px; }
 .swdex .sw-tile-img img { max-width: 92%; max-height: 92%; object-fit: contain; mix-blend-mode: multiply; }
 /* dark: renders sit on white, so give every tile the same white panel */
-.swdex.sw-dark .sw-tile-img { background: #f3f8f9; border-radius: 10px; margin-bottom: 4px; }
+.swdex.sw-dark .sw-tile-img { background: #f3f8f9; }
 .swdex.sw-dark .sw-hero img { mix-blend-mode: normal; border-radius: 18px; background: #fff; }
 .swdex .sw-tile-no { font-size: 17px; font-weight: 600; color: var(--sw-ink); line-height: 1.1; }
 .swdex .sw-tile-name { font-size: 12px; font-weight: 800; color: var(--sw-ink); line-height: 1.1; text-align: center; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

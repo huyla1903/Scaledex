@@ -2,7 +2,7 @@
 @title        Scaledex - shared UI core
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-25
+@updated      2026-11-26
 @about        Framework-free Pokédex UI for Bandai's Pokémon Scale World figures.
               Used by both the PWA (pwa/) and the Obsidian plugin (obsidian-plugin/).
               Usage:
@@ -95,7 +95,7 @@
       lang: "Ngôn ngữ", toOther: "English",
       sub: "{0} nhân vật · {1} mô hình · {2} đợt phát hành", complete: "Hoàn thành!",
       footer: "Dữ liệu {0} · dex chính thức Bandai Scale World, trang Bandai Candy & Premium Bandai",
-      pokemon: "Pokémon", trainers: "Huấn luyện viên", figures: "Mô hình", wishlist: "Muốn mua", ownedPct: "★ Đã có",
+      pokemon: "Pokémon", trainers: "HLV", figures: "Mô hình", wishlist: "Muốn mua", ownedPct: "★ Đã có",
       noMatch: "Không có mô hình nào khớp “{0}”", nothing: "Chưa có gì ở đây",
       search: "Tìm kiếm", closeSearch: "Đóng tìm kiếm", searchPh: "Tên, 名前 hoặc số dex", menu: "Menu", back: "Quay lại", close: "Đóng",
       trainer: "Huấn luyện viên", height: "Chiều cao", region: "Vùng", firstRelease: "Phát hành lần đầu",
@@ -220,6 +220,22 @@
     var st = opts.load() || {};
     st.owned = st.owned || {}; st.wish = st.wish || {}; st.prefs = st.prefs || {};
     var prefs = st.prefs;
+    // a figure whose id changed (brand-page "x" id, later listed in the official dex) keeps its
+    // owned / wishlist marks: data.idAliases maps old id -> current id. Returns true if anything moved.
+    function migrateMarks() {
+      var al = (data && data.idAliases) || {}, moved = false;
+      [st.owned, st.wish].forEach(function (bag) {
+        Object.keys(bag).forEach(function (k) {
+          var to = al[k];
+          if (!to || to === k) return;
+          if (!bag[to]) bag[to] = bag[k];
+          delete bag[k];
+          moved = true;
+        });
+      });
+      return moved;
+    }
+    var marksMoved = migrateMarks();
     if (!prefs.sort) prefs.sort = "dex";
     if (prefs.dim == null) prefs.dim = false;
     if (!prefs.theme) prefs.theme = "auto";
@@ -492,8 +508,9 @@
 
     // shrink a region name that is wider than the room left of the card art (its CSS max-width):
     // narrow phones, "UPCOMING", Vietnamese "VÙNG ..." names. Reset all, then measure all, then write.
+    // Also the grid card's title, which stays on one line on phones (inline elsewhere: clientWidth 0, skipped).
     function fitRegionNames() {
-      var els = wrap.querySelectorAll(".sw-region-name"), i, el, fit = [];
+      var els = wrap.querySelectorAll(".sw-region-name, .sw-stat-name"), i, el, fit = [];
       for (i = 0; i < els.length; i++) els[i].style.fontSize = "";
       for (i = 0; i < els.length; i++) {
         el = els[i];
@@ -503,7 +520,7 @@
       }
       for (i = 0; i < fit.length; i++) fit[i][0].style.fontSize = Math.max(14, Math.floor(fit[i][1] * 10) / 10) + "px";
     }
-    function onResize() { if (wrap.querySelector(".sw-region-name")) fitRegionNames(); }
+    function onResize() { if (wrap.querySelector(".sw-region-name, .sw-stat-name")) fitRegionNames(); }
     var resizeObs = global.ResizeObserver ? new global.ResizeObserver(onResize) : null;
     if (resizeObs) resizeObs.observe(root); else global.addEventListener("resize", onResize);
     // web font arriving after the first render changes the widths
@@ -517,8 +534,8 @@
       var nP = tiles.filter(function (t) { return t.c.kind === "pokemon"; }).length;
       var nW = figsIn(region).filter(function (f) { return st.wish[f.id]; }).length;
       var h = '<div class="sw-statcard"><div class="sw-grid-tools">' + togglesHtml() + '</div><div class="sw-stat-head">' +
-        '<div class="sw-stat-title">' + esc(title) +
-        (ui.filter !== "all" ? '<span class="sw-stat-filter"> · ' + esc(t("f_" + ui.filter)) + "</span>" : "") + "</div>" +
+        '<div class="sw-stat-title"><span class="sw-stat-name">' + esc(title) + "</span>" +
+        (ui.filter !== "all" ? '<span class="sw-stat-filter"><span class="sw-stat-sep"> · </span>' + esc(t("f_" + ui.filter)) + "</span>" : "") + "</div>" +
         '<div class="sw-pill">' + s.owned + " / " + s.total + "</div></div>" +
         '<div class="sw-stats">' +
         "<div><b>" + nP + "</b><span>" + esc(t("pokemon")) + "</span></div>" +
@@ -540,6 +557,7 @@
         h += '<div class="sw-grid">' + shown.map(tileHtml).join("") + "</div>";
       }
       wrap.innerHTML = h;
+      fitRegionNames();
     }
 
     // the grid's tiles in on-screen order (dex sort, no filter: Pokémon section, then Trainers)
@@ -976,11 +994,12 @@
     root.addEventListener("error", onError, true);
     root.addEventListener("keydown", onKey);
     if (mq && mq.addEventListener) mq.addEventListener("change", applyTheme);
+    if (marksMoved) save();  // store the moved marks under their new ids
 
     var api = {
       getState: function () { return st; },
-      setState: function (s) { st = s || {}; st.owned = st.owned || {}; st.wish = st.wish || {}; st.prefs = st.prefs || prefs; prefs = st.prefs; save(); render(); if (ui.menu) openMenu(); },
-      setData: function (d) { data = d; idx = buildIndex(d); render(); },
+      setState: function (s) { st = s || {}; st.owned = st.owned || {}; st.wish = st.wish || {}; st.prefs = st.prefs || prefs; prefs = st.prefs; migrateMarks(); save(); render(); if (ui.menu) openMenu(); },
+      setData: function (d) { data = d; idx = buildIndex(d); if (migrateMarks()) save(); render(); },
       setDark: function (v) { opts.dark = v; applyTheme(); },
       lang: function () { return prefs.lang; },  // "en" | "vi", for host messages
       isSearchKey: isSearchKey,
