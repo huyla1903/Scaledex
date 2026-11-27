@@ -2,7 +2,7 @@
 @title        Scaledex - shared UI core
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-26
+@updated      2026-11-27
 @about        Framework-free Pokédex UI for Bandai's Pokémon Scale World figures.
               Used by both the PWA (pwa/) and the Obsidian plugin (obsidian-plugin/).
               Usage:
@@ -261,7 +261,7 @@
     function homeRegionName(r) {
       return I18N.en["reg_" + r.id] ? t("reg_" + r.id) : r.nameEn;
     }
-    // language + theme switches; on every screen (home header, grid header card, sheet top bar)
+    // language + theme switches: top bar (medium / wide only) and the figure page / menu bar
     function togglesHtml() {
       var dk = isDark();  // until the theme switch is used the theme follows the system
       return '<button class="sw-theme sw-lang" data-act="lang-toggle" aria-label="' + esc(t("lang")) + '" title="' + esc(t("toOther")) + ' (L)">' +
@@ -275,11 +275,11 @@
     var scrollMemo = {};
 
     root.classList.add("swdex");
-    root.innerHTML = '<div class="sw-scroll"><div class="sw-wrap"></div></div><div class="sw-nav"></div><div class="sw-bottom"></div>';
+    // top bar (sticky, inside the scroller) holds every control: back, title, search, menu, filters
+    root.innerHTML = '<div class="sw-scroll"><div class="sw-topbar"></div><div class="sw-wrap"></div></div>';
     var scroller = root.querySelector(".sw-scroll");
     var wrap = root.querySelector(".sw-wrap");
-    var bottom = root.querySelector(".sw-bottom");
-    var nav = root.querySelector(".sw-nav");  // back button, top of the left rail
+    var bar = root.querySelector(".sw-topbar");
     var sheet = null;
     var mq = global.matchMedia ? global.matchMedia("(prefers-color-scheme: dark)") : null;
 
@@ -406,7 +406,7 @@
     function render() {
       applyTheme();
       if (ui.screen === "home" && !ui.query) renderHome(); else renderGrid();
-      renderBottom();
+      renderBar();
     }
 
     function regionStats(region) {
@@ -477,10 +477,7 @@
     }
 
     function renderHome() {
-      var all = regionStats("all");
-      var h = '<div class="sw-top"><h1>' + LOGO + 'Scaledex</h1><span class="sw-top-end"><span class="sw-count">' + esc(t("ownedCount", all.owned)) + "</span>" +
-        togglesHtml() + "</span></div>";
-      h += '<div class="sw-sub">' + esc(t("sub", data.characters.length, data.figures.length, data.products.length)) + "</div>";
+      var h = '<div class="sw-sub">' + esc(t("sub", data.characters.length, data.figures.length, data.products.length)) + '</div><div class="sw-regions">';
       var regs = [{ id: "all", nameEn: "All", nameJa: "すべてのフィギュア" }].concat(data.regions);
       if (figsIn("upcoming").length) {
         var at = regs.map(function (r) { return r.id; }).indexOf("special");
@@ -501,16 +498,15 @@
           (done ? '<div class="sw-done">' + esc(t("complete")) + "</div>" : '<div class="sw-bar"><i style="width:' + pct + '%"></i></div>') +
           '<div class="sw-region-progress">' + s.owned + " / " + s.total + "</div></div></button>";
       });
-      h += '<div class="sw-note" style="text-align:center;margin:18px 0">' + esc(t("footer", data.generated)) + "</div>";
+      h += '</div><div class="sw-note" style="text-align:center;margin:18px 0">' + esc(t("footer", data.generated)) + "</div>";
       wrap.innerHTML = h;
       fitRegionNames();
     }
 
     // shrink a region name that is wider than the room left of the card art (its CSS max-width):
     // narrow phones, "UPCOMING", Vietnamese "VÙNG ..." names. Reset all, then measure all, then write.
-    // Also the grid card's title, which stays on one line on phones (inline elsewhere: clientWidth 0, skipped).
     function fitRegionNames() {
-      var els = wrap.querySelectorAll(".sw-region-name, .sw-stat-name"), i, el, fit = [];
+      var els = wrap.querySelectorAll(".sw-region-name"), i, el, fit = [];
       for (i = 0; i < els.length; i++) els[i].style.fontSize = "";
       for (i = 0; i < els.length; i++) {
         el = els[i];
@@ -520,27 +516,23 @@
       }
       for (i = 0; i < fit.length; i++) fit[i][0].style.fontSize = Math.max(14, Math.floor(fit[i][1] * 10) / 10) + "px";
     }
-    function onResize() { if (wrap.querySelector(".sw-region-name, .sw-stat-name")) fitRegionNames(); }
+    function onResize() { if (wrap.querySelector(".sw-region-name")) fitRegionNames(); }
     var resizeObs = global.ResizeObserver ? new global.ResizeObserver(onResize) : null;
     if (resizeObs) resizeObs.observe(root); else global.addEventListener("resize", onResize);
     // web font arriving after the first render changes the widths
     if (global.document && global.document.fonts && global.document.fonts.ready) global.document.fonts.ready.then(onResize);
 
     function renderGrid() {
-      var region = ui.screen === "home" ? "all" : ui.region;
-      var title = region === "all" ? t("allFigures") : regionName(idx.reg[region]);
+      var region = gridRegion();
       var tiles = tilesFor(region);
       var s = regionStats(region);
       var nP = tiles.filter(function (t) { return t.c.kind === "pokemon"; }).length;
       var nW = figsIn(region).filter(function (f) { return st.wish[f.id]; }).length;
-      var h = '<div class="sw-statcard"><div class="sw-grid-tools">' + togglesHtml() + '</div><div class="sw-stat-head">' +
-        '<div class="sw-stat-title"><span class="sw-stat-name">' + esc(title) + "</span>" +
-        (ui.filter !== "all" ? '<span class="sw-stat-filter"><span class="sw-stat-sep"> · </span>' + esc(t("f_" + ui.filter)) + "</span>" : "") + "</div>" +
-        '<div class="sw-pill">' + s.owned + " / " + s.total + "</div></div>" +
-        '<div class="sw-stats">' +
+      // the region's name is in the top bar; this card is the numbers only
+      var h = '<div class="sw-statcard"><div class="sw-stats">' +
+        '<div class="is-own"><b>' + s.owned + " / " + s.total + "</b><span>" + esc(t("figures")) + "</span></div>" +
         "<div><b>" + nP + "</b><span>" + esc(t("pokemon")) + "</span></div>" +
         "<div><b>" + (tiles.length - nP) + "</b><span>" + esc(t("trainers")) + "</span></div>" +
-        "<div><b>" + s.total + "</b><span>" + esc(t("figures")) + "</span></div>" +
         "<div><b>" + nW + "</b><span>" + esc(t("wishlist")) + "</span></div>" +
         "<div><b>" + (s.total ? Math.round(100 * s.owned / s.total) : 0) + "%</b><span>" + esc(t("ownedPct")) + "</span></div>" +
         "</div></div>";
@@ -562,7 +554,7 @@
 
     // the grid's tiles in on-screen order (dex sort, no filter: Pokémon section, then Trainers)
     function shownTiles(tiles) {
-      var shown = sortTiles((tiles || tilesFor(ui.screen === "home" ? "all" : ui.region)).filter(matches));
+      var shown = sortTiles((tiles || tilesFor(gridRegion())).filter(matches));
       if (prefs.sort !== "dex" || ui.filter !== "all") return shown;
       return shown.filter(function (x) { return x.c.kind === "pokemon"; }).concat(shown.filter(function (x) { return x.c.kind !== "pokemon"; }));
     }
@@ -582,36 +574,58 @@
         label + '<div class="sw-tile-name">' + esc(t.c.nameEn) + "</div></button>";
     }
 
-    function renderBottom() {
-      var h = "";
-      var rail = ui.screen !== "home" || !!ui.query;
-      root.classList.toggle("has-rail", rail);
-      if (rail) {
-        h += '<div class="sw-chips">' + FILTERS.map(function (f) {
-          return '<button class="sw-chip' + (ui.filter === f ? " on" : "") + '" data-act="filter" data-id="' + f + '" aria-label="' + esc(t("f_" + f)) +
-            '" title="' + esc(t("f_" + f)) + " (" + (FILTERS.indexOf(f) + 1) + ')"><span class="sw-chip-ico">' + FILTER_ICONS[f] + "</span></button>";
+    // the grid's region: the home screen's search lists the whole dex
+    function gridRegion() { return ui.screen === "home" ? "all" : ui.region; }
+    function iconBtn(act, label, key, icon) {
+      return '<button class="sw-ibtn" data-act="' + act + '" aria-label="' + esc(label) + '" title="' + esc(label) + (key ? " (" + key + ")" : "") + '">' + icon + "</button>";
+    }
+
+    // top bar. Row 1: back (grid) · logo or region name, or the search field · language + theme
+    // (hidden on narrow screens: they are in the menu) · search · menu. Row 2 (grid): filter chips,
+    // scrolling sideways when they don't fit.
+    function renderBar() {
+      var grid = ui.screen !== "home" || !!ui.query;
+      var oldChips = bar.querySelector(".sw-chips"), chipX = oldChips ? oldChips.scrollLeft : 0;
+      root.classList.toggle("is-grid", grid);
+      var h = '<div class="sw-bar-row">';
+      if (ui.screen !== "home") h += iconBtn("home", t("back"), "H", ICON_BACK);
+      if (ui.search) {
+        h += '<input class="sw-search" type="search" placeholder="' + esc(t("searchPh")) + '" value="' + esc(ui.query) + '" autocomplete="off">' +
+          iconBtn("search-close", t("closeSearch"), "Esc", ICON_X);
+      } else {
+        if (ui.screen === "home") {
+          h += '<h1 class="sw-brand">' + LOGO + "Scaledex</h1>" +
+            '<span class="sw-count">' + esc(t("ownedCount", regionStats("all").owned)) + "</span>";
+        } else {
+          var r = gridRegion();
+          h += '<div class="sw-bar-title">' + esc(r === "all" ? t("allFigures") : regionName(idx.reg[r])) + "</div>";
+        }
+        h += '<span class="sw-bar-tools">' + togglesHtml() + "</span>" + iconBtn("search", t("search"), "/", ICON_SEARCH);
+      }
+      h += iconBtn("menu", t("menu"), "M", ICON_MENU) + "</div>";
+      if (grid) {
+        h += '<div class="sw-chips">' + FILTERS.map(function (f, i) {
+          return '<button class="sw-chip' + (ui.filter === f ? " on" : "") + '" data-act="filter" data-id="' + f +
+            '" title="' + esc(t("f_" + f)) + " (" + (i + 1) + ')"><span class="sw-chip-ico">' + FILTER_ICONS[f] + "</span>" + esc(t("f_" + f)) + "</button>";
         }).join("") + "</div>";
       }
-      // left column: search (its field opens to the right), menu under it
-      h += '<div class="sw-fabs"><div class="sw-fab-row">';
-      if (ui.search) {
-        h += '<button class="sw-fab" data-act="search-close" aria-label="' + esc(t("closeSearch")) + '">' + ICON_X + "</button>" +
-          '<input class="sw-search" type="search" placeholder="' + esc(t("searchPh")) + '" value="' + esc(ui.query) + '" autocomplete="off">';
-      } else {
-        h += '<button class="sw-fab" data-act="search" aria-label="' + esc(t("search")) + '" title="' + esc(t("search")) + ' (/)">' + ICON_SEARCH + "</button>";
+      bar.innerHTML = h;
+      var chips = bar.querySelector(".sw-chips");
+      if (chips) {  // keep the row where it was, but bring the active chip into view
+        chips.scrollLeft = chipX;
+        var on = chips.querySelector(".on");
+        if (on && (on.offsetLeft < chips.scrollLeft || on.offsetLeft + on.offsetWidth > chips.scrollLeft + chips.clientWidth)) {
+          chips.scrollLeft = on.offsetLeft - 16;
+        }
       }
-      h += '</div><button class="sw-fab" data-act="menu" aria-label="' + esc(t("menu")) + '" title="' + esc(t("menu")) + ' (M)">' + ICON_MENU + "</button></div>";
-      bottom.innerHTML = h;
-      nav.innerHTML = rail ? '<button class="sw-back" data-act="home" aria-label="' + esc(t("back")) + '" title="' + esc(t("back")) + ' (H)">' + ICON_BACK + "</button>" : "";
-      var input = bottom.querySelector(".sw-search");
+      var input = bar.querySelector(".sw-search");
       if (input) {
         input.addEventListener("input", function () {
-          var hadChips = !!bottom.querySelector(".sw-chips");
+          var hadChips = !!bar.querySelector(".sw-chips");
           ui.query = input.value;
           if (ui.screen === "home" && !ui.query) renderHome(); else renderGrid();
           var needChips = ui.screen !== "home" || !!ui.query;
-          if (hadChips !== needChips) { ui.focusSearch = true; renderBottom(); }
-          else root.classList.toggle("has-rail", needChips);
+          if (hadChips !== needChips) { ui.focusSearch = true; renderBar(); }
         });
         input.addEventListener("keydown", function (e) {
           if (e.key === "Escape") { e.stopPropagation(); ui.search = false; ui.query = ""; render(); }
@@ -662,14 +676,14 @@
       if (!sheet) { sheet = document.createElement("div"); sheet.className = "sw-sheet"; root.appendChild(sheet); }
       var prevScroll = sheet.scrollTop;
 
-      var h = '<div class="sw-hero">' +
-        (c.dex ? '<div class="sw-hero-no">#' + pad4(c.dex) + "</div>" : '<div class="sw-hero-no">' + esc(t("trainer")) + "</div>") +
+      // wide: two columns (picture, name, owned / wishlist | evolution, releases); narrow: one
+      var h = sheetBar('<div class="sw-hero-no">' + (c.dex ? "#" + pad4(c.dex) : esc(t("trainer"))) + "</div>") +
+        '<div class="sw-detail"><div class="sw-detail-a"><div class="sw-hero">' +
         figImg(f, "", c.nameEn) +
         (ui.listAt >= 0 && ui.list.length > 1 ?
           '<button class="sw-step prev" data-act="step" data-id="-1" aria-label="' + esc(t("prev")) + '" title="' + esc(t("prev")) + ' (←)"' + (ui.listAt > 0 ? "" : " disabled") + ">" + ICON_BACK + "</button>" +
           '<button class="sw-step next" data-act="step" data-id="1" aria-label="' + esc(t("next")) + '" title="' + esc(t("next")) + ' (→)"' + (ui.listAt < ui.list.length - 1 ? "" : " disabled") + ">" + ICON_NEXT + "</button>" : "") +
-        '<div class="sw-sheet-tools">' + togglesHtml() + '<button class="sw-close" data-act="close" aria-label="' + esc(t("close")) + '" title="' + esc(t("close")) + ' (Esc)">✕</button></div>' +
-        '</div><div class="sw-body">' +
+        "</div>" +
         '<h2 class="sw-name">' + esc(c.nameEn) + '</h2><div class="sw-name-ja">' + esc(c.nameJa) +
         (romaji(c.nameJa) ? ' <span class="sw-romaji">· ' + esc(romaji(c.nameJa)) + "</span>" : "") + "</div>";
       // chips: tap to list everything of that type / role / status
@@ -710,9 +724,9 @@
         '<div class="sw-toggles">' +
         '<button class="sw-toggle own' + (st.owned[f.id] ? " on" : "") + '" data-act="own" data-id="' + esc(f.id) + '">' + (st.owned[f.id] ? "✓ " : "") + esc(t("owned")) + "</button>" +
         '<button class="sw-toggle wish' + (st.wish[f.id] ? " on" : "") + '" data-act="wish" data-id="' + esc(f.id) + '">' + (st.wish[f.id] ? "♥ " : "") + esc(t("wish")) + "</button>" +
-        "</div></div>";
+        "</div></div></div>";
 
-      h += evolutionHtml(c, f);
+      h += '<div class="sw-detail-b">' + evolutionHtml(c, f);
 
       var prods = f.productIds.map(function (id) { return idx.prod[id]; }).filter(Boolean);
       h += '<div class="sw-h">' + esc(t("releases", prods.length)) + "</div>";
@@ -726,9 +740,15 @@
 
       h += '<div class="sw-note">' + esc(t("priceNote")) +
         '<a href="' + esc(f.source) + '" target="_blank" rel="noopener">' +
-        esc(/\/lineup\//.test(f.source || "") ? t("dexPage") : t("productPage")) + "</a></div></div>";
+        esc(/\/lineup\//.test(f.source || "") ? t("dexPage") : t("productPage")) + "</a></div></div></div>";
       sheet.innerHTML = h;
       sheet.scrollTop = prevScroll;
+    }
+
+    // sticky bar at the top of a figure page / the menu: left part · language, theme · close
+    function sheetBar(left) {
+      return '<div class="sw-sheet-bar"><div class="sw-bar-row">' + left + '<span class="sw-grow"></span>' + togglesHtml() +
+        iconBtn("close", t("close"), "Esc", ICON_X) + "</div></div>";
     }
 
     // Charmander › Charmeleon › Charizard › Mega Charizard X; grey = no figure yet
@@ -801,9 +821,7 @@
       ui.menu = true;
       if (!sheet) { sheet = document.createElement("div"); sheet.className = "sw-sheet"; root.appendChild(sheet); }
       var nOwn = Object.keys(st.owned).length, nWish = Object.keys(st.wish).length;
-      var h = '<div class="sw-body" style="padding-top:calc(env(safe-area-inset-top,0px) + 18px)">' +
-        '<div class="sw-top" style="padding-left:0;padding-right:0"><h1>' + esc(t("settings")) + "</h1>" +
-        '<span class="sw-sheet-tools">' + togglesHtml() + '<button class="sw-close" data-act="close" aria-label="' + esc(t("close")) + '" title="' + esc(t("close")) + ' (Esc)">✕</button></span></div>' +
+      var h = sheetBar('<h1 class="sw-sheet-title">' + esc(t("settings")) + "</h1>") + '<div class="sw-body">' +
         '<div class="sw-h">' + esc(t("sortBy")) + '</div><div class="sw-sort">' + SORTS.map(function (s) {
           return '<button class="' + (prefs.sort === s ? "on" : "") + '" data-act="sort" data-id="' + s + '">' + esc(t("s_" + s)) + "</button>";
         }).join("") + "</div>" +
@@ -892,7 +910,7 @@
           ui.screen = "grid"; ui.region = id; ui.filter = "all";
           pushHistory(); render(); scroller.scrollTop = 0; break;
         case "home": goHome(); break;
-        case "filter": ui.filter = id; renderGrid(); renderBottom(); scroller.scrollTop = 0; break;
+        case "filter": ui.filter = id; renderGrid(); renderBar(); scroller.scrollTop = 0; break;
         case "open": scrollMemo[ui.screen + ui.region] = scroller.scrollTop; openDetail(id, el && el.getAttribute("data-fig")); break;
         case "fig": ui.fig = id; renderSheet(); break;
         case "close": closeSheet(); break;
@@ -903,7 +921,7 @@
           if (bag[id]) delete bag[id]; else bag[id] = new Date().toISOString().slice(0, 10);
           if (act === "own" && st.owned[id] && st.wish[id]) delete st.wish[id];
           save(); renderSheet(); var keep = scroller.scrollTop; render(); scroller.scrollTop = keep; break;
-        case "search": ui.search = true; ui.focusSearch = true; renderBottom(); break;
+        case "search": ui.search = true; ui.focusSearch = true; renderBar(); break;
         case "search-close": ui.search = false; ui.query = ""; render(); break;
         case "menu": openMenu(); break;
         case "sort": prefs.sort = id; save(); openMenu(); render(); break;
@@ -981,7 +999,7 @@
       return e.key === "/" && !typing && !e.ctrlKey && !e.metaKey && !e.altKey;
     }
     function openSearch() {
-      var go = function () { ui.search = true; ui.focusSearch = true; renderBottom(); };
+      var go = function () { ui.search = true; ui.focusSearch = true; renderBar(); };
       if (ui.detail || ui.menu) closeSheet(go); else go();
     }
     function onGlobalKey(e) {

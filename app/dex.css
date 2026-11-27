@@ -2,7 +2,7 @@
 @title        Scaledex - shared styles
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-26
+@updated      2026-11-27
 @about        Pokémon GO Pokédex-inspired look, scoped under .swdex so it can
               live inside Obsidian as well as the standalone PWA.
 */
@@ -32,6 +32,9 @@
   height: 100%;
   min-height: 100%;
   overflow: hidden;
+  /* layout follows the app's own width, not the window's: an Obsidian split pane on a wide monitor is narrow.
+     Sizes: narrow < 600px (phone), medium, wide >= 1000px. */
+  container: swdex / inline-size;
   font-family: var(--sw-font);
   color: var(--sw-ink);
   background: linear-gradient(180deg, var(--sw-bg-top), var(--sw-bg-bottom));
@@ -69,28 +72,67 @@
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
-  padding: calc(env(safe-area-inset-top, 0px) + 14px) 14px calc(env(safe-area-inset-bottom, 0px) + 170px);  /* clear of the search + menu buttons */
+  padding: 0 14px calc(env(safe-area-inset-bottom, 0px) + 32px);
 }
-.swdex .sw-wrap { max-width: 760px; margin: 0 auto; }
+.swdex .sw-wrap { max-width: 1280px; margin: 0 auto; }
 
-/* ---------- header ---------- */
-.swdex .sw-top {
-  display: flex; align-items: baseline; justify-content: space-between;
-  padding: 18px 8px 16px; font-weight: 800; letter-spacing: 0.02em; gap: 10px;
+/* ---------- top bar (main screen and sheets) ---------- */
+/* sticky inside the scroller, full width (out over the scroller's side padding); its rows line up with the content */
+.swdex .sw-topbar {
+  position: sticky; top: 0; z-index: 5; margin: 0 -14px 6px;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 14px 10px;
+  background: color-mix(in srgb, var(--sw-bg-top) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
-.swdex .sw-top h1 { margin: 0; font-size: 21px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink);
-  display: flex; align-items: center; gap: 9px; }
+.swdex .sw-bar-row { display: flex; align-items: center; gap: 8px; max-width: 1280px; margin: 0 auto; min-height: 44px; }
+.swdex .sw-brand { margin: 0 0 0 4px; font-size: 21px; font-weight: 800; letter-spacing: 0.02em; text-transform: uppercase; color: var(--sw-ink);
+  display: flex; align-items: center; gap: 9px; flex: 1 1 auto; min-width: 0; white-space: nowrap; }
 .swdex .sw-logo { width: 30px; height: 30px; flex: 0 0 auto; display: block; box-shadow: 0 2px 6px rgba(0,0,0,0.18); border-radius: 7px; }
-.swdex .sw-top .sw-count { font-size: 18px; }
-.swdex .sw-top-end { display: flex; align-items: center; gap: 8px; align-self: center; white-space: nowrap; }
-.swdex .sw-top-end .sw-count { margin-right: 4px; }
-.swdex .sw-theme {
-  width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; padding: 0;
+.swdex .sw-count { font-size: 17px; font-weight: 800; white-space: nowrap; margin-right: 6px; }
+.swdex .sw-bar-title { flex: 1 1 auto; min-width: 0; margin-left: 4px; font-size: 20px; font-weight: 800; text-transform: uppercase;
+  color: var(--sw-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.swdex .sw-bar-tools { display: flex; gap: 8px; }
+.swdex .sw-grow { flex: 1 1 auto; }
+/* round icon buttons: back, search, menu, close, language, theme */
+.swdex .sw-ibtn, .swdex .sw-theme {
+  flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; padding: 0;
   background: var(--sw-chip); border: 2px solid var(--sw-card-line); box-shadow: var(--sw-shadow); color: var(--sw-ink-strong);
 }
+.swdex .sw-ibtn svg { width: 22px; height: 22px; }
 .swdex .sw-theme svg { width: 22px; height: 22px; }
 .swdex .sw-lang { font: inherit; font-size: 14px; font-weight: 800; letter-spacing: 0.04em; }
-.swdex .sw-sub { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin: -10px 8px 14px; }
+/* narrow: language + theme live in the menu (its own bar has them), the owned count is on the All card */
+@container swdex (max-width: 599px) {
+  .swdex .sw-topbar .sw-bar-tools, .swdex .sw-topbar .sw-count { display: none; }
+  .swdex .sw-brand { font-size: 19px; }
+  .swdex .sw-bar-title { font-size: 18px; }
+}
+.swdex .sw-search {
+  flex: 1 1 auto; min-width: 0; height: 44px; border-radius: 30px; padding: 0 18px;
+  border: 2px solid var(--sw-card-line); background: var(--sw-chip); color: var(--sw-ink-strong);
+  font: 700 16px var(--sw-font); box-shadow: var(--sw-shadow); outline: none;
+  user-select: text; -webkit-user-select: text;
+}
+/* filters: a row of labelled chips under the bar's first row; scrolls sideways when it doesn't fit.
+   Runs to the screen edge on narrow screens so a cut-off chip shows there is more. */
+.swdex .sw-chips { display: flex; gap: 8px; overflow-x: auto; max-width: 1280px; margin: 10px auto 0; padding: 2px 0 4px; }
+.swdex .sw-chips::-webkit-scrollbar { display: none; }
+@container swdex (max-width: 599px) {
+  .swdex .sw-chips { margin-left: -14px; margin-right: -14px; padding-left: 14px; padding-right: 14px; }
+  .swdex .sw-chips::after { content: ""; flex: 0 0 6px; }  /* end padding a scrolling flex row otherwise drops */
+}
+.swdex .sw-chip {
+  flex: 0 0 auto; display: flex; align-items: center; gap: 7px; padding: 8px 15px 8px 12px; border-radius: 30px;
+  font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.02em; white-space: nowrap;
+  background: var(--sw-chip); color: var(--sw-ink-soft); box-shadow: var(--sw-shadow); border: 2px solid var(--sw-card-line);
+}
+.swdex .sw-chip.on { background: var(--sw-accent); color: var(--sw-accent-ink); border-color: rgba(255,255,255,0.7); }
+.swdex .sw-chip-ico svg { width: 18px; height: 18px; display: block; }
+.swdex .sw-sub { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin: 0 8px 12px; }
+
+/* home: one column of region cards, two from medium width */
+.swdex .sw-regions { display: grid; grid-template-columns: 1fr; column-gap: 14px; }
+@container swdex (min-width: 760px) { .swdex .sw-regions { grid-template-columns: 1fr 1fr; } }
 
 /* ---------- region cards (home) ---------- */
 .swdex .sw-region {
@@ -158,37 +200,25 @@
 /* ---------- grid header card ---------- */
 .swdex .sw-statcard {
   background: var(--sw-card); border: 2px solid var(--sw-card-line); border-radius: 26px;
-  padding: 16px 18px 14px; margin: 4px 0 14px; box-shadow: var(--sw-shadow);
+  padding: 12px 10px; margin: 0 0 14px; box-shadow: var(--sw-shadow);
   backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
 }
-.swdex .sw-stat-head { display: flex; align-items: center; gap: 10px; }
-.swdex .sw-back { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; color: var(--sw-ink-strong);
-  background: var(--sw-chip); border: 2px solid var(--sw-card-line); box-shadow: var(--sw-shadow); }
-.swdex .sw-back svg { width: 26px; height: 26px; }
-.swdex .sw-stat-head { flex-wrap: wrap; padding-right: 100px; min-height: 42px; }
-/* language + theme, top right of the card (like the figure page's top bar) */
-.swdex .sw-statcard { position: relative; }
-.swdex .sw-grid-tools { position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; }
-.swdex .sw-stat-title { font-weight: 800; font-size: 19px; text-transform: uppercase; flex: 1 1 auto; min-width: min-content; line-height: 1.15; }
-.swdex .sw-stat-filter { color: var(--sw-ink-soft); white-space: nowrap; }
-/* phone: region name on one line (fitTitle() shrinks it if it doesn't fit), filter on the next, no separator */
-@media (max-width: 640px) {
-  .swdex .sw-stat-title { min-width: 0; }
-  .swdex .sw-stat-name { display: block; white-space: nowrap; }
-  .swdex .sw-stat-filter { display: block; }
-  .swdex .sw-stat-sep { display: none; }
+/* owned / total (accent, a little wider) then Pokémon, Trainers, Wishlist, % owned: always one row */
+.swdex .sw-stats { display: grid; grid-template-columns: 1.4fr repeat(4, 1fr); gap: 4px; text-align: center; align-items: end; }
+.swdex .sw-stats span { display: block; line-height: 1.2; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; }
+.swdex .sw-stats b { display: block; font-size: 24px; font-weight: 800; line-height: 1.1; white-space: nowrap; }
+.swdex .sw-stats .is-own b { color: var(--sw-accent); }
+.swdex.sw-dark .sw-stats .is-own b { color: #6fcdf2; }
+@container swdex (max-width: 599px) {
+  .swdex .sw-stats b { font-size: 19px; }
+  .swdex .sw-stats span { font-size: 9.5px; letter-spacing: 0; }
 }
-.swdex .sw-pill { background: var(--sw-accent); color: var(--sw-accent-ink); font-weight: 800; font-size: 20px; padding: 3px 18px; border-radius: 30px; white-space: nowrap; }
-/* five across when there is room, else wrap into rows (narrow phone + rail) */
-.swdex .sw-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); row-gap: 10px; margin-top: 14px; text-align: center; }
-.swdex .sw-stats span { display: block; line-height: 1.2; }
-.swdex .sw-stats b { display: block; font-size: 24px; font-weight: 800; line-height: 1.1; }
-.swdex .sw-stats span { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; }
 
 /* ---------- tiles ---------- */
-.swdex .sw-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 9px; }
-@media (max-width: 380px) { .swdex .sw-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (min-width: 640px) { .swdex .sw-grid { grid-template-columns: repeat(5, 1fr); } }
+/* narrow: 3 across (2 on very narrow panes); otherwise as many ~135px columns as fit */
+.swdex .sw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
+@container swdex (max-width: 329px) { .swdex .sw-grid { grid-template-columns: repeat(2, 1fr); } }
+@container swdex (min-width: 600px) { .swdex .sw-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 10px; } }
 .swdex .sw-tile {
   position: relative; aspect-ratio: 3 / 4; border-radius: 14px;
   background: var(--sw-tile); border: 2px solid var(--sw-card-line);
@@ -218,56 +248,6 @@
 .swdex .sw-section { font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin: 18px 6px 8px; color: var(--sw-ink-soft); }
 .swdex .sw-empty { text-align: center; padding: 40px 10px; font-weight: 700; color: var(--sw-ink-soft); }
 
-/* ---------- bottom bar ---------- */
-.swdex .sw-bottom {
-  position: absolute; left: 0; right: 0; bottom: 0; z-index: 5;
-  padding: 0 12px calc(env(safe-area-inset-bottom, 0px) + 12px);
-  pointer-events: none;
-}
-.swdex .sw-chips { display: flex; gap: 8px; overflow-x: auto; pointer-events: auto; padding: 4px 2px 10px; }
-.swdex .sw-chips::-webkit-scrollbar { display: none; }
-.swdex .sw-chip {
-  flex: 0 0 auto; padding: 11px 22px; border-radius: 30px; font-weight: 800; font-size: 15px;
-  text-transform: uppercase; background: var(--sw-chip); color: var(--sw-ink-soft);
-  box-shadow: var(--sw-shadow); border: 2px solid var(--sw-card-line);
-}
-.swdex .sw-chip.on { background: var(--sw-accent); color: var(--sw-accent-ink); border-color: rgba(255,255,255,0.7); }
-/* filters as a rail of 56px icon circles on the left, above search / menu and the same width,
-   so they never cover the tiles; the name is the tooltip and, for the active one, in the header card */
-.swdex.has-rail .sw-chips {
-  position: absolute; left: 12px; bottom: calc(env(safe-area-inset-bottom, 0px) + 144px);
-  flex-direction: column; width: 56px; overflow: visible; padding: 0; gap: 8px;
-}
-.swdex.has-rail .sw-chip { width: 56px; height: 56px; padding: 0; border-radius: 50%; display: grid; place-items: center; }
-.swdex .sw-chip-ico svg { width: 24px; height: 24px; display: block; }
-/* back button: top of the left rail, outside the header, always in reach */
-.swdex .sw-nav { position: absolute; z-index: 6; top: calc(env(safe-area-inset-top, 0px) + 18px); left: 12px; }
-.swdex .sw-nav .sw-back { width: 56px; height: 56px; }
-.swdex.has-rail .sw-wrap { padding-left: 76px; }
-@media (max-width: 640px) { .swdex.has-rail .sw-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 330px) { .swdex.has-rail .sw-grid { grid-template-columns: repeat(2, 1fr); } }
-/* short screens (iPhone SE): smaller circles so the rail clears the back button */
-@media (max-height: 700px) {
-  .swdex.has-rail .sw-chips { gap: 6px; }
-  .swdex.has-rail .sw-chip { width: 48px; height: 48px; margin-left: 4px; }
-  .swdex.has-rail .sw-chip-ico svg { width: 22px; height: 22px; }
-}
-/* search over menu, both on the left edge; the search field opens to the right of its button */
-.swdex .sw-fabs { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; pointer-events: none; padding: 0; }
-.swdex .sw-fab-row { display: flex; align-items: center; width: 100%; max-width: 560px; }
-.swdex .sw-fab {
-  pointer-events: auto; width: 56px; height: 56px; border-radius: 50%;
-  background: var(--sw-chip); border: 2px solid var(--sw-card-line); box-shadow: var(--sw-shadow);
-  display: grid; place-items: center; color: var(--sw-ink-strong);
-}
-.swdex .sw-fab svg { width: 26px; height: 26px; }
-.swdex .sw-search {
-  pointer-events: auto; flex: 0 1 250px; margin: 0 10px; height: 50px; border-radius: 30px; padding: 0 18px;
-  border: 2px solid var(--sw-card-line); background: var(--sw-chip); color: var(--sw-ink-strong);
-  font: 700 16px var(--sw-font); box-shadow: var(--sw-shadow); outline: none; min-width: 0;
-  user-select: text; -webkit-user-select: text;
-}
-
 /* ---------- detail sheet ---------- */
 .swdex .sw-sheet {
   position: absolute; inset: 0; z-index: 10; background: var(--sw-sheet);
@@ -278,22 +258,33 @@
 }
 @keyframes sw-up { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .swdex .sw-sheet { animation: none; } }
+/* sheet top bar: # / title left; language, theme, close right. Never over the picture. */
+.swdex .sw-sheet-bar {
+  position: sticky; top: 0; z-index: 5; padding: calc(env(safe-area-inset-top, 0px) + 10px) 14px 10px;
+  background: color-mix(in srgb, var(--sw-sheet) 90%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+/* lines up with the page under it: .sw-detail / .sw-body content width (max-width minus 2 x 16px padding) */
+.swdex .sw-sheet-bar .sw-bar-row { max-width: 688px; }
+@container swdex (min-width: 1000px) { .swdex .sw-sheet-bar .sw-bar-row { max-width: 1208px; } }
+.swdex .sw-sheet-bar .sw-bar-row:has(.sw-sheet-title) { max-width: 688px; }
+.swdex .sw-sheet-title { margin: 0 0 0 4px; font-size: 21px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink); }
+/* figure page: one column; wide: picture + name + owned / wishlist left, evolution + releases right */
+.swdex .sw-detail { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+@container swdex (min-width: 1000px) {
+  .swdex .sw-detail { max-width: 1240px; display: grid; grid-template-columns: minmax(380px, 5fr) 6fr; gap: 36px; align-items: start; }
+  .swdex .sw-detail-b > .sw-h:first-child { margin-top: 4px; }
+  .swdex .sw-hero { height: 380px; }
+  .swdex .sw-hero img { max-height: 340px; }
+}
 .swdex .sw-hero {
-  position: relative; height: 300px;
+  position: relative; height: 280px; border-radius: 24px; overflow: hidden;
   background: radial-gradient(circle at 50% 60%, #ffffff 0, #e4f7fa 55%, #c9eef4 100%);
   display: flex; align-items: center; justify-content: center;
-  padding-top: env(safe-area-inset-top, 0px);
 }
 .swdex.sw-dark .sw-hero { background: radial-gradient(circle at 50% 60%, #2b5868 0, #173a47 70%); }
 /* padding in both themes (dark shows it as a white frame), so switching theme doesn't resize the picture */
-.swdex .sw-hero img { max-height: 240px; max-width: 82%; object-fit: contain; mix-blend-mode: multiply; padding: 10px; }
-/* sheet top bar: language, theme, close */
-.swdex .sw-sheet-tools { display: flex; align-items: center; gap: 8px; }
-.swdex .sw-hero .sw-sheet-tools { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: 14px; z-index: 1; }
-.swdex .sw-close {
-  flex: 0 0 auto; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.85);
-  box-shadow: var(--sw-shadow); display: grid; place-items: center; color: #1d6f8f; font-size: 24px; font-weight: 700;
-}
+.swdex .sw-hero img { max-height: 240px; max-width: 70%; object-fit: contain; mix-blend-mode: multiply; padding: 10px; }
 /* prev / next character (the grid's order), at the sides of the hero picture */
 .swdex .sw-step {
   position: absolute; top: 55%; transform: translateY(-50%); z-index: 1;
@@ -301,11 +292,12 @@
   background: rgba(255,255,255,0.85); box-shadow: var(--sw-shadow); color: #1d6f8f;
 }
 .swdex .sw-step svg { width: 22px; height: 22px; }
-.swdex .sw-step.prev { left: 12px; }
-.swdex .sw-step.next { right: 12px; }
+.swdex .sw-step { top: 50%; }
+.swdex .sw-step.prev { left: 10px; }
+.swdex .sw-step.next { right: 10px; }
 .swdex .sw-step[disabled] { opacity: 0.3; cursor: default; }
 .swdex .sw-step:not([disabled]):active { transform: translateY(-50%) scale(0.94); }
-.swdex .sw-hero-no { position: absolute; left: 18px; top: calc(env(safe-area-inset-top, 0px) + 16px); font-weight: 800; font-size: 18px; color: var(--sw-ink-soft); }
+.swdex .sw-hero-no { margin-left: 6px; font-weight: 800; font-size: 18px; color: var(--sw-ink-soft); }
 .swdex .sw-body { max-width: 720px; margin: 0 auto; padding: 0 16px; }
 .swdex .sw-name { text-align: center; margin: 14px 0 0; font-size: 30px; font-weight: 800; color: var(--sw-ink-strong); line-height: 1.1; }
 .swdex .sw-name-ja { text-align: center; font-size: 15px; font-weight: 700; color: var(--sw-ink-soft); margin-top: 4px; }
