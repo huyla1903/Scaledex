@@ -185,7 +185,7 @@
     repeating-linear-gradient(90deg, color-mix(in srgb, var(--rc, #2aa6dc) 18%, transparent) 0 6px, transparent 6px 12px);
 }
 /* slanted left edge: a card-coloured triangle over the art's left 22% (top-left half of that strip),
-   drawn on top of the figures. A gradient, not clip-path (Obsidian's CSS lint flags clip-path). */
+   drawn on top of the figures. A gradient rather than clipping the art (Obsidian's CSS lint flags clipping). */
 .swdex .sw-region-art::after {
   content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: calc(22% + 1px); z-index: 1; pointer-events: none;
   background: linear-gradient(to bottom right, var(--sw-card-solid) calc(50% - 0.5px), transparent calc(50% + 0.5px));
