@@ -606,7 +606,7 @@
       if (grid) {
         h += '<div class="sw-chips">' + FILTERS.map(function (f, i) {
           return '<button class="sw-chip' + (ui.filter === f ? " on" : "") + '" data-act="filter" data-id="' + f +
-            '" title="' + esc(t("f_" + f)) + " (" + (i + 1) + ')"><span class="sw-chip-ico">' + FILTER_ICONS[f] + "</span>" + esc(t("f_" + f)) + "</button>";
+            '" title="' + esc(t("f_" + f)) + " (" + (i + 1) + ')"><span class="sw-chip-ico">' + FILTER_ICONS[f] + '</span><span class="sw-chip-label">' + esc(t("f_" + f)) + "</span></button>";
         }).join("") + "</div>";
       }
       bar.innerHTML = h;

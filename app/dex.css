@@ -113,14 +113,9 @@
   font: 700 16px var(--sw-font); box-shadow: var(--sw-shadow); outline: none;
   user-select: text; -webkit-user-select: text;
 }
-/* filters: a row of labelled chips under the bar's first row; scrolls sideways when it doesn't fit.
-   Runs to the screen edge on narrow screens so a cut-off chip shows there is more. */
+/* filters: a row of labelled chips under the bar's first row (scrolls sideways if a pane is just too narrow) */
 .swdex .sw-chips { display: flex; gap: 8px; overflow-x: auto; max-width: 1280px; margin: 10px auto 0; padding: 2px 0 4px; }
 .swdex .sw-chips::-webkit-scrollbar { display: none; }
-@container swdex (max-width: 599px) {
-  .swdex .sw-chips { margin-left: -14px; margin-right: -14px; padding-left: 14px; padding-right: 14px; }
-  .swdex .sw-chips::after { content: ""; flex: 0 0 6px; }  /* end padding a scrolling flex row otherwise drops */
-}
 .swdex .sw-chip {
   flex: 0 0 auto; display: flex; align-items: center; gap: 7px; padding: 8px 15px 8px 12px; border-radius: 30px;
   font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.02em; white-space: nowrap;
@@ -128,6 +123,20 @@
 }
 .swdex .sw-chip.on { background: var(--sw-accent); color: var(--sw-accent-ink); border-color: rgba(255,255,255,0.7); }
 .swdex .sw-chip-ico svg { width: 18px; height: 18px; display: block; }
+/* narrow: one segmented bar, six equal cells, icon over a small label: all six always visible */
+@container swdex (max-width: 599px) {
+  .swdex .sw-chips {
+    display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 2px; overflow: visible; padding: 3px;
+    background: var(--sw-chip); border: 2px solid var(--sw-card-line); border-radius: 18px; box-shadow: var(--sw-shadow);
+  }
+  .swdex .sw-chip {
+    flex-direction: column; justify-content: center; gap: 2px; min-width: 0; padding: 6px 2px 5px; border-radius: 14px;
+    font-size: 10px; text-transform: none; letter-spacing: 0; background: transparent; border: 0; box-shadow: none;
+  }
+  .swdex .sw-chip.on { border: 0; }
+  .swdex .sw-chip-ico svg { width: 20px; height: 20px; }
+  .swdex .sw-chip-label { max-width: 100%; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
+}
 .swdex .sw-sub { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin: 0 8px 12px; }
 
 /* home: one column of region cards, two from medium width */
