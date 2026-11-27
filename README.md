@@ -4,13 +4,13 @@ A Pokédex for Bandai's **Pokémon Scale World** 1/20 figures: every figure, eve
 
 ![Scaledex home screen in dark and light themes, split by a diagonal: region cards with figure photos and collection progress](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/home.png)
 
-Pokémon Scale World has hundreds of figures spread over candy-aisle waves, Premium Bandai sets, re-orders and re-sales. The official dex is Japanese only, runs months behind new announcements, and doesn't say what a figure cost or when it was re-released. Scaledex puts all of that in one place, styled after the Pokémon GO Pokédex.
+Pokémon Scale World has hundreds of figures spread over candy-aisle waves, Premium Bandai sets, re-orders and re-sales. The official dex is Japanese only, runs months behind new announcements, and doesn't say what a figure cost or when it was re-released. Scaledex puts all of that in one place. In Obsidian it takes its colours from your theme.
 
 ## Browse by region
 
 One card per Scale World line (Kanto, Johto, … Paldea) shows how much of it you own. **All** lists every figure, and **Upcoming** lists figures in sets that haven't shipped yet.
 
-![Kanto grid filtered to owned figures, in dark and light themes](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/region.png)
+![Kanto grid filtered to owned figures, tiles tinted by type, in dark and light themes](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/region.png)
 
 ## Every figure and every release
 
@@ -20,13 +20,13 @@ A Pokémon's page shows its types, its evolution line with Megas, every figure v
 
 ## Find any figure
 
-Search by English, Japanese or romaji name, dex number, type ("fire"), Legendary / Mythical / Powerhouse, or trainer role ("gym leader"). Searching a Pokémon also finds its evolution line. Filter by Pokémon / Trainers / Owned / Missing / Wishlist and sort by dex number, name or release year.
+Search by English, Japanese or romaji name, dex number, type ("fire"), Legendary / Mythical / Powerhouse, or trainer role ("gym leader"). Searching a Pokémon also finds its evolution line. Filter by Pokémon / Trainers / Owned / Missing / Wishlist and sort by dex number, name or release year. The menu also sets the tile size (small, medium, large) and whether tiles are tinted by type.
 
 ## On your phone
 
-The plugin works the same on iOS and Android, in light and dark themes. If your vault syncs, your collection comes with it.
+The plugin works the same on iOS and Android, in light and dark themes, and fits narrow panes too: the filters become one compact bar and a figure's page splits into About / Evolution / Releases tabs. If your vault syncs, your collection comes with it.
 
-![Scaledex on iPhone in dark and light themes: Kanto owned grid, Bulbasaur's page and the home screen](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/mobile.png)
+![Scaledex at phone width in dark and light themes: Kanto owned grid, Bulbasaur's page with its tabs, and the home screen](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/mobile.png)
 
 ## Usage
 
