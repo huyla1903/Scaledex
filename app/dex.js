@@ -379,6 +379,10 @@
       if (f === "owned" && !t.owned) return false;
       if (f === "missing" && t.owned >= t.figs.length) return false;
       if (f === "wish" && !t.wish) return false;
+      return matchesQuery(t);
+    }
+    // the search text alone (the numbers card counts these, whatever the filter)
+    function matchesQuery(t) {
       if (ui.query) {
         var q = norm(ui.query).trim();
         if (!q) return true;
@@ -537,14 +541,18 @@
     function renderGrid() {
       var region = gridRegion();
       var tiles = tilesFor(region);
-      var s = regionStats(region);
-      var nP = tiles.filter(function (t) { return t.c.kind === "pokemon"; }).length;
-      var nW = figsIn(region).filter(function (f) { return st.wish[f.id]; }).length;
+      // the numbers card: the region, or while searching just what the search finds (filters don't change it)
+      var counted = ui.query ? tiles.filter(matchesQuery) : tiles;
+      var figs = [];
+      counted.forEach(function (x) { figs = figs.concat(x.figs); });
+      var s = { total: figs.length, owned: figs.filter(function (f) { return st.owned[f.id]; }).length };
+      var nP = counted.filter(function (t) { return t.c.kind === "pokemon"; }).length;
+      var nW = figs.filter(function (f) { return st.wish[f.id]; }).length;
       // the region's name is in the top bar; this card is the numbers only
       var h = '<div class="sw-statcard"><div class="sw-stats">' +
         '<div class="is-own"><b>' + s.owned + " / " + s.total + "</b><span>" + esc(t("figures")) + "</span></div>" +
         "<div><b>" + nP + "</b><span>" + esc(t("pokemon")) + "</span></div>" +
-        "<div><b>" + (tiles.length - nP) + "</b><span>" + esc(t("trainers")) + "</span></div>" +
+        "<div><b>" + (counted.length - nP) + "</b><span>" + esc(t("trainers")) + "</span></div>" +
         "<div><b>" + nW + "</b><span>" + esc(t("wishlist")) + "</span></div>" +
         "<div><b>" + (s.total ? Math.round(100 * s.owned / s.total) : 0) + "%</b><span>" + esc(t("ownedPct")) + "</span></div>" +
         "</div></div>";
@@ -608,7 +616,8 @@
       var h = '<div class="sw-bar-row">';
       if (ui.screen !== "home") h += iconBtn("home", t("back"), "H", ICON_BACK);
       if (ui.search) {
-        h += '<input class="sw-search" type="search" placeholder="' + esc(t("searchPh")) + '" value="' + esc(ui.query) + '" autocomplete="off">' +
+        // type="text", not "search": a search field gets the browser's own clear button next to ours
+        h += '<input class="sw-search" type="text" inputmode="search" enterkeyhint="search" spellcheck="false" aria-label="' + esc(t("search")) + '" placeholder="' + esc(t("searchPh")) + '" value="' + esc(ui.query) + '" autocomplete="off">' +
           iconBtn("search-close", t("closeSearch"), "Esc", ICON_X);
       } else {
         if (ui.screen === "home") {
@@ -651,7 +660,7 @@
         if (ui.focusSearch) {
           input.focus(); ui.focusSearch = false;
           var n = input.value.length;
-          try { input.setSelectionRange(n, n); } catch (e) { /* type=search may refuse */ }
+          try { input.setSelectionRange(n, n); } catch (e) { /* ignore */ }
         }
       }
     }
