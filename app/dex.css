@@ -3,27 +3,31 @@
 @author       La Gia Huy
 @since        2026-11-14
 @updated      2026-11-27
-@about        Pokémon GO Pokédex-inspired look, scoped under .swdex so it can
-              live inside Obsidian as well as the standalone PWA.
+@about        Pokédex look in neutral greys with one accent colour (like Obsidian's default
+              theme), scoped under .swdex so it can live inside Obsidian as well as the
+              standalone PWA. In Obsidian, with the in-app theme on Auto (.sw-host), the
+              colours come from the active Obsidian theme instead.
 */
 
 .swdex {
-  --sw-bg-top: #b4eaf0;
-  --sw-bg-bottom: #dff6f3;
-  --sw-card: rgba(255, 255, 255, 0.62);
-  --sw-card-solid: #f4fcfd;
-  --sw-card-line: rgba(255, 255, 255, 0.9);
-  --sw-ink: #1d6f8f;
-  --sw-ink-strong: #12597a;
-  --sw-ink-soft: #4f8ea6;
-  --sw-accent: #1b86b6;
+  --sw-bg-top: #ffffff;
+  --sw-bg-bottom: #ffffff;
+  --sw-card: #f6f6f7;
+  --sw-card-solid: #f6f6f7;
+  --sw-card-line: #e2e2e5;
+  --sw-ink: #2e2e33;
+  --sw-ink-strong: #1a1a1e;
+  --sw-ink-soft: #6c6c75;
+  --sw-accent: #8a5cf5;
   --sw-accent-ink: #ffffff;
   --sw-owned: #27a35b;
   --sw-wish: #e0527a;
-  --sw-shadow: 0 2px 10px rgba(20, 90, 120, 0.12);
-  --sw-tile: rgba(255, 255, 255, 0.55);
-  --sw-sheet: #f2fbfc;
-  --sw-chip: rgba(255, 255, 255, 0.85);
+  --sw-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --sw-tile: #f6f6f7;
+  --sw-sheet: #ffffff;
+  --sw-chip: #f6f6f7;
+  --sw-tint: rgba(0, 0, 0, 0.05);      /* subtle fill: progress track, tags, idle buttons */
+  --sw-panel: #ffffff;                 /* behind the renders (white photo backgrounds, multiply-blended) */
   --sw-radius: 18px;
   --sw-font: "Nunito", ui-rounded, "SF Pro Rounded", "Hiragino Maru Gothic ProN",
     "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -45,19 +49,37 @@
 }
 
 .swdex.sw-dark {
-  --sw-bg-top: #0f3443;
-  --sw-bg-bottom: #12272f;
-  --sw-card: rgba(255, 255, 255, 0.08);
-  --sw-card-solid: #173a47;
-  --sw-card-line: rgba(255, 255, 255, 0.14);
-  --sw-ink: #9fdcef;
-  --sw-ink-strong: #d3f2fb;
-  --sw-ink-soft: #79b5c8;
-  --sw-accent: #2aa3d6;
-  --sw-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
-  --sw-tile: rgba(255, 255, 255, 0.07);
-  --sw-sheet: #12303b;
-  --sw-chip: rgba(30, 70, 85, 0.92);
+  --sw-bg-top: #1e1e1e;
+  --sw-bg-bottom: #1e1e1e;
+  --sw-card: #262626;
+  --sw-card-solid: #262626;
+  --sw-card-line: #363636;
+  --sw-ink: #dadada;
+  --sw-ink-strong: #f2f2f2;
+  --sw-ink-soft: #9b9b9b;
+  --sw-accent: #8a5cf5;
+  --sw-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --sw-tile: #262626;
+  --sw-sheet: #1e1e1e;
+  --sw-chip: #2a2a2a;
+  --sw-tint: rgba(255, 255, 255, 0.07);
+  --sw-panel: #ededed;                 /* renders are photos on white: a light panel in dark mode too */
+}
+/* Obsidian, in-app theme on Auto: the active Obsidian theme's own colours (light or dark) */
+.swdex.sw-host {
+  --sw-bg-top: var(--background-primary);
+  --sw-bg-bottom: var(--background-primary);
+  --sw-card: var(--background-secondary);
+  --sw-card-solid: var(--background-secondary);
+  --sw-tile: var(--background-secondary);
+  --sw-chip: var(--background-secondary);
+  --sw-sheet: var(--background-primary);
+  --sw-card-line: var(--background-modifier-border);
+  --sw-ink: var(--text-normal);
+  --sw-ink-strong: var(--text-normal);
+  --sw-ink-soft: var(--text-muted);
+  --sw-accent: var(--interactive-accent);
+  --sw-accent-ink: var(--text-on-accent);
 }
 
 .swdex *, .swdex *::before, .swdex *::after { box-sizing: border-box; }
@@ -121,7 +143,7 @@
   font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.02em; white-space: nowrap;
   background: var(--sw-chip); color: var(--sw-ink-soft); box-shadow: var(--sw-shadow); border: 2px solid var(--sw-card-line);
 }
-.swdex .sw-chip.on { background: var(--sw-accent); color: var(--sw-accent-ink); border-color: rgba(255,255,255,0.7); }
+.swdex .sw-chip.on { background: var(--sw-accent); color: var(--sw-accent-ink); border-color: var(--sw-accent); }
 .swdex .sw-chip-ico svg { width: 18px; height: 18px; display: block; }
 /* narrow: one segmented bar, six equal cells, icon over a small label: all six always visible */
 @container swdex (max-width: 599px) {
@@ -202,7 +224,7 @@
   max-width: calc(100cqw - 0.857 * 64cqw - 36px); }
 .swdex .sw-region-ja { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin-top: 2px; }
 .swdex .sw-region-progress { font-size: 22px; font-weight: 800; margin-top: 8px; color: var(--sw-ink); }
-.swdex .sw-bar { width: min(150px, calc(100cqw - 0.91 * 64cqw - 30px)); height: 9px; border-radius: 9px; background: rgba(27,134,182,0.18); margin-top: 8px; overflow: hidden; }
+.swdex .sw-bar { width: min(150px, calc(100cqw - 0.91 * 64cqw - 30px)); height: 9px; border-radius: 9px; background: var(--sw-tint); margin-top: 8px; overflow: hidden; }
 .swdex .sw-bar > i { display: block; height: 100%; background: var(--sw-accent); border-radius: 9px; }
 .swdex .sw-done { font-size: 15px; font-weight: 700; color: var(--sw-ink); margin-top: 4px; }
 
@@ -217,17 +239,29 @@
 .swdex .sw-stats span { display: block; line-height: 1.2; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.02em; }
 .swdex .sw-stats b { display: block; font-size: 24px; font-weight: 800; line-height: 1.1; white-space: nowrap; }
 .swdex .sw-stats .is-own b { color: var(--sw-accent); }
-.swdex.sw-dark .sw-stats .is-own b { color: #6fcdf2; }
 @container swdex (max-width: 599px) {
   .swdex .sw-stats b { font-size: 19px; }
   .swdex .sw-stats span { font-size: 9.5px; letter-spacing: 0; }
 }
 
 /* ---------- tiles ---------- */
-/* narrow: 3 across (2 on very narrow panes); otherwise as many ~135px columns as fit */
-.swdex .sw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; }
-@container swdex (max-width: 329px) { .swdex .sw-grid { grid-template-columns: repeat(2, 1fr); } }
-@container swdex (min-width: 600px) { .swdex .sw-grid { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 10px; } }
+/* tile size (menu: small / medium / large). Narrow: 4 / 3 / 2 across (one fewer on very narrow panes);
+   otherwise as many columns of at least 100 / 132 / 180 px as fit */
+.swdex .sw-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 9px; --sw-tile-min: 132px; }
+.swdex.sw-ts-s .sw-grid { grid-template-columns: repeat(4, 1fr); gap: 7px; --sw-tile-min: 100px; }
+.swdex.sw-ts-l .sw-grid { grid-template-columns: repeat(2, 1fr); --sw-tile-min: 180px; }
+@container swdex (max-width: 329px) {
+  .swdex .sw-grid { grid-template-columns: repeat(2, 1fr); }
+  .swdex.sw-ts-s .sw-grid { grid-template-columns: repeat(3, 1fr); }
+  .swdex.sw-ts-l .sw-grid { grid-template-columns: 1fr; }
+}
+@container swdex (min-width: 600px) {
+  .swdex .sw-grid, .swdex.sw-ts-s .sw-grid, .swdex.sw-ts-l .sw-grid { grid-template-columns: repeat(auto-fill, minmax(var(--sw-tile-min), 1fr)); gap: 10px; }
+}
+.swdex.sw-ts-s .sw-tile-no { font-size: 14px; }
+.swdex.sw-ts-s .sw-tile-name { font-size: 11px; }
+.swdex.sw-ts-l .sw-tile-no { font-size: 20px; }
+.swdex.sw-ts-l .sw-tile-name { font-size: 14px; }
 .swdex .sw-tile {
   position: relative; aspect-ratio: 3 / 4; border-radius: 14px;
   background: var(--sw-tile); border: 2px solid var(--sw-card-line);
@@ -238,12 +272,15 @@
 /* light: an opaque tile (about the see-through one over the page gradient), so the multiply-blended
    render has a solid backdrop in its own layer. Over a see-through one, iOS Safari (which composites
    the scroller separately) keeps the photo's white box. */
-.swdex:not(.sw-dark) .sw-tile { background: #e8f8f9; }
+.swdex .sw-tile { background: var(--sw-card-solid); }
 /* panel box (radius, margin) the same in both themes, so switching theme doesn't resize the picture */
 .swdex .sw-tile-img { flex: 1; width: 100%; min-height: 0; display: flex; align-items: center; justify-content: center; border-radius: 10px; margin-bottom: 4px; }
 .swdex .sw-tile-img img { max-width: 92%; max-height: 92%; object-fit: contain; mix-blend-mode: multiply; }
 /* dark: renders sit on white, so give every tile the same white panel */
-.swdex.sw-dark .sw-tile-img { background: #f3f8f9; }
+.swdex .sw-tile-img { background: var(--sw-panel); }
+/* tint by the first type (menu option): a pale type colour behind the render; multiply turns the
+   photo's white background into it. Trainers (no --tt) keep the plain panel. */
+.swdex.sw-tint .sw-tile[style*="--tt"] .sw-tile-img { background: color-mix(in srgb, var(--tt) 16%, var(--sw-panel)); }
 .swdex.sw-dark .sw-hero img { mix-blend-mode: normal; border-radius: 18px; background: #fff; }
 .swdex .sw-tile-no { font-size: 17px; font-weight: 600; color: var(--sw-ink); line-height: 1.1; }
 .swdex .sw-tile-name { font-size: 12px; font-weight: 800; color: var(--sw-ink); line-height: 1.1; text-align: center; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -252,7 +289,7 @@
 .swdex .sw-dot.own { background: var(--sw-owned); }
 .swdex .sw-dot.part { background: #f0a432; }
 .swdex .sw-dot.wish { background: var(--sw-wish); }
-.swdex .sw-dot.multi { background: rgba(27,134,182,0.8); }
+.swdex .sw-dot.multi { background: color-mix(in srgb, var(--sw-ink-soft) 85%, transparent); }
 .swdex.sw-dim .sw-tile.is-missing .sw-tile-img img { filter: grayscale(1) opacity(0.45); }
 .swdex .sw-section { font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; margin: 18px 6px 8px; color: var(--sw-ink-soft); }
 .swdex .sw-empty { text-align: center; padding: 40px 10px; font-weight: 700; color: var(--sw-ink-soft); }
@@ -282,23 +319,43 @@
 .swdex .sw-detail { max-width: 720px; margin: 0 auto; padding: 0 16px; }
 @container swdex (min-width: 1000px) {
   .swdex .sw-detail { max-width: 1240px; display: grid; grid-template-columns: minmax(380px, 5fr) 6fr; gap: 36px; align-items: start; }
-  .swdex .sw-detail-b > .sw-h:first-child { margin-top: 4px; }
+  .swdex .sw-detail-b > .sw-pane:first-child > .sw-h:first-child { margin-top: 4px; }
   .swdex .sw-hero { height: 380px; }
   .swdex .sw-hero img { max-height: 340px; }
 }
+/* tabs (About / Evolution / Releases): one-column page only; stick under the sheet bar (64px) */
+.swdex .sw-tabs { display: none; }
+@container swdex (max-width: 999px) {
+  .swdex .sw-detail-a { display: contents; }  /* so the sticky tab row stays stuck past the About pane */
+  .swdex .sw-tabs {
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2px; padding: 3px; margin: 16px 0 4px;
+    position: sticky; top: calc(env(safe-area-inset-top, 0px) + 64px); z-index: 4;
+    background: var(--sw-chip); border: 2px solid var(--sw-card-line); border-radius: 16px; box-shadow: var(--sw-shadow);
+  }
+  .swdex .sw-tab { padding: 8px 4px; border-radius: 12px; font-size: 13px; font-weight: 800; text-align: center; color: var(--sw-ink-soft);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .swdex .sw-tab.on { background: var(--sw-accent); color: var(--sw-accent-ink); }
+  .swdex .sw-detail[data-tab="about"] .sw-pane:not(.p-about),
+  .swdex .sw-detail[data-tab="evo"] .sw-pane:not(.p-evo),
+  .swdex .sw-detail[data-tab="rel"] .sw-pane:not(.p-rel) { display: none; }
+  .swdex .sw-pane > .sw-h:first-child { display: none; }  /* the tab already says it */
+  .swdex .sw-pane > .sw-h:first-child + *, .swdex .sw-pane > :first-child:not(.sw-h) { margin-top: 8px; }
+}
+.swdex .sw-source { text-align: center; }
+.swdex .sw-note a { color: var(--sw-accent); font-weight: 800; text-decoration: none; }
 .swdex .sw-hero {
   position: relative; height: 280px; border-radius: 24px; overflow: hidden;
-  background: radial-gradient(circle at 50% 60%, #ffffff 0, #e4f7fa 55%, #c9eef4 100%);
+  background: radial-gradient(circle at 50% 60%, #ffffff 0, color-mix(in srgb, var(--tt, #9a9aa5) 14%, #ffffff) 55%, color-mix(in srgb, var(--tt, #9a9aa5) 26%, #ffffff) 100%);
   display: flex; align-items: center; justify-content: center;
 }
-.swdex.sw-dark .sw-hero { background: radial-gradient(circle at 50% 60%, #2b5868 0, #173a47 70%); }
+.swdex.sw-dark .sw-hero { background: radial-gradient(circle at 50% 60%, color-mix(in srgb, var(--tt, #9a9aa5) 34%, var(--sw-card-solid)) 0, color-mix(in srgb, var(--tt, #9a9aa5) 12%, var(--sw-card-solid)) 70%); }
 /* padding in both themes (dark shows it as a white frame), so switching theme doesn't resize the picture */
 .swdex .sw-hero img { max-height: 240px; max-width: 70%; object-fit: contain; mix-blend-mode: multiply; padding: 10px; }
 /* prev / next character (the grid's order), at the sides of the hero picture */
 .swdex .sw-step {
   position: absolute; top: 55%; transform: translateY(-50%); z-index: 1;
   width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
-  background: rgba(255,255,255,0.85); box-shadow: var(--sw-shadow); color: #1d6f8f;
+  background: var(--sw-chip); border: 2px solid var(--sw-card-line); box-shadow: var(--sw-shadow); color: var(--sw-ink-strong);
 }
 .swdex .sw-step svg { width: 22px; height: 22px; }
 .swdex .sw-step { top: 50%; }
@@ -338,13 +395,12 @@
 .swdex .sw-evo { width: 76px; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 5px 3px;
   border-radius: 14px; border: 2px solid transparent; text-align: center; }
 .swdex .sw-evo.on { border-color: var(--sw-accent); }
-.swdex .sw-evo-img { width: 60px; height: 60px; border-radius: 12px; background: #fff; display: grid; place-items: center; overflow: hidden;
+.swdex .sw-evo-img { width: 60px; height: 60px; border-radius: 12px; background: var(--sw-panel); display: grid; place-items: center; overflow: hidden;
   font-size: 22px; font-weight: 800; color: #b9c2c7; }
 /* px, not %: a % max-size doesn't stop the grid track growing to the photo's natural size, which then gets clipped */
 .swdex .sw-evo-img img { display: block; max-width: 54px; max-height: 54px; object-fit: contain; }
 .swdex .sw-evo-name { font-size: 11px; font-weight: 800; line-height: 1.15; color: var(--sw-ink); }
 .swdex .sw-evo.is-none { opacity: 0.45; }
-.swdex.sw-dark .sw-evo-img { background: #f3f8f9; }
 .swdex .sw-figtabs { display: flex; gap: 8px; overflow-x: auto; padding: 14px 2px 6px; }
 .swdex .sw-figtabs::-webkit-scrollbar { display: none; }
 /* centred rows that still scroll from the first item when they overflow (auto margins, unlike justify-content) */
@@ -355,8 +411,7 @@
   display: flex; flex-direction: column; align-items: center; gap: 2px;
   border: 2px solid transparent; padding: 4px 4px 5px; text-align: center; font-size: 10px; font-weight: 800; position: relative;
 }
-.swdex .sw-figtab.on { border-color: var(--sw-accent); background: #fff; }
-.swdex.sw-dark .sw-figtab.on { background: rgba(255,255,255,0.12); }
+.swdex .sw-figtab.on { border-color: var(--sw-accent); background: var(--sw-tint); }
 .swdex .sw-figtab img { width: 100%; height: 56px; object-fit: contain; mix-blend-mode: multiply; display: block; }
 .swdex.sw-dark .sw-figtab img { mix-blend-mode: normal; }
 .swdex .sw-figtab .sw-dot { position: absolute; top: 3px; right: 3px; min-width: 14px; height: 14px; font-size: 9px; padding: 0 3px; }
@@ -382,13 +437,13 @@
 .swdex .sw-toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
 .swdex .sw-toggle {
   border-radius: 30px; padding: 12px 10px; font-weight: 800; font-size: 15px; text-transform: uppercase;
-  background: rgba(27,134,182,0.10); color: var(--sw-ink); border: 2px solid transparent; text-align: center;
+  background: var(--sw-tint); color: var(--sw-ink); border: 2px solid transparent; text-align: center;
 }
 .swdex .sw-toggle.own.on { background: var(--sw-owned); color: #fff; }
 .swdex .sw-toggle.wish.on { background: var(--sw-wish); color: #fff; }
 .swdex .sw-h { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--sw-ink-soft); margin: 20px 4px 4px; }
 
-.swdex .sw-rel { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid rgba(27,134,182,0.14); }
+.swdex .sw-rel { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-top: 1px solid var(--sw-card-line); }
 .swdex .sw-rel:first-of-type { border-top: 0; }
 .swdex .sw-rel-img { flex: 0 0 76px; width: 76px; height: 76px; border-radius: 12px; overflow: hidden; background: #fff; }
 .swdex .sw-rel-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -396,7 +451,7 @@
 .swdex .sw-rel-name { font-weight: 800; font-size: 14px; color: var(--sw-ink-strong); line-height: 1.25; }
 .swdex .sw-rel-ja { font-size: 12px; font-weight: 600; color: var(--sw-ink-soft); margin-top: 2px; line-height: 1.3; }
 .swdex .sw-rel-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; align-items: center; }
-.swdex .sw-tag { font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 20px; background: rgba(27,134,182,0.12); color: var(--sw-ink); white-space: nowrap; }
+.swdex .sw-tag { font-size: 11px; font-weight: 800; padding: 3px 9px; border-radius: 20px; background: var(--sw-tint); color: var(--sw-ink); white-space: nowrap; }
 /* a long tag ("Supermarkets & mass retailers (candy aisle)") wraps instead of running off a phone screen */
 .swdex .sw-rel-meta .sw-tag { white-space: normal; max-width: 100%; overflow-wrap: anywhere; }
 .swdex .sw-tag.price { background: #fff3d6; color: #8a5a00; }
@@ -423,4 +478,4 @@
 .swdex .sw-menu input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--sw-accent); }
 .swdex .sw-sort { display: flex; gap: 6px; flex-wrap: wrap; }
 .swdex .sw-sort button { padding: 8px 14px; border-radius: 20px; background: var(--sw-card); font-weight: 800; font-size: 13px; border: 2px solid var(--sw-card-line); }
-.swdex .sw-sort button.on { background: var(--sw-accent); color: #fff; }
+.swdex .sw-sort button.on { background: var(--sw-accent); color: var(--sw-accent-ink); border-color: var(--sw-accent); }

@@ -3,7 +3,7 @@
 @version      0.1.12
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-15
+@updated      2026-11-27
 @engine       JavaScript (CommonJS, Obsidian plugin API)
 @target       Obsidian 1.5+ desktop and mobile (iOS / Android)
 @about        Pokédex view of Bandai Pokémon Scale World figures with owned /
@@ -80,6 +80,7 @@ class ScaledexView extends obsidian.ItemView {
     this.api = Scaledex.mount(root, {
       data: data,
       dark: isDark(),
+      hostTheme: true,  // in-app theme on Auto: use the Obsidian theme's colours
       img: function (rel, url) {  // the core falls back to url if this one fails to load
         if (rel && hasLocal) return adapter.getResourcePath(obsidian.normalizePath(folder + "/" + rel));
         if (rel && plugin.settings.imageBase) return plugin.settings.imageBase.replace(/\/?$/, "/") + rel;

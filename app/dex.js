@@ -14,6 +14,7 @@
                   history: true,              // use history.pushState (PWA only)
                   menu: [{ label, labelVi, run }], // extra menu entries (export/import...)
                   dark: false | true | 'auto',
+                  hostTheme: false,           // true (Obsidian): on Auto, take colours from the host's CSS variables
                   today: 'YYYY-MM-DD',        // optional; "Upcoming" = releases after this date
                   keyboard: 'global'          // "/" and Ctrl/Cmd+K open search page-wide (PWA);
                                               // hosts can call api.openSearch() themselves
@@ -55,6 +56,7 @@
   var MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
   var FILTERS = ["all", "pokemon", "trainer", "owned", "missing", "wish"];  // labels: "f_" + id
   var SORTS = ["dex", "name", "year"];                                     // labels: "s_" + id
+  var TILE_SIZES = ["s", "m", "l"];                                        // labels: "ts_" + id
 
   // UI text, English / Vietnamese. Character, region, product and form names stay as they are.
   // "{0}" is replaced by t()'s second argument.
@@ -78,6 +80,7 @@
       evolution: "Evolution", ships: "Ships {0}", plusTax: "{0} + tax", rerelease: "Re-release", upcoming: "Upcoming",
       officialPage: "Official page ↗", archived: "Archived ↗",
       settings: "Settings", sortBy: "Sort grid by", display: "Display", dim: "Grey out figures I don’t own",
+      tileSize: "Tile size", ts_s: "Small", ts_m: "Medium", ts_l: "Large", tint: "Tint tiles by type", tabAbout: "About",
       trueScale: "Show figures at true relative scale", collection: "Collection", collCount: "{0} owned · {1} on wishlist",
       reset: "Clear owned & wishlist", resetAsk: "Clear all owned and wishlist marks?", about: "About the data", prev: "Previous", next: "Next", keys: "Keyboard shortcuts",
       k_search: "Search", k_menu: "Menu", k_lang: "Language", k_theme: "Light / dark theme", k_home: "Region list",
@@ -106,6 +109,7 @@
       evolution: "Tiến hóa", ships: "Giao {0}", plusTax: "{0} + thuế", rerelease: "Tái bản", upcoming: "Sắp ra mắt",
       officialPage: "Trang chính thức ↗", archived: "Bản lưu trữ ↗",
       settings: "Cài đặt", sortBy: "Sắp xếp theo", display: "Hiển thị", dim: "Làm mờ mô hình chưa có",
+      tileSize: "Cỡ ô", ts_s: "Nhỏ", ts_m: "Vừa", ts_l: "Lớn", tint: "Tô màu ô theo hệ", tabAbout: "Thông tin",
       trueScale: "Hiển thị mô hình theo đúng tỉ lệ", collection: "Bộ sưu tập", collCount: "Đã có {0} · Muốn mua {1}",
       reset: "Xóa đã có & muốn mua", resetAsk: "Xóa toàn bộ đánh dấu đã có và muốn mua?", about: "Về dữ liệu", prev: "Trước", next: "Tiếp", keys: "Phím tắt",
       k_search: "Tìm kiếm", k_menu: "Menu", k_lang: "Ngôn ngữ", k_theme: "Giao diện sáng / tối", k_home: "Danh sách vùng",
@@ -239,6 +243,8 @@
     if (!prefs.sort) prefs.sort = "dex";
     if (prefs.dim == null) prefs.dim = false;
     if (!prefs.theme) prefs.theme = "auto";
+    if (TILE_SIZES.indexOf(prefs.tileSize) < 0) prefs.tileSize = "m";
+    if (prefs.tint == null) prefs.tint = true;
     if (!I18N[prefs.lang]) prefs.lang = /^vi\b/i.test((global.navigator && global.navigator.language) || "") ? "vi" : "en";
 
     function t(k, a, b, c, d) {
@@ -283,13 +289,19 @@
     var sheet = null;
     var mq = global.matchMedia ? global.matchMedia("(prefers-color-scheme: dark)") : null;
 
+    // host's (Obsidian) or system's theme: what "auto" follows
+    function systemDark() { return opts.dark === true || (opts.dark !== false && !!(mq && mq.matches)); }
     function isDark() {
-      return prefs.theme === "dark" || (prefs.theme === "auto" && (opts.dark === true || (opts.dark !== false && mq && mq.matches)));
+      return prefs.theme === "dark" || (prefs.theme === "auto" && systemDark());
     }
     function applyTheme() {
       var dark = isDark();
       root.classList.toggle("sw-dark", !!dark);
+      // Obsidian's own theme colours, while the in-app theme follows Obsidian's (opts.hostTheme)
+      root.classList.toggle("sw-host", !!opts.hostTheme && prefs.theme === "auto");
       root.classList.toggle("sw-dim", !!prefs.dim);
+      root.classList.toggle("sw-tint", !!prefs.tint);
+      TILE_SIZES.forEach(function (k) { root.classList.toggle("sw-ts-" + k, prefs.tileSize === k); });
       root.setAttribute("lang", prefs.lang);
     }
     function save() { try { opts.save(st); } catch (e) { console.error("Scaledex save failed", e); } }
@@ -559,6 +571,11 @@
       return shown.filter(function (x) { return x.c.kind === "pokemon"; }).concat(shown.filter(function (x) { return x.c.kind !== "pokemon"; }));
     }
 
+    // first type's colour (tile / picture tint, CSS --tt); trainers have none
+    function typeColor(f, c) {
+      var ty = (f.types && f.types[0]) || (c.types && c.types[0]);
+      return ty && TYPE_COLORS[ty] ? TYPE_COLORS[ty] : "";
+    }
     function tileHtml(t) {
       var f = t.figs[0];
       var n = t.figs.length;
@@ -567,8 +584,9 @@
       var badgeR = t.wish ? '<span class="sw-dot wish">♥</span>' : "";
       var label = t.c.kind === "pokemon" ? '<div class="sw-tile-no">' + pad4(t.c.dex) + "</div>" :
         (t.c.roles && t.c.roles.length ? '<div class="sw-tile-role">' + esc(roleInfo(t.c.roles[0]).short) + "</div>" : "");
+      var tc = typeColor(f, t.c);
       return '<button class="sw-tile' + (t.owned ? "" : " is-missing") + '" data-act="open" data-id="' + esc(t.c.id) +
-        '" data-fig="' + esc(f.id) + '">' +
+        '" data-fig="' + esc(f.id) + '"' + (tc ? ' style="--tt:' + tc + '"' : "") + ">" +
         '<div class="sw-tile-badges">' + badgeL + badgeR + "</div>" +
         '<div class="sw-tile-img">' + figImg(f, "", t.c.nameEn) + "</div>" +
         label + '<div class="sw-tile-name">' + esc(t.c.nameEn) + "</div></button>";
@@ -676,9 +694,18 @@
       if (!sheet) { sheet = document.createElement("div"); sheet.className = "sw-sheet"; root.appendChild(sheet); }
       var prevScroll = sheet.scrollTop;
 
-      // wide: two columns (picture, name, owned / wishlist | evolution, releases); narrow: one
+      // Always shown: picture, name, types, owned / wishlist. Then three panes: About (figure
+      // versions, facts), Evolution, Releases. Wide: two columns, every pane shown (About left,
+      // the others right). One column: tabs, one pane at a time (ui.tab, kept while stepping).
+      var evo = evolutionHtml(c, f);
+      var tabs = [["about", t("tabAbout")]];
+      if (evo) tabs.push(["evo", t("evolution")]);
+      var prods = f.productIds.map(function (id) { return idx.prod[id]; }).filter(Boolean);
+      tabs.push(["rel", t("releases", prods.length)]);
+      if (!tabs.some(function (x) { return x[0] === ui.tab; })) ui.tab = "about";
+      var tc = prefs.tint ? typeColor(f, c) : "";
       var h = sheetBar('<div class="sw-hero-no">' + (c.dex ? "#" + pad4(c.dex) : esc(t("trainer"))) + "</div>") +
-        '<div class="sw-detail"><div class="sw-detail-a"><div class="sw-hero">' +
+        '<div class="sw-detail" data-tab="' + ui.tab + '"><div class="sw-detail-a"><div class="sw-hero"' + (tc ? ' style="--tt:' + tc + '"' : "") + ">" +
         figImg(f, "", c.nameEn) +
         (ui.listAt >= 0 && ui.list.length > 1 ?
           '<button class="sw-step prev" data-act="step" data-id="-1" aria-label="' + esc(t("prev")) + '" title="' + esc(t("prev")) + ' (←)"' + (ui.listAt > 0 ? "" : " disabled") + ">" + ICON_BACK + "</button>" +
@@ -701,7 +728,15 @@
           (i.type ? ' style="--tc:' + (TYPE_COLORS[i.type] || "#888") + '"' : "") + ' title="' + esc(i.ja) + '">' + esc(i.label) + "</button>");
       });
       if (chips.length) h += '<div class="sw-types">' + chips.join("") + "</div>";
+      h += '<div class="sw-toggles">' +
+        '<button class="sw-toggle own' + (st.owned[f.id] ? " on" : "") + '" data-act="own" data-id="' + esc(f.id) + '">' + (st.owned[f.id] ? "✓ " : "") + esc(t("owned")) + "</button>" +
+        '<button class="sw-toggle wish' + (st.wish[f.id] ? " on" : "") + '" data-act="wish" data-id="' + esc(f.id) + '">' + (st.wish[f.id] ? "♥ " : "") + esc(t("wish")) + "</button>" +
+        "</div>";
+      h += '<div class="sw-tabs" role="tablist">' + tabs.map(function (x) {
+        return '<button class="sw-tab' + (x[0] === ui.tab ? " on" : "") + '" role="tab" data-act="tab" data-id="' + x[0] + '">' + esc(x[1]) + "</button>";
+      }).join("") + "</div>";
 
+      h += '<div class="sw-pane p-about">';
       if (figs.length > 1) {
         var labels = figs.map(figLabel), count = {};
         labels.forEach(function (l) { count[l] = (count[l] || 0) + 1; });
@@ -720,15 +755,12 @@
       h += '<div class="sw-facts">' +
         "<div><b>" + (f.heightCm ? f.heightCm + " cm" : "—") + "</b><span>" + esc(t("height")) + "</span></div>" +
         "<div><b>" + esc(reg ? reg.nameEn : "—") + "</b><span>" + esc(t("region")) + "</span></div>" +
-        "<div><b>" + (f.firstYear || "—") + "</b><span>" + esc(t("firstRelease")) + "</span></div></div>" +
-        '<div class="sw-toggles">' +
-        '<button class="sw-toggle own' + (st.owned[f.id] ? " on" : "") + '" data-act="own" data-id="' + esc(f.id) + '">' + (st.owned[f.id] ? "✓ " : "") + esc(t("owned")) + "</button>" +
-        '<button class="sw-toggle wish' + (st.wish[f.id] ? " on" : "") + '" data-act="wish" data-id="' + esc(f.id) + '">' + (st.wish[f.id] ? "♥ " : "") + esc(t("wish")) + "</button>" +
-        "</div></div></div>";
+        "<div><b>" + (f.firstYear || "—") + "</b><span>" + esc(t("firstRelease")) + "</span></div></div></div>" +
+        '<div class="sw-note sw-source"><a href="' + esc(f.source) + '" target="_blank" rel="noopener">' +
+        esc(/\/lineup\//.test(f.source || "") ? t("dexPage") : t("productPage")) + "</a></div>" +
+        "</div></div>";  // .p-about, .sw-detail-a
 
-      h += '<div class="sw-detail-b">' + evolutionHtml(c, f);
-
-      var prods = f.productIds.map(function (id) { return idx.prod[id]; }).filter(Boolean);
+      h += '<div class="sw-detail-b">' + (evo ? '<div class="sw-pane p-evo">' + evo + "</div>" : "") + '<div class="sw-pane p-rel">';
       h += '<div class="sw-h">' + esc(t("releases", prods.length)) + "</div>";
       var firstDate = prods.length ? (prods[0].date || "") : "";
       if (!prods.length) h += '<div class="sw-card sw-note">' + esc(t("noReleases")) + "</div>";
@@ -738,11 +770,26 @@
         return releaseHtml(p, p.rerelease || later);
       }).join("") + "</div>";
 
-      h += '<div class="sw-note">' + esc(t("priceNote")) +
-        '<a href="' + esc(f.source) + '" target="_blank" rel="noopener">' +
-        esc(/\/lineup\//.test(f.source || "") ? t("dexPage") : t("productPage")) + "</a></div></div></div>";
+      h += '<div class="sw-note">' + esc(t("priceNote")) + "</div></div></div></div>";  // .p-rel, .sw-detail-b, .sw-detail
       sheet.innerHTML = h;
       sheet.scrollTop = prevScroll;
+    }
+
+    // one-column figure page: show another pane without redrawing; if the tab row is stuck at
+    // the top, start the new pane just under it
+    function setTab(id) {
+      ui.tab = id;
+      if (!sheet) return;
+      var d = sheet.querySelector(".sw-detail"), bar = sheet.querySelector(".sw-tabs");
+      if (!d) return;
+      d.setAttribute("data-tab", id);
+      var b = sheet.querySelectorAll(".sw-tab"), i;
+      for (i = 0; i < b.length; i++) b[i].classList.toggle("on", b[i].getAttribute("data-id") === id);
+      var pane = sheet.querySelector(".p-" + id);
+      if (pane && bar) {
+        var gap = pane.getBoundingClientRect().top - bar.getBoundingClientRect().bottom;
+        if (gap < 0) sheet.scrollTop += gap - 8;
+      }
     }
 
     // sticky bar at the top of a figure page / the menu: left part · language, theme · close
@@ -825,7 +872,11 @@
         '<div class="sw-h">' + esc(t("sortBy")) + '</div><div class="sw-sort">' + SORTS.map(function (s) {
           return '<button class="' + (prefs.sort === s ? "on" : "") + '" data-act="sort" data-id="' + s + '">' + esc(t("s_" + s)) + "</button>";
         }).join("") + "</div>" +
+        '<div class="sw-h">' + esc(t("tileSize")) + '</div><div class="sw-sort">' + TILE_SIZES.map(function (k) {
+          return '<button class="' + (prefs.tileSize === k ? "on" : "") + '" data-act="tilesize" data-id="' + k + '">' + esc(t("ts_" + k)) + "</button>";
+        }).join("") + "</div>" +
         '<div class="sw-h">' + esc(t("display")) + '</div><div class="sw-menu">' +
+        "<label>" + esc(t("tint")) + ' <input type="checkbox" data-act="tint"' + (prefs.tint ? " checked" : "") + "></label>" +
         "<label>" + esc(t("dim")) + ' <input type="checkbox" data-act="dim"' + (prefs.dim ? " checked" : "") + "></label>" +
         "<label>" + esc(t("trueScale")) + ' <input type="checkbox" data-act="truescale"' + (prefs.trueScale ? " checked" : "") + "></label></div>" +
         '<div class="sw-h">' + esc(t("collection")) + '</div><div class="sw-menu">' +
@@ -899,7 +950,7 @@
       var el = e.target.closest ? e.target.closest("[data-act]") : null;
       if (!el || !root.contains(el)) return;
       var act = el.getAttribute("data-act"), id = el.getAttribute("data-id");
-      if (act === "dim" || act === "truescale") return; // handled by change
+      if (act === "dim" || act === "truescale" || act === "tint") return; // handled by change
       run(act, id, el);
     }
     // a button's action; also used by the keyboard shortcuts (shortcutKey)
@@ -925,8 +976,12 @@
         case "search-close": ui.search = false; ui.query = ""; render(); break;
         case "menu": openMenu(); break;
         case "sort": prefs.sort = id; save(); openMenu(); render(); break;
+        case "tilesize": prefs.tileSize = id; save(); var ms0 = sheet.scrollTop; openMenu(); sheet.scrollTop = ms0; applyTheme(); break;
+        case "tab": setTab(id); break;
         case "theme-toggle": case "lang-toggle":
-          if (act === "theme-toggle") prefs.theme = isDark() ? "light" : "dark"; else prefs.lang = vi() ? "en" : "vi";
+          // switching to the system's / Obsidian's own theme goes back to "auto" (follow it from then on)
+          if (act === "theme-toggle") prefs.theme = !isDark() === systemDark() ? "auto" : (isDark() ? "light" : "dark");
+          else prefs.lang = vi() ? "en" : "vi";
           save(); var top = scroller.scrollTop; render(); scroller.scrollTop = top;
           if (ui.menu) { var ms = sheet.scrollTop; openMenu(); sheet.scrollTop = ms; } else renderSheet();  // redraw the open sheet in place
           break;
@@ -939,6 +994,7 @@
     function onChange(e) {
       var act = e.target.getAttribute && e.target.getAttribute("data-act");
       if (act === "dim") { prefs.dim = e.target.checked; save(); applyTheme(); }
+      if (act === "tint") { prefs.tint = e.target.checked; save(); applyTheme(); }
       if (act === "truescale") { prefs.trueScale = e.target.checked; save(); render(); }
     }
     function onError(e) {
