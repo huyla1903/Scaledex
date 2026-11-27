@@ -7,6 +7,9 @@ __pycache__/
 # downloaded Bandai images (re-created by scraper/build_data.py)
 data/images/
 
+# local screenshots / scratch
+temp/
+
 # OS / editor
 .DS_Store
 Thumbs.db
