@@ -3,7 +3,7 @@
 @title        Scaledex - PWA shell
 @author       La Gia Huy
 @since        2026-11-14
-@updated      2026-11-26
+@updated      2026-11-27
 @about        Standalone web app (add to iPhone home screen). Loads data/scaledex.json,
               stores owned/wishlist in localStorage, works offline via sw.js.
               Built with --remote-images, pictures load from bandai.co.jp instead.
@@ -14,7 +14,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Scaledex</title>
   <meta name="description" content="Pokédex of Bandai Pokémon Scale World figures">
-  <meta name="theme-color" content="#b4eaf0">
+  <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1e1e1e" media="(prefers-color-scheme: dark)">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -25,12 +26,12 @@
   <link rel="icon" href="icons/icon-192.png" sizes="192x192">
   <link rel="stylesheet" href="dex.css">
   <style>
-    html, body { margin: 0; height: 100%; background: #b4eaf0; overscroll-behavior: none; }
-    @media (prefers-color-scheme: dark) { html, body { background: #0f3443; } }
+    html, body { margin: 0; height: 100%; background: #ffffff; overscroll-behavior: none; }
+    @media (prefers-color-scheme: dark) { html, body { background: #1e1e1e; } }
     #app { position: fixed; inset: 0; }
     /* Firefox: dex.css hides these scrollbars with ::-webkit-scrollbar only (Obsidian's CSS lint flags scrollbar-width) */
     .swdex .sw-chips, .swdex .sw-evos, .swdex .sw-figtabs { scrollbar-width: none; }
-    .boot { position: fixed; inset: 0; display: grid; place-items: center; font: 800 18px ui-rounded, system-ui, sans-serif; color: #1d6f8f; }
+    .boot { position: fixed; inset: 0; display: grid; place-items: center; font: 800 18px ui-rounded, system-ui, sans-serif; color: #6c6c75; }
   </style>
 </head>
 <body>
