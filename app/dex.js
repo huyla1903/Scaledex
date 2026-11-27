@@ -731,7 +731,9 @@
       h += '<div class="sw-toggles">' +
         '<button class="sw-toggle own' + (st.owned[f.id] ? " on" : "") + '" data-act="own" data-id="' + esc(f.id) + '">' + (st.owned[f.id] ? "✓ " : "") + esc(t("owned")) + "</button>" +
         '<button class="sw-toggle wish' + (st.wish[f.id] ? " on" : "") + '" data-act="wish" data-id="' + esc(f.id) + '">' + (st.wish[f.id] ? "♥ " : "") + esc(t("wish")) + "</button>" +
-        "</div>";
+        "</div></div>";  // .sw-toggles, .sw-detail-a
+      // tabs and About are children of .sw-detail itself (not .sw-detail-a), so the sticky tab row
+      // stays stuck down the whole page; wide, the grid puts About under .sw-detail-a
       h += '<div class="sw-tabs" role="tablist">' + tabs.map(function (x) {
         return '<button class="sw-tab' + (x[0] === ui.tab ? " on" : "") + '" role="tab" data-act="tab" data-id="' + x[0] + '">' + esc(x[1]) + "</button>";
       }).join("") + "</div>";
@@ -758,7 +760,7 @@
         "<div><b>" + (f.firstYear || "—") + "</b><span>" + esc(t("firstRelease")) + "</span></div></div></div>" +
         '<div class="sw-note sw-source"><a href="' + esc(f.source) + '" target="_blank" rel="noopener">' +
         esc(/\/lineup\//.test(f.source || "") ? t("dexPage") : t("productPage")) + "</a></div>" +
-        "</div></div>";  // .p-about, .sw-detail-a
+        "</div>";  // .p-about
 
       h += '<div class="sw-detail-b">' + (evo ? '<div class="sw-pane p-evo">' + evo + "</div>" : "") + '<div class="sw-pane p-rel">';
       h += '<div class="sw-h">' + esc(t("releases", prods.length)) + "</div>";
@@ -793,8 +795,8 @@
     }
 
     // sticky bar at the top of a figure page / the menu: left part · language, theme · close
-    function sheetBar(left) {
-      return '<div class="sw-sheet-bar"><div class="sw-bar-row">' + left + '<span class="sw-grow"></span>' + togglesHtml() +
+    function sheetBar(left, cls) {
+      return '<div class="sw-sheet-bar' + (cls ? " " + cls : "") + '"><div class="sw-bar-row">' + left + '<span class="sw-grow"></span>' + togglesHtml() +
         iconBtn("close", t("close"), "Esc", ICON_X) + "</div></div>";
     }
 
@@ -868,7 +870,7 @@
       ui.menu = true;
       if (!sheet) { sheet = document.createElement("div"); sheet.className = "sw-sheet"; root.appendChild(sheet); }
       var nOwn = Object.keys(st.owned).length, nWish = Object.keys(st.wish).length;
-      var h = sheetBar('<h1 class="sw-sheet-title">' + esc(t("settings")) + "</h1>") + '<div class="sw-body">' +
+      var h = sheetBar('<h1 class="sw-sheet-title">' + esc(t("settings")) + "</h1>", "is-menu") + '<div class="sw-body">' +
         '<div class="sw-h">' + esc(t("sortBy")) + '</div><div class="sw-sort">' + SORTS.map(function (s) {
           return '<button class="' + (prefs.sort === s ? "on" : "") + '" data-act="sort" data-id="' + s + '">' + esc(t("s_" + s)) + "</button>";
         }).join("") + "</div>" +

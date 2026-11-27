@@ -162,7 +162,7 @@
 .swdex .sw-sub { font-size: 12px; font-weight: 700; color: var(--sw-ink-soft); margin: 0 8px 12px; }
 
 /* home: one column of region cards, two from medium width */
-.swdex .sw-regions { display: grid; grid-template-columns: 1fr; column-gap: 14px; }
+.swdex .sw-regions { display: grid; grid-template-columns: 1fr; gap: 0 14px; }
 @container swdex (min-width: 760px) { .swdex .sw-regions { grid-template-columns: 1fr 1fr; } }
 
 /* ---------- region cards (home) ---------- */
@@ -177,13 +177,18 @@
 .swdex .sw-region.is-complete { border-color: #d9dde0; box-shadow: 0 0 0 2px #b9c2c7 inset, var(--sw-shadow); }
 .swdex .sw-region-art {
   position: absolute; top: 0; right: 0; bottom: 0; width: 64%;
-  clip-path: polygon(22% 0, 100% 0, 100% 100%, 0 100%);
   /* pastel base so multiply-blended renders keep their own colours */
   background-color: color-mix(in srgb, var(--rc, #2aa6dc) 32%, #ffffff);
   background-image:
     linear-gradient(115deg, var(--rc, #2aa6dc) 0 8%, rgba(255,255,255,0.9) 8% 10%, transparent 10%),
     repeating-linear-gradient(0deg, color-mix(in srgb, var(--rc, #2aa6dc) 18%, transparent) 0 6px, transparent 6px 12px),
     repeating-linear-gradient(90deg, color-mix(in srgb, var(--rc, #2aa6dc) 18%, transparent) 0 6px, transparent 6px 12px);
+}
+/* slanted left edge: a card-coloured triangle over the art's left 22% (top-left half of that strip),
+   drawn on top of the figures. A gradient, not clip-path (Obsidian's CSS lint flags clip-path). */
+.swdex .sw-region-art::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: -1px; width: calc(22% + 1px); z-index: 1; pointer-events: none;
+  background: linear-gradient(to bottom right, var(--sw-card-solid) calc(50% - 0.5px), transparent calc(50% + 0.5px));
 }
 /* landscape photo (LANDSCAPES in dex.js) instead of pattern + figure row; white behind it */
 .swdex .sw-region-art.is-photo {
@@ -313,12 +318,18 @@
 /* lines up with the page under it: .sw-detail / .sw-body content width (max-width minus 2 x 16px padding) */
 .swdex .sw-sheet-bar .sw-bar-row { max-width: 688px; }
 @container swdex (min-width: 1000px) { .swdex .sw-sheet-bar .sw-bar-row { max-width: 1208px; } }
-.swdex .sw-sheet-bar .sw-bar-row:has(.sw-sheet-title) { max-width: 688px; }
+.swdex .sw-sheet-bar.is-menu .sw-bar-row { max-width: 688px; }
 .swdex .sw-sheet-title { margin: 0 0 0 4px; font-size: 21px; font-weight: 800; text-transform: uppercase; color: var(--sw-ink); }
 /* figure page: one column; wide: picture + name + owned / wishlist left, evolution + releases right */
 .swdex .sw-detail { max-width: 720px; margin: 0 auto; padding: 0 16px; }
 @container swdex (min-width: 1000px) {
-  .swdex .sw-detail { max-width: 1240px; display: grid; grid-template-columns: minmax(380px, 5fr) 6fr; gap: 36px; align-items: start; }
+  /* left: .sw-detail-a (row 1) and About (row 2); right: .sw-detail-b over all rows. The last row (1fr)
+     takes any extra height of the right column, so About sits right under the picture block. */
+  .swdex .sw-detail { max-width: 1240px; display: grid; grid-template-columns: minmax(380px, 5fr) 6fr;
+    grid-template-rows: auto auto 1fr; gap: 0 36px; align-items: start; }
+  .swdex .sw-detail-a { grid-column: 1; grid-row: 1; }
+  .swdex .p-about { grid-column: 1; grid-row: 2; }
+  .swdex .sw-detail-b { grid-column: 2; grid-row: 1 / span 3; }
   .swdex .sw-detail-b > .sw-pane:first-child > .sw-h:first-child { margin-top: 4px; }
   .swdex .sw-hero { height: 380px; }
   .swdex .sw-hero img { max-height: 340px; }
@@ -326,7 +337,6 @@
 /* tabs (About / Evolution / Releases): one-column page only; stick under the sheet bar (64px) */
 .swdex .sw-tabs { display: none; }
 @container swdex (max-width: 999px) {
-  .swdex .sw-detail-a { display: contents; }  /* so the sticky tab row stays stuck past the About pane */
   .swdex .sw-tabs {
     display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2px; padding: 3px; margin: 16px 0 4px;
     position: sticky; top: calc(env(safe-area-inset-top, 0px) + 64px); z-index: 4;
