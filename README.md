@@ -2,7 +2,7 @@
 
 A Pokédex for Bandai's **Pokémon Scale World** 1/20 figures: every figure, every release with its date and price, and your own owned / wishlist collection. Works on desktop, iPhone and Android.
 
-![Scaledex home screen with region cards and collection progress](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/home.png)
+![Scaledex home screen in dark and light themes, split by a diagonal: region cards with figure photos and collection progress](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/home.png)
 
 Pokémon Scale World has hundreds of figures spread over candy-aisle waves, Premium Bandai sets, re-orders and re-sales. The official dex is Japanese only, runs months behind new announcements, and doesn't say what a figure cost or when it was re-released. Scaledex puts all of that in one place, styled after the Pokémon GO Pokédex.
 
@@ -10,13 +10,13 @@ Pokémon Scale World has hundreds of figures spread over candy-aisle waves, Prem
 
 One card per Scale World line (Kanto, Johto, … Paldea) shows how much of it you own. **All** lists every figure, and **Upcoming** lists figures in sets that haven't shipped yet.
 
-![Kanto grid filtered to owned figures](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/region.png)
+![Kanto grid filtered to owned figures, in dark and light themes](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/region.png)
 
 ## Every figure and every release
 
 A Pokémon's page shows its types, its evolution line with Megas, every figure version and every release of that figure: date, sales channel (candy aisle or Premium Bandai) and price in JPY. English and Japanese names (with romaji) and the figure's scale height are included. Trainers get their own pages with their role in the games (Gym Leader · Rock, Champion, Rival, …).
 
-![Bulbasaur's page: figure versions, scale height, owned / wishlist, evolution line and releases](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/pokemon.png)
+![Bulbasaur's page in dark and light themes: figure versions, scale height, owned / wishlist, evolution line and releases](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/pokemon.png)
 
 ## Find any figure
 
@@ -26,7 +26,7 @@ Search by English, Japanese or romaji name, dex number, type ("fire"), Legendary
 
 The plugin works the same on iOS and Android, in light and dark themes. If your vault syncs, your collection comes with it.
 
-![Scaledex on iPhone in light and dark themes](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/mobile.png)
+![Scaledex on iPhone in dark and light themes: Kanto owned grid, Bulbasaur's page and the home screen](https://raw.githubusercontent.com/huyla1903/Scaledex/main/docs/mobile.png)
 
 ## Usage
 
